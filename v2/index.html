@@ -212,6 +212,27 @@ tbody td:first-child{font-weight:500;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 .section{animation:fadeUp 0.35s ease both;}
 @media print{.sidebar{display:none;}.main{margin-left:0;}.section{break-inside:avoid;}}
+
+/* Mobile Responsiveness Improvements */
+@media(max-width: 900px) {
+  .sidebar { position: relative; width: 100%; height: auto; padding-bottom: 20px; border-bottom: 2px solid var(--gold); }
+  .main { margin-left: 0; min-height: auto; }
+  .hero, .section { padding: 40px 20px; }
+  .update-banner { padding: 16px 20px; flex-wrap: wrap; }
+  .compare-banner { padding: 20px; flex-direction: column; align-items: stretch; gap: 10px; }
+  .compare-item { text-align: left; display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .compare-divider { display: none; }
+  .hero h1 { font-size: 32px; }
+  .hero-meta { gap: 15px; flex-direction: column; }
+  .diagram { padding: 20px 16px; }
+  .scope-diff { grid-template-columns: 1fr; }
+  .scope-col.v1 { border-right: none; border-bottom: 1px solid var(--border); }
+  .arch-grid, .lighthouse-scores { grid-template-columns: 1fr 1fr; }
+  .week-table th, .week-table td { padding: 12px 10px; font-size: 13px; }
+}
+@media(max-width: 500px) {
+  .lighthouse-scores, .arch-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
