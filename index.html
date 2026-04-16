@@ -106,6 +106,8 @@ body {
 .main {
   margin-left: 260px;
   min-height: 100vh;
+  width: calc(100% - 260px);
+  overflow-x: hidden;
 }
 
 /* ── HERO ── */
@@ -590,7 +592,7 @@ tbody td:first-child { font-weight: 500; }
 /* Mobile Responsiveness Improvements */
 @media(max-width: 900px) {
   .sidebar { position: relative; width: 100%; height: auto; padding-bottom: 20px; border-bottom: 2px solid var(--gold); }
-  .main { margin-left: 0; min-height: auto; }
+  .main { margin-left: 0; min-height: auto; width: 100%; }
   .hero, .section { padding: 40px 20px; }
   .hero h1 { font-size: 32px; }
   .hero-meta { gap: 15px; flex-direction: column; }
