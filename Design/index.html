@@ -246,13 +246,14 @@
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 18px;
         align-items: start;
+        grid-auto-rows: auto;
       }
       .card {
         display: flex;
         flex-direction: column;
         gap: 10px;
         padding: 18px;
-        min-height: 180px;
+        min-height: auto;
         background: var(--white);
         border-radius: 10px;
         box-shadow: 0 1px 0 rgba(13, 34, 64, 0.03);
@@ -265,19 +266,12 @@
       .card-desc {
         color: var(--muted);
         font-size: 14px;
-        line-height: 1.45;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4; /* limit paragraphs to 4 lines */
-        overflow: hidden;
+        line-height: 1.5;
+        /* allow full content — cards expand to fit long descriptions */
       }
       @media (max-width: 720px) {
         .card {
-          min-height: auto;
           padding: 14px;
-        }
-        .card-desc {
-          -webkit-line-clamp: 5;
         }
       }
       .hero h1 em {
