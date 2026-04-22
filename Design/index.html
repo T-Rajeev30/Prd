@@ -267,7 +267,28 @@
         color: var(--muted);
         font-size: 14px;
         line-height: 1.5;
-        /* allow full content — cards expand to fit long descriptions */
+      }
+      /* Collapsible behavior: default to collapsed to preserve layout; JS will enable only when content overflows */
+      .card-desc.collapsed {
+        max-height: 120px;
+        overflow: hidden;
+        position: relative;
+      }
+      .card-desc.expanded {
+        max-height: none;
+      }
+      .read-more {
+        margin-top: 8px;
+        background: transparent;
+        border: none;
+        color: var(--blue2);
+        font-weight: 600;
+        cursor: pointer;
+        padding: 6px 8px;
+        border-radius: 6px;
+      }
+      .read-more:focus {
+        outline: 2px solid rgba(46, 95, 163, 0.12);
       }
       @media (max-width: 720px) {
         .card {
@@ -3010,6 +3031,37 @@
           if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
+
+      // Read-more toggles for lengthy card descriptions (Pinterest-like alternative)
+      (function () {
+        const LIMIT = 120; // px
+        document.querySelectorAll(".card-desc").forEach((desc) => {
+          // measure after layout
+          requestAnimationFrame(() => {
+            if (desc.scrollHeight > LIMIT + 8) {
+              desc.classList.add("collapsed");
+              const btn = document.createElement("button");
+              btn.className = "read-more";
+              btn.textContent = "Read more";
+              desc.parentNode.insertBefore(btn, desc.nextSibling);
+              btn.addEventListener("click", () => {
+                const expanded = desc.classList.toggle("expanded");
+                if (expanded) {
+                  desc.classList.remove("collapsed");
+                  btn.textContent = "Show less";
+                } else {
+                  desc.classList.add("collapsed");
+                  btn.textContent = "Read more";
+                  // scroll card into view to avoid jumping content
+                  desc
+                    .closest(".card")
+                    ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                }
+              });
+            }
+          });
+        });
+      })();
     </script>
   </body>
 </html>
