@@ -1,0 +1,5055 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KLLCTBLS — Product Requirements Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #0e0e0e;
+        --paper: #f5f2ed;
+        --paper2: #ede9e2;
+        --rust: #b84a2a;
+        --rust2: #d85e38;
+        --rust-light: #f9ece7;
+        --slate: #2c3340;
+        --slate2: #3d4654;
+        --mist: #8a96a3;
+        --border: #d8d3cc;
+        --white: #ffffff;
+        --green: #1d6b42;
+        --green-bg: #edf7f2;
+        --amber: #8a5a00;
+        --amber-bg: #fdf6e3;
+        --red: #8b1a1a;
+        --red-bg: #fdf0f0;
+        --content-max: 1080px;
+        --pad-x: max(56px, calc((100% - var(--content-max)) / 2));
+      }
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Outfit", sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+        line-height: 1.75;
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 252px;
+        height: 100vh;
+        background: var(--slate);
+        overflow-y: auto;
+        z-index: 100;
+        padding-bottom: 40px;
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .sidebar::-webkit-scrollbar {
+        width: 3px;
+      }
+      .sidebar::-webkit-scrollbar-thumb {
+        background: var(--rust);
+        border-radius: 2px;
+      }
+
+      .sidebar-logo {
+        padding: 32px 24px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .sidebar-logo .brand {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--white);
+        letter-spacing: 2px;
+      }
+      .sidebar-logo .brand em {
+        color: var(--rust2);
+        font-style: normal;
+      }
+      .sidebar-logo .sub {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 4px;
+        font-weight: 400;
+      }
+
+      .nav-section-label {
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        color: var(--rust2);
+        padding: 22px 24px 8px;
+        font-weight: 600;
+        opacity: 0.85;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 14px;
+        margin: 1px 10px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 12.5px;
+        font-weight: 400;
+        transition: all 0.18s ease;
+        border-radius: 6px;
+        letter-spacing: 0.2px;
+      }
+      .nav-item:hover {
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.07);
+      }
+      .nav-item.active {
+        color: var(--white);
+        background: rgba(184, 74, 42, 0.25);
+      }
+      .nav-num {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        color: var(--rust2);
+        min-width: 22px;
+        opacity: 0.9;
+      }
+      .nav-item.active .nav-num {
+        color: var(--rust2);
+      }
+
+      /* MAIN */
+      .main {
+        margin-left: 252px;
+        width: calc(100% - 252px);
+        background: var(--paper);
+      }
+
+      /* HERO */
+      .hero {
+        background: var(--slate);
+        padding: 96px var(--pad-x) 80px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::after {
+        content: "KLLCTBLS";
+        position: absolute;
+        right: -20px;
+        bottom: -40px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 200px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.03);
+        pointer-events: none;
+        letter-spacing: -4px;
+        line-height: 1;
+      }
+      .hero-badge {
+        display: inline-block;
+        background: rgba(184, 74, 42, 0.2);
+        border: 1px solid rgba(184, 74, 42, 0.5);
+        color: var(--rust2);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        padding: 5px 14px;
+        border-radius: 3px;
+        margin-bottom: 24px;
+      }
+      .hero h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 64px;
+        font-weight: 700;
+        color: var(--white);
+        line-height: 1.05;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+      }
+      .hero h1 em {
+        color: var(--rust2);
+        font-style: italic;
+      }
+      .hero p {
+        font-size: 17px;
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 580px;
+        margin-bottom: 40px;
+        line-height: 1.65;
+        font-weight: 300;
+      }
+      .hero-meta {
+        display: flex;
+        gap: 48px;
+        flex-wrap: wrap;
+      }
+      .hero-meta-item .label {
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--rust2);
+        margin-bottom: 5px;
+        font-weight: 600;
+        opacity: 0.9;
+      }
+      .hero-meta-item .value {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 400;
+      }
+
+      /* SECTIONS */
+      .section {
+        padding: 72px var(--pad-x);
+        border-bottom: 1px solid var(--border);
+      }
+      .section:nth-child(even) {
+        background: var(--paper2);
+      }
+
+      .section-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 44px;
+      }
+      .section-num {
+        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        color: var(--rust2);
+        background: var(--slate);
+        padding: 7px 14px;
+        border-radius: 6px;
+        white-space: nowrap;
+        margin-top: 6px;
+        font-weight: 500;
+        min-width: 52px;
+        text-align: center;
+      }
+      .section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 38px;
+        font-weight: 700;
+        color: var(--slate);
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+      }
+      .section-sub {
+        font-size: 16px;
+        color: var(--mist);
+        max-width: 700px;
+        line-height: 1.6;
+        font-weight: 300;
+      }
+
+      /* DIAGRAMS */
+      .diagram {
+        background: var(--slate);
+        border-radius: 12px;
+        padding: 40px;
+        margin: 28px 0;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(14, 14, 14, 0.1);
+      }
+      .diagram-title {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        color: var(--rust2);
+        margin-bottom: 28px;
+        font-weight: 600;
+        opacity: 0.9;
+      }
+      .flow {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        row-gap: 12px;
+      }
+      .flow-node {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 14px 20px;
+        color: var(--white);
+        font-size: 13px;
+        font-weight: 400;
+        text-align: center;
+        min-width: 120px;
+      }
+      .flow-node small {
+        display: block;
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: 4px;
+      }
+      .flow-node.rust {
+        background: rgba(184, 74, 42, 0.2);
+        border-color: rgba(184, 74, 42, 0.5);
+        color: #e8856a;
+      }
+      .flow-node.green {
+        background: rgba(29, 107, 66, 0.2);
+        border-color: rgba(29, 107, 66, 0.5);
+        color: #4ade80;
+      }
+      .flow-arrow {
+        color: var(--rust2);
+        font-size: 20px;
+        padding: 0 4px;
+        opacity: 0.7;
+        flex-shrink: 0;
+      }
+
+      .arch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 16px;
+      }
+      .arch-box {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 20px;
+        transition: background 0.2s;
+      }
+      .arch-box:hover {
+        background: rgba(255, 255, 255, 0.07);
+      }
+      .arch-box.highlight {
+        border-color: rgba(184, 74, 42, 0.5);
+        background: rgba(184, 74, 42, 0.08);
+      }
+      .arch-label {
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: var(--rust2);
+      }
+      .arch-tech {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--white);
+        margin-bottom: 5px;
+      }
+      .arch-detail {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.5;
+      }
+
+      /* TABLES */
+      .tbl-wrap {
+        overflow-x: auto;
+        margin: 28px 0;
+        background: var(--white);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+      thead tr {
+        background: var(--paper2);
+      }
+      thead th {
+        padding: 16px 20px;
+        color: var(--slate);
+        font-weight: 600;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        border-bottom: 2px solid var(--border);
+        text-align: left;
+      }
+      thead th:first-child {
+        border-left: 3px solid var(--rust);
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--border);
+        transition: background 0.15s;
+      }
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: var(--paper);
+      }
+      tbody td {
+        padding: 16px 20px;
+        color: var(--ink);
+        vertical-align: top;
+        line-height: 1.6;
+      }
+      tbody td:first-child {
+        font-weight: 600;
+        color: var(--slate);
+      }
+
+      /* CALLOUTS */
+      .callout {
+        border-radius: 8px;
+        padding: 20px 24px;
+        margin: 24px 0;
+        border-left: 3px solid;
+        font-size: 14.5px;
+        line-height: 1.65;
+      }
+      .callout.info {
+        background: #f0f4fb;
+        border-color: #3b69b8;
+        color: #1e3264;
+      }
+      .callout.rust {
+        background: var(--rust-light);
+        border-color: var(--rust);
+        color: #5c1e0a;
+      }
+      .callout.success {
+        background: var(--green-bg);
+        border-color: #16a34a;
+        color: #14532d;
+      }
+      .callout.warn {
+        background: var(--amber-bg);
+        border-color: #d97706;
+        color: var(--amber);
+      }
+      .callout.danger {
+        background: var(--red-bg);
+        border-color: #dc2626;
+        color: var(--red);
+      }
+      .callout strong {
+        font-weight: 700;
+        display: block;
+        margin-bottom: 5px;
+        font-size: 15px;
+      }
+
+      /* CARDS */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+        margin: 28px 0;
+      }
+      .card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 28px 24px;
+        border-top: 3px solid var(--rust);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+      }
+      .card-icon {
+        font-size: 28px;
+        margin-bottom: 12px;
+      }
+      .card h4 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 20px;
+        color: var(--slate);
+        margin-bottom: 8px;
+        font-weight: 700;
+      }
+      .card p {
+        font-size: 13.5px;
+        color: var(--mist);
+        line-height: 1.65;
+      }
+
+      /* CHECKLIST */
+      .checklist {
+        list-style: none;
+        margin: 20px 0;
+      }
+      .checklist li {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 11px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        font-size: 14px;
+      }
+      .checklist li:last-child {
+        border-bottom: none;
+      }
+      .check-box {
+        width: 22px;
+        height: 22px;
+        border: 2px solid rgba(184, 74, 42, 0.5);
+        border-radius: 5px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2px;
+        cursor: pointer;
+        transition: all 0.2s;
+        background: var(--white);
+        font-size: 12px;
+      }
+      .check-box:hover {
+        border-color: var(--rust);
+        background: var(--rust-light);
+      }
+      .check-text {
+        flex: 1;
+        color: var(--ink);
+      }
+
+      /* PILLS */
+      .pill {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .pill.leo {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .pill.rajeev {
+        background: #fef9c3;
+        color: #854d0e;
+      }
+      .pill.both {
+        background: #f3e8ff;
+        color: #6b21a8;
+      }
+      .pill.p1 {
+        background: var(--green-bg);
+        color: var(--green);
+      }
+      .pill.p2 {
+        background: #eff6ff;
+        color: #1e40af;
+      }
+      .pill.p3 {
+        background: var(--amber-bg);
+        color: var(--amber);
+      }
+
+      /* TIMELINE */
+      .timeline {
+        position: relative;
+        padding-left: 44px;
+        margin: 28px 0;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 16px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(
+          to bottom,
+          var(--rust),
+          rgba(184, 74, 42, 0.1)
+        );
+      }
+      .timeline-item {
+        position: relative;
+        margin-bottom: 36px;
+      }
+      .timeline-dot {
+        position: absolute;
+        left: -38px;
+        top: 4px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--rust);
+        border: 3px solid var(--paper);
+      }
+      .timeline-week {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        color: var(--rust2);
+        font-weight: 500;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        letter-spacing: 1px;
+      }
+      .timeline-title {
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--slate);
+        margin-bottom: 6px;
+      }
+      .timeline-body {
+        font-size: 14px;
+        color: var(--mist);
+        line-height: 1.6;
+      }
+      .timeline-body strong {
+        color: var(--slate);
+      }
+
+      .diagram .timeline::before {
+        background: linear-gradient(
+          to bottom,
+          var(--rust2),
+          rgba(184, 74, 42, 0.15)
+        );
+      }
+      .diagram .timeline-dot {
+        border-color: var(--slate);
+      }
+      .diagram .timeline-title {
+        color: var(--white);
+      }
+      .diagram .timeline-body {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .diagram .timeline-body strong {
+        color: var(--rust2);
+      }
+
+      /* JOURNEY */
+      .journey {
+        display: flex;
+        flex-direction: column;
+      }
+      .journey-step {
+        display: flex;
+        gap: 20px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .journey-step:last-child {
+        border-bottom: none;
+      }
+      .step-num {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--slate);
+        color: var(--rust2);
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .step-content h4 {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--slate);
+        margin-bottom: 4px;
+      }
+      .step-content p {
+        font-size: 13.5px;
+        color: var(--mist);
+        line-height: 1.6;
+      }
+
+      /* RISK */
+      .risk-high {
+        color: #dc2626;
+        font-weight: 700;
+      }
+      .risk-med {
+        color: #d97706;
+        font-weight: 600;
+      }
+      .risk-low {
+        color: #16a34a;
+        font-weight: 600;
+      }
+
+      /* TWO COL */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        margin: 28px 0;
+      }
+
+      /* TIER BOXES */
+      .tier-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin: 28px 0;
+      }
+      .tier-box {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 24px 20px;
+        border-top: 3px solid var(--rust);
+        position: relative;
+      }
+      .tier-box .label-sm {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--mist);
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+      .tier-box .big-text {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--slate);
+        margin-bottom: 8px;
+      }
+      .tier-box .detail-list {
+        margin-top: 14px;
+        font-size: 12.5px;
+        color: var(--mist);
+        border-top: 1px solid var(--border);
+        padding-top: 14px;
+      }
+      .tier-box .detail-list div {
+        padding: 3px 0;
+      }
+
+      /* FADE ANIMATION */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .section {
+        animation: fadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      /* FOOTER */
+      .footer {
+        background: var(--slate);
+        padding: 48px var(--pad-x);
+        text-align: center;
+        margin-top: 0;
+      }
+      .footer .brand-lg {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 32px;
+        color: var(--white);
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .footer .brand-lg em {
+        color: var(--rust2);
+        font-style: normal;
+      }
+      .footer .sub-text {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 32px;
+      }
+      .footer-contacts {
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        flex-wrap: wrap;
+      }
+      .footer-contact .fc-label {
+        font-size: 9px;
+        color: var(--rust2);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 4px;
+      }
+      .footer-contact .fc-name {
+        color: var(--white);
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .footer-contact .fc-email {
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 12px;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 880px) {
+        :root {
+          --pad-x: 24px;
+        }
+        .sidebar {
+          position: relative;
+          width: 100%;
+          height: auto;
+        }
+        .main {
+          margin-left: 0;
+          width: 100%;
+        }
+        .hero h1 {
+          font-size: 40px;
+        }
+        .two-col,
+        .arch-grid,
+        .cards {
+          grid-template-columns: 1fr;
+        }
+        table {
+          display: block;
+          overflow-x: auto;
+        }
+      }
+
+      @media print {
+        .sidebar {
+          display: none;
+        }
+        .main {
+          margin-left: 0;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="sidebar-logo">
+        <div class="brand">KLLCTBL<em>S</em></div>
+        <div class="sub">Product Requirements Document</div>
+      </div>
+
+      <div class="nav-section-label">Foundation</div>
+      <a class="nav-item" href="#s1"
+        ><span class="nav-num">01</span> Project Overview</a
+      >
+      <a class="nav-item" href="#s2"
+        ><span class="nav-num">02</span> Strategic Justification</a
+      >
+      <a class="nav-item" href="#s3"
+        ><span class="nav-num">03</span> Market Research</a
+      >
+      <a class="nav-item" href="#s4"
+        ><span class="nav-num">04</span> Pre-Dev Setup</a
+      >
+      <a class="nav-item" href="#s5"
+        ><span class="nav-num">05</span> Domain & Hosting</a
+      >
+      <a class="nav-item" href="#s6"
+        ><span class="nav-num">06</span> Account Creation</a
+      >
+
+      <div class="nav-section-label">Development</div>
+      <a class="nav-item" href="#s7"
+        ><span class="nav-num">07</span> Dev Workflow</a
+      >
+      <a class="nav-item" href="#s8"
+        ><span class="nav-num">08</span> Data Setup</a
+      >
+      <a class="nav-item" href="#s9"
+        ><span class="nav-num">09</span> Admin Handover</a
+      >
+      <a class="nav-item" href="#s10"
+        ><span class="nav-num">10</span> Launch Checklist</a
+      >
+
+      <div class="nav-section-label">Operations</div>
+      <a class="nav-item" href="#s11"
+        ><span class="nav-num">11</span> Post-Launch Ops</a
+      >
+      <a class="nav-item" href="#s12"
+        ><span class="nav-num">12</span> Maintenance</a
+      >
+      <a class="nav-item" href="#s13"
+        ><span class="nav-num">13</span> Phase 2 & 3</a
+      >
+      <a class="nav-item" href="#s14"
+        ><span class="nav-num">14</span> IP & Ownership</a
+      >
+      <a class="nav-item" href="#s15"
+        ><span class="nav-num">15</span> Communication</a
+      >
+      <a class="nav-item" href="#s16"
+        ><span class="nav-num">16</span> Risk Register</a
+      >
+
+      <div class="nav-section-label">Technical</div>
+      <a class="nav-item" href="#s17"
+        ><span class="nav-num">17</span> System Design</a
+      >
+      <a class="nav-item" href="#s18"
+        ><span class="nav-num">18</span> User Onboarding</a
+      >
+      <a class="nav-item" href="#s19"
+        ><span class="nav-num">19</span> Admin Onboarding</a
+      >
+      <a class="nav-item" href="#s20"
+        ><span class="nav-num">20</span> Scaling</a
+      >
+      <a class="nav-item" href="#s21"
+        ><span class="nav-num">21</span> Infrastructure Tiers</a
+      >
+      <a class="nav-item" href="#s22"
+        ><span class="nav-num">22</span> Revenue Model</a
+      >
+      <a class="nav-item" href="#s23"
+        ><span class="nav-num">23</span> Security</a
+      >
+      <a class="nav-item" href="#s24"
+        ><span class="nav-num">24</span> Data Pipeline</a
+      >
+      <a class="nav-item" href="#s25"
+        ><span class="nav-num">25</span> AI Roadmap</a
+      >
+      <a class="nav-item" href="#s26"
+        ><span class="nav-num">26</span> Disaster Recovery</a
+      >
+
+      <div class="nav-section-label">Business</div>
+      <a class="nav-item" href="#s27"
+        ><span class="nav-num">27</span> Dev Timeline</a
+      >
+      <a class="nav-item" href="#s28"
+        ><span class="nav-num">28</span> Launch Playbook</a
+      >
+      <a class="nav-item" href="#s29"
+        ><span class="nav-num">29</span> Success Metrics</a
+      >
+      <a class="nav-item" href="#s30"
+        ><span class="nav-num">30</span> Legal & Compliance</a
+      >
+    </nav>
+
+    <!-- MAIN -->
+    <div class="main">
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-badge">
+          Confidential — Product Requirements Document
+        </div>
+        <h1>KLLCTBLS<br /><em>Product Launch</em><br />Master Document</h1>
+        <p>
+          Everything from Day 0 account setup to post-launch scaling — written
+          so both Leo and Rajeev know exactly what happens, when, and who is
+          responsible.
+        </p>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <div class="label">Developer</div>
+            <div class="value">Rajeev Tiwari</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="label">Client</div>
+            <div class="value">Leo Bello — CEO, Kllctbls</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="label">Version</div>
+            <div class="value">v1.0 — April 2026</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="label">Sections</div>
+            <div class="value">30 Sections</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="label">Phase</div>
+            <div class="value">MVP Build</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S1 -->
+      <div class="section" id="s1">
+        <div class="section-header">
+          <div class="section-num">01</div>
+          <div>
+            <div class="section-title">Project Overview</div>
+            <div class="section-sub">
+              What KLLCTBLS is, who does what, and the complete three-phase
+              roadmap.
+            </div>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🗓️</div>
+            <h4>Event Calendar</h4>
+            <p>
+              Interactive map of card shows across the US. Find shows by city,
+              state, and date. Real data from NSCC, Dallas Card Show, and more.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🏢</div>
+            <h4>Sponsor Intelligence</h4>
+            <p>
+              Filterable directory of every company sponsoring card shows. Click
+              any sponsor — see every show they have ever sponsored.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🏪</div>
+            <h4>Shop Finder</h4>
+            <p>
+              Map-based discovery of physical hobby shops. Filtered by specialty
+              — Sports Cards, Pokemon, or Both. US-wide at launch.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🤖</div>
+            <h4>AI Chatbot</h4>
+            <p>
+              Phase 2. Ask any hobby question. Gets answers from internal data +
+              live web search. Heritage, Goldin, eBay sold data.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📢</div>
+            <h4>Content Engine</h4>
+            <p>
+              Phase 3. AI generates TikTok scripts, LinkedIn posts, newsletters,
+              and Instagram captions triggered by new events in the database.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚙️</div>
+            <h4>Admin Dashboard</h4>
+            <p>
+              Leo's command center. Approve submissions, edit listings, view
+              analytics, manage users — all without touching code.
+            </p>
+          </div>
+        </div>
+
+        <div class="diagram">
+          <div class="diagram-title">Three-Phase Roadmap</div>
+          <div class="flow" style="flex-direction: column; gap: 16px">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex-wrap: wrap;
+              "
+            >
+              <div class="flow-node rust">
+                Phase 1 — MVP<small>6-8 Weeks</small>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <div class="flow-node">Event Calendar</div>
+                <div class="flow-node">Sponsor Directory</div>
+                <div class="flow-node">Shop Finder</div>
+                <div class="flow-node">Admin Panel</div>
+              </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex-wrap: wrap;
+              "
+            >
+              <div
+                class="flow-node"
+                style="border-color: rgba(59, 130, 246, 0.4); color: #93c5fd"
+              >
+                Phase 2 — AI<small>Month 3-4</small>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <div class="flow-node">AI Chatbot</div>
+                <div class="flow-node">eBay Data</div>
+                <div class="flow-node">Auction History</div>
+                <div class="flow-node">Pop Reports</div>
+              </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex-wrap: wrap;
+              "
+            >
+              <div class="flow-node green">
+                Phase 3 — Content<small>Month 5-6</small>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <div class="flow-node">TikTok Scripts</div>
+                <div class="flow-node">LinkedIn Posts</div>
+                <div class="flow-node">Newsletter</div>
+                <div class="flow-node">AI Publishing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Person</th>
+                <th>Responsibility</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CEO / Client</td>
+                <td>Leo Bello</td>
+                <td>
+                  Business direction, US client relationships, idea generation,
+                  domain ownership, account billing
+                </td>
+              </tr>
+              <tr>
+                <td>General Manager</td>
+                <td>Purvi Golchha</td>
+                <td>Project coordination, communication bridge, QA sign-off</td>
+              </tr>
+              <tr>
+                <td>Lead Developer</td>
+                <td>Rajeev Tiwari</td>
+                <td>
+                  All technical architecture, development, deployment, team
+                  management
+                </td>
+              </tr>
+              <tr>
+                <td>US Engineer (future)</td>
+                <td>Leo's right hand</td>
+                <td>Support on US-timezone issues, front-end review</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- S2 -->
+      <div class="section" id="s2">
+        <div class="section-header">
+          <div class="section-num">02</div>
+          <div>
+            <div class="section-title">Strategic Justification</div>
+            <div class="section-sub">
+              The executive case — market gap, technical moat, and the rationale
+              for investing in a custom-built platform.
+            </div>
+          </div>
+        </div>
+
+        <div class="cards" style="margin-bottom: 36px">
+          <div
+            class="card"
+            style="
+              border-top-color: var(--slate);
+              background: var(--slate);
+              color: var(--white);
+              grid-column: 1/-1;
+            "
+          >
+            <div class="card-icon">🎯</div>
+            <h4 style="color: var(--rust2)">
+              The Vision: The Bloomberg of the Hobby
+            </h4>
+            <p style="color: rgba(255, 255, 255, 0.65)">
+              KLLCTBLS is not just a directory; it is a data-moat. By
+              centralising fragmented show dates, shop locations, and sponsor
+              intelligence, we are building the first institutional-grade
+              infrastructure for the $10B+ trading card industry — the "Single
+              Source of Truth" that everyone from casual collectors to
+              deep-pocketed sponsors has been waiting for.
+            </p>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <h3
+              style="
+                font-size: 18px;
+                color: var(--slate);
+                margin-bottom: 12px;
+                font-weight: 600;
+              "
+            >
+              1. The Market Vacuum
+            </h3>
+            <p style="font-size: 14px; color: var(--mist); margin-bottom: 14px">
+              The trading card hobby currently suffers from
+              <strong style="color: var(--slate)">information asymmetry</strong
+              >. Professional dealers have the data; casual collectors are left
+              with table scraps.
+            </p>
+            <ul class="checklist">
+              <li>
+                <div
+                  class="check-box"
+                  style="
+                    background: #ef4444;
+                    border-color: #ef4444;
+                    color: #fff;
+                  "
+                >
+                  ✗
+                </div>
+                <div class="check-text">
+                  <strong>Scattered Show Data:</strong> Finding a local show
+                  requires checking 5+ legacy sites and 10+ Facebook groups.
+                </div>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  style="
+                    background: #ef4444;
+                    border-color: #ef4444;
+                    color: #fff;
+                  "
+                >
+                  ✗
+                </div>
+                <div class="check-text">
+                  <strong>Disconnected Shops:</strong> Shop specialty (Pokemon
+                  vs Sports) is rarely indexed, causing wasted travel.
+                </div>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  style="
+                    background: #ef4444;
+                    border-color: #ef4444;
+                    color: #fff;
+                  "
+                >
+                  ✗
+                </div>
+                <div class="check-text">
+                  <strong>Opaque Sponsorships:</strong> Brands have no clear way
+                  to track their ROI across multiple shows.
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3
+              style="
+                font-size: 18px;
+                color: var(--slate);
+                margin-bottom: 12px;
+                font-weight: 600;
+              "
+            >
+              2. The Leo Multiplier
+            </h3>
+            <div class="callout rust">
+              <strong>Industry Alpha</strong>
+              A platform is only as good as its data. Leo's background as
+              Marketing Director for the Dallas Card Show provides a direct
+              pipeline to the most gated data in the industry.
+              <ul
+                style="
+                  font-size: 13px;
+                  margin-top: 10px;
+                  line-height: 1.8;
+                  padding-left: 18px;
+                "
+              >
+                <li>
+                  <strong>Direct Lines:</strong> Leo has direct access to PSA,
+                  Heritage, Goldin, and NSCC organizers.
+                </li>
+                <li>
+                  <strong>Growth Record:</strong> 10x social growth in 24 days —
+                  a proven content strategy baked into Phase 3.
+                </li>
+                <li>
+                  <strong>Right Hand Model:</strong> India's rapid iteration
+                  speed combined with US-standard technical oversight.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h3
+          style="
+            font-size: 18px;
+            color: var(--slate);
+            margin: 32px 0 16px;
+            font-weight: 600;
+          "
+        >
+          3. Technical Alpha: Why Custom Code over Templates?
+        </h3>
+        <div class="arch-grid">
+          <div class="arch-box highlight">
+            <div class="arch-label">Tech Choice 01</div>
+            <div class="arch-tech">Next.js 14 (App Router)</div>
+            <div class="arch-detail">
+              Enables Server-Side Rendering. Every event page indexed by Google
+              instantly — massive SEO advantage over single-page apps.
+            </div>
+          </div>
+          <div class="arch-box highlight">
+            <div class="arch-label">Tech Choice 02</div>
+            <div class="arch-tech">Supabase + pgvector</div>
+            <div class="arch-detail">
+              Not just storing text — preparing for Semantic Search in Phase 2.
+              Collectors can ask natural-language questions and get intelligent
+              results.
+            </div>
+          </div>
+          <div class="arch-box highlight">
+            <div class="arch-label">Tech Choice 03</div>
+            <div class="arch-tech">Edge-First Scrapers</div>
+            <div class="arch-detail">
+              Scrapers run on Vercel Edge, monitoring 20+ sources nightly
+              without expensive server costs. High speed, low overhead.
+            </div>
+          </div>
+        </div>
+
+        <h3
+          style="
+            font-size: 18px;
+            color: var(--slate);
+            margin: 32px 0 16px;
+            font-weight: 600;
+          "
+        >
+          4. Development Path Comparison
+        </h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Development Path</th>
+                <th>Capabilities</th>
+                <th>Long-term Risk</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>White-label / WP Template</td>
+                <td>
+                  Static directory only. Zero AI scalability. No custom logic.
+                </td>
+                <td style="color: #dc2626">
+                  High — must restart from zero for Phase 2.
+                </td>
+              </tr>
+              <tr>
+                <td>Silicon Valley Agency</td>
+                <td>
+                  Premium build, but massive overhead and corporate slowdown.
+                </td>
+                <td style="color: #d97706">
+                  Medium — high burn rate kills the startup.
+                </td>
+              </tr>
+              <tr style="background: rgba(184, 74, 42, 0.05)">
+                <td style="color: var(--rust)">Rajeev (Technical Partner)</td>
+                <td>
+                  Bespoke architecture. Future-proof code. AI-ready from Day 1.
+                </td>
+                <td style="color: var(--green)">
+                  <strong>Minimal — transparent ownership + lean build.</strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout success" style="margin-top: 24px">
+          <strong>Strategic Conclusion</strong>
+          By building the foundation correctly in Phase 1, we avoid significant
+          future re-development costs. We are building the KLLCTBLS moat today
+          so we can dominate the market tomorrow.
+        </div>
+      </div>
+
+      <!-- S3 -->
+      <div class="section" id="s3">
+        <div class="section-header">
+          <div class="section-num">03</div>
+          <div>
+            <div class="section-title">Deep Market Research</div>
+            <div class="section-sub">
+              Data-backed analysis of the trading card industry — market size,
+              key players, competitive gaps, and exactly where KLLCTBLS fits.
+            </div>
+          </div>
+        </div>
+
+        <h3
+          style="
+            font-size: 18px;
+            color: var(--slate);
+            margin-bottom: 16px;
+            font-weight: 600;
+          "
+        >
+          1. Global Market Size & Growth
+        </h3>
+        <div class="tier-grid">
+          <div class="tier-box">
+            <div class="label-sm">Global Trading Card Market</div>
+            <div class="big-text">$15.2B</div>
+            <div class="detail-list">
+              <div>Sports Cards — ~$8.4B</div>
+              <div>TCG (Pokémon, etc.) — ~$5.1B</div>
+              <div>Non-Sports — ~$1.7B</div>
+            </div>
+          </div>
+          <div class="tier-box">
+            <div class="label-sm">Projected Market (2030)</div>
+            <div class="big-text">$49.3B</div>
+            <div class="detail-list">
+              <div>CAGR: ~20% through 2030</div>
+              <div>Driven by digital integration & AI grading</div>
+              <div>Source: Zion Market Research</div>
+            </div>
+          </div>
+          <div class="tier-box">
+            <div class="label-sm">US Market Share</div>
+            <div class="big-text">45%</div>
+            <div class="detail-list">
+              <div>~$6.8B domestic market</div>
+              <div>Largest collector base worldwide</div>
+              <div>KLLCTBLS primary geography</div>
+            </div>
+          </div>
+        </div>
+
+        <h3
+          style="
+            font-size: 18px;
+            color: var(--slate);
+            margin: 32px 0 16px;
+            font-weight: 600;
+          "
+        >
+          2. The Grading Economy — Phase 2 Data Source
+        </h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Grading Company</th>
+                <th>2025 Volume</th>
+                <th>Market Share</th>
+                <th>Key Insight</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PSA</td>
+                <td>19.26 million</td>
+                <td style="color: var(--rust); font-weight: 700">~72%</td>
+                <td>
+                  Dominant leader. 10-30% resale premium. Parent (Collectors)
+                  now owns SGC + Beckett.
+                </td>
+              </tr>
+              <tr>
+                <td>CGC Cards</td>
+                <td>4.92 million</td>
+                <td>~18%</td>
+                <td>
+                  Fastest growing — 121% YoY growth. Strong in Pokémon/TCG
+                  sector.
+                </td>
+              </tr>
+              <tr>
+                <td>SGC</td>
+                <td>1.42 million</td>
+                <td>~5%</td>
+                <td>
+                  Acquired by Collectors (PSA parent). Vintage card specialist.
+                </td>
+              </tr>
+              <tr>
+                <td>Beckett (BGS)</td>
+                <td>~824K</td>
+                <td>~3%</td>
+                <td>
+                  Declining share. Still relevant for "Black Label" premium
+                  collectors.
+                </td>
+              </tr>
+              <tr>
+                <td>TAG</td>
+                <td>~440K</td>
+                <td>~2%</td>
+                <td>AI-based grading disruptor. 83% YoY growth.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3
+          style="
+            font-size: 18px;
+            color: var(--slate);
+            margin: 32px 0 16px;
+            font-weight: 600;
+          "
+        >
+          3. Competitive Landscape — Show Discovery
+        </h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Platform</th>
+                <th>Interactive Map</th>
+                <th>Real-time Alerts</th>
+                <th>Sponsor Tracking</th>
+                <th>AI Search</th>
+                <th>Mobile UX</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TCDB</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌ Legacy</td>
+              </tr>
+              <tr>
+                <td>Sports Collectors Digest</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #d97706">⚠️ Basic</td>
+              </tr>
+              <tr>
+                <td>LocalCardShows.org</td>
+                <td style="color: #d97706">⚠️ Static</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #d97706">⚠️ Basic</td>
+              </tr>
+              <tr>
+                <td>Facebook Groups</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #dc2626">❌</td>
+                <td style="color: #16a34a">✅ App</td>
+              </tr>
+              <tr style="background: rgba(184, 74, 42, 0.05)">
+                <td style="font-weight: 700; color: var(--rust)">
+                  KLLCTBLS HUB
+                </td>
+                <td style="color: #16a34a; font-weight: 700">✅ Google Maps</td>
+                <td style="color: #16a34a; font-weight: 700">✅ MailerLite</td>
+                <td style="color: #16a34a; font-weight: 700">✅ Built-in</td>
+                <td style="color: #16a34a; font-weight: 700">✅ Gemini AI</td>
+                <td style="color: #16a34a; font-weight: 700">
+                  ✅ Mobile-first
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout rust" style="margin-top: 20px">
+          <strong>The Takeaway</strong>
+          The trading card industry is a $15B+ market growing at 20% CAGR,
+          backed by significant institutional capital (Whatnot + Fanatics +
+          Collectors). Yet the "discovery layer" — how collectors find shows,
+          shops, and sponsors — remains stuck in the Facebook-group era.
+          <strong
+            >KLLCTBLS is building the missing infrastructure layer.</strong
+          >
+        </div>
+      </div>
+
+      <!-- S4 -->
+      <div class="section" id="s4">
+        <div class="section-header">
+          <div class="section-num">04</div>
+          <div>
+            <div class="section-title">
+              Pre-Development Setup — Day 0 Checklist
+            </div>
+            <div class="section-sub">
+              Everything that must be done before a single line of code is
+              written.
+            </div>
+          </div>
+        </div>
+
+        <div class="callout rust">
+          <strong>How Credential Sharing Works</strong>Use 1Password, Bitwarden,
+          or a shared Google Doc (access-restricted) to share passwords and API
+          keys. Never send credentials over WhatsApp or regular email. Rajeev
+          uses these credentials to set up accounts on Leo's behalf — Leo
+          retains full ownership.
+        </div>
+
+        <h3
+          style="
+            font-size: 17px;
+            color: var(--slate);
+            margin: 24px 0 12px;
+            font-weight: 600;
+          "
+        >
+          What Leo Provides
+        </h3>
+        <ul class="checklist">
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>Primary email address</strong> — used for all account
+              creation. This email becomes the owner of every service.
+            </div>
+            <span class="pill leo">LEO</span>
+          </li>
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>Domain access</strong> — login to wherever the domain is
+              registered (GoDaddy, Namecheap, etc.) so DNS can be pointed to
+              Vercel.
+            </div>
+            <span class="pill leo">LEO</span>
+          </li>
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>Credit card for billing</strong> — added to Google Cloud,
+              Vercel, Supabase, MailerLite. Leo pays these directly. Rajeev
+              never touches billing.
+            </div>
+            <span class="pill leo">LEO</span>
+          </li>
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>Any existing data</strong> — spreadsheet, CSV, or list of
+              shows, sponsors, or shops already collected.
+            </div>
+            <span class="pill leo">LEO</span>
+          </li>
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>Brand assets</strong> — KLLCTBLS logo files, any color
+              preferences, existing brand guide if available.
+            </div>
+            <span class="pill leo">LEO</span>
+          </li>
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>Phase 1 deposit (first 50%)</strong> — triggers
+              development kickoff. Payment via Wise to Rajeev's account.
+            </div>
+            <span class="pill leo">LEO</span>
+          </li>
+        </ul>
+
+        <h3
+          style="
+            font-size: 17px;
+            color: var(--slate);
+            margin: 24px 0 12px;
+            font-weight: 600;
+          "
+        >
+          What Rajeev Sets Up on Leo's Behalf
+        </h3>
+        <ul class="checklist">
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>Google Cloud account</strong> — enables Maps API and
+              Places API with Leo's email and billing card.
+            </div>
+            <span class="pill rajeev">RAJEEV</span>
+          </li>
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>Supabase project</strong> — database, auth, and storage
+              all in one. Rajeev creates it, adds Leo as owner.
+            </div>
+            <span class="pill rajeev">RAJEEV</span>
+          </li>
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>Vercel project</strong> — hosting. Connected to GitHub
+              repo. Leo gets owner access, Rajeev gets developer access.
+            </div>
+            <span class="pill rajeev">RAJEEV</span>
+          </li>
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>GitHub repository</strong> — private repo under Leo's
+              GitHub account. Rajeev gets collaborator access.
+            </div>
+            <span class="pill rajeev">RAJEEV</span>
+          </li>
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>MailerLite account</strong> — email alerts and
+              newsletters. Rajeev configures templates, Leo owns the account.
+            </div>
+            <span class="pill rajeev">RAJEEV</span>
+          </li>
+          <li>
+            <div
+              class="check-box"
+              onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+            ></div>
+            <div class="check-text">
+              <strong>Google Analytics</strong> — traffic tracking from day one.
+              Connected to the Vercel domain automatically.
+            </div>
+            <span class="pill rajeev">RAJEEV</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- S5 -->
+      <div class="section" id="s5">
+        <div class="section-header">
+          <div class="section-num">05</div>
+          <div>
+            <div class="section-title">Domain & Hosting Setup</div>
+            <div class="section-sub">
+              How Leo's existing domain connects to the new platform on Vercel
+              without any downtime.
+            </div>
+          </div>
+        </div>
+
+        <div class="diagram">
+          <div class="diagram-title">DNS Flow — Domain to Live Platform</div>
+          <div class="flow">
+            <div class="flow-node">
+              Leo's Domain<small>GoDaddy / Namecheap</small>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node">
+              DNS Settings<small>CNAME or A Record</small>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node rust">
+              Vercel Edge<small>Global CDN</small>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node">
+              Next.js App<small>KLLCTBLS Platform</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <h3
+              style="
+                font-size: 17px;
+                color: var(--slate);
+                margin-bottom: 16px;
+                font-weight: 600;
+              "
+            >
+              Step-by-Step DNS Setup
+            </h3>
+            <div class="journey">
+              <div class="journey-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <h4>Leo logs into his domain registrar</h4>
+                  <p>
+                    GoDaddy, Namecheap, or wherever the domain was bought. Goes
+                    to DNS Management.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <h4>Rajeev provides two DNS values</h4>
+                  <p>
+                    Vercel gives two specific values — a CNAME record and a TXT
+                    record for SSL verification.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <h4>Leo adds the records</h4>
+                  <p>
+                    Copy-paste the values Rajeev provides into the DNS panel.
+                    Takes 2 minutes.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <h4>DNS propagation — 24–48 hours</h4>
+                  <p>
+                    Automatic. Nothing to do. Rajeev monitors and confirms when
+                    the domain is live on Vercel.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                  <h4>SSL certificate auto-issued</h4>
+                  <p>
+                    Vercel automatically issues a free SSL certificate. The site
+                    is HTTPS from minute one.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3
+              style="
+                font-size: 17px;
+                color: var(--slate);
+                margin-bottom: 16px;
+                font-weight: 600;
+              "
+            >
+              Ownership & Access Model
+            </h3>
+            <div class="tbl-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Service</th>
+                    <th>Owner</th>
+                    <th>Rajeev Access</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Domain</td>
+                    <td><span class="pill leo">LEO</span></td>
+                    <td>None</td>
+                  </tr>
+                  <tr>
+                    <td>Vercel</td>
+                    <td><span class="pill leo">LEO</span></td>
+                    <td>Developer role</td>
+                  </tr>
+                  <tr>
+                    <td>GitHub Repo</td>
+                    <td><span class="pill leo">LEO</span></td>
+                    <td>Collaborator</td>
+                  </tr>
+                  <tr>
+                    <td>Supabase DB</td>
+                    <td><span class="pill leo">LEO</span></td>
+                    <td>Admin during dev</td>
+                  </tr>
+                  <tr>
+                    <td>Google Cloud</td>
+                    <td><span class="pill leo">LEO</span></td>
+                    <td>Editor during dev</td>
+                  </tr>
+                  <tr>
+                    <td>MailerLite</td>
+                    <td><span class="pill leo">LEO</span></td>
+                    <td>Admin during dev</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout info" style="margin-top: 16px">
+              <strong>Zero Downtime Migration</strong>The old Kllctbls site
+              stays live until the new platform is fully ready. DNS is only
+              switched on launch day after final QA is passed.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S6 -->
+      <div class="section" id="s6">
+        <div class="section-header">
+          <div class="section-num">06</div>
+          <div>
+            <div class="section-title">Account Creation Checklist</div>
+            <div class="section-sub">
+              Every account needed, who creates it, what email it uses, and how
+              access is shared.
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Purpose</th>
+                <th>Created By</th>
+                <th>Phase</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Google Cloud (GCP)</td>
+                <td>Maps API + Places API billing</td>
+                <td><span class="pill rajeev">RAJEEV</span></td>
+                <td><span class="pill p1">P1</span></td>
+              </tr>
+              <tr>
+                <td>Supabase</td>
+                <td>Database, auth, storage, edge functions</td>
+                <td><span class="pill rajeev">RAJEEV</span></td>
+                <td><span class="pill p1">P1</span></td>
+              </tr>
+              <tr>
+                <td>Vercel</td>
+                <td>Frontend hosting + serverless functions</td>
+                <td><span class="pill rajeev">RAJEEV</span></td>
+                <td><span class="pill p1">P1</span></td>
+              </tr>
+              <tr>
+                <td>GitHub</td>
+                <td>Code repository + version control</td>
+                <td><span class="pill rajeev">RAJEEV</span></td>
+                <td><span class="pill p1">P1</span></td>
+              </tr>
+              <tr>
+                <td>MailerLite</td>
+                <td>Email alerts + newsletters</td>
+                <td><span class="pill rajeev">RAJEEV</span></td>
+                <td><span class="pill p1">P1</span></td>
+              </tr>
+              <tr>
+                <td>Google Analytics</td>
+                <td>Traffic and user behavior tracking</td>
+                <td><span class="pill rajeev">RAJEEV</span></td>
+                <td><span class="pill p1">P1</span></td>
+              </tr>
+              <tr>
+                <td>eBay Developer</td>
+                <td>Sold listing data for chatbot</td>
+                <td><span class="pill both">BOTH</span></td>
+                <td><span class="pill p2">P2</span></td>
+              </tr>
+              <tr>
+                <td>Gemini API (Google AI Studio)</td>
+                <td>AI chatbot and content generation</td>
+                <td><span class="pill rajeev">RAJEEV</span></td>
+                <td><span class="pill p2">P2</span></td>
+              </tr>
+              <tr>
+                <td>LinkedIn Marketing API</td>
+                <td>Auto-posting to LinkedIn company page</td>
+                <td><span class="pill both">BOTH</span></td>
+                <td><span class="pill p3">P3</span></td>
+              </tr>
+              <tr>
+                <td>Twitter/X Developer</td>
+                <td>Auto-posting to X account</td>
+                <td><span class="pill leo">LEO</span></td>
+                <td><span class="pill p3">P3</span></td>
+              </tr>
+              <tr>
+                <td>ElevenLabs</td>
+                <td>AI voice generation for video scripts</td>
+                <td><span class="pill rajeev">RAJEEV</span></td>
+                <td><span class="pill p3">P3</span></td>
+              </tr>
+              <tr>
+                <td>Stripe</td>
+                <td>Payment processing for future monetization</td>
+                <td><span class="pill both">BOTH</span></td>
+                <td>Future</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout warn" style="margin-top: 16px">
+          <strong>Security Rule — Non-Negotiable</strong>API keys and passwords
+          are NEVER shared over WhatsApp or regular email. All credentials go
+          through an encrypted password manager (Bitwarden free tier) or a
+          restricted Google Doc. Every API key is stored only in Vercel
+          environment variables — never in the code.
+        </div>
+      </div>
+
+      <!-- S7 -->
+      <div class="section" id="s7">
+        <div class="section-header">
+          <div class="section-num">07</div>
+          <div>
+            <div class="section-title">Development Workflow</div>
+            <div class="section-sub">
+              How code gets written, reviewed, tested, and shipped. How Leo sees
+              progress without waiting for a call.
+            </div>
+          </div>
+        </div>
+
+        <div class="diagram">
+          <div class="diagram-title">Git Branching Strategy</div>
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex-wrap: wrap;
+              "
+            >
+              <div class="flow-node rust">
+                main branch<small>Production — what users see</small>
+              </div>
+              <div class="flow-arrow">←</div>
+              <div class="flow-node">
+                staging branch<small>Leo's preview before launch</small>
+              </div>
+              <div class="flow-arrow">←</div>
+              <div class="flow-node">
+                feature/event-calendar<small>Rajeev builds here</small>
+              </div>
+            </div>
+            <div
+              style="
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.4);
+                padding-left: 2px;
+              "
+            >
+              Rajeev codes on feature branch → opens Pull Request to staging →
+              Leo reviews on staging URL → Rajeev merges to main → auto-deploys
+              to production
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <h3
+              style="
+                font-size: 17px;
+                color: var(--slate);
+                margin-bottom: 16px;
+                font-weight: 600;
+              "
+            >
+              Weekly Cadence
+            </h3>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-week">Monday</div>
+                <div class="timeline-title">Development Sprint Starts</div>
+                <div class="timeline-body">
+                  Rajeev codes the week's features. Leo does nothing — just
+                  waits for updates.
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-week">Wednesday</div>
+                <div class="timeline-title">Mid-week Email Update</div>
+                <div class="timeline-body">
+                  Rajeev sends a short email: what's done, what's in progress,
+                  any blockers. Leo can check the staging URL anytime.
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-week">Sunday</div>
+                <div class="timeline-title">Weekly Video Call</div>
+                <div class="timeline-body">
+                  30–45 minutes. Live demo of the week's work. Leo gives
+                  feedback. Email summary sent within 2 hours of call.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3
+              style="
+                font-size: 17px;
+                color: var(--slate);
+                margin-bottom: 16px;
+                font-weight: 600;
+              "
+            >
+              How Leo Reviews Work
+            </h3>
+            <div class="journey">
+              <div class="journey-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <h4>Staging URL is always live</h4>
+                  <p>
+                    From Day 1, Leo has a URL like kllctbls.vercel.app where he
+                    can check progress anytime.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <h4>Feature-specific preview URLs</h4>
+                  <p>
+                    Every Pull Request gets its own unique preview URL. Leo can
+                    test a specific feature before it goes to staging.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <h4>Feedback via WhatsApp or email</h4>
+                  <p>
+                    Leo notes issues directly. Rajeev logs them as GitHub issues
+                    and fixes in the next sprint.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <h4>3 formal revision rounds per phase</h4>
+                  <p>
+                    Unlimited feedback during calls. Formal code revision rounds
+                    capped at 3 per phase to protect timeline.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S8 -->
+      <div class="section" id="s8">
+        <div class="section-header">
+          <div class="section-num">08</div>
+          <div>
+            <div class="section-title">Data Setup & Seeding</div>
+            <div class="section-sub">
+              How the first events, sponsors, and shops get into the database
+              before any user ever visits the platform.
+            </div>
+          </div>
+        </div>
+
+        <div class="diagram">
+          <div class="diagram-title">Data Ingestion Pipeline</div>
+          <div class="flow" style="flex-direction: column; gap: 16px">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap">
+              <div class="flow-node">
+                Manual Entry<small>5 priority shows</small>
+              </div>
+              <div class="flow-node">
+                TCDB Scraper<small>nightly cron</small>
+              </div>
+              <div class="flow-node">
+                SCD Scraper<small>nightly cron</small>
+              </div>
+              <div class="flow-node">Google Places<small>shop seed</small></div>
+              <div class="flow-node">
+                User Submission<small>public form</small>
+              </div>
+            </div>
+            <div
+              class="flow-arrow"
+              style="font-size: 24px; text-align: center; padding: 0"
+            >
+              ↓
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+              "
+            >
+              <div class="flow-node rust">
+                Raw Data Parser<small>clean + deduplicate</small>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">
+                Staging Table<small>status: pending_review</small>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node green">
+                Admin Approves<small>Leo clicks Publish</small>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">Live on Platform</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tbl-wrap" style="margin-top: 20px">
+          <table>
+            <thead>
+              <tr>
+                <th>Data Type</th>
+                <th>Source</th>
+                <th>Method</th>
+                <th>Who</th>
+                <th>When</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>NSCC, Fanatics Fest, Dallas, West Coast, Front Row</td>
+                <td>Official websites</td>
+                <td>Manual entry</td>
+                <td>Rajeev</td>
+                <td>Week 2–3</td>
+              </tr>
+              <tr>
+                <td>All other US card shows</td>
+                <td>TCDB, Sports Collectors Digest</td>
+                <td>Automated scraper — nightly 2am UTC</td>
+                <td>Automated</td>
+                <td>Week 3 onwards</td>
+              </tr>
+              <tr>
+                <td>
+                  Sponsors — PSA, Heritage, Topps, Beckett, Goldin, Panini,
+                  eBay, SGC
+                </td>
+                <td>Public websites</td>
+                <td>Manual entry</td>
+                <td>Rajeev</td>
+                <td>Week 4</td>
+              </tr>
+              <tr>
+                <td>Card shops — initial 500+</td>
+                <td>Google Places API</td>
+                <td>API call — auto-populates name, address, phone, hours</td>
+                <td>Automated</td>
+                <td>Week 5</td>
+              </tr>
+              <tr>
+                <td>Shop specialty tags</td>
+                <td>N/A — does not exist publicly</td>
+                <td>Manual tag by admin OR user submission</td>
+                <td>Leo + users</td>
+                <td>Ongoing</td>
+              </tr>
+              <tr>
+                <td>New shows submitted by users</td>
+                <td>User submission form</td>
+                <td>Pending review queue → Leo approves</td>
+                <td>Leo</td>
+                <td>Post-launch</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout success">
+          <strong>Leo's Advantage</strong>Leo's direct relationships with NSCC,
+          Fanatics Fest, and other major shows mean a single email from him can
+          get accurate event data faster than any scraper. This is the biggest
+          data advantage this platform has over any competitor.
+        </div>
+      </div>
+
+      <!-- S9 -->
+      <div class="section" id="s9">
+        <div class="section-header">
+          <div class="section-num">09</div>
+          <div>
+            <div class="section-title">Admin Panel Handover</div>
+            <div class="section-sub">
+              Everything Leo can do from day one without calling Rajeev. The
+              admin panel is Leo's full control center.
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="cards"
+          style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))"
+        >
+          <div class="card">
+            <div class="card-icon">✅</div>
+            <h4>Approve Submissions</h4>
+            <p>
+              User submits a show → it appears in Leo's queue → Leo clicks
+              Approve → instantly live on the map.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">✏️</div>
+            <h4>Edit Any Listing</h4>
+            <p>
+              Wrong date on an event? Click edit directly from the admin panel.
+              Change goes live immediately.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">➕</div>
+            <h4>Add Content Manually</h4>
+            <p>
+              Add a show, sponsor, or shop without going through the submission
+              form. Direct entry.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <h4>View Analytics</h4>
+            <p>
+              Daily active users, page views per section, top searched cities,
+              sponsor profile views.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">👥</div>
+            <h4>Manage Users</h4>
+            <p>
+              See all registered users, their saved shows, their topic
+              preferences. Disable or delete accounts.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔔</div>
+            <h4>Trigger Alerts</h4>
+            <p>
+              Manually send an email alert to all users who saved a specific
+              state when a new show is added.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout rust">
+          <strong>Handover Process — Week 8</strong>Before launch, Rajeev runs a
+          60-minute live screen-share walkthrough of the admin panel with Leo.
+          Every button, every feature, every workflow. Recorded and shared so
+          Leo can rewatch anytime. Written admin guide also provided.
+        </div>
+      </div>
+
+      <!-- S10 -->
+      <div class="section" id="s10">
+        <div class="section-header">
+          <div class="section-num">10</div>
+          <div>
+            <div class="section-title">Launch Checklist</div>
+            <div class="section-sub">
+              Every step that must happen before the DNS is switched and real
+              users hit the platform.
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <h3
+              style="
+                font-size: 16px;
+                color: var(--slate);
+                margin-bottom: 12px;
+                font-weight: 600;
+              "
+            >
+              Technical Pre-Launch
+            </h3>
+            <ul class="checklist">
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">All features tested on staging</div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  Mobile responsiveness verified on iPhone and Android
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  Cross-browser testing — Chrome, Safari, Firefox, Edge
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  Page load speed under 2 seconds (Lighthouse audit)
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  All environment variables set in Vercel production
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  Supabase Row Level Security enabled on all tables
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  Google Analytics confirmed receiving data
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  Nightly scraper cron tested and confirmed running
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">Email alerts tested end-to-end</div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  SSL certificate active on production domain
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3
+              style="
+                font-size: 16px;
+                color: var(--slate);
+                margin-bottom: 12px;
+                font-weight: 600;
+              "
+            >
+              Content Pre-Launch
+            </h3>
+            <ul class="checklist">
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  Minimum 50 events live and approved on the map
+                </div>
+                <span class="pill leo">LEO</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  All major sponsors profiled — PSA, Heritage, Topps, Beckett,
+                  Goldin, Panini
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  Minimum 100 card shops visible on the shop finder map
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  Privacy policy and Terms of Service pages live
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  AI disclaimer visible on relevant pages
+                </div>
+                <span class="pill rajeev">RAJEEV</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  Leo has walked through admin panel and is confident using it
+                </div>
+                <span class="pill both">BOTH</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  DNS switched from old site to new Vercel deployment
+                </div>
+                <span class="pill both">BOTH</span>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">Phase 1 final payment received</div>
+                <span class="pill leo">LEO</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- S11 -->
+      <div class="section" id="s11">
+        <div class="section-header">
+          <div class="section-num">11</div>
+          <div>
+            <div class="section-title">Post-Launch Operations</div>
+            <div class="section-sub">
+              What happens after the platform goes live — who monitors what, and
+              how issues get resolved.
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Frequency</th>
+                <th>Who</th>
+                <th>How</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Approve user-submitted shows</td>
+                <td>Daily</td>
+                <td>Leo</td>
+                <td>Admin panel — takes 2 minutes</td>
+              </tr>
+              <tr>
+                <td>Approve user-submitted shops</td>
+                <td>Daily</td>
+                <td>Leo</td>
+                <td>Admin panel — one click approve or reject</td>
+              </tr>
+              <tr>
+                <td>Monitor scraper health</td>
+                <td>Daily (automated)</td>
+                <td>Rajeev</td>
+                <td>
+                  Automated alert if scraper fails — Rajeev fixes within 24h
+                </td>
+              </tr>
+              <tr>
+                <td>Check platform uptime</td>
+                <td>Continuous</td>
+                <td>Rajeev</td>
+                <td>
+                  Vercel uptime monitoring — alerts Rajeev if site is down
+                </td>
+              </tr>
+              <tr>
+                <td>Review analytics</td>
+                <td>Weekly</td>
+                <td>Leo</td>
+                <td>Google Analytics dashboard + admin panel metrics</td>
+              </tr>
+              <tr>
+                <td>Bug fixes</td>
+                <td>As reported</td>
+                <td>Rajeev</td>
+                <td>
+                  WhatsApp or email → fixed within 48h under maintenance
+                  contract
+                </td>
+              </tr>
+              <tr>
+                <td>Data quality audit</td>
+                <td>Monthly</td>
+                <td>Rajeev</td>
+                <td>
+                  Check for duplicate events, stale data, broken sponsor links
+                </td>
+              </tr>
+              <tr>
+                <td>Dependency updates</td>
+                <td>Monthly</td>
+                <td>Rajeev</td>
+                <td>
+                  Update npm packages, security patches — tested on staging
+                  first
+                </td>
+              </tr>
+              <tr>
+                <td>Monthly progress report</td>
+                <td>Monthly</td>
+                <td>Rajeev</td>
+                <td>
+                  Email summary: users, events added, top pages, bugs fixed
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- S12 -->
+      <div class="section" id="s12">
+        <div class="section-header">
+          <div class="section-num">12</div>
+          <div>
+            <div class="section-title">Monthly Maintenance Contract</div>
+            <div class="section-sub">
+              What the monthly retainer covers, what it does not cover, and how
+              the retainer works.
+            </div>
+          </div>
+        </div>
+        <div class="two-col">
+          <div>
+            <div class="callout success">
+              <strong>✅ Included in Monthly Retainer</strong>
+              <ul
+                style="
+                  margin-top: 8px;
+                  padding-left: 18px;
+                  font-size: 13.5px;
+                  line-height: 2;
+                "
+              >
+                <li>
+                  Scraper maintenance — fix broken scrapers when sites redesign
+                </li>
+                <li>Bug fixes — anything broken in existing features</li>
+                <li>Uptime monitoring — 24/7 automated checks</li>
+                <li>Security patches — npm updates, vulnerability fixes</li>
+                <li>Monthly analytics report emailed to Leo</li>
+                <li>Database backup verification</li>
+                <li>Response within 48 hours for non-urgent issues</li>
+                <li>Response within 4 hours for site-down emergencies</li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="callout danger">
+              <strong>❌ NOT Included — Quoted Separately</strong>
+              <ul
+                style="
+                  margin-top: 8px;
+                  padding-left: 18px;
+                  font-size: 13.5px;
+                  line-height: 2;
+                "
+              >
+                <li>New features — any addition beyond Phase 1 scope</li>
+                <li>New pages or sections</li>
+                <li>Design changes or rebrand</li>
+                <li>Phase 2 or Phase 3 work</li>
+                <li>Third-party API integrations not in Phase 1</li>
+                <li>Mobile app development</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="callout rust">
+          <strong>How to Request Something New</strong>WhatsApp or email Rajeev
+          with the feature idea. Rajeev responds within 48h with a written quote
+          — scope and timeline. No work starts until Leo approves in writing. No
+          surprises.
+        </div>
+      </div>
+
+      <!-- S13 -->
+      <div class="section" id="s13">
+        <div class="section-header">
+          <div class="section-num">13</div>
+          <div>
+            <div class="section-title">Phase 2 & 3 Trigger Conditions</div>
+            <div class="section-sub">
+              What signals tell us it is time to build the next phase — and
+              exactly what gets built.
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Trigger</th>
+                <th>Metric</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Phase 2 (AI Chatbot) kickoff</td>
+                <td>
+                  MVP live for 4+ weeks AND 500+ monthly page views OR Leo
+                  decides to proceed
+                </td>
+                <td>
+                  Rajeev sends Phase 2 scope doc. Development starts within 1
+                  week of agreement.
+                </td>
+              </tr>
+              <tr>
+                <td>Phase 3 (Content Engine) kickoff</td>
+                <td>
+                  Phase 2 complete AND chatbot receiving 200+ queries/month OR
+                  Leo decides to proceed
+                </td>
+                <td>
+                  Rajeev sends Phase 3 scope doc. Development starts within 1
+                  week of agreement.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="diagram" style="margin-top: 20px">
+          <div class="diagram-title">Phase 2 — What Gets Built</div>
+          <div class="arch-grid">
+            <div class="arch-box highlight">
+              <div class="arch-label">AI Chatbot</div>
+              <div class="arch-tech">Gemini 2.5 Flash</div>
+              <div class="arch-detail">
+                RAG pipeline over internal DB. Natural language hobby Q&A.
+              </div>
+            </div>
+            <div class="arch-box">
+              <div class="arch-label">eBay Data</div>
+              <div class="arch-tech">Browse API</div>
+              <div class="arch-detail">
+                Sold listing prices for any card — real-time data.
+              </div>
+            </div>
+            <div class="arch-box">
+              <div class="arch-label">Auction History</div>
+              <div class="arch-tech">Scrapers</div>
+              <div class="arch-detail">
+                Heritage, Goldin, Pristine, Fanatics historical sold data.
+              </div>
+            </div>
+            <div class="arch-box">
+              <div class="arch-label">Pop Reports</div>
+              <div class="arch-tech">PSA + BGS + SGC</div>
+              <div class="arch-detail">
+                Population data per card. Legal review required first.
+              </div>
+            </div>
+            <div class="arch-box">
+              <div class="arch-label">Vertex AI Search</div>
+              <div class="arch-tech">Google Grounding</div>
+              <div class="arch-detail">
+                Live web search fallback when internal DB is insufficient.
+              </div>
+            </div>
+            <div class="arch-box">
+              <div class="arch-label">Vector Search</div>
+              <div class="arch-tech">pgvector</div>
+              <div class="arch-detail">
+                Semantic search over blog posts and news content.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S14 -->
+      <div class="section" id="s14">
+        <div class="section-header">
+          <div class="section-num">14</div>
+          <div>
+            <div class="section-title">Intellectual Property & Ownership</div>
+            <div class="section-sub">
+              Who owns what — the code, the data, the domain, and what happens
+              in every scenario.
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th>Owner</th>
+                <th>Rajeev's Rights</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Domain name</td>
+                <td>Leo — always</td>
+                <td>None</td>
+                <td>Leo registered it, Leo keeps it regardless of outcome</td>
+              </tr>
+              <tr>
+                <td>Codebase (GitHub repo)</td>
+                <td>Leo — after final payment</td>
+                <td>Developer access during contract</td>
+                <td>Full repo transfer to Leo's GitHub at Phase 1 handoff</td>
+              </tr>
+              <tr>
+                <td>Database and all data</td>
+                <td>Leo — always</td>
+                <td>Admin access during dev</td>
+                <td>Supabase is under Leo's email and billing</td>
+              </tr>
+              <tr>
+                <td>Vercel deployment</td>
+                <td>Leo — always</td>
+                <td>Developer role</td>
+                <td>
+                  Leo owns the Vercel account and can deploy independently
+                </td>
+              </tr>
+              <tr>
+                <td>KLLCTBLS brand and logo</td>
+                <td>Leo — always</td>
+                <td>None</td>
+                <td>Rajeev uses it only to build the platform</td>
+              </tr>
+              <tr>
+                <td>User data (emails, preferences)</td>
+                <td>Leo — always</td>
+                <td>None after handoff</td>
+                <td>Stored in Supabase under Leo's account</td>
+              </tr>
+              <tr>
+                <td>AI-generated content</td>
+                <td>Leo — always</td>
+                <td>None</td>
+                <td>Content generated by Gemini on Leo's API key</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout info">
+          <strong>If the Partnership Ends</strong>Leo owns everything — code,
+          data, domain, accounts. Rajeev's access is revoked. The platform keeps
+          running because all accounts are under Leo's email and billing. Leo
+          can hire any developer to continue the work using the codebase Rajeev
+          built.
+        </div>
+      </div>
+
+      <!-- S15 -->
+      <div class="section" id="s15">
+        <div class="section-header">
+          <div class="section-num">15</div>
+          <div>
+            <div class="section-title">Communication Protocol</div>
+            <div class="section-sub">
+              How Leo and Rajeev communicate — channels, response times, and
+              escalation paths.
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Situation</th>
+                <th>Channel</th>
+                <th>Response Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Site is completely down</td>
+                <td>WhatsApp call</td>
+                <td>Within 4 hours — Rajeev's highest priority</td>
+              </tr>
+              <tr>
+                <td>Major bug — feature not working</td>
+                <td>WhatsApp message</td>
+                <td>Within 24 hours</td>
+              </tr>
+              <tr>
+                <td>Minor bug or UI issue</td>
+                <td>Email</td>
+                <td>Within 48 hours</td>
+              </tr>
+              <tr>
+                <td>New feature request</td>
+                <td>Email with description</td>
+                <td>Rajeev quotes within 48 hours</td>
+              </tr>
+              <tr>
+                <td>Weekly progress update</td>
+                <td>Email + Sunday call</td>
+                <td>Every Sunday — scheduled</td>
+              </tr>
+              <tr>
+                <td>General discussion or ideas</td>
+                <td>WhatsApp group</td>
+                <td>Within a day — not urgent</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout warn">
+          <strong>Scope Change Rule</strong>Any request that changes what was
+          agreed in this document must be put in writing by email before Rajeev
+          acts on it. Verbal agreements made on calls are confirmed by Rajeev in
+          a follow-up email within 2 hours. This protects both parties.
+        </div>
+      </div>
+
+      <!-- S16 -->
+      <div class="section" id="s16">
+        <div class="section-header">
+          <div class="section-num">16</div>
+          <div>
+            <div class="section-title">Risk Register</div>
+            <div class="section-sub">
+              Every known risk, its probability, its impact, and exactly how it
+              is mitigated.
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Risk</th>
+                <th>Probability</th>
+                <th>Impact</th>
+                <th>Mitigation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TCDB or Card Ladder blocks scraper</td>
+                <td><span class="risk-high">High</span></td>
+                <td>Data gap on launch</td>
+                <td>
+                  ToS review before building. Manual entry as fallback. Leo's
+                  contacts as backup data source.
+                </td>
+              </tr>
+              <tr>
+                <td>Scraper breaks when site redesigns</td>
+                <td><span class="risk-high">High</span></td>
+                <td>Stale data</td>
+                <td>
+                  Covered under maintenance retainer. Rajeev fixes within 24h of
+                  alert.
+                </td>
+              </tr>
+              <tr>
+                <td>Google Maps API cost spike</td>
+                <td><span class="risk-med">Medium</span></td>
+                <td>Unexpected bill</td>
+                <td>
+                  Usage cap set in GCP console — alerts Leo if approaching
+                  limit.
+                </td>
+              </tr>
+              <tr>
+                <td>Leo not available for weekly call</td>
+                <td><span class="risk-med">Medium</span></td>
+                <td>Feedback delay</td>
+                <td>
+                  Async review via staging URL. Rajeev continues with best
+                  judgment. Leo reviews next call.
+                </td>
+              </tr>
+              <tr>
+                <td>Timeline overrun</td>
+                <td><span class="risk-med">Medium</span></td>
+                <td>Delayed launch</td>
+                <td>
+                  8-week plan has 1 week buffer built in. Scope is locked — no
+                  mid-phase additions.
+                </td>
+              </tr>
+              <tr>
+                <td>PSA/BGS population report scraping legally blocked</td>
+                <td><span class="risk-high">High</span></td>
+                <td>Phase 2 feature gap</td>
+                <td>
+                  Legal review before Phase 2 starts. Evaluate direct
+                  partnership instead.
+                </td>
+              </tr>
+              <tr>
+                <td>LinkedIn Marketing API rejected</td>
+                <td><span class="risk-med">Medium</span></td>
+                <td>Phase 3 auto-post fails</td>
+                <td>Apply during Phase 2. Manual posting as fallback.</td>
+              </tr>
+              <tr>
+                <td>Developer unavailable</td>
+                <td><span class="risk-low">Low</span></td>
+                <td>Development pause</td>
+                <td>
+                  Full codebase on GitHub under Leo's account. Any developer can
+                  continue. Documentation kept current.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- S17 -->
+      <div class="section" id="s17">
+        <div class="section-header">
+          <div class="section-num">17</div>
+          <div>
+            <div class="section-title">Technical System Design</div>
+            <div class="section-sub">
+              How every part of the platform connects — explained in plain
+              English with full architecture diagram.
+            </div>
+          </div>
+        </div>
+
+        <div class="diagram">
+          <div class="diagram-title">Full System Architecture</div>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr auto 1fr auto 1fr;
+              gap: 16px;
+              align-items: start;
+            "
+          >
+            <div>
+              <div
+                style="
+                  color: rgba(216, 133, 106, 0.7);
+                  font-size: 9px;
+                  text-transform: uppercase;
+                  letter-spacing: 2px;
+                  margin-bottom: 12px;
+                "
+              >
+                CLIENT LAYER
+              </div>
+              <div class="arch-box highlight" style="margin-bottom: 10px">
+                <div class="arch-label">Browser / Mobile</div>
+                <div class="arch-tech">Next.js 14</div>
+                <div class="arch-detail">
+                  Server-side rendered pages. SEO ready. React components.
+                </div>
+              </div>
+              <div class="arch-box" style="margin-bottom: 10px">
+                <div class="arch-label">Maps</div>
+                <div class="arch-tech">Google Maps JS API</div>
+                <div class="arch-detail">Interactive pins, zoom, drawers</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-label">Animations</div>
+                <div class="arch-tech">Framer Motion</div>
+                <div class="arch-detail">Page transitions, hover effects</div>
+              </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                color: var(--rust2);
+                font-size: 20px;
+                padding-top: 60px;
+                opacity: 0.7;
+              "
+            >
+              ⇄
+            </div>
+            <div>
+              <div
+                style="
+                  color: rgba(216, 133, 106, 0.7);
+                  font-size: 9px;
+                  text-transform: uppercase;
+                  letter-spacing: 2px;
+                  margin-bottom: 12px;
+                "
+              >
+                API LAYER
+              </div>
+              <div class="arch-box highlight" style="margin-bottom: 10px">
+                <div class="arch-label">API Routes</div>
+                <div class="arch-tech">Next.js + Vercel</div>
+                <div class="arch-detail">
+                  Serverless functions. Rate limited. Auth protected.
+                </div>
+              </div>
+              <div class="arch-box" style="margin-bottom: 10px">
+                <div class="arch-label">Edge Functions</div>
+                <div class="arch-tech">Supabase Edge</div>
+                <div class="arch-detail">
+                  Webhook handlers, scraper triggers
+                </div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-label">Cron Jobs</div>
+                <div class="arch-tech">Vercel Cron</div>
+                <div class="arch-detail">Nightly 2am — runs all scrapers</div>
+              </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                color: var(--rust2);
+                font-size: 20px;
+                padding-top: 60px;
+                opacity: 0.7;
+              "
+            >
+              ⇄
+            </div>
+            <div>
+              <div
+                style="
+                  color: rgba(216, 133, 106, 0.7);
+                  font-size: 9px;
+                  text-transform: uppercase;
+                  letter-spacing: 2px;
+                  margin-bottom: 12px;
+                "
+              >
+                DATA LAYER
+              </div>
+              <div class="arch-box highlight" style="margin-bottom: 10px">
+                <div class="arch-label">Primary DB</div>
+                <div class="arch-tech">PostgreSQL / Supabase</div>
+                <div class="arch-detail">
+                  events, sponsors, shops, users, content tables
+                </div>
+              </div>
+              <div class="arch-box" style="margin-bottom: 10px">
+                <div class="arch-label">Auth</div>
+                <div class="arch-tech">Supabase Auth + RLS</div>
+                <div class="arch-detail">Row-level security per user role</div>
+              </div>
+              <div class="arch-box">
+                <div class="arch-label">Storage</div>
+                <div class="arch-tech">Supabase Storage</div>
+                <div class="arch-detail">Sponsor logos, shop images</div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              margin-top: 20px;
+              border-top: 1px solid rgba(255, 255, 255, 0.08);
+              padding-top: 18px;
+            "
+          >
+            <div
+              style="
+                color: rgba(216, 133, 106, 0.7);
+                font-size: 9px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                margin-bottom: 12px;
+              "
+            >
+              EXTERNAL SERVICES
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap">
+              <div class="flow-node">
+                Google Maps API<small>Map rendering</small>
+              </div>
+              <div class="flow-node">
+                Google Places API<small>Shop seeding</small>
+              </div>
+              <div class="flow-node">MailerLite<small>Email alerts</small></div>
+              <div class="flow-node">Gemini API<small>Phase 2 — AI</small></div>
+              <div class="flow-node">
+                Vertex AI Search<small>Phase 2 — Web</small>
+              </div>
+              <div class="flow-node">
+                eBay API<small>Phase 2 — Prices</small>
+              </div>
+              <div class="flow-node">
+                ElevenLabs<small>Phase 3 — Voice</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-top: 20px">
+          <div>
+            <h3
+              style="
+                font-size: 16px;
+                color: var(--slate);
+                margin-bottom: 12px;
+                font-weight: 600;
+              "
+            >
+              How a Page Load Works
+            </h3>
+            <div class="journey">
+              <div class="journey-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <h4>User visits /events</h4>
+                  <p>
+                    Browser requests the events page from Vercel's global edge
+                    network.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <h4>Next.js renders server-side</h4>
+                  <p>
+                    Vercel runs the Next.js server function. It queries Supabase
+                    for published events.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <h4>HTML sent to browser</h4>
+                  <p>
+                    Pre-rendered HTML arrives in under 200ms. SEO-friendly from
+                    day one.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <h4>React hydrates client-side</h4>
+                  <p>
+                    Google Maps loads. Filter interactions work in-browser
+                    without page reloads.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3
+              style="
+                font-size: 16px;
+                color: var(--slate);
+                margin-bottom: 12px;
+                font-weight: 600;
+              "
+            >
+              Core Database Tables
+            </h3>
+            <div
+              style="
+                background: var(--slate);
+                border-radius: 8px;
+                padding: 20px;
+                font-family: &quot;DM Mono&quot;, monospace;
+                font-size: 12px;
+                color: #a8d8a8;
+                line-height: 1.8;
+              "
+            >
+              <div style="color: var(--rust2)">events</div>
+              <div style="color: rgba(255, 255, 255, 0.45)">
+                id, name, date_start, date_end
+              </div>
+              <div style="color: rgba(255, 255, 255, 0.45)">
+                city, state, venue_name, lat, lng, status
+              </div>
+              <br />
+              <div style="color: var(--rust2)">sponsors</div>
+              <div style="color: rgba(255, 255, 255, 0.45)">
+                id, name, category, website, logo_url
+              </div>
+              <br />
+              <div style="color: var(--rust2)">event_sponsors</div>
+              <div style="color: rgba(255, 255, 255, 0.45)">
+                event_id, sponsor_id ← many-to-many
+              </div>
+              <br />
+              <div style="color: var(--rust2)">shops</div>
+              <div style="color: rgba(255, 255, 255, 0.45)">
+                id, name, address, lat, lng, specialty
+              </div>
+              <br />
+              <div style="color: var(--rust2)">users</div>
+              <div style="color: rgba(255, 255, 255, 0.45)">
+                id, email, role, saved_events[]
+              </div>
+              <div style="color: rgba(255, 255, 255, 0.45)">
+                alert_states[], alert_topics[]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S18 -->
+      <div class="section" id="s18">
+        <div class="section-header">
+          <div class="section-num">18</div>
+          <div>
+            <div class="section-title">User Onboarding Flow</div>
+            <div class="section-sub">
+              What every type of user experiences from first visit to fully
+              registered.
+            </div>
+          </div>
+        </div>
+        <div class="diagram">
+          <div class="diagram-title">User Journey — Visitor to Registered</div>
+          <div class="flow">
+            <div class="flow-node">
+              Lands on Homepage<small>Sees map, CTAs</small>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node">
+              Browses Events<small>No login needed</small>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node rust">
+              Clicks "Save Show"<small>Prompted to register</small>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node">
+              Enters Email + Password<small>Free registration</small>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node green">
+              Registered User<small>Saves shows, gets alerts</small>
+            </div>
+          </div>
+        </div>
+        <div class="two-col" style="margin-top: 20px">
+          <div>
+            <h3
+              style="
+                font-size: 16px;
+                color: var(--slate);
+                margin-bottom: 12px;
+                font-weight: 600;
+              "
+            >
+              First Visit — Public Visitor
+            </h3>
+            <div class="journey">
+              <div class="journey-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <h4>Arrives at homepage</h4>
+                  <p>
+                    Sees hero section with map preview, stats (200+ shows, 500+
+                    shops), and clear CTAs.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <h4>Clicks "Explore Shows"</h4>
+                  <p>
+                    Goes to /events — sees the full interactive US map with show
+                    pins. No login required.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <h4>Clicks a map pin</h4>
+                  <p>
+                    Side drawer slides open. Sees show name, date, venue,
+                    vendors count, sponsors, contact info.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <h4>Searches by city or state</h4>
+                  <p>
+                    Filters the map and list in real time. Finds shows near
+                    them.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3
+              style="
+                font-size: 16px;
+                color: var(--slate);
+                margin-bottom: 12px;
+                font-weight: 600;
+              "
+            >
+              Registration & Personalization
+            </h3>
+            <div class="journey">
+              <div class="journey-step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                  <h4>Clicks "Save Show" or "Sign Up"</h4>
+                  <p>
+                    Registration modal appears. Email + password. Confirm email
+                    via MailerLite verification link.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">6</div>
+                <div class="step-content">
+                  <h4>Sets preferences</h4>
+                  <p>
+                    Selects states they want alerts for. Selects topics
+                    (Pokemon, PSA, Heritage).
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">7</div>
+                <div class="step-content">
+                  <h4>Saves shows and shops</h4>
+                  <p>
+                    Heart icon on any event or shop — saved to their personal
+                    list. Accessible from profile.
+                  </p>
+                </div>
+              </div>
+              <div class="journey-step">
+                <div class="step-num">8</div>
+                <div class="step-content">
+                  <h4>Receives first email alert</h4>
+                  <p>
+                    When a new show matching their saved state is added —
+                    automated email from MailerLite within minutes.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S19 -->
+      <div class="section" id="s19">
+        <div class="section-header">
+          <div class="section-num">19</div>
+          <div>
+            <div class="section-title">Admin Onboarding Flow</div>
+            <div class="section-sub">
+              Leo's complete walkthrough of the admin panel — from first login
+              to running the platform independently.
+            </div>
+          </div>
+        </div>
+        <div class="journey">
+          <div class="journey-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>First login to admin panel</h4>
+              <p>
+                Leo goes to kllctbls.com/admin. Logs in with his email. Sees
+                dashboard overview: pending submissions, user count, page views,
+                top sponsors.
+              </p>
+            </div>
+          </div>
+          <div class="journey-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Approve first show submission</h4>
+              <p>
+                A user submitted a card show. Leo sees it in the pending queue.
+                Reviews the details — name, date, venue, contact. Clicks
+                Approve. It immediately appears on the public map.
+              </p>
+            </div>
+          </div>
+          <div class="journey-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Edit an existing listing</h4>
+              <p>
+                Dallas Card Show changed their venue. Leo clicks the show name →
+                Edit → updates venue address → Save. Change goes live in 30
+                seconds.
+              </p>
+            </div>
+          </div>
+          <div class="journey-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Add a sponsor manually</h4>
+              <p>
+                A new grading company wants to be listed. Leo clicks Add Sponsor
+                → fills name, category, website, logo → Save. Sponsor appears in
+                the directory immediately.
+              </p>
+            </div>
+          </div>
+          <div class="journey-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Read the analytics dashboard</h4>
+              <p>
+                Leo sees: daily active users chart, top 5 most viewed shows,
+                which state gets the most searches, which sponsors get the most
+                profile clicks, new registrations today.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="callout rust">
+          <strong>60-Minute Admin Handover Call</strong>Rajeev runs this live
+          with Leo in Week 8. Every admin function is demonstrated on screen.
+          The session is recorded and shared as a private link. A written 1-page
+          admin cheat sheet is also provided.
+        </div>
+      </div>
+
+      <!-- S20 -->
+      <div class="section" id="s20">
+        <div class="section-header">
+          <div class="section-num">20</div>
+          <div>
+            <div class="section-title">Scaling Architecture</div>
+            <div class="section-sub">
+              What breaks first at scale, when to upgrade, and how the platform
+              handles growth from 100 to 100,000 users.
+            </div>
+          </div>
+        </div>
+        <div class="diagram">
+          <div class="diagram-title">Scaling Thresholds</div>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              gap: 14px;
+            "
+          >
+            <div class="arch-box highlight">
+              <div class="arch-label">Phase 1 Launch</div>
+              <div class="arch-tech" style="color: #4ade80">0 — 1,000 MAU</div>
+              <div class="arch-detail" style="margin-top: 8px">
+                Free tier on all services. No infra action needed.
+              </div>
+            </div>
+            <div class="arch-box highlight">
+              <div class="arch-label">Early Growth</div>
+              <div class="arch-tech" style="color: var(--rust2)">
+                1K — 5K MAU
+              </div>
+              <div class="arch-detail" style="margin-top: 8px">
+                Upgrade Supabase to Pro. Add DB indexes. Response times still
+                fast.
+              </div>
+            </div>
+            <div class="arch-box highlight">
+              <div class="arch-label">Mid Scale</div>
+              <div class="arch-tech" style="color: #f97316">5K — 20K MAU</div>
+              <div class="arch-detail" style="margin-top: 8px">
+                Upgrade Vercel to Pro. Add Redis caching for frequent queries.
+              </div>
+            </div>
+            <div class="arch-box highlight">
+              <div class="arch-label">High Scale</div>
+              <div class="arch-tech" style="color: #ef4444">20K+ MAU</div>
+              <div class="arch-detail" style="margin-top: 8px">
+                Move scrapers to dedicated workers. CDN for images. Read replica
+                for DB.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S21 -->
+      <div class="section" id="s21">
+        <div class="section-header">
+          <div class="section-num">21</div>
+          <div>
+            <div class="section-title">Infrastructure Tiers by User Volume</div>
+            <div class="section-sub">
+              Which infrastructure costs are fixed, which scale with users, and
+              when each upgrade is needed.
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Bottleneck Point</th>
+                <th>Solution</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Supabase free tier DB</td>
+                <td>500MB storage limit</td>
+                <td>Upgrade to Supabase Pro</td>
+              </tr>
+              <tr>
+                <td>Vercel serverless functions</td>
+                <td>100K invocations/month</td>
+                <td>Upgrade to Vercel Pro</td>
+              </tr>
+              <tr>
+                <td>Google Maps API</td>
+                <td>Free credit consumed</td>
+                <td>Add billing cap at defined monthly limit</td>
+              </tr>
+              <tr>
+                <td>Scraper reliability</td>
+                <td>Multiple scrapers competing at 2am</td>
+                <td>
+                  Stagger cron times, add retry logic — no cost, code change
+                  only
+                </td>
+              </tr>
+              <tr>
+                <td>DB query speed</td>
+                <td>Events table beyond 10K rows</td>
+                <td>
+                  Add indexes on city, state, date columns — already planned
+                </td>
+              </tr>
+              <tr>
+                <td>Gemini API costs (Phase 2)</td>
+                <td>1,000+ chatbot queries/month</td>
+                <td>Cache identical queries, use Flash model instead of Pro</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout info">
+          <strong>Break-Even Note</strong>The platform is designed to be
+          self-funding at a small scale. A modest number of premium subscribers
+          or sponsor listings covers all running infrastructure costs
+          comfortably.
+        </div>
+      </div>
+
+      <!-- S22 -->
+      <div class="section" id="s22">
+        <div class="section-header">
+          <div class="section-num">22</div>
+          <div>
+            <div class="section-title">
+              Revenue Model & Monetization Roadmap
+            </div>
+            <div class="section-sub">
+              Phase-by-phase monetization strategy — from free launch to
+              multiple revenue streams.
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Phase</th>
+                <th>Revenue Stream</th>
+                <th>Implementation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Phase 1 — Free</td>
+                <td>None — audience building</td>
+                <td>No paywall. Focus on traffic and registrations.</td>
+              </tr>
+              <tr>
+                <td>Phase 2</td>
+                <td>Featured Sponsor Listings</td>
+                <td>
+                  Sponsors pay to appear at top of their category. Admin toggles
+                  "featured" flag.
+                </td>
+              </tr>
+              <tr>
+                <td>Phase 2</td>
+                <td>Featured Show Placements</td>
+                <td>
+                  Event organizers pay to appear at top of map results. Verified
+                  badge on listing.
+                </td>
+              </tr>
+              <tr>
+                <td>Phase 3</td>
+                <td>Newsletter Subscriptions</td>
+                <td>
+                  Casual monthly = free. Hardcore bi-weekly "State of the Hobby"
+                  = paid tier via Stripe.
+                </td>
+              </tr>
+              <tr>
+                <td>Phase 3</td>
+                <td>Content Creation Packages</td>
+                <td>
+                  Leo sells AI-generated content packages to sponsors — custom
+                  posts, show promotions, market reports.
+                </td>
+              </tr>
+              <tr>
+                <td>Future</td>
+                <td>SaaS for Event Organizers</td>
+                <td>
+                  Organizers pay monthly to manage their event profile, track
+                  attendee interest, send alerts.
+                </td>
+              </tr>
+              <tr>
+                <td>Future</td>
+                <td>API Access for Dealers</td>
+                <td>
+                  Dealers pay for API access to pull show and pricing data into
+                  their own systems.
+                </td>
+              </tr>
+              <tr>
+                <td>Future</td>
+                <td>White-label for Other Hobbies</td>
+                <td>
+                  License the platform to Funko Pop, comics, sneakers
+                  communities.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- S23 -->
+      <div class="section" id="s23">
+        <div class="section-header">
+          <div class="section-num">23</div>
+          <div>
+            <div class="section-title">Security Architecture</div>
+            <div class="section-sub">
+              How user data, API keys, and the admin panel are protected from
+              day one.
+            </div>
+          </div>
+        </div>
+        <div class="diagram">
+          <div class="diagram-title">Security Layers</div>
+          <div class="arch-grid">
+            <div class="arch-box highlight">
+              <div class="arch-label">Transport</div>
+              <div class="arch-tech">HTTPS Everywhere</div>
+              <div class="arch-detail">
+                Automatic SSL via Vercel. All traffic encrypted. No exceptions.
+              </div>
+            </div>
+            <div class="arch-box highlight">
+              <div class="arch-label">Authentication</div>
+              <div class="arch-tech">Supabase Auth + JWT</div>
+              <div class="arch-detail">
+                JWT tokens. Secure session management. Auto-expired tokens.
+              </div>
+            </div>
+            <div class="arch-box highlight">
+              <div class="arch-label">Database</div>
+              <div class="arch-tech">Row Level Security</div>
+              <div class="arch-detail">
+                Postgres RLS. Public reads published data only. Admins see
+                everything. Users see only their own data.
+              </div>
+            </div>
+            <div class="arch-box highlight">
+              <div class="arch-label">API Keys</div>
+              <div class="arch-tech">Vercel Env Variables</div>
+              <div class="arch-detail">
+                Zero API keys in code. All in server-side environment variables.
+                Never exposed to the browser.
+              </div>
+            </div>
+            <div class="arch-box highlight">
+              <div class="arch-label">Rate Limiting</div>
+              <div class="arch-tech">Vercel Edge</div>
+              <div class="arch-detail">
+                AI chat: 20-50 req/user/hour. Submission form: 5/hour per IP.
+                Prevents abuse.
+              </div>
+            </div>
+            <div class="arch-box highlight">
+              <div class="arch-label">SQL Injection</div>
+              <div class="arch-tech">Drizzle ORM</div>
+              <div class="arch-detail">
+                All DB queries use parameterized statements. No raw SQL from
+                user input.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="callout success">
+          <strong>What Data Is Stored About Users</strong>Email address only
+          (for auth and alerts). Saved show/shop IDs. Topic preferences. No
+          passwords stored in plain text — handled by Supabase Auth with bcrypt
+          hashing. No payment data ever stored on KLLCTBLS servers — that goes
+          directly to Stripe.
+        </div>
+      </div>
+
+      <!-- S24 -->
+      <div class="section" id="s24">
+        <div class="section-header">
+          <div class="section-num">24</div>
+          <div>
+            <div class="section-title">Data Pipeline Architecture</div>
+            <div class="section-sub">
+              How data flows from 20+ sources through cleaning, deduplication,
+              and into the live platform.
+            </div>
+          </div>
+        </div>
+        <div class="diagram">
+          <div class="diagram-title">
+            Nightly Scraper Pipeline — 2am UTC Daily
+          </div>
+          <div class="flow" style="flex-direction: column; gap: 14px">
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                align-items: center;
+              "
+            >
+              <div class="flow-node">
+                Vercel Cron fires<small>2:00 AM UTC</small>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">
+                Scraper functions<small>TCDB + SCD + more</small>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">Raw HTML fetched</div>
+            </div>
+            <div
+              class="flow-arrow"
+              style="font-size: 20px; text-align: center; padding: 0"
+            >
+              ↓
+            </div>
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                align-items: center;
+              "
+            >
+              <div class="flow-node rust">
+                Parser extracts fields<small>name, date, venue, city</small>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">
+                Deduplication check<small>name + date match = skip</small>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">
+                Insert to DB<small>status: pending_review</small>
+              </div>
+            </div>
+            <div
+              class="flow-arrow"
+              style="font-size: 20px; text-align: center; padding: 0"
+            >
+              ↓
+            </div>
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                align-items: center;
+              "
+            >
+              <div class="flow-node">Leo gets notified</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node green">
+                Leo approves<small>status: published</small>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node green">Live on platform</div>
+            </div>
+          </div>
+        </div>
+        <div class="callout warn">
+          <strong>What Happens When a Scraper Breaks</strong>Target site
+          redesigns their HTML → scraper fails → Rajeev gets an automated alert
+          → Rajeev updates the scraper within 24 hours under the maintenance
+          retainer → data continues flowing. This is the primary reason the
+          maintenance retainer exists.
+        </div>
+      </div>
+
+      <!-- S25 -->
+      <div class="section" id="s25">
+        <div class="section-header">
+          <div class="section-num">25</div>
+          <div>
+            <div class="section-title">AI Integration Roadmap</div>
+            <div class="section-sub">
+              How the chatbot and content engine work under the hood — explained
+              in plain English.
+            </div>
+          </div>
+        </div>
+        <div class="diagram">
+          <div class="diagram-title">
+            How the AI Chatbot Answers a Question (Phase 2)
+          </div>
+          <div class="flow" style="flex-direction: column; gap: 14px">
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                flex-wrap: wrap;
+              "
+            >
+              <div class="flow-node rust">
+                User asks: "Card shops near Houston"
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">Rate limit check</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">
+                Query classifier<small>structured or semantic?</small>
+              </div>
+            </div>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap">
+              <div style="flex: 1; min-width: 200px">
+                <div
+                  style="
+                    color: rgba(216, 133, 106, 0.7);
+                    font-size: 9px;
+                    margin-bottom: 8px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                  "
+                >
+                  If answer exists in DB
+                </div>
+                <div class="flow" style="flex-direction: column; gap: 8px">
+                  <div class="flow-node">
+                    SQL query runs<small>shops WHERE city = Houston</small>
+                  </div>
+                  <div
+                    class="flow-arrow"
+                    style="
+                      transform: rotate(90deg);
+                      display: block;
+                      text-align: center;
+                    "
+                  >
+                    →
+                  </div>
+                  <div class="flow-node green">
+                    Results injected into Gemini prompt<small
+                      >Answer generated with citations</small
+                    >
+                  </div>
+                </div>
+              </div>
+              <div style="flex: 1; min-width: 200px">
+                <div
+                  style="
+                    color: rgba(216, 133, 106, 0.7);
+                    font-size: 9px;
+                    margin-bottom: 8px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                  "
+                >
+                  If answer NOT in DB
+                </div>
+                <div class="flow" style="flex-direction: column; gap: 8px">
+                  <div class="flow-node">
+                    Vertex AI Search fires<small>Live Google web search</small>
+                  </div>
+                  <div
+                    class="flow-arrow"
+                    style="
+                      transform: rotate(90deg);
+                      display: block;
+                      text-align: center;
+                    "
+                  >
+                    →
+                  </div>
+                  <div class="flow-node green">
+                    Gemini answers with web citations<small
+                      >Always shows source links</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap" style="margin-top: 20px">
+          <table>
+            <thead>
+              <tr>
+                <th>AI Feature</th>
+                <th>Model</th>
+                <th>Phase</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Simple chatbot queries (shop near me, shows in Texas)</td>
+                <td>Gemini 2.5 Flash</td>
+                <td><span class="pill p2">P2</span></td>
+              </tr>
+              <tr>
+                <td>Complex chatbot queries (auction history, pop reports)</td>
+                <td>Gemini 2.5 Pro</td>
+                <td><span class="pill p2">P2</span></td>
+              </tr>
+              <tr>
+                <td>Live web search grounding</td>
+                <td>Vertex AI Search</td>
+                <td><span class="pill p2">P2</span></td>
+              </tr>
+              <tr>
+                <td>Blog post generation</td>
+                <td>Gemini 2.5 Pro</td>
+                <td><span class="pill p3">P3</span></td>
+              </tr>
+              <tr>
+                <td>LinkedIn / X / Instagram post</td>
+                <td>Gemini 2.5 Flash</td>
+                <td><span class="pill p3">P3</span></td>
+              </tr>
+              <tr>
+                <td>TikTok video script + hooks</td>
+                <td>Gemini 2.5 Flash</td>
+                <td><span class="pill p3">P3</span></td>
+              </tr>
+              <tr>
+                <td>Newsletter generation</td>
+                <td>Gemini 2.5 Pro</td>
+                <td><span class="pill p3">P3</span></td>
+              </tr>
+              <tr>
+                <td>AI voice narration</td>
+                <td>ElevenLabs</td>
+                <td><span class="pill p3">P3</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout info">
+          <strong>What RAG Means in Plain English</strong>RAG =
+          Retrieval-Augmented Generation. Instead of the AI making up an answer,
+          it first searches the KLLCTBLS database, finds real data, and uses
+          that as the foundation for its response. The AI is grounded in facts,
+          not imagination. This is why it always cites sources.
+        </div>
+      </div>
+
+      <!-- S26 -->
+      <div class="section" id="s26">
+        <div class="section-header">
+          <div class="section-num">26</div>
+          <div>
+            <div class="section-title">
+              Disaster Recovery & Business Continuity
+            </div>
+            <div class="section-sub">
+              What happens in every failure scenario, who is responsible, and
+              what the recovery time is.
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>Probability</th>
+                <th>Detection</th>
+                <th>Response</th>
+                <th>Recovery Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Vercel deployment fails</td>
+                <td><span class="risk-low">Low</span></td>
+                <td>Automated alert</td>
+                <td>Rajeev rolls back to previous deployment in 1 click</td>
+                <td>&lt; 15 min</td>
+              </tr>
+              <tr>
+                <td>Supabase DB outage</td>
+                <td><span class="risk-low">Low</span></td>
+                <td>Supabase status page</td>
+                <td>
+                  Wait for Supabase recovery (99.9% SLA). Rajeev monitors and
+                  notifies Leo.
+                </td>
+                <td>Usually &lt; 1 hour</td>
+              </tr>
+              <tr>
+                <td>Bad code deployed to production</td>
+                <td><span class="risk-med">Medium</span></td>
+                <td>User reports or error logs</td>
+                <td>
+                  Rajeev rolls back immediately. Fix tested on staging before
+                  re-deploy.
+                </td>
+                <td>&lt; 30 min</td>
+              </tr>
+              <tr>
+                <td>All scrapers broken simultaneously</td>
+                <td><span class="risk-low">Low</span></td>
+                <td>Automated alert to Rajeev</td>
+                <td>
+                  Rajeev fixes within 24h. Existing data remains live. No
+                  user-facing outage.
+                </td>
+                <td>Data resumes within 24h</td>
+              </tr>
+              <tr>
+                <td>API key compromised</td>
+                <td><span class="risk-low">Low</span></td>
+                <td>GCP billing alert spike</td>
+                <td>
+                  Rajeev revokes key immediately. New key issued. All
+                  environment variables rotated.
+                </td>
+                <td>&lt; 1 hour</td>
+              </tr>
+              <tr>
+                <td>Database corrupted or data loss</td>
+                <td><span class="risk-low">Very Low</span></td>
+                <td>Data inconsistency reports</td>
+                <td>
+                  Supabase daily automatic backups. Restore from last clean
+                  backup.
+                </td>
+                <td>&lt; 2 hours</td>
+              </tr>
+              <tr>
+                <td>Rajeev unavailable for extended period</td>
+                <td><span class="risk-low">Low</span></td>
+                <td>Communication gap</td>
+                <td>
+                  Full codebase on Leo's GitHub. Documentation current. Any
+                  qualified developer can continue.
+                </td>
+                <td>Depends on replacement</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="two-col" style="margin-top: 16px">
+          <div class="callout success">
+            <strong>Backup Schedule</strong>Supabase automatically backs up the
+            database daily. Backups are retained for 7 days on the free tier and
+            30 days on Pro. Rajeev verifies backup health weekly and reports in
+            the monthly email.
+          </div>
+          <div class="callout info">
+            <strong>Emergency Contact Protocol</strong>Site down? WhatsApp call
+            Rajeev directly. If no response in 30 minutes, WhatsApp message +
+            email. Rajeev commits to 4-hour maximum response time for site-down
+            emergencies — 7 days a week.
+          </div>
+        </div>
+      </div>
+
+      <!-- S27 -->
+      <div class="section" id="s27">
+        <div class="section-header">
+          <div class="section-num">27</div>
+          <div>
+            <div class="section-title">Week-by-Week Development Timeline</div>
+            <div class="section-sub">
+              Exactly what gets built each week, what Leo sees, and what Leo
+              does.
+            </div>
+          </div>
+        </div>
+        <div class="diagram">
+          <div class="diagram-title">
+            8-Week MVP Sprint — From Zero to Launch
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Week 1 — Foundation</div>
+              <div class="timeline-title">🛠️ Setup & Accounts</div>
+              <div class="timeline-body">
+                <strong>Rajeev delivers:</strong> GitHub repo created, Vercel +
+                Supabase connected, staging URL live (empty). Domain DNS
+                configured.<br /><strong>Leo sees:</strong> A blank site at
+                kllctbls.vercel.app — proof that infrastructure is alive.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Week 2 — Design System</div>
+              <div class="timeline-title">🎨 Visual Identity & Layout</div>
+              <div class="timeline-body">
+                <strong>Rajeev delivers:</strong> Homepage layout, navigation,
+                footer, mobile responsive design. "Tech-Noir" dark theme with
+                gold accents applied everywhere.<br /><strong>Leo sees:</strong>
+                A beautiful homepage that already looks like a real product, not
+                a template.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Week 3 — Core Feature #1</div>
+              <div class="timeline-title">📅 Event Calendar & Map</div>
+              <div class="timeline-body">
+                <strong>Rajeev delivers:</strong> Interactive Google Map with
+                show pins. Click a pin → drawer shows name, date, venue,
+                contact. Filter by state, date range, or keyword.<br /><strong
+                  >Leo sees:</strong
+                >
+                The flagship feature. Users can find any card show in America on
+                one map.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Week 4 — Core Feature #2</div>
+              <div class="timeline-title">
+                🏪 Shop Finder & Sponsor Directory
+              </div>
+              <div class="timeline-body">
+                <strong>Rajeev delivers:</strong> Card shop map seeded with 100+
+                shops via Google Places. Sponsor directory with profiles for
+                PSA, Heritage, Topps, Beckett, Goldin, Panini, eBay, SGC.<br /><strong
+                  >Leo sees:</strong
+                >
+                Two fully-functional discovery tools. The platform has real
+                value now.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Week 5 — User System</div>
+              <div class="timeline-title">
+                👤 Registration, Saved Shows & Alerts
+              </div>
+              <div class="timeline-body">
+                <strong>Rajeev delivers:</strong> Sign up / login flow. "Save
+                Show" button. State-based email alerts via MailerLite. User
+                profile page with saved items.<br /><strong>Leo sees:</strong>
+                The engagement mechanism. Users now have a reason to come back.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Week 6 — Admin & Data</div>
+              <div class="timeline-title">⚙️ Admin Panel & Scraper Setup</div>
+              <div class="timeline-body">
+                <strong>Rajeev delivers:</strong> Full admin dashboard.
+                Approve/reject submissions. Edit listings. View analytics.
+                Nightly scrapers pulling from TCDB and Sports Collectors
+                Digest.<br /><strong>Leo sees:</strong> His control center. He
+                can run the platform without touching code.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Week 7 — Polish & Stress Test</div>
+              <div class="timeline-title">🔍 QA, Performance & SEO</div>
+              <div class="timeline-body">
+                <strong>Rajeev delivers:</strong> Lighthouse audit (target: 90+
+                score). Cross-browser testing. Mobile fixes. SEO meta tags on
+                every page. Privacy Policy and Terms of Service pages.<br /><strong
+                  >Leo sees:</strong
+                >
+                A polished, professional product that feels "real" and ready for
+                users.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Week 8 — Launch</div>
+              <div class="timeline-title">🚀 Go Live & Handover</div>
+              <div class="timeline-body">
+                <strong>Rajeev delivers:</strong> DNS switched to production.
+                60-minute admin training call (recorded). Written admin cheat
+                sheet. Google Analytics confirmed working.<br /><strong
+                  >Leo sees:</strong
+                >
+                Real users on the platform. The beginning of KLLCTBLS as a live
+                product.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="callout rust">
+          <strong>The 1-Week Buffer</strong>The plan above is 8 weeks, but the
+          contract allows up to 9 weeks. Week 9 is a built-in safety net for
+          unexpected delays. If we finish in 7 weeks, we launch early. No
+          surprises.
+        </div>
+      </div>
+
+      <!-- S28 -->
+      <div class="section" id="s28">
+        <div class="section-header">
+          <div class="section-num">28</div>
+          <div>
+            <div class="section-title">Go-to-Market Launch Playbook</div>
+            <div class="section-sub">
+              The step-by-step marketing plan for launching KLLCTBLS — designed
+              for Leo's strengths as a marketing operator.
+            </div>
+          </div>
+        </div>
+
+        <h3
+          style="
+            font-size: 18px;
+            color: var(--slate);
+            margin-bottom: 16px;
+            font-weight: 600;
+          "
+        >
+          Phase A: Pre-Launch Buzz (Weeks 6–8)
+        </h3>
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">📣</div>
+            <h4>"Coming Soon" Teaser Campaign</h4>
+            <p>
+              Leo posts 3–4 teaser graphics on Instagram, LinkedIn, and X:
+              "We're building the first real card show finder. Drop your email
+              to get early access." Drives signups to a MailerLite waitlist
+              before launch.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🤝</div>
+            <h4>Industry Insider Outreach</h4>
+            <p>
+              Leo personally emails 10–15 show organizers he knows: "I'm
+              launching a platform that will list your show for free and drive
+              collectors to you. Can I add your event?" Gets real data + early
+              partnerships.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🎥</div>
+            <h4>Behind-the-Scenes Content</h4>
+            <p>
+              Leo films 30-second clips showing the platform being built. Builds
+              anticipation and social proof before launch day.
+            </p>
+          </div>
+        </div>
+
+        <h3
+          style="
+            font-size: 18px;
+            color: var(--slate);
+            margin: 28px 0 16px;
+            font-weight: 600;
+          "
+        >
+          Phase B: Launch Day Playbook
+        </h3>
+        <div class="journey">
+          <div class="journey-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Morning: LinkedIn Announcement</h4>
+              <p>
+                Long-form post from Leo's personal account. Story-driven: "After
+                running marketing for Dallas Card Show, I realised the hobby
+                needs a real discovery platform..." Tag PSA, Heritage, NSCC.
+              </p>
+            </div>
+          </div>
+          <div class="journey-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Midday: Instagram + X Blitz</h4>
+              <p>
+                Carousel post showing 4–5 screenshots of the platform. Stories
+                with "Swipe up to explore." Pin the post. Use hashtags:
+                #CardShow #SportsCards #KLLCTBLS #TheNational.
+              </p>
+            </div>
+          </div>
+          <div class="journey-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Afternoon: Email Waitlist Blast</h4>
+              <p>
+                MailerLite sends the launch email to everyone who signed up
+                during the teaser phase. Subject line: "It's live. Find every
+                card show in America."
+              </p>
+            </div>
+          </div>
+          <div class="journey-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Evening: Facebook Group Seeding</h4>
+              <p>
+                Leo posts in 5–10 relevant Facebook groups. Not spammy —
+                genuinely helpful: "Hey, I built this free tool to find shows
+                near you. Check it out."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout success">
+          <strong>Leo's Unfair Advantage</strong>Most startups spend significant
+          sums on paid ads to get their first 1,000 users. Leo doesn't need to.
+          His existing relationships with show organizers, sponsors, and
+          collectors mean he can fill the platform with real data AND real users
+          through personal outreach alone.
+        </div>
+      </div>
+
+      <!-- S29 -->
+      <div class="section" id="s29">
+        <div class="section-header">
+          <div class="section-num">29</div>
+          <div>
+            <div class="section-title">Success Metrics & KPIs</div>
+            <div class="section-sub">
+              The exact numbers that tell us if the platform is winning —
+              measured at 30, 60, and 90 days after launch.
+            </div>
+          </div>
+        </div>
+        <div class="diagram">
+          <div class="diagram-title">KPI Dashboard — What Leo Tracks</div>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              gap: 14px;
+            "
+          >
+            <div class="arch-box highlight" style="text-align: center">
+              <div
+                style="
+                  color: rgba(216, 133, 106, 0.6);
+                  font-size: 9px;
+                  text-transform: uppercase;
+                  letter-spacing: 1.5px;
+                  margin-bottom: 8px;
+                "
+              >
+                Monthly Visitors
+              </div>
+              <div
+                style="
+                  font-family: &quot;Cormorant Garamond&quot;, serif;
+                  font-size: 28px;
+                  color: var(--rust2);
+                  font-weight: 700;
+                "
+              >
+                5,000
+              </div>
+              <div class="arch-detail" style="margin-top: 4px">
+                Target by Day 90
+              </div>
+            </div>
+            <div class="arch-box highlight" style="text-align: center">
+              <div
+                style="
+                  color: rgba(216, 133, 106, 0.6);
+                  font-size: 9px;
+                  text-transform: uppercase;
+                  letter-spacing: 1.5px;
+                  margin-bottom: 8px;
+                "
+              >
+                Registered Users
+              </div>
+              <div
+                style="
+                  font-family: &quot;Cormorant Garamond&quot;, serif;
+                  font-size: 28px;
+                  color: var(--rust2);
+                  font-weight: 700;
+                "
+              >
+                500
+              </div>
+              <div class="arch-detail" style="margin-top: 4px">
+                Target by Day 90
+              </div>
+            </div>
+            <div class="arch-box highlight" style="text-align: center">
+              <div
+                style="
+                  color: rgba(216, 133, 106, 0.6);
+                  font-size: 9px;
+                  text-transform: uppercase;
+                  letter-spacing: 1.5px;
+                  margin-bottom: 8px;
+                "
+              >
+                Shows Listed
+              </div>
+              <div
+                style="
+                  font-family: &quot;Cormorant Garamond&quot;, serif;
+                  font-size: 28px;
+                  color: var(--rust2);
+                  font-weight: 700;
+                "
+              >
+                200+
+              </div>
+              <div class="arch-detail" style="margin-top: 4px">
+                Scraper + Manual + User
+              </div>
+            </div>
+            <div class="arch-box highlight" style="text-align: center">
+              <div
+                style="
+                  color: rgba(216, 133, 106, 0.6);
+                  font-size: 9px;
+                  text-transform: uppercase;
+                  letter-spacing: 1.5px;
+                  margin-bottom: 8px;
+                "
+              >
+                Shops Indexed
+              </div>
+              <div
+                style="
+                  font-family: &quot;Cormorant Garamond&quot;, serif;
+                  font-size: 28px;
+                  color: var(--rust2);
+                  font-weight: 700;
+                "
+              >
+                500+
+              </div>
+              <div class="arch-detail" style="margin-top: 4px">
+                Google Places seed
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap" style="margin-top: 20px">
+          <table>
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Day 30</th>
+                <th>Day 60</th>
+                <th>Day 90</th>
+                <th>How Leo Checks It</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Monthly Page Views</td>
+                <td>1,000</td>
+                <td>3,000</td>
+                <td>5,000+</td>
+                <td>Google Analytics dashboard</td>
+              </tr>
+              <tr>
+                <td>Registered Users</td>
+                <td>50</td>
+                <td>200</td>
+                <td>500</td>
+                <td>Admin panel → User count</td>
+              </tr>
+              <tr>
+                <td>Email Subscribers</td>
+                <td>100</td>
+                <td>300</td>
+                <td>500</td>
+                <td>MailerLite dashboard</td>
+              </tr>
+              <tr>
+                <td>Shows on Platform</td>
+                <td>50</td>
+                <td>100</td>
+                <td>200+</td>
+                <td>Admin panel → Events count</td>
+              </tr>
+              <tr>
+                <td>User Submissions</td>
+                <td>5</td>
+                <td>20</td>
+                <td>50+</td>
+                <td>Admin panel → Pending queue</td>
+              </tr>
+              <tr>
+                <td>Avg. Session Duration</td>
+                <td>1.5 min</td>
+                <td>2.5 min</td>
+                <td>3+ min</td>
+                <td>Google Analytics</td>
+              </tr>
+              <tr>
+                <td>Bounce Rate</td>
+                <td>&lt;70%</td>
+                <td>&lt;60%</td>
+                <td>&lt;50%</td>
+                <td>Google Analytics</td>
+              </tr>
+              <tr>
+                <td>Ranking for "card shows near me"</td>
+                <td>Not ranked</td>
+                <td>Page 3–5</td>
+                <td>Page 1–2</td>
+                <td>Google Search Console</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- S30 -->
+      <div class="section" id="s30">
+        <div class="section-header">
+          <div class="section-num">30</div>
+          <div>
+            <div class="section-title">Legal & Compliance</div>
+            <div class="section-sub">
+              What's legally required before launch, who is responsible, and how
+              we protect Leo and the business.
+            </div>
+          </div>
+        </div>
+        <div class="two-col">
+          <div>
+            <h3
+              style="
+                font-size: 17px;
+                color: var(--slate);
+                margin-bottom: 12px;
+                font-weight: 700;
+              "
+            >
+              What Rajeev Handles (Technical)
+            </h3>
+            <ul class="checklist">
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  <strong>Privacy Policy page</strong> — Covers what data we
+                  collect (email only), how it's stored, and how users can
+                  delete their account.
+                </div>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  <strong>Terms of Service page</strong> — Standard web platform
+                  ToS. Covers liability limits, user-generated content rules,
+                  and dispute resolution.
+                </div>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  <strong>Cookie consent banner</strong> — GDPR-compliant banner
+                  for international visitors. One-click accept/reject.
+                </div>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  <strong>AI disclaimer</strong> — "Powered by AI. Not
+                  investment advice." visible on every chatbot response in Phase
+                  2.
+                </div>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  <strong>SSL encryption</strong> — HTTPS on every page,
+                  automatically handled by Vercel.
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3
+              style="
+                font-size: 17px;
+                color: var(--slate);
+                margin-bottom: 12px;
+                font-weight: 700;
+              "
+            >
+              What Leo Should Consider (Business)
+            </h3>
+            <ul class="checklist">
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  <strong>LLC / Business Entity</strong> — Recommended: Form an
+                  LLC for KLLCTBLS before accepting payments in Phase 2.
+                  Protects Leo personally from liability claims.
+                </div>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  <strong>Business email</strong> — Use leo@kllctbls.com for all
+                  professional communication. Google Workspace or free Zoho
+                  Mail.
+                </div>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  <strong>Trademark</strong> — Consider filing a trademark for
+                  "KLLCTBLS" with the USPTO. Protects the brand name from
+                  copycats.
+                </div>
+              </li>
+              <li>
+                <div
+                  class="check-box"
+                  onclick="this.innerHTML = this.innerHTML.trim() ? '' : '✓'"
+                ></div>
+                <div class="check-text">
+                  <strong>Sponsor contracts</strong> — When Phase 2 monetization
+                  starts, use a simple 1-page agreement for featured listings.
+                  Template provided by Rajeev.
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <h3
+          style="
+            font-size: 17px;
+            color: var(--slate);
+            margin: 28px 0 12px;
+            font-weight: 700;
+          "
+        >
+          Data Scraping — Legal Risk Assessment
+        </h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Data Source</th>
+                <th>Legal Risk</th>
+                <th>Our Approach</th>
+                <th>Fallback Plan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TCDB (Trading Card Database)</td>
+                <td><span class="risk-high">High</span></td>
+                <td>
+                  Review ToS before scraping. Use public data only. No
+                  login-gated content.
+                </td>
+                <td>Switch to manual entry + Leo's direct contacts.</td>
+              </tr>
+              <tr>
+                <td>Sports Collectors Digest</td>
+                <td><span class="risk-med">Medium</span></td>
+                <td>Scrape publicly listed show calendar. Attribute source.</td>
+                <td>User submissions replace automated data.</td>
+              </tr>
+              <tr>
+                <td>Google Places API</td>
+                <td><span class="risk-low">Low</span></td>
+                <td>Official API with Leo's API key. Fully compliant.</td>
+                <td>No fallback needed.</td>
+              </tr>
+              <tr>
+                <td>Card Ladder / ALT</td>
+                <td><span class="risk-high">High</span></td>
+                <td>Do NOT scrape. Their ToS explicitly prohibits it.</td>
+                <td>
+                  Use eBay's official Browse API instead for pricing data.
+                </td>
+              </tr>
+              <tr>
+                <td>PSA Pop Reports</td>
+                <td><span class="risk-high">High</span></td>
+                <td>
+                  Phase 2 only. Legal review required before any data
+                  collection.
+                </td>
+                <td>
+                  Partner with PSA directly via Leo's contacts — the preferred
+                  path.
+                </td>
+              </tr>
+              <tr>
+                <td>Heritage / Goldin Auction Results</td>
+                <td><span class="risk-med">Medium</span></td>
+                <td>
+                  Scrape publicly available sold listings. No login bypass.
+                </td>
+                <td>Link to auction pages instead of storing data locally.</td>
+              </tr>
+              <tr>
+                <td>User Submissions</td>
+                <td><span class="risk-low">Low</span></td>
+                <td>
+                  Users voluntarily submit. ToS gives us permission to display.
+                </td>
+                <td>No risk — user-generated content.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout warn" style="margin-top: 16px">
+          <strong>Bottom Line for Leo</strong>
+          Rajeev handles all the technical legal pages (Privacy Policy, ToS,
+          disclaimers). Leo should consider forming an LLC and filing a
+          trademark before Phase 2 monetization begins. For data scraping, we
+          take a cautious approach: if a source is risky, we skip it and use
+          Leo's direct industry contacts instead. No legal surprises.
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <div class="brand-lg">KLLCTBL<em>S</em></div>
+        <div class="sub-text">
+          Product Requirements Document — v1.0 — April 2026 — Confidential
+        </div>
+        <div class="footer-contacts">
+          <div class="footer-contact">
+            <div class="fc-label">Developer</div>
+            <div class="fc-name">Rajeev Tiwari</div>
+            <div class="fc-email">rajeevtiwari30305@gmail.com</div>
+          </div>
+          <div class="footer-contact">
+            <div class="fc-label">Client</div>
+            <div class="fc-name">Leo Bello</div>
+            <div class="fc-email">leobelloxyz@gmail.com</div>
+          </div>
+          <div class="footer-contact">
+            <div class="fc-label">General Manager</div>
+            <div class="fc-name">Purvi Golchha</div>
+            <div class="fc-email">purvigolchhawork@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /main -->
+
+    <script>
+      const sections = document.querySelectorAll(".section[id]");
+      const navLinks = document.querySelectorAll(".nav-item");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              navLinks.forEach((l) => l.classList.remove("active"));
+              const active = document.querySelector(
+                `.nav-item[href="#${e.target.id}"]`,
+              );
+              if (active) active.classList.add("active");
+            }
+          });
+        },
+        { threshold: 0.25 },
+      );
+      sections.forEach((s) => observer.observe(s));
+
+      document.querySelectorAll(".nav-item").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const target = document.querySelector(link.getAttribute("href"));
+          if (target)
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+    </script>
+  </body>
+</html>
