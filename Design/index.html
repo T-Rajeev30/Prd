@@ -10,27 +10,41 @@
     />
     <style>
       :root {
-        --navy: #070312; /* near-black deep purple */
-        --navy2: #1a0f2a; /* darker purple accent */
-        --blue: #6d28d9; /* purple (secondary) */
-        --blue2: #7c3aed; /* purple (secondary lighter) */
-        --gold: #8b5cf6; /* primary accent (purple) */
-        --gold2: #a78bfa; /* lighter purple accent */
-        --gold-light: #f5f3ff; /* very light lavender */
-        --gold-dim: rgba(139, 92, 246, 0.12);
-        --text: #1a2340;
-        --muted: #4a5568;
-        --border: #d1d9e6;
-        --bg: #f7f9fc;
-        --bg2: #eef2f9;
-        --white: #ffffff;
+        /* Core page colors (from user palette) */
+        --bg: #faf8fb; /* background */
+        --bg2: #edeaf1; /* muted background */
+        --text: #1f122b; /* foreground */
+        --white: #ffffff; /* card / popover */
+
+        /* Primary / accent */
+        --gold: #8c3cdd; /* primary (kept name for compatibility) */
+        --gold2: #b72dd2; /* supporting purple */
+        --gold-light: #edeaf1; /* muted background */
+        --gold-dim: rgba(140, 60, 221, 0.12);
+
+        /* Secondary / dark surfaces */
+        --navy: #261736; /* sidebar / dark panel */
+        --navy2: #1f122b; /* darker foreground for contrast */
+
+        /* Semantic colors */
+        --muted: #7a688d;
+        --border: #e0dae7;
         --green: #166534;
         --green-bg: #f0fdf4;
-        --red: #991b1b;
+        --red: #ef4343;
         --red-bg: #fef2f2;
         --orange: #92400e;
         --orange-bg: #fffbeb;
+
+        /* Sidebar-specific tokens */
         --sidebar-w: 256px;
+        --sidebar-bg: #261736;
+        --sidebar-fg: #edeaf1;
+        --sidebar-primary: #8c3cdd;
+        --sidebar-accent: #38244c;
+        --sidebar-border: #38244c;
+        --sidebar-ring: #8c3cdd;
+
         --pad: max(48px, calc((100% - 1040px) / 2));
         --r: 12px;
       }
@@ -63,7 +77,7 @@
         background: var(--navy);
         overflow-y: auto;
         z-index: 100;
-        border-right: 1px solid rgba(139, 92, 246, 0.08);
+        border-right: 1px solid rgba(140, 60, 221, 0.08);
         display: flex;
         flex-direction: column;
       }
@@ -76,7 +90,7 @@
       }
       .sb-logo {
         padding: 28px 22px 22px;
-        border-bottom: 1px solid rgba(139, 92, 246, 0.12);
+        border-bottom: 1px solid rgba(140, 60, 221, 0.12);
       }
       .logo-mark {
         font-family: "Playfair Display", serif;
@@ -92,7 +106,7 @@
         font-size: 9px;
         text-transform: uppercase;
         letter-spacing: 2.5px;
-        color: rgba(139, 92, 246, 0.55);
+        color: rgba(140, 60, 221, 0.55);
         margin-top: 4px;
         font-weight: 500;
       }
@@ -119,7 +133,7 @@
         font-size: 9px;
         text-transform: uppercase;
         letter-spacing: 2.5px;
-        color: rgba(139, 92, 246, 0.5);
+        color: rgba(140, 60, 221, 0.5);
         padding: 18px 22px 6px;
         font-weight: 600;
       }
@@ -142,7 +156,7 @@
       }
       .nav-link.active {
         color: var(--white);
-        background: rgba(139, 92, 246, 0.14);
+        background: rgba(140, 60, 221, 0.14);
       }
       .nav-link.active .nn {
         color: var(--gold);
@@ -150,7 +164,7 @@
       .nn {
         font-family: "DM Mono", monospace;
         font-size: 10px;
-        color: rgba(139, 92, 246, 0.55);
+        color: rgba(140, 60, 221, 0.55);
         min-width: 20px;
       }
 
@@ -174,7 +188,7 @@
         background:
           radial-gradient(
             ellipse 600px 450px at 88% 15%,
-            rgba(139, 92, 246, 0.08),
+            rgba(140, 60, 221, 0.08),
             transparent 70%
           ),
           radial-gradient(
@@ -192,7 +206,7 @@
         font-family: "Playfair Display", serif;
         font-size: 200px;
         font-weight: 900;
-        color: rgba(139, 92, 246, 0.04);
+        color: rgba(140, 60, 221, 0.04);
         line-height: 1;
         pointer-events: none;
         letter-spacing: -6px;
@@ -201,8 +215,8 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: rgba(139, 92, 246, 0.1);
-        border: 1px solid rgba(139, 92, 246, 0.3);
+        background: rgba(140, 60, 221, 0.1);
+        border: 1px solid rgba(140, 60, 221, 0.3);
         color: var(--gold);
         font-size: 10px;
         font-weight: 600;
@@ -322,21 +336,21 @@
         border-radius: 20px;
       }
       .pill-hero.g {
-        background: rgba(139, 92, 246, 0.14);
-        border-color: rgba(139, 92, 246, 0.38);
+        background: rgba(140, 60, 221, 0.14);
+        border-color: rgba(140, 60, 221, 0.38);
         color: var(--gold2);
       }
       .hero-stats {
         display: grid;
         grid-template-columns: repeat(4, auto);
-        border: 1px solid rgba(139, 92, 246, 0.18);
+        border: 1px solid rgba(140, 60, 221, 0.18);
         border-radius: var(--r);
         overflow: hidden;
         width: fit-content;
       }
       .hs {
         padding: 18px 28px;
-        border-right: 1px solid rgba(139, 92, 246, 0.14);
+        border-right: 1px solid rgba(140, 60, 221, 0.14);
       }
       .hs:last-child {
         border-right: none;
@@ -345,7 +359,7 @@
         font-size: 9px;
         text-transform: uppercase;
         letter-spacing: 2px;
-        color: rgba(139, 92, 246, 0.58);
+        color: rgba(140, 60, 221, 0.58);
         margin-bottom: 5px;
         font-weight: 600;
       }
@@ -495,7 +509,7 @@
         height: 70px;
         background: radial-gradient(
           circle at top right,
-          rgba(139, 92, 246, 0.06),
+          rgba(140, 60, 221, 0.06),
           transparent 70%
         );
         pointer-events: none;
@@ -559,7 +573,7 @@
         inset: 0;
         background: radial-gradient(
           ellipse at top right,
-          rgba(139, 92, 246, 0.07),
+          rgba(140, 60, 221, 0.07),
           transparent 60%
         );
         pointer-events: none;
@@ -568,7 +582,7 @@
         font-size: 9px;
         text-transform: uppercase;
         letter-spacing: 2.5px;
-        color: rgba(139, 92, 246, 0.6);
+        color: rgba(140, 60, 221, 0.6);
         margin-bottom: 24px;
         font-weight: 600;
       }
@@ -595,8 +609,8 @@
         margin-top: 3px;
       }
       .fnode.g {
-        background: rgba(139, 92, 246, 0.12);
-        border-color: rgba(139, 92, 246, 0.4);
+        background: rgba(140, 60, 221, 0.12);
+        border-color: rgba(140, 60, 221, 0.4);
         color: var(--gold2);
       }
       .fnode.gr {
@@ -681,7 +695,7 @@
       .chk {
         width: 20px;
         height: 20px;
-        border: 2px solid rgba(139, 92, 246, 0.5);
+        border: 2px solid rgba(140, 60, 221, 0.5);
         border-radius: 5px;
         flex-shrink: 0;
         display: flex;
@@ -2142,24 +2156,24 @@
             </h4>
             <div class="swatch-row">
               <div class="swatch">
-                <div class="sw-color" style="background: var(--navy)"></div>
+                <div class="sw-color" style="background: var(--bg)"></div>
                 <div class="sw-info">
-                  <div class="sw-name">Black / Deep</div>
-                  <div class="sw-hex">#070312 — Primary bg</div>
+                  <div class="sw-name">Background</div>
+                  <div class="sw-hex">#FAF8FB — Background</div>
                 </div>
               </div>
               <div class="swatch">
-                <div class="sw-color" style="background: #8b5cf6"></div>
+                <div class="sw-color" style="background: #8c3cdd"></div>
                 <div class="sw-info">
-                  <div class="sw-name">Purple</div>
-                  <div class="sw-hex">#8B5CF6 — Accent</div>
+                  <div class="sw-name">Primary</div>
+                  <div class="sw-hex">#8C3CDD — Primary</div>
                 </div>
               </div>
               <div class="swatch">
-                <div class="sw-color" style="background: #7c3aed"></div>
+                <div class="sw-color" style="background: #b72dd2"></div>
                 <div class="sw-info">
-                  <div class="sw-name">Blue</div>
-                  <div class="sw-hex">#7C3AED — Support</div>
+                  <div class="sw-name">Support</div>
+                  <div class="sw-hex">#B72DD2 — Support</div>
                 </div>
               </div>
             </div>
@@ -2782,8 +2796,8 @@
         </div>
 
         <div class="callout warn" style="margin-top: 8px">
-          <strong>Note on Gold + Accessibility</strong>
-          Purple (#8B5CF6) on a light background typically fails WCAG AA at
+          <strong>Note on Primary + Accessibility</strong>
+          Purple (#8C3CDD) on a light background typically fails WCAG AA at
           small text sizes. If you use this purple accent in the palette, ensure
           it's only used on dark backgrounds, or only on large/bold text on
           light backgrounds. Run a contrast audit as part of your Week 1
