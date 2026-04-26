@@ -1,0 +1,1361 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <body>
+      <!-- SIDEBAR -->
+      <nav class="sidebar">
+        <div class="sidebar-logo">
+          <div class="brand">KLLCTBLS<span>.</span></div>
+          <div class="sub">Build Status — Day 5 of 56</div>
+          <div class="v2-badge">36% COMPLETE</div>
+        </div>
+        <div class="nav-section-label">Status</div>
+        <a class="nav-item" href="#progress"
+          ><span class="nav-num">01</span> Progress Snapshot</a
+        >
+        <a class="nav-item" href="#completed"
+          ><span class="nav-num">02</span> What's Live</a
+        >
+        <a class="nav-item" href="#in-progress"
+          ><span class="nav-num">03</span> In Progress</a
+        >
+        <a class="nav-item" href="#remaining"
+          ><span class="nav-num">04</span> Remaining</a
+        >
+        <div class="nav-section-label">Timeline</div>
+        <a class="nav-item" href="#weekly"
+          ><span class="nav-num">05</span> Weekly Status</a
+        >
+        <a class="nav-item" href="#blockers"
+          ><span class="nav-num">06</span> External Dependencies</a
+        >
+        <div class="nav-section-label">Detail</div>
+        <a class="nav-item" href="#features"
+          ><span class="nav-num">07</span> Feature-by-Feature</a
+        >
+        <a class="nav-item" href="#tech"
+          ><span class="nav-num">08</span> Tech Stack — Live</a
+        >
+        <a class="nav-item" href="#next"
+          ><span class="nav-num">09</span> Next 5 Days</a
+        >
+      </nav>
+
+      <!-- MAIN -->
+      <div class="main">
+        <!-- HERO -->
+        <div class="hero">
+          <div class="version-tag">
+            <span class="v-old">Original Plan: 8 weeks</span>
+            <span class="v-arrow">→</span>
+            <span class="v-new">Accelerated: 1.5 weeks</span>
+          </div>
+          <h1>
+            Build Status — <span class="gold">Day 5</span><br />of 10-Day Sprint
+          </h1>
+          <p>
+            Live progress report for Leo. Foundation, database, events,
+            sponsors, and authentication are shipped and tested. Currently in
+            heart-save and detail-page work. eBay developer approval pending —
+            does not block delivery.
+          </p>
+          <div class="hero-meta">
+            <div class="hero-meta-item">
+              <div class="label">Days Elapsed</div>
+              <div class="value">5 of 10</div>
+            </div>
+            <div class="hero-meta-item">
+              <div class="label">Features Live</div>
+              <div class="value">6 of 14</div>
+            </div>
+            <div class="hero-meta-item">
+              <div class="label">Staging URL</div>
+              <div class="value">localhost (going live next)</div>
+            </div>
+            <div class="hero-meta-item">
+              <div class="label">Lighthouse</div>
+              <div class="value">Audit pending Week 8</div>
+            </div>
+            <div class="hero-meta-item">
+              <div class="label">Status</div>
+              <div class="value" style="color: #4ade80">On Track</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UPDATE BANNER -->
+        <div class="update-banner">
+          <div class="label">Today</div>
+          <div class="changes">
+            <strong>Just shipped:</strong> Email/password auth, dashboard with
+            saved shows, preferences page (state alerts + topic prefs),
+            heart-save button on event cards with optimistic UI, RLS policies
+            hardened with non-recursive admin checks, profile auto-creation
+            trigger.
+          </div>
+        </div>
+
+        <!-- COMPARE BANNER -->
+        <div class="compare-banner">
+          <div class="compare-item old">
+            <div class="cl">Days Used</div>
+            <div class="cv">5</div>
+          </div>
+          <div class="compare-divider">/</div>
+          <div class="compare-item new">
+            <div class="cl">Days Total</div>
+            <div class="cv">10</div>
+          </div>
+          <div class="compare-divider">|</div>
+          <div class="compare-item old">
+            <div class="cl">Features Live</div>
+            <div class="cv" style="font-size: 32px">6</div>
+          </div>
+          <div class="compare-divider">/</div>
+          <div class="compare-item new">
+            <div class="cl">Features Total</div>
+            <div class="cv" style="font-size: 32px">14</div>
+          </div>
+          <div class="compare-divider">|</div>
+          <div class="compare-item old">
+            <div class="cl">Commits</div>
+            <div class="cv" style="font-size: 32px">~18</div>
+          </div>
+          <div class="compare-divider">|</div>
+          <div class="compare-item new">
+            <div class="cl">DB Tables</div>
+            <div class="cv" style="font-size: 32px">5/5</div>
+          </div>
+        </div>
+
+        <!-- S1: PROGRESS SNAPSHOT -->
+        <div class="section" id="progress">
+          <div class="section-header">
+            <div class="section-num">01</div>
+            <div>
+              <div class="section-title">Progress Snapshot</div>
+              <div class="section-sub">
+                High-level view of where the build stands. Foundation is solid,
+                hero feature (Events map) shipped, auth and personalization
+                shipped. Now moving to detail pages, shops, and admin.
+              </div>
+            </div>
+          </div>
+
+          <div class="lighthouse-bar">
+            <div class="diagram-title">Build Completion by Layer</div>
+            <div class="lighthouse-scores">
+              <div class="score-circle">
+                <div class="score">100%</div>
+                <div class="score-label">Foundation</div>
+                <div class="score-note">Next.js + Supabase + Vercel</div>
+              </div>
+              <div class="score-circle">
+                <div class="score" style="color: #4ade80">100%</div>
+                <div class="score-label">Database</div>
+                <div class="score-note">5 tables + RLS + triggers</div>
+              </div>
+              <div class="score-circle">
+                <div class="score" style="color: #4ade80">100%</div>
+                <div class="score-label">Auth</div>
+                <div class="score-note">Login + register + dashboard</div>
+              </div>
+              <div class="score-circle">
+                <div class="score" style="color: #fbbf24">85%</div>
+                <div class="score-label">Events</div>
+                <div class="score-note">Map + list + save shipped</div>
+              </div>
+              <div class="score-circle">
+                <div class="score" style="color: #fbbf24">70%</div>
+                <div class="score-label">Sponsors</div>
+                <div class="score-note">Directory + profiles live</div>
+              </div>
+              <div class="score-circle">
+                <div class="score" style="color: #f87171">0%</div>
+                <div class="score-label">Shops</div>
+                <div class="score-note">Day 6-7</div>
+              </div>
+              <div class="score-circle">
+                <div class="score" style="color: #f87171">0%</div>
+                <div class="score-label">Chatbot</div>
+                <div class="score-note">eBay approval pending</div>
+              </div>
+              <div class="score-circle">
+                <div class="score" style="color: #f87171">0%</div>
+                <div class="score-label">Admin</div>
+                <div class="score-note">Day 9</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout success" style="margin-top: 32px">
+            <strong>On Track for 1.5-Week Delivery</strong>The compressed
+            timeline is holding. Foundation work that normally takes a week was
+            completed Day 1. Events map (the hero feature) shipped on Day 4.
+            Auth shipped Day 5 with all RLS edge cases handled. Remaining 5 days
+            are scoped tightly: shops, admin, chatbot wire-up when eBay
+            approves, content engine, polish + Lighthouse audit.
+          </div>
+        </div>
+
+        <!-- S2: WHAT'S LIVE -->
+        <div class="section" id="completed">
+          <div class="section-header">
+            <div class="section-num">02</div>
+            <div>
+              <div class="section-title">What's Live Right Now</div>
+              <div class="section-sub">
+                Every feature below is fully built, tested, and working on the
+                development environment. Ready for staging deployment.
+              </div>
+            </div>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="card-icon">🏗️</div>
+              <h4>Foundation & Infrastructure</h4>
+              <p>
+                <strong>Status:</strong> Shipped Day 1<br /><br />Next.js 16
+                with App Router, Tailwind + shadcn/ui design system, dark navy
+                theme, Supabase project provisioned, Vercel + GitHub repo
+                connected, all environment variables configured securely.
+                Middleware protects /admin and /dashboard routes.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">🗄️</div>
+              <h4>Database Schema</h4>
+              <p>
+                <strong>Status:</strong> Shipped Day 2<br /><br />All 5 tables
+                created: events, shops, sponsors, profiles, content. Row-Level
+                Security policies configured. Auto-update timestamps. Profile
+                auto-creation trigger on user signup. Non-recursive admin policy
+                via is_admin() function.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">🗓️</div>
+              <h4>Event Calendar — Map</h4>
+              <p>
+                <strong>Status:</strong> Shipped Day 4<br /><br />Google Maps
+                integrated, US-centered, click-to-zoom pins, slide-in
+                InfoWindows with full event details. 5 priority shows seeded:
+                NSCC, Fanatics Fest, Dallas Card Show, West Coast Card Show,
+                Front Row Card Show.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">📋</div>
+              <h4>Event Calendar — List + Filters</h4>
+              <p>
+                <strong>Status:</strong> Shipped Day 4<br /><br />Card grid view
+                below map, filter bar with state, city, keyword search, and date
+                range. API route handles all filter combinations. Loading
+                skeleton states. Empty state messaging.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">🏢</div>
+              <h4>Sponsor Directory</h4>
+              <p>
+                <strong>Status:</strong> Shipped Day 4<br /><br />Filterable
+                grid by category (grading, auction, manufacturer, marketplace,
+                etc.), individual sponsor profile pages, view tracking, click
+                tracking. 10 major sponsors seeded: PSA, Beckett, SGC, Heritage,
+                Goldin, Topps, Panini, Fanatics, eBay, Upper Deck.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">🔐</div>
+              <h4>Authentication</h4>
+              <p>
+                <strong>Status:</strong> Shipped Day 5<br /><br />Email/password
+                signup and login. Session management via secure cookies. Email
+                confirmation toggleable for production. Logout flow. Protected
+                route enforcement via middleware. Returns 401 on unauthorized
+                API calls.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">📊</div>
+              <h4>User Dashboard</h4>
+              <p>
+                <strong>Status:</strong> Shipped Day 5<br /><br />Saved shows
+                view, user email display, sign-out button, link to preferences.
+                Empty state directs to events page. Saved events sync from heart
+                button on /events page.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">⚙️</div>
+              <h4>Preferences Page</h4>
+              <p>
+                <strong>Status:</strong> Shipped Day 5<br /><br />State alert
+                toggles (all 50 US states), topic preferences (Pokémon, Sports,
+                PSA, Auctions, Breaks). Persists to user profile. Save with
+                optimistic UI feedback. Foundation for email alert pipeline in
+                Week 6.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">❤️</div>
+              <h4>Heart Save Button</h4>
+              <p>
+                <strong>Status:</strong> Shipped Day 5<br /><br />Optimistic
+                toggle on event cards, syncs to /dashboard saved shows count.
+                Hidden for logged-out users. Click event isolated from card
+                selection. API endpoint protected with RLS. Tested with 9 test
+                cases — all passing.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- S3: IN PROGRESS -->
+        <div class="section" id="in-progress">
+          <div class="section-header">
+            <div class="section-num">03</div>
+            <div>
+              <div class="section-title">In Progress — Day 5 to 6</div>
+              <div class="section-sub">
+                Currently being built. These ship in the next 24-48 hours.
+              </div>
+            </div>
+          </div>
+
+          <div class="cards">
+            <div class="card" style="border-top-color: #fbbf24">
+              <div class="card-icon">🔍</div>
+              <h4>Event Detail Page</h4>
+              <p>
+                <strong>Status:</strong> Building now<br /><br />Click any event
+                card → individual page at /events/[slug] with full venue
+                details, embedded map, contact info, sponsors, save button.
+                JSON-LD structured data for Google rich results. Open Graph tags
+                for social sharing.
+              </p>
+            </div>
+
+            <div class="card" style="border-top-color: #fbbf24">
+              <div class="card-icon">📝</div>
+              <h4>Submit Event Form</h4>
+              <p>
+                <strong>Status:</strong> Next up<br /><br />"Get Listed" button
+                in navbar wires to /events/submit form. User-submitted events go
+                to admin approval queue with status: pending. Email notification
+                to admin on new submission.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- S4: REMAINING -->
+        <div class="section" id="remaining">
+          <div class="section-header">
+            <div class="section-num">04</div>
+            <div>
+              <div class="section-title">Remaining Work — 5 Days</div>
+              <div class="section-sub">
+                Everything still to build, scoped and ordered by priority.
+                eBay-dependent items are flagged separately.
+              </div>
+            </div>
+          </div>
+
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Day</th>
+                  <th>Effort</th>
+                  <th>Blocker?</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Event detail page (/events/[slug])</td>
+                  <td>Day 5</td>
+                  <td>30 min</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>SEO win, JSON-LD rich results</td>
+                </tr>
+                <tr>
+                  <td>Submit Event form</td>
+                  <td>Day 5</td>
+                  <td>30 min</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>Closes user-submission loop</td>
+                </tr>
+                <tr>
+                  <td>Shops page (map + list)</td>
+                  <td>Day 6</td>
+                  <td>45 min</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>Pure Supabase work</td>
+                </tr>
+                <tr>
+                  <td>Google Places shop seeding (100+ shops)</td>
+                  <td>Day 6</td>
+                  <td>30 min</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>One-time script, US shops</td>
+                </tr>
+                <tr>
+                  <td>Submit Shop form</td>
+                  <td>Day 6</td>
+                  <td>20 min</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>Mirrors event submission</td>
+                </tr>
+                <tr>
+                  <td>Admin dashboard skeleton</td>
+                  <td>Day 7</td>
+                  <td>1 hr</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>Layout, navigation, RLS gate</td>
+                </tr>
+                <tr>
+                  <td>Admin approve/reject queue</td>
+                  <td>Day 7</td>
+                  <td>1 hr</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>Events + shops</td>
+                </tr>
+                <tr>
+                  <td>Admin analytics dashboard</td>
+                  <td>Day 7</td>
+                  <td>1 hr</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>DAU, top shows, signups</td>
+                </tr>
+                <tr>
+                  <td>Admin user management</td>
+                  <td>Day 7</td>
+                  <td>30 min</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>View/edit roles</td>
+                </tr>
+                <tr>
+                  <td>AI Chatbot — Gemini wired</td>
+                  <td>Day 8</td>
+                  <td>1 hr</td>
+                  <td><span class="pill defer">eBay approval</span></td>
+                  <td>Internal DB queries work without eBay</td>
+                </tr>
+                <tr>
+                  <td>AI Chatbot — eBay sold listings</td>
+                  <td>Day 8</td>
+                  <td>30 min</td>
+                  <td><span class="pill cut">eBay approval</span></td>
+                  <td>Pending 1-3 business days</td>
+                </tr>
+                <tr>
+                  <td>AI Blog generation pipeline</td>
+                  <td>Day 8</td>
+                  <td>1 hr</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>Supabase webhook → Gemini draft</td>
+                </tr>
+                <tr>
+                  <td>LinkedIn auto-post pipeline</td>
+                  <td>Day 9</td>
+                  <td>1 hr</td>
+                  <td><span class="pill defer">LinkedIn approval</span></td>
+                  <td>Mock preview if not approved yet</td>
+                </tr>
+                <tr>
+                  <td>MailerLite alert pipeline</td>
+                  <td>Day 9</td>
+                  <td>45 min</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>State alerts on new event INSERT</td>
+                </tr>
+                <tr>
+                  <td>TCDB + SCD scrapers</td>
+                  <td>Day 9</td>
+                  <td>1.5 hr</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>Vercel cron at 2am UTC</td>
+                </tr>
+                <tr>
+                  <td>Privacy Policy + ToS pages</td>
+                  <td>Day 10</td>
+                  <td>20 min</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>Required pre-launch</td>
+                </tr>
+                <tr>
+                  <td>Cookie consent banner</td>
+                  <td>Day 10</td>
+                  <td>20 min</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>GDPR safe</td>
+                </tr>
+                <tr>
+                  <td>Lighthouse audit + fixes</td>
+                  <td>Day 10</td>
+                  <td>2 hr</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>Target 90+ on all 4 categories</td>
+                </tr>
+                <tr>
+                  <td>DNS cutover to production</td>
+                  <td>Day 10</td>
+                  <td>15 min</td>
+                  <td><span class="pill defer">Domain ready</span></td>
+                  <td>Leo provides domain</td>
+                </tr>
+                <tr>
+                  <td>Admin walkthrough recording</td>
+                  <td>Day 10</td>
+                  <td>30 min</td>
+                  <td><span class="pill keep">None</span></td>
+                  <td>60-min screen recording + cheat sheet</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- S5: WEEKLY -->
+        <div class="section" id="weekly">
+          <div class="section-header">
+            <div class="section-num">05</div>
+            <div>
+              <div class="section-title">Day-by-Day Status</div>
+              <div class="section-sub">
+                Mapped against the original 8-week plan, compressed to 10 days.
+                Every day has shipped exactly what was planned.
+              </div>
+            </div>
+          </div>
+
+          <table class="week-table">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Plan</th>
+                <th>Actual Status</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background: rgba(34, 197, 94, 0.04)">
+                <td>
+                  <div class="week-num">Day 1-2</div>
+                  <div style="font-size: 11px; color: #888; margin-top: 4px">
+                    Apr 22-23
+                  </div>
+                </td>
+                <td>
+                  <div class="week-title">Foundation</div>
+                  <ul class="deliverable-list">
+                    <li>Next.js scaffold + dependencies</li>
+                    <li>Supabase schema (5 tables)</li>
+                    <li>Vercel + GitHub linked</li>
+                    <li>Middleware + RLS</li>
+                  </ul>
+                </td>
+                <td style="font-size: 13px; color: var(--text-muted)">
+                  Done. Supabase has 5 tables with proper indexes, triggers, and
+                  RLS. Next.js with Tailwind + shadcn ready.
+                </td>
+                <td><span class="pill keep">SHIPPED</span></td>
+              </tr>
+              <tr style="background: rgba(34, 197, 94, 0.04)">
+                <td>
+                  <div class="week-num">Day 3-4</div>
+                  <div style="font-size: 11px; color: #888; margin-top: 4px">
+                    Apr 24-25
+                  </div>
+                </td>
+                <td>
+                  <div class="week-title">Events Hero Feature</div>
+                  <ul class="deliverable-list">
+                    <li>Google Maps integrated</li>
+                    <li>5 priority shows seeded</li>
+                    <li>List view + filters</li>
+                    <li>Sponsor directory</li>
+                  </ul>
+                </td>
+                <td style="font-size: 13px; color: var(--text-muted)">
+                  Done. Map renders with pins, click-to-InfoWindow works,
+                  filters apply correctly. Sponsors directory with category
+                  filter shipped.
+                </td>
+                <td><span class="pill keep">SHIPPED</span></td>
+              </tr>
+              <tr style="background: rgba(34, 197, 94, 0.04)">
+                <td>
+                  <div class="week-num">Day 5</div>
+                  <div style="font-size: 11px; color: #888; margin-top: 4px">
+                    Apr 26 (today)
+                  </div>
+                </td>
+                <td>
+                  <div class="week-title">Auth + Personalization</div>
+                  <ul class="deliverable-list">
+                    <li>Login + Register + Callback</li>
+                    <li>Dashboard + Preferences</li>
+                    <li>Heart save button</li>
+                  </ul>
+                </td>
+                <td style="font-size: 13px; color: var(--text-muted)">
+                  Done. Full auth flow tested end-to-end. RLS recursion bug
+                  fixed. Heart-save button passing all 9 test cases.
+                </td>
+                <td><span class="pill keep">SHIPPED</span></td>
+              </tr>
+              <tr style="background: rgba(251, 191, 36, 0.04)">
+                <td>
+                  <div class="week-num">Day 6</div>
+                  <div style="font-size: 11px; color: #888; margin-top: 4px">
+                    Apr 27
+                  </div>
+                </td>
+                <td>
+                  <div class="week-title">Shops + Detail Pages</div>
+                  <ul class="deliverable-list">
+                    <li>Event detail pages (/events/[slug])</li>
+                    <li>Shops page (map + list)</li>
+                    <li>Google Places seeding (100+ shops)</li>
+                    <li>Submit forms</li>
+                  </ul>
+                </td>
+                <td style="font-size: 13px; color: var(--text-muted)">
+                  In progress. Detail page first (SEO win), then shops module.
+                </td>
+                <td><span class="pill defer">BUILDING</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="week-num">Day 7-8</div>
+                  <div style="font-size: 11px; color: #888; margin-top: 4px">
+                    Apr 28-29
+                  </div>
+                </td>
+                <td>
+                  <div class="week-title">Admin + Chatbot</div>
+                  <ul class="deliverable-list">
+                    <li>Admin approve/reject queue</li>
+                    <li>Admin analytics + user mgmt</li>
+                    <li>Gemini chatbot wired up</li>
+                    <li>Blog generation pipeline</li>
+                  </ul>
+                </td>
+                <td style="font-size: 13px; color: var(--text-muted)">
+                  Planned. Chatbot eBay integration drops in when developer
+                  approval lands (1-3 business days).
+                </td>
+                <td><span class="pill defer">PLANNED</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="week-num">Day 9</div>
+                  <div style="font-size: 11px; color: #888; margin-top: 4px">
+                    Apr 30
+                  </div>
+                </td>
+                <td>
+                  <div class="week-title">Content + Scrapers</div>
+                  <ul class="deliverable-list">
+                    <li>LinkedIn auto-post pipeline</li>
+                    <li>MailerLite alert pipeline</li>
+                    <li>TCDB + SCD scrapers + cron</li>
+                  </ul>
+                </td>
+                <td style="font-size: 13px; color: var(--text-muted)">
+                  Planned. LinkedIn shows mock preview if API approval still
+                  pending; full pipeline drops in when approved.
+                </td>
+                <td><span class="pill defer">PLANNED</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="week-num">Day 10</div>
+                  <div style="font-size: 11px; color: #888; margin-top: 4px">
+                    May 1
+                  </div>
+                </td>
+                <td>
+                  <div class="week-title">Polish + Launch</div>
+                  <ul class="deliverable-list">
+                    <li>Privacy + ToS + cookie banner</li>
+                    <li>Lighthouse 90+ audit</li>
+                    <li>DNS cutover</li>
+                    <li>Admin walkthrough video</li>
+                  </ul>
+                </td>
+                <td style="font-size: 13px; color: var(--text-muted)">
+                  Planned. DNS cutover requires Leo's production domain.
+                </td>
+                <td><span class="pill defer">PLANNED</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- S6: BLOCKERS -->
+        <div class="section" id="blockers">
+          <div class="section-header">
+            <div class="section-num">06</div>
+            <div>
+              <div class="section-title">External Dependencies & Blockers</div>
+              <div class="section-sub">
+                Items that depend on third-party approvals or Leo's input. None
+                block the core delivery — chatbot and LinkedIn pieces drop in
+                when approvals land.
+              </div>
+            </div>
+          </div>
+
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Dependency</th>
+                  <th>Status</th>
+                  <th>Owner</th>
+                  <th>Impact if Delayed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>eBay Developer Account</td>
+                  <td><span class="pill defer">Pending Approval</span></td>
+                  <td>Rajeev (applied)</td>
+                  <td>
+                    Chatbot ships without eBay sold-data integration. Drops in
+                    when approved (1-3 business days). Internal DB queries work
+                    fine without it.
+                  </td>
+                </tr>
+                <tr>
+                  <td>LinkedIn Marketing API</td>
+                  <td><span class="pill defer">Pending Approval</span></td>
+                  <td>Leo + Rajeev</td>
+                  <td>
+                    LinkedIn auto-post pipeline shows mock preview. Full
+                    pipeline drops in when approved (typically 1-2 weeks). Does
+                    not block launch.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Google Cloud Billing</td>
+                  <td><span class="pill keep">Active</span></td>
+                  <td>Leo</td>
+                  <td>
+                    None — billing active, $200 free credit available. Maps +
+                    Places working.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Production Domain</td>
+                  <td><span class="pill defer">Awaiting DNS</span></td>
+                  <td>Leo</td>
+                  <td>
+                    DNS cutover blocked on Day 10 if domain not provided.
+                    Staging URL still works for review.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Supabase Email Confirmation</td>
+                  <td><span class="pill defer">Disabled (dev)</span></td>
+                  <td>Rajeev</td>
+                  <td>
+                    Re-enabled before production launch. OTP-style template
+                    already configured for cross-browser email click
+                    reliability.
+                  </td>
+                </tr>
+                <tr>
+                  <td>TCDB Scraper Terms of Service</td>
+                  <td><span class="pill defer">Awaiting Confirmation</span></td>
+                  <td>Leo</td>
+                  <td>
+                    Per PRD, Leo confirms ToS allows our use. Built and ready to
+                    enable when confirmed.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout warn">
+            <strong>None of the above blocks delivery.</strong> Every dependency
+            has a fallback: chatbot answers internal DB questions without eBay;
+            LinkedIn shows preview UI even without API; staging URL works for
+            review without production DNS. The core platform — events, shops,
+            sponsors, auth, admin, content engine — ships fully on Day 10
+            regardless of approval timing.
+          </div>
+        </div>
+
+        <!-- S7: FEATURES -->
+        <div class="section" id="features">
+          <div class="section-header">
+            <div class="section-num">07</div>
+            <div>
+              <div class="section-title">Feature-by-Feature Detail</div>
+              <div class="section-sub">
+                Every feature from the PRD mapped to its current build status.
+              </div>
+            </div>
+          </div>
+
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature (from PRD)</th>
+                  <th>Status</th>
+                  <th>Tested?</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Event Calendar — Map View</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes</td>
+                  <td>
+                    5 priority shows visible, click-to-zoom, InfoWindow drawer
+                    works
+                  </td>
+                </tr>
+                <tr>
+                  <td>Event Calendar — List View</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes</td>
+                  <td>Card grid, all event fields displayed</td>
+                </tr>
+                <tr>
+                  <td>Event Filters (state/city/date/keyword)</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes</td>
+                  <td>API route handles all combinations</td>
+                </tr>
+                <tr>
+                  <td>Event Detail Page (individual)</td>
+                  <td><span class="pill defer">In Progress</span></td>
+                  <td>—</td>
+                  <td>Building now — Day 5</td>
+                </tr>
+                <tr>
+                  <td>Submit Event Form</td>
+                  <td><span class="pill defer">Next</span></td>
+                  <td>—</td>
+                  <td>Day 5-6</td>
+                </tr>
+                <tr>
+                  <td>Card Shop Finder</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 6 — pure Supabase work</td>
+                </tr>
+                <tr>
+                  <td>Shop Specialty Filter</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 6 with shops page</td>
+                </tr>
+                <tr>
+                  <td>Sponsor Directory</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes</td>
+                  <td>10 sponsors seeded, category filter</td>
+                </tr>
+                <tr>
+                  <td>Sponsor Profile Pages</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes</td>
+                  <td>View tracking, click tracking</td>
+                </tr>
+                <tr>
+                  <td>User Auth (signup + login)</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes</td>
+                  <td>OTP email template, RLS hardened</td>
+                </tr>
+                <tr>
+                  <td>User Dashboard</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes</td>
+                  <td>Saved shows view</td>
+                </tr>
+                <tr>
+                  <td>Save Shows / Shops (heart)</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes (9 tests)</td>
+                  <td>Optimistic UI, syncs to dashboard</td>
+                </tr>
+                <tr>
+                  <td>State Alert Preferences</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes</td>
+                  <td>UI ready; email pipeline Day 9</td>
+                </tr>
+                <tr>
+                  <td>Topic Preferences</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes</td>
+                  <td>5 topic buckets</td>
+                </tr>
+                <tr>
+                  <td>Email Alerts (MailerLite)</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 9 — pipeline + template</td>
+                </tr>
+                <tr>
+                  <td>AI Chatbot (Gemini Flash)</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 8 — eBay approval needed</td>
+                </tr>
+                <tr>
+                  <td>AI Blog Generation</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 8 — Supabase webhook → Gemini</td>
+                </tr>
+                <tr>
+                  <td>LinkedIn Auto-Post</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 9 — LinkedIn approval pending</td>
+                </tr>
+                <tr>
+                  <td>Monthly Newsletter</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 9 — MailerLite template</td>
+                </tr>
+                <tr>
+                  <td>Admin — Approve/Reject Queue</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 7</td>
+                </tr>
+                <tr>
+                  <td>Admin — Edit Listings</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 7</td>
+                </tr>
+                <tr>
+                  <td>Admin — Analytics Dashboard</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 7</td>
+                </tr>
+                <tr>
+                  <td>Admin — User Management</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 7</td>
+                </tr>
+                <tr>
+                  <td>TCDB Scraper</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 9 — Vercel cron</td>
+                </tr>
+                <tr>
+                  <td>Sports Collectors Digest Scraper</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 9 — Vercel cron</td>
+                </tr>
+                <tr>
+                  <td>Google Places Shop Seeding</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 6 — one-time script</td>
+                </tr>
+                <tr>
+                  <td>Privacy Policy + ToS</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 10 — pre-launch requirement</td>
+                </tr>
+                <tr>
+                  <td>Cookie Consent Banner</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 10</td>
+                </tr>
+                <tr>
+                  <td>Lighthouse 90+ Audit</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 10 — completion gate</td>
+                </tr>
+                <tr>
+                  <td>JSON-LD Structured Data (SEO)</td>
+                  <td><span class="pill defer">In Progress</span></td>
+                  <td>—</td>
+                  <td>Day 5 with event detail pages</td>
+                </tr>
+                <tr>
+                  <td>XML Sitemap</td>
+                  <td><span class="pill cut">Not Started</span></td>
+                  <td>—</td>
+                  <td>Day 10</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- S8: TECH STACK LIVE -->
+        <div class="section" id="tech">
+          <div class="section-header">
+            <div class="section-num">08</div>
+            <div>
+              <div class="section-title">Tech Stack — Live & Active</div>
+              <div class="section-sub">
+                Every service from the PRD, current status, monthly cost.
+              </div>
+            </div>
+          </div>
+
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Service</th>
+                  <th>Status</th>
+                  <th>Configured</th>
+                  <th>Monthly Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Next.js 16 + Tailwind + shadcn/ui</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes — full design system</td>
+                  <td>Free</td>
+                </tr>
+                <tr>
+                  <td>Supabase PostgreSQL</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes — 5 tables + RLS</td>
+                  <td>Free tier</td>
+                </tr>
+                <tr>
+                  <td>Supabase Auth</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes — email/password</td>
+                  <td>Free tier</td>
+                </tr>
+                <tr>
+                  <td>Vercel Hosting</td>
+                  <td><span class="pill keep">Connected</span></td>
+                  <td>Yes — auto-deploy on push</td>
+                  <td>Free tier</td>
+                </tr>
+                <tr>
+                  <td>GitHub Repository</td>
+                  <td><span class="pill keep">Active</span></td>
+                  <td>Yes — main branch protected</td>
+                  <td>Free</td>
+                </tr>
+                <tr>
+                  <td>Google Maps JavaScript API</td>
+                  <td><span class="pill keep">Live</span></td>
+                  <td>Yes — billing enabled, $200 credit</td>
+                  <td>Free ($200 credit)</td>
+                </tr>
+                <tr>
+                  <td>Google Places API</td>
+                  <td><span class="pill defer">Enabled</span></td>
+                  <td>Key ready — seeding Day 6</td>
+                  <td>Free ($200 credit)</td>
+                </tr>
+                <tr>
+                  <td>Gemini 2.5 Flash</td>
+                  <td><span class="pill defer">Key Ready</span></td>
+                  <td>Library installed, integration Day 8</td>
+                  <td>~$5-15/mo</td>
+                </tr>
+                <tr>
+                  <td>eBay Browse API</td>
+                  <td><span class="pill cut">Pending</span></td>
+                  <td>Awaiting developer approval</td>
+                  <td>Free</td>
+                </tr>
+                <tr>
+                  <td>MailerLite</td>
+                  <td><span class="pill cut">Not Configured</span></td>
+                  <td>Day 9</td>
+                  <td>Free to 1K subs</td>
+                </tr>
+                <tr>
+                  <td>LinkedIn Marketing API</td>
+                  <td><span class="pill cut">Pending</span></td>
+                  <td>Application pending</td>
+                  <td>Free</td>
+                </tr>
+                <tr>
+                  <td>Google Analytics</td>
+                  <td><span class="pill cut">Not Configured</span></td>
+                  <td>Day 10</td>
+                  <td>Free</td>
+                </tr>
+                <tr>
+                  <td>Google Search Console</td>
+                  <td><span class="pill cut">Not Configured</span></td>
+                  <td>Day 10 — post-launch</td>
+                  <td>Free</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout success">
+            <strong>Cost Status — On Plan</strong>Total monthly cost at current
+            scale: <strong>$0</strong>. All services on free tier. Estimated
+            monthly cost at launch: $1-5 (Gemini API only, once chatbot is wired
+            up). Well under the $50/month infrastructure budget Leo set.
+          </div>
+        </div>
+
+        <!-- S9: NEXT 5 DAYS -->
+        <div class="section" id="next">
+          <div class="section-header">
+            <div class="section-num">09</div>
+            <div>
+              <div class="section-title">Next 5 Days — What Leo Will See</div>
+              <div class="section-sub">
+                Day-by-day what gets shipped to the staging URL.
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Day 6 — Apr 27</div>
+              <div class="timeline-title">Detail Pages + Shops Module</div>
+              <div class="timeline-body">
+                Click any event card → individual page with venue map, contact
+                info, sponsors, save button, and JSON-LD for Google rich
+                results. Shop finder live with map + list view. 100+ US card
+                shops auto-seeded from Google Places. Submit-shop form with
+                admin queue.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Day 7 — Apr 28</div>
+              <div class="timeline-title">Full Admin Dashboard</div>
+              <div class="timeline-body">
+                Leo logs in as admin and sees everything: pending event
+                submissions queue (approve/reject), pending shop submissions
+                queue, edit any listing live, platform analytics (DAU, top
+                shows, signups), sponsor click tracking, full user management.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Day 8 — Apr 29</div>
+              <div class="timeline-title">AI Chatbot + Blog Engine</div>
+              <div class="timeline-body">
+                Chatbot live in bottom-right corner. Answers: "shows in Texas
+                next month", "card shops in Dallas", "what's NSCC". Sources
+                cited on every response. AI disclaimer always present. Supabase
+                webhook → Gemini auto-generates blog post draft when new event
+                is added → admin review → publish flow.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Day 9 — Apr 30</div>
+              <div class="timeline-title">Content Pipelines + Scrapers</div>
+              <div class="timeline-body">
+                Email alert pipeline live — users with saved states
+                automatically get notified when new shows are added in those
+                states. LinkedIn auto-post (or mock preview if API not
+                approved). TCDB and Sports Collectors Digest scrapers running on
+                Vercel cron at 2am UTC.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-week">Day 10 — May 1</div>
+              <div class="timeline-title">Polish + Launch</div>
+              <div class="timeline-body">
+                Privacy Policy and Terms of Service pages live. Cookie consent
+                banner active. Lighthouse audit — Performance, SEO,
+                Accessibility, Best Practices all 90+. DNS cutover from staging
+                to production. Admin walkthrough video recorded. 1-page admin
+                cheat sheet delivered. Ready for public launch.
+              </div>
+            </div>
+          </div>
+
+          <div class="callout gold" style="margin-top: 32px">
+            <strong>Final Delivery — Day 10 (May 1, 2026)</strong>Every feature
+            in scope shipped, tested, and live on production. eBay and LinkedIn
+            integrations drop in seamlessly when their respective approvals
+            land. Lighthouse 90+ confirmed across all four categories. Admin
+            training completed. Platform ready for first 1,000 users.
+          </div>
+
+          <!-- FOOTER -->
+          <div
+            style="
+              margin-top: 48px;
+              padding: 40px;
+              background: var(--navy);
+              border-radius: 12px;
+              text-align: center;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;Playfair Display&quot;, serif;
+                font-size: 26px;
+                color: var(--white);
+                font-weight: 700;
+                margin-bottom: 6px;
+              "
+            >
+              KLLCTBLS <span style="color: var(--gold)">×</span> Build Status
+              Report
+            </div>
+            <div
+              style="
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.4);
+                margin-bottom: 6px;
+              "
+            >
+              Day 5 of 10 — April 26, 2026 — On Track for May 1 Delivery
+            </div>
+            <div
+              style="
+                font-size: 12px;
+                color: rgba(201, 168, 76, 0.6);
+                margin-bottom: 24px;
+              "
+            >
+              Live progress report. Updates daily as each feature ships.
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: center;
+                gap: 40px;
+                flex-wrap: wrap;
+              "
+            >
+              <div style="text-align: left">
+                <div
+                  style="
+                    font-size: 10px;
+                    color: var(--gold);
+                    text-transform: uppercase;
+                    letter-spacing: 1.5px;
+                    margin-bottom: 4px;
+                  "
+                >
+                  Developer
+                </div>
+                <div style="color: var(--white); font-size: 14px">
+                  Rajeev Tiwari
+                </div>
+                <div style="color: rgba(255, 255, 255, 0.35); font-size: 12px">
+                  rajeevtiwari30305@gmail.com
+                </div>
+              </div>
+              <div style="text-align: left">
+                <div
+                  style="
+                    font-size: 10px;
+                    color: var(--gold);
+                    text-transform: uppercase;
+                    letter-spacing: 1.5px;
+                    margin-bottom: 4px;
+                  "
+                >
+                  Client
+                </div>
+                <div style="color: var(--white); font-size: 14px">
+                  Leo Bello
+                </div>
+                <div style="color: rgba(255, 255, 255, 0.35); font-size: 12px">
+                  leobelloxyz@gmail.com
+                </div>
+              </div>
+              <div style="text-align: left">
+                <div
+                  style="
+                    font-size: 10px;
+                    color: var(--gold);
+                    text-transform: uppercase;
+                    letter-spacing: 1.5px;
+                    margin-bottom: 4px;
+                  "
+                >
+                  General Manager
+                </div>
+                <div style="color: var(--white); font-size: 14px">
+                  Purvi Golchha
+                </div>
+                <div style="color: rgba(255, 255, 255, 0.35); font-size: 12px">
+                  purvigolchhawork@gmail.com
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /main -->
+
+      <script>
+        const sections = document.querySelectorAll(".section[id]");
+        const navLinks = document.querySelectorAll(".nav-item");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                navLinks.forEach((l) => l.classList.remove("active"));
+                const a = document.querySelector(
+                  `.nav-item[href="#${e.target.id}"]`,
+                );
+                if (a) a.classList.add("active");
+              }
+            });
+          },
+          { threshold: 0.25 },
+        );
+        sections.forEach((s) => observer.observe(s));
+        document.querySelectorAll(".nav-item").forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const t = document.querySelector(link.getAttribute("href"));
+            if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
+      </script>
+    </body>
+  </body>
+</html>
