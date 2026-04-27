@@ -1,0 +1,1635 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlavorRush — Food Delivery MVP Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #fff4e6;
+        --ink: #1a1a1a;
+        --tomato: #ff3d2e;
+        --mustard: #ffb627;
+        --basil: #2d9b3f;
+        --cream: #fff9f0;
+        --shadow: 0 8px 0 #1a1a1a;
+        --shadow-sm: 0 4px 0 #1a1a1a;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      html,
+      body {
+        background: var(--bg);
+        font-family: "DM Sans", sans-serif;
+        color: var(--ink);
+        overflow-x: hidden;
+      }
+      body {
+        min-height: 100vh;
+        background-image:
+          radial-gradient(
+            circle at 20% 10%,
+            rgba(255, 182, 39, 0.15) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(255, 61, 46, 0.1) 0%,
+            transparent 40%
+          );
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+
+      /* Header pitch */
+      .pitch {
+        max-width: 720px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .pitch .badge {
+        display: inline-block;
+        background: var(--ink);
+        color: var(--mustard);
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: 100px;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+      .pitch h1 {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: clamp(32px, 5vw, 56px);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        margin-bottom: 12px;
+      }
+      .pitch h1 em {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--tomato);
+      }
+      .pitch p {
+        font-size: 16px;
+        color: #555;
+        max-width: 520px;
+        margin: 0 auto;
+        line-height: 1.5;
+      }
+      .pitch .arrow {
+        margin-top: 24px;
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-size: 18px;
+        color: var(--tomato);
+      }
+
+      /* Phone frame */
+      .phone {
+        width: 380px;
+        max-width: 100%;
+        height: 760px;
+        background: var(--ink);
+        border-radius: 48px;
+        padding: 12px;
+        box-shadow:
+          0 30px 60px rgba(0, 0, 0, 0.25),
+          0 0 0 1px rgba(0, 0, 0, 0.05);
+        position: relative;
+      }
+      .phone::before {
+        content: "";
+        position: absolute;
+        top: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 28px;
+        background: #000;
+        border-radius: 100px;
+        z-index: 100;
+      }
+      .screen {
+        width: 100%;
+        height: 100%;
+        background: var(--cream);
+        border-radius: 38px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Screens */
+      .screen-page {
+        position: absolute;
+        inset: 0;
+        background: var(--cream);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .screen-page.active {
+        display: flex;
+        animation: slideIn 0.35s cubic-bezier(0.34, 1.3, 0.5, 1);
+      }
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .status-bar {
+        height: 50px;
+        padding: 16px 28px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      .status-bar .dots {
+        display: flex;
+        gap: 3px;
+      }
+      .status-bar .dots span {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--ink);
+      }
+
+      /* SPLASH */
+      #splash {
+        background: var(--tomato);
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--cream);
+        padding: 40px;
+      }
+      #splash .logo {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 56px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 0.9;
+      }
+      #splash .logo em {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--mustard);
+      }
+      #splash .tagline {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-size: 18px;
+        margin-top: 8px;
+        opacity: 0.9;
+      }
+      #splash .splash-art {
+        font-size: 80px;
+        margin: 30px 0;
+        animation: bounce 1.4s ease-in-out infinite;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-5deg);
+        }
+        50% {
+          transform: translateY(-12px) rotate(5deg);
+        }
+      }
+      .btn-primary {
+        background: var(--ink);
+        color: var(--cream);
+        padding: 16px 32px;
+        border: none;
+        border-radius: 100px;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        letter-spacing: 0.02em;
+        width: 100%;
+        transition: transform 0.15s;
+      }
+      .btn-primary:active {
+        transform: scale(0.97);
+      }
+      .btn-link {
+        background: transparent;
+        border: none;
+        color: var(--cream);
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        margin-top: 14px;
+        cursor: pointer;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      /* LOGIN */
+      #login {
+        padding: 0;
+      }
+      #login .login-content {
+        flex: 1;
+        padding: 30px 28px;
+        display: flex;
+        flex-direction: column;
+      }
+      .back-btn {
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 24px;
+      }
+      #login h2 {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 36px;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        margin-bottom: 6px;
+      }
+      #login h2 em {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--tomato);
+      }
+      #login .sub {
+        color: #777;
+        font-size: 14px;
+        margin-bottom: 28px;
+      }
+      .input-group {
+        margin-bottom: 16px;
+      }
+      .input-group label {
+        display: block;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 8px;
+      }
+      .input-group input {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid var(--ink);
+        border-radius: 14px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        background: var(--cream);
+        outline: none;
+        transition: box-shadow 0.15s;
+      }
+      .input-group input:focus {
+        box-shadow: var(--shadow-sm);
+      }
+      #login .btn-primary {
+        margin-top: 12px;
+      }
+      #login .otp-note {
+        margin-top: auto;
+        text-align: center;
+        font-size: 13px;
+        color: #888;
+        padding: 16px 0;
+      }
+
+      /* HOME */
+      #home {
+        background: var(--cream);
+      }
+      .home-header {
+        padding: 12px 24px 16px;
+        flex-shrink: 0;
+      }
+      .greet-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .greet .label {
+        font-size: 11px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-weight: 600;
+      }
+      .greet .loc {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        margin-top: 2px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .avatar {
+        width: 44px;
+        height: 44px;
+        background: var(--mustard);
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-family: "Bricolage Grotesque", sans-serif;
+        color: var(--ink);
+      }
+      .greeting-h {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        margin-top: 18px;
+      }
+      .greeting-h em {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--tomato);
+      }
+      .search-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--cream);
+        border: 2px solid var(--ink);
+        border-radius: 100px;
+        padding: 12px 18px;
+        margin-top: 16px;
+      }
+      .search-bar input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .scroll-area {
+        flex: 1;
+        overflow-y: auto;
+        padding: 6px 0 90px;
+      }
+      .scroll-area::-webkit-scrollbar {
+        display: none;
+      }
+
+      .categories {
+        display: flex;
+        gap: 10px;
+        padding: 6px 24px 20px;
+        overflow-x: auto;
+      }
+      .categories::-webkit-scrollbar {
+        display: none;
+      }
+      .cat-pill {
+        flex-shrink: 0;
+        padding: 10px 18px;
+        background: var(--cream);
+        border: 2px solid var(--ink);
+        border-radius: 100px;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.15s;
+      }
+      .cat-pill.active {
+        background: var(--ink);
+        color: var(--cream);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .hero-card {
+        margin: 4px 24px 22px;
+        background: var(--mustard);
+        border: 2px solid var(--ink);
+        border-radius: 24px;
+        padding: 20px 22px;
+        box-shadow: var(--shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+      }
+      .hero-card .deal-tag {
+        background: var(--tomato);
+        color: var(--cream);
+        font-size: 10px;
+        padding: 4px 10px;
+        border-radius: 100px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+      .hero-card h3 {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 22px;
+        line-height: 1.05;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .hero-card .emoji {
+        font-size: 56px;
+        transform: rotate(-12deg);
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 0 24px 14px;
+      }
+      .section-header h3 {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .section-header h3 em {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--tomato);
+      }
+      .section-header .more {
+        font-size: 12px;
+        color: #888;
+      }
+
+      .food-grid {
+        padding: 0 24px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .food-card {
+        background: var(--cream);
+        border: 2px solid var(--ink);
+        border-radius: 18px;
+        padding: 12px;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.15s;
+      }
+      .food-card:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 var(--ink);
+      }
+      .food-img {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+        margin-bottom: 10px;
+        border: 2px solid var(--ink);
+      }
+      .food-img.bg1 {
+        background: #ffe5d9;
+      }
+      .food-img.bg2 {
+        background: #d9f0dd;
+      }
+      .food-img.bg3 {
+        background: #ffe9b0;
+      }
+      .food-img.bg4 {
+        background: #ffd6d1;
+      }
+      .food-img.bg5 {
+        background: #e5ddf7;
+      }
+      .food-img.bg6 {
+        background: #d4ecff;
+      }
+      .food-name {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 4px;
+      }
+      .food-meta {
+        font-size: 11px;
+        color: #888;
+        margin-bottom: 8px;
+      }
+      .food-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .food-price {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+      }
+      .add-btn {
+        width: 28px;
+        height: 28px;
+        background: var(--ink);
+        color: var(--cream);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+
+      /* BOTTOM NAV */
+      .bottom-nav {
+        position: absolute;
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+        background: var(--ink);
+        border-radius: 100px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px;
+        z-index: 50;
+      }
+      .nav-item {
+        flex: 1;
+        text-align: center;
+        background: transparent;
+        border: none;
+        color: var(--cream);
+        cursor: pointer;
+        padding: 8px;
+        font-size: 18px;
+        border-radius: 100px;
+        transition: background 0.15s;
+        position: relative;
+      }
+      .nav-item.active {
+        background: var(--tomato);
+      }
+      .nav-badge {
+        position: absolute;
+        top: 2px;
+        right: 16px;
+        background: var(--mustard);
+        color: var(--ink);
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 100px;
+        border: 1.5px solid var(--ink);
+      }
+
+      /* DETAIL */
+      #detail {
+        padding: 0;
+      }
+      .detail-hero {
+        height: 280px;
+        background: #ffe5d9;
+        position: relative;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 120px;
+      }
+      .detail-back {
+        position: absolute;
+        top: 50px;
+        left: 20px;
+        width: 40px;
+        height: 40px;
+        background: var(--cream);
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 10;
+      }
+      .detail-content {
+        flex: 1;
+        background: var(--cream);
+        border-radius: 28px 28px 0 0;
+        margin-top: -28px;
+        padding: 24px 24px 100px;
+        overflow-y: auto;
+        position: relative;
+        z-index: 5;
+      }
+      .detail-content::-webkit-scrollbar {
+        display: none;
+      }
+      .detail-content h2 {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+      }
+      .detail-meta {
+        display: flex;
+        gap: 16px;
+        margin: 10px 0 16px;
+        font-size: 12px;
+        color: #555;
+      }
+      .detail-meta span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .detail-desc {
+        font-family: "Instrument Serif", serif;
+        font-size: 17px;
+        line-height: 1.4;
+        color: #444;
+        font-style: italic;
+        margin-bottom: 22px;
+      }
+      .qty-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--cream);
+        border: 2px solid var(--ink);
+        border-radius: 16px;
+        padding: 14px 18px;
+        margin-bottom: 22px;
+      }
+      .qty-row .label {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+      }
+      .qty-control {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .qty-btn {
+        width: 32px;
+        height: 32px;
+        border: 2px solid var(--ink);
+        background: var(--cream);
+        border-radius: 50%;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .qty-num {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        min-width: 20px;
+        text-align: center;
+      }
+      .price-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .price-row .total-label {
+        font-size: 12px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-weight: 600;
+      }
+      .price-row .total-amount {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+      }
+      .add-cart-btn {
+        width: 100%;
+        background: var(--tomato);
+        color: var(--cream);
+        border: 2px solid var(--ink);
+        border-radius: 100px;
+        padding: 16px;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        letter-spacing: 0.02em;
+      }
+
+      /* CART */
+      #cart {
+        padding: 0;
+      }
+      .cart-header {
+        padding: 12px 24px 14px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-shrink: 0;
+      }
+      .cart-header h2 {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .cart-header h2 em {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--tomato);
+      }
+      .cart-items {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 24px 20px;
+      }
+      .cart-items::-webkit-scrollbar {
+        display: none;
+      }
+      .cart-item {
+        display: flex;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px dashed #ccc;
+      }
+      .cart-item-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+        border: 2px solid var(--ink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        flex-shrink: 0;
+      }
+      .cart-item-info {
+        flex: 1;
+      }
+      .cart-item-name {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .cart-item-price {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        margin-top: 4px;
+        color: var(--tomato);
+      }
+      .cart-item-qty {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 8px;
+      }
+      .cart-item-qty .qty-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+      }
+      .cart-summary {
+        background: var(--cream);
+        border-top: 2px solid var(--ink);
+        padding: 20px 24px;
+        flex-shrink: 0;
+      }
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-size: 13px;
+        color: #555;
+      }
+      .summary-row.total {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 800;
+        font-size: 18px;
+        color: var(--ink);
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px dashed #ccc;
+      }
+      .checkout-btn {
+        width: 100%;
+        background: var(--ink);
+        color: var(--cream);
+        border: none;
+        border-radius: 100px;
+        padding: 16px;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        margin-top: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+      }
+      .empty-cart {
+        text-align: center;
+        padding: 60px 20px;
+        color: #888;
+      }
+      .empty-cart .emoji {
+        font-size: 60px;
+        margin-bottom: 14px;
+      }
+
+      /* PAYMENT */
+      #payment {
+        padding: 0;
+      }
+      .payment-content {
+        flex: 1;
+        padding: 16px 24px;
+        overflow-y: auto;
+      }
+      .payment-content::-webkit-scrollbar {
+        display: none;
+      }
+      .payment-content h2 {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 6px;
+      }
+      .payment-content > p {
+        color: #777;
+        font-size: 13px;
+        margin-bottom: 22px;
+      }
+      .pay-method {
+        background: var(--cream);
+        border: 2px solid var(--ink);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .pay-method.selected {
+        background: var(--mustard);
+        box-shadow: var(--shadow-sm);
+      }
+      .pay-icon {
+        width: 44px;
+        height: 44px;
+        background: var(--cream);
+        border: 2px solid var(--ink);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+      .pay-info {
+        flex: 1;
+      }
+      .pay-name {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .pay-sub {
+        font-size: 11px;
+        color: #777;
+        margin-top: 2px;
+      }
+      .radio {
+        width: 22px;
+        height: 22px;
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+        flex-shrink: 0;
+        position: relative;
+      }
+      .pay-method.selected .radio::after {
+        content: "";
+        position: absolute;
+        inset: 4px;
+        background: var(--ink);
+        border-radius: 50%;
+      }
+      .pay-cta {
+        padding: 0 24px 24px;
+        background: var(--cream);
+      }
+      .pay-cta .checkout-btn {
+        background: var(--tomato);
+        border: 2px solid var(--ink);
+        box-shadow: var(--shadow-sm);
+      }
+
+      /* TRACKING */
+      #tracking {
+        padding: 0;
+        align-items: center;
+      }
+      .track-content {
+        flex: 1;
+        width: 100%;
+        padding: 20px 24px 100px;
+        overflow-y: auto;
+        text-align: center;
+      }
+      .track-content::-webkit-scrollbar {
+        display: none;
+      }
+      .success-icon {
+        width: 90px;
+        height: 90px;
+        background: var(--basil);
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 44px;
+        margin: 14px auto 18px;
+        box-shadow: var(--shadow);
+        animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes pop {
+        0% {
+          transform: scale(0);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .track-content h2 {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+      }
+      .track-content h2 em {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--tomato);
+      }
+      .order-id {
+        font-size: 12px;
+        color: #888;
+        margin: 6px 0 22px;
+        letter-spacing: 0.1em;
+      }
+      .timeline {
+        text-align: left;
+        background: var(--cream);
+        border: 2px solid var(--ink);
+        border-radius: 20px;
+        padding: 18px;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 18px;
+      }
+      .timeline-step {
+        display: flex;
+        gap: 14px;
+        padding: 8px 0;
+        align-items: flex-start;
+        position: relative;
+      }
+      .timeline-step:not(:last-child)::before {
+        content: "";
+        position: absolute;
+        left: 13px;
+        top: 36px;
+        bottom: -8px;
+        width: 2px;
+        background: var(--ink);
+        opacity: 0.2;
+      }
+      .timeline-step.done::before {
+        opacity: 1;
+        background: var(--basil);
+      }
+      .timeline-step.active::before {
+        background: linear-gradient(to bottom, var(--basil), #ddd);
+      }
+      .step-dot {
+        width: 28px;
+        height: 28px;
+        border: 2px solid var(--ink);
+        background: var(--cream);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        flex-shrink: 0;
+      }
+      .timeline-step.done .step-dot {
+        background: var(--basil);
+        color: var(--cream);
+      }
+      .timeline-step.active .step-dot {
+        background: var(--mustard);
+      }
+      .step-info {
+        flex: 1;
+        padding-top: 2px;
+      }
+      .step-name {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .step-time {
+        font-size: 11px;
+        color: #888;
+        margin-top: 2px;
+      }
+      .timeline-step.active .step-name {
+        color: var(--tomato);
+      }
+      .home-btn {
+        background: var(--ink);
+        color: var(--cream);
+        border: none;
+        border-radius: 100px;
+        padding: 14px 36px;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      /* Footer pitch */
+      .footer-pitch {
+        max-width: 720px;
+        text-align: center;
+        margin-top: 30px;
+        padding: 30px;
+        background: var(--ink);
+        color: var(--cream);
+        border-radius: 28px;
+      }
+      .footer-pitch h2 {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+        margin-bottom: 8px;
+      }
+      .footer-pitch h2 em {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--mustard);
+      }
+      .footer-pitch p {
+        color: #ccc;
+        font-size: 14px;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+      .specs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin: 24px 0;
+      }
+      .spec {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 16px 12px;
+        border-radius: 14px;
+      }
+      .spec .num {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--mustard);
+        line-height: 1;
+      }
+      .spec .lbl {
+        font-size: 11px;
+        color: #aaa;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 6px;
+      }
+      .cta-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .cta-row a {
+        background: var(--tomato);
+        color: var(--cream);
+        text-decoration: none;
+        padding: 14px 26px;
+        border-radius: 100px;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .cta-row a.alt {
+        background: transparent;
+        border: 2px solid var(--cream);
+      }
+
+      @media (max-width: 420px) {
+        .phone {
+          width: 100%;
+          height: 720px;
+          border-radius: 36px;
+        }
+        .specs {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pitch">
+      <span class="badge">Live MVP Demo · Built in 4 Hours</span>
+      <h1>Your food delivery app, <em>but already running</em>.</h1>
+      <p>
+        This is a working clickable prototype of the MVP you described — built
+        before the proposal even hits your inbox. Tap through the flow on the
+        phone below.
+      </p>
+      <div class="arrow">↓ try it</div>
+    </div>
+
+    <div class="phone">
+      <div class="screen">
+        <!-- SPLASH -->
+        <div id="splash" class="screen-page active">
+          <div>
+            <div class="splash-art">🍔</div>
+            <div class="logo">Flavor<em>Rush</em></div>
+            <div class="tagline">hot food, fast hands</div>
+          </div>
+          <div style="width: 100%; margin-top: 40px">
+            <button class="btn-primary" onclick="goTo('login')">
+              Get Started
+            </button>
+            <button class="btn-link" onclick="goTo('home')">
+              Skip for now
+            </button>
+          </div>
+        </div>
+
+        <!-- LOGIN -->
+        <div id="login" class="screen-page">
+          <div class="status-bar">
+            <span>9:41</span>
+            <div class="dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="login-content">
+            <button class="back-btn" onclick="goTo('splash')">←</button>
+            <h2>Welcome <em>back</em>.</h2>
+            <p class="sub">Login with your mobile to continue ordering.</p>
+            <div class="input-group">
+              <label>Mobile Number</label>
+              <input
+                type="text"
+                placeholder="+91 98765 43210"
+                value="+91 98765 43210"
+              />
+            </div>
+            <div class="input-group">
+              <label>OTP</label>
+              <input type="text" placeholder="••••" value="1234" />
+            </div>
+            <button class="btn-primary" onclick="goTo('home')">
+              Verify & Continue
+            </button>
+            <div class="otp-note">
+              Demo OTP: 1234 · Real app uses Firebase Auth
+            </div>
+          </div>
+        </div>
+
+        <!-- HOME -->
+        <div id="home" class="screen-page">
+          <div class="status-bar">
+            <span>9:41</span>
+            <div class="dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="home-header">
+            <div class="greet-row">
+              <div class="greet">
+                <div class="label">Deliver to</div>
+                <div class="loc">📍 Bengaluru, Indiranagar</div>
+              </div>
+              <div class="avatar">R</div>
+            </div>
+            <h2 class="greeting-h">Hungry, <em>Rahul</em>?</h2>
+            <div class="search-bar">
+              <span>🔍</span>
+              <input placeholder="Search biryani, pizza, burgers..." />
+            </div>
+          </div>
+          <div class="scroll-area">
+            <div class="categories">
+              <div class="cat-pill active">🔥 All</div>
+              <div class="cat-pill">🍕 Pizza</div>
+              <div class="cat-pill">🍔 Burgers</div>
+              <div class="cat-pill">🍛 Biryani</div>
+              <div class="cat-pill">🍱 Asian</div>
+              <div class="cat-pill">🍰 Desserts</div>
+            </div>
+            <div class="hero-card">
+              <div>
+                <span class="deal-tag">Today only</span>
+                <h3>50% off on<br />your first order</h3>
+              </div>
+              <div class="emoji">🍕</div>
+            </div>
+            <div class="section-header">
+              <h3>Trending <em>now</em></h3>
+              <span class="more">See all →</span>
+            </div>
+            <div class="food-grid">
+              <div class="food-card" onclick="goTo('detail')">
+                <div class="food-img bg1">🍔</div>
+                <div class="food-name">Truffle Bacon Burger</div>
+                <div class="food-meta">⭐ 4.8 · 25 min</div>
+                <div class="food-bottom">
+                  <span class="food-price">₹349</span>
+                  <button class="add-btn">+</button>
+                </div>
+              </div>
+              <div class="food-card" onclick="goTo('detail')">
+                <div class="food-img bg2">🥗</div>
+                <div class="food-name">Mediterranean Bowl</div>
+                <div class="food-meta">⭐ 4.7 · 20 min</div>
+                <div class="food-bottom">
+                  <span class="food-price">₹289</span>
+                  <button class="add-btn">+</button>
+                </div>
+              </div>
+              <div class="food-card" onclick="goTo('detail')">
+                <div class="food-img bg3">🍕</div>
+                <div class="food-name">Margherita Pizza</div>
+                <div class="food-meta">⭐ 4.9 · 30 min</div>
+                <div class="food-bottom">
+                  <span class="food-price">₹449</span>
+                  <button class="add-btn">+</button>
+                </div>
+              </div>
+              <div class="food-card" onclick="goTo('detail')">
+                <div class="food-img bg4">🍛</div>
+                <div class="food-name">Hyderabadi Biryani</div>
+                <div class="food-meta">⭐ 4.8 · 35 min</div>
+                <div class="food-bottom">
+                  <span class="food-price">₹329</span>
+                  <button class="add-btn">+</button>
+                </div>
+              </div>
+              <div class="food-card" onclick="goTo('detail')">
+                <div class="food-img bg5">🍜</div>
+                <div class="food-name">Spicy Ramen</div>
+                <div class="food-meta">⭐ 4.6 · 22 min</div>
+                <div class="food-bottom">
+                  <span class="food-price">₹279</span>
+                  <button class="add-btn">+</button>
+                </div>
+              </div>
+              <div class="food-card" onclick="goTo('detail')">
+                <div class="food-img bg6">🍰</div>
+                <div class="food-name">Tiramisu Slice</div>
+                <div class="food-meta">⭐ 4.9 · 15 min</div>
+                <div class="food-bottom">
+                  <span class="food-price">₹189</span>
+                  <button class="add-btn">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-item active" onclick="goTo('home')">🏠</button>
+            <button class="nav-item" onclick="goTo('home')">🔍</button>
+            <button class="nav-item" onclick="goTo('cart')">
+              🛒<span class="nav-badge" id="navBadge">1</span>
+            </button>
+            <button class="nav-item" onclick="goTo('home')">📋</button>
+          </div>
+        </div>
+
+        <!-- DETAIL -->
+        <div id="detail" class="screen-page">
+          <div class="detail-hero">
+            <button class="detail-back" onclick="goTo('home')">←</button>
+            🍔
+          </div>
+          <div class="detail-content">
+            <h2>Truffle Bacon Burger</h2>
+            <div class="detail-meta">
+              <span>⭐ 4.8 (1.2k)</span>
+              <span>🕒 25 min</span>
+              <span>🔥 540 cal</span>
+            </div>
+            <p class="detail-desc">
+              A juicy beef patty layered with crispy bacon, melted cheddar, and
+              a whisper of black truffle aioli. Served on a brioche bun toasted
+              in butter.
+            </p>
+            <div class="qty-row">
+              <span class="label">Quantity</span>
+              <div class="qty-control">
+                <button class="qty-btn" onclick="changeQty(-1)">−</button>
+                <span class="qty-num" id="qty">1</span>
+                <button class="qty-btn" onclick="changeQty(1)">+</button>
+              </div>
+            </div>
+            <div class="price-row">
+              <div>
+                <div class="total-label">Total</div>
+                <div class="total-amount" id="total">₹349</div>
+              </div>
+            </div>
+            <button class="add-cart-btn" onclick="addToCart()">
+              Add to cart →
+            </button>
+          </div>
+        </div>
+
+        <!-- CART -->
+        <div id="cart" class="screen-page">
+          <div class="status-bar">
+            <span>9:41</span>
+            <div class="dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="cart-header">
+            <button class="back-btn" onclick="goTo('home')">←</button>
+            <h2>Your <em>cart</em></h2>
+          </div>
+          <div class="cart-items" id="cartItems">
+            <div class="cart-item">
+              <div class="cart-item-img bg1" style="background: #ffe5d9">
+                🍔
+              </div>
+              <div class="cart-item-info">
+                <div class="cart-item-name">Truffle Bacon Burger</div>
+                <div class="cart-item-price">₹349</div>
+                <div class="cart-item-qty">
+                  <button class="qty-btn">−</button>
+                  <span class="qty-num">1</span>
+                  <button class="qty-btn">+</button>
+                </div>
+              </div>
+            </div>
+            <div class="cart-item">
+              <div class="cart-item-img" style="background: #ffe9b0">🍕</div>
+              <div class="cart-item-info">
+                <div class="cart-item-name">Margherita Pizza</div>
+                <div class="cart-item-price">₹449</div>
+                <div class="cart-item-qty">
+                  <button class="qty-btn">−</button>
+                  <span class="qty-num">1</span>
+                  <button class="qty-btn">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cart-summary">
+            <div class="summary-row">
+              <span>Subtotal</span><span>₹798</span>
+            </div>
+            <div class="summary-row"><span>Delivery</span><span>₹40</span></div>
+            <div class="summary-row"><span>Taxes</span><span>₹42</span></div>
+            <div class="summary-row total">
+              <span>Total</span><span>₹880</span>
+            </div>
+            <button class="checkout-btn" onclick="goTo('payment')">
+              <span>Checkout</span>
+              <span>₹880 →</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PAYMENT -->
+        <div id="payment" class="screen-page">
+          <div class="status-bar">
+            <span>9:41</span>
+            <div class="dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="cart-header">
+            <button class="back-btn" onclick="goTo('cart')">←</button>
+            <h2>Pay<em>ment</em></h2>
+          </div>
+          <div class="payment-content">
+            <p>Choose how you'd like to pay. Powered by Razorpay.</p>
+            <div class="pay-method selected" onclick="selectPay(this)">
+              <div class="pay-icon">📱</div>
+              <div class="pay-info">
+                <div class="pay-name">UPI</div>
+                <div class="pay-sub">GPay, PhonePe, Paytm</div>
+              </div>
+              <div class="radio"></div>
+            </div>
+            <div class="pay-method" onclick="selectPay(this)">
+              <div class="pay-icon">💳</div>
+              <div class="pay-info">
+                <div class="pay-name">Credit / Debit Card</div>
+                <div class="pay-sub">Visa, Mastercard, Rupay</div>
+              </div>
+              <div class="radio"></div>
+            </div>
+            <div class="pay-method" onclick="selectPay(this)">
+              <div class="pay-icon">💵</div>
+              <div class="pay-info">
+                <div class="pay-name">Cash on Delivery</div>
+                <div class="pay-sub">Pay when food arrives</div>
+              </div>
+              <div class="radio"></div>
+            </div>
+            <div class="pay-method" onclick="selectPay(this)">
+              <div class="pay-icon">🏦</div>
+              <div class="pay-info">
+                <div class="pay-name">Net Banking</div>
+                <div class="pay-sub">All major banks</div>
+              </div>
+              <div class="radio"></div>
+            </div>
+          </div>
+          <div class="pay-cta">
+            <button class="checkout-btn" onclick="goTo('tracking')">
+              <span>Pay Now</span>
+              <span>₹880 →</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TRACKING -->
+        <div id="tracking" class="screen-page">
+          <div class="status-bar">
+            <span>9:41</span>
+            <div class="dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="track-content">
+            <div class="success-icon">✓</div>
+            <h2>Order <em>placed!</em></h2>
+            <div class="order-id">ORDER #FR-2026-0427</div>
+            <div class="timeline">
+              <div class="timeline-step done">
+                <div class="step-dot">✓</div>
+                <div class="step-info">
+                  <div class="step-name">Order Confirmed</div>
+                  <div class="step-time">9:41 AM · Just now</div>
+                </div>
+              </div>
+              <div class="timeline-step done">
+                <div class="step-dot">✓</div>
+                <div class="step-info">
+                  <div class="step-name">Restaurant Accepted</div>
+                  <div class="step-time">9:42 AM</div>
+                </div>
+              </div>
+              <div class="timeline-step active">
+                <div class="step-dot">🍳</div>
+                <div class="step-info">
+                  <div class="step-name">Preparing your food</div>
+                  <div class="step-time">Estimated 12 min</div>
+                </div>
+              </div>
+              <div class="timeline-step">
+                <div class="step-dot">🛵</div>
+                <div class="step-info">
+                  <div class="step-name">Out for delivery</div>
+                  <div class="step-time">Coming up</div>
+                </div>
+              </div>
+              <div class="timeline-step">
+                <div class="step-dot">📦</div>
+                <div class="step-info">
+                  <div class="step-name">Delivered</div>
+                  <div class="step-time">By 10:15 AM</div>
+                </div>
+              </div>
+            </div>
+            <button class="home-btn" onclick="goTo('home')">
+              Back to home
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-pitch">
+      <h2>What you just saw is <em>4 weeks of work</em>.</h2>
+      <p>
+        Real Flutter app, Node.js + MongoDB backend, Razorpay live integration,
+        full admin panel — handed over with source code.
+      </p>
+      <div class="specs">
+        <div class="spec">
+          <div class="num">4 wks</div>
+          <div class="lbl">MVP Timeline</div>
+        </div>
+        <div class="spec">
+          <div class="num">₹1.5L</div>
+          <div class="lbl">Fixed Cost</div>
+        </div>
+        <div class="spec">
+          <div class="num">100%</div>
+          <div class="lbl">Source Code</div>
+        </div>
+      </div>
+      <div class="cta-row">
+        <a href="tel:+919999999999">📞 Schedule a call</a>
+        <a class="alt" href="mailto:hello@example.com">✉ Send brief</a>
+      </div>
+    </div>
+
+    <script>
+      let qty = 1;
+      let pricePerItem = 349;
+
+      function goTo(id) {
+        document
+          .querySelectorAll(".screen-page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+        document.querySelector(".screen").scrollTop = 0;
+      }
+
+      function changeQty(delta) {
+        qty = Math.max(1, qty + delta);
+        document.getElementById("qty").textContent = qty;
+        document.getElementById("total").textContent = "₹" + qty * pricePerItem;
+      }
+
+      function addToCart() {
+        document.getElementById("navBadge").textContent = "2";
+        goTo("cart");
+      }
+
+      function selectPay(el) {
+        document
+          .querySelectorAll(".pay-method")
+          .forEach((m) => m.classList.remove("selected"));
+        el.classList.add("selected");
+      }
+    </script>
+  </body>
+</html>
