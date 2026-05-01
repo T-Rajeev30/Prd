@@ -1,0 +1,3111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ZINGRO — Complete PRD Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #111827;
+        background: #fff;
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 40px;
+      }
+      h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1a56db;
+        margin: 40px 0 8px;
+      }
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #111827;
+        margin: 32px 0 8px;
+        border-bottom: 2px solid #1a56db;
+        padding-bottom: 4px;
+      }
+      h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #374151;
+        margin: 24px 0 6px;
+      }
+      p {
+        margin: 8px 0;
+      }
+      ul,
+      ol {
+        margin: 8px 0 8px 24px;
+      }
+      li {
+        margin: 4px 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0;
+        font-size: 13px;
+      }
+      th {
+        background: #1a56db;
+        color: #fff;
+        padding: 8px 12px;
+        text-align: left;
+        font-weight: 700;
+      }
+      td {
+        padding: 7px 12px;
+        border: 1px solid #d1d5db;
+        vertical-align: top;
+      }
+      tr:nth-child(even) td {
+        background: #f3f4f6;
+      }
+      .cover {
+        text-align: center;
+        padding: 60px 0;
+        border-bottom: 3px solid #1a56db;
+        margin-bottom: 40px;
+      }
+      .cover h1 {
+        font-size: 56px;
+        margin: 0;
+      }
+      .cover p {
+        font-size: 18px;
+        color: #6b7280;
+        margin: 8px 0;
+      }
+      .meta-table {
+        width: 400px;
+        margin: 24px auto;
+      }
+      .meta-table td {
+        border: 1px solid #d1d5db;
+        padding: 6px 12px;
+      }
+      .meta-table td:first-child {
+        background: #eff6ff;
+        font-weight: 700;
+        color: #1a56db;
+        width: 140px;
+      }
+      .section-break {
+        border: none;
+        border-top: 1px solid #e5e7eb;
+        margin: 32px 0;
+      }
+      .highlight {
+        background: #eff6ff;
+        border-left: 4px solid #1a56db;
+        padding: 12px 16px;
+        margin: 12px 0;
+      }
+      .warning {
+        background: #fef3c7;
+        border-left: 4px solid #d97706;
+        padding: 12px 16px;
+        margin: 12px 0;
+      }
+      .toc {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        padding: 24px 32px;
+        margin: 24px 0;
+      }
+      .toc h2 {
+        border: none;
+        margin-top: 0;
+      }
+      .toc ol {
+        margin-left: 20px;
+      }
+      .toc li {
+        margin: 6px 0;
+      }
+      .toc a {
+        color: #1a56db;
+        text-decoration: none;
+      }
+      .toc a:hover {
+        text-decoration: underline;
+      }
+      @media print {
+        body {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <h1>ZINGRO</h1>
+      <p
+        style="
+          font-size: 22px;
+          font-weight: 700;
+          color: #111827;
+          margin-top: 8px;
+        "
+      >
+        Product Requirements Document
+      </p>
+      <p>The Home-Style Food Delivery &amp; Subscription Platform</p>
+      <table class="meta-table">
+        <tr>
+          <td>Version</td>
+          <td>1.0</td>
+        </tr>
+        <tr>
+          <td>Status</td>
+          <td>Draft — For Review</td>
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td>May 2026</td>
+        </tr>
+        <tr>
+          <td>Focus Cities</td>
+          <td>Pune &amp; Bangalore</td>
+        </tr>
+        <tr>
+          <td>Dev Budget</td>
+          <td>Rs 70,000 (salaries)</td>
+        </tr>
+        <tr>
+          <td>MVP Timeline</td>
+          <td>2 Weeks</td>
+        </tr>
+        <tr>
+          <td>Classification</td>
+          <td>Confidential</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="toc">
+      <h2>Table of Contents</h2>
+      <ol>
+        <li><a href="#s1">Executive Summary</a></li>
+        <li><a href="#s2">Market Analysis — Pune &amp; Bangalore</a></li>
+        <li><a href="#s3">Competitive Analysis</a></li>
+        <li><a href="#s4">Business Model &amp; Revenue</a></li>
+        <li><a href="#s5">User Personas</a></li>
+        <li><a href="#s6">MVP Scope — 2-Week Plan</a></li>
+        <li><a href="#s7">Production Cost Breakdown</a></li>
+        <li><a href="#s8">Development Cost — Rs 70,000 Budget</a></li>
+        <li><a href="#s9">User Stories &amp; Acceptance Criteria</a></li>
+        <li><a href="#s10">Customer App — Screen Specs</a></li>
+        <li><a href="#s11">Homemaker App — Screen Specs</a></li>
+        <li><a href="#s12">Delivery Partner App — Screen Specs</a></li>
+        <li><a href="#s13">Technical Architecture</a></li>
+        <li><a href="#s14">Database Design</a></li>
+        <li><a href="#s15">API Specification</a></li>
+        <li><a href="#s16">Backend Modules</a></li>
+        <li><a href="#s17">Homemaker Onboarding &amp; Operations</a></li>
+        <li><a href="#s18">Assumptions, Risks &amp; Mitigations</a></li>
+        <li><a href="#s19">Success Metrics &amp; KPIs</a></li>
+        <li><a href="#s20">Go-to-Market Strategy</a></li>
+        <li><a href="#s21">Open Questions</a></li>
+      </ol>
+    </div>
+
+    <!-- ===== SECTION 1 ===== -->
+    <h1 id="s1">1. Executive Summary</h1>
+
+    <p>
+      ZINGRO is a mobile-first food platform connecting customers with
+      restaurants and home-based cooks, with a core emphasis on
+      subscription-based daily meal plans. It addresses three unmet needs
+      simultaneously: affordable home-style food, a marketplace for homemakers
+      to monetize cooking skills, and reliable meal subscriptions for everyday
+      users.
+    </p>
+
+    <div class="highlight">
+      <strong>Mission:</strong> To make home-style, affordable food accessible
+      to everyone — daily — while empowering homemakers to build sustainable
+      income from their kitchens.
+    </div>
+
+    <h3>The Problem</h3>
+    <ul>
+      <li>
+        Existing platforms (Zomato, Swiggy) are restaurant-centric and expensive
+        for daily use
+      </li>
+      <li>
+        Homemakers with culinary skills have no structured platform to sell
+        meals
+      </li>
+      <li>
+        Working professionals and students lack access to affordable, reliable
+        daily meal subscriptions
+      </li>
+      <li>
+        No existing platform combines restaurant ordering + homemade food +
+        subscriptions in one app
+      </li>
+    </ul>
+
+    <h3>The Solution</h3>
+    <ul>
+      <li>Three-sided marketplace: Customers, Homemakers, Delivery Partners</li>
+      <li>Dual ordering modes: one-time orders and recurring subscriptions</li>
+      <li>
+        Homemade food marketplace with trust signals (hygiene badges, ratings)
+      </li>
+      <li>
+        Affordable-first pricing with transparent costs shown before checkout
+      </li>
+    </ul>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 2 ===== -->
+    <h1 id="s2">2. Market Analysis — Pune &amp; Bangalore</h1>
+
+    <h2>2.1 India Market Context</h2>
+    <table>
+      <tr>
+        <th>Market Layer</th>
+        <th>Segment</th>
+        <th>Size Estimate (2024)</th>
+      </tr>
+      <tr>
+        <td>TAM</td>
+        <td>India online food delivery market (all players)</td>
+        <td>~$7.5 Billion</td>
+      </tr>
+      <tr>
+        <td>SAM</td>
+        <td>Home-cooked / tiffin-style meal segment, urban India</td>
+        <td>~$800 Million</td>
+      </tr>
+      <tr>
+        <td>SOM (Year 1)</td>
+        <td>Subscription meal users in Pune + Bangalore</td>
+        <td>~$8–12 Million</td>
+      </tr>
+    </table>
+
+    <p>
+      <strong>Growth Rate:</strong> India's online food delivery market is
+      growing at 18–20% CAGR (2023–2028). The tiffin and subscription meal
+      segment is growing faster at ~28% CAGR driven by rising urban working
+      population and health-consciousness.
+    </p>
+
+    <h2>2.2 City-Level Analysis — Pune</h2>
+
+    <h3>Demographics &amp; Opportunity</h3>
+    <table>
+      <tr>
+        <th>Metric</th>
+        <th>Data</th>
+        <th>Implication for ZINGRO</th>
+      </tr>
+      <tr>
+        <td>Population (urban)</td>
+        <td>~4.2 million</td>
+        <td>Large addressable base</td>
+      </tr>
+      <tr>
+        <td>IT/tech workforce</td>
+        <td>~700,000 professionals</td>
+        <td>Core target: daily meal subscriptions</td>
+      </tr>
+      <tr>
+        <td>Student population</td>
+        <td>~500,000 (1,000+ colleges)</td>
+        <td>Budget-sensitive; high subscription potential</td>
+      </tr>
+      <tr>
+        <td>Working women (18–45)</td>
+        <td>~800,000</td>
+        <td>Dual use: homemaker supply + customer demand</td>
+      </tr>
+      <tr>
+        <td>Average food spend per person/day</td>
+        <td>Rs 150–300</td>
+        <td>Zingro targets Rs 80–150 range (30–40% cheaper)</td>
+      </tr>
+      <tr>
+        <td>Existing tiffin market (informal)</td>
+        <td>~Rs 200 Cr/year (Pune)</td>
+        <td>Direct addressable market to digitize</td>
+      </tr>
+      <tr>
+        <td>Zomato/Swiggy penetration</td>
+        <td>High in Koregaon Park, Kothrud, Viman Nagar, Hinjewadi</td>
+        <td>ZINGRO targets same zones but undercut on price</td>
+      </tr>
+      <tr>
+        <td>Key residential hotspots</td>
+        <td>Hinjewadi, Baner, Wakad, Viman Nagar, Kothrud, Aundh</td>
+        <td>Phase 1 delivery zones</td>
+      </tr>
+      <tr>
+        <td>Average delivery time (Swiggy/Zomato)</td>
+        <td>35–50 min</td>
+        <td>
+          Subscription deliveries can be scheduled, reducing urgency pressure
+        </td>
+      </tr>
+    </table>
+
+    <h3>Pune Homemaker Supply Estimate</h3>
+    <table>
+      <tr>
+        <th>Zone</th>
+        <th>Est. Homemaker Cooks Available</th>
+        <th>Priority</th>
+      </tr>
+      <tr>
+        <td>Hinjewadi / Wakad</td>
+        <td>200–400</td>
+        <td>High — large IT workforce nearby</td>
+      </tr>
+      <tr>
+        <td>Kothrud / Karve Nagar</td>
+        <td>300–500</td>
+        <td>High — traditional residential, cooking culture</td>
+      </tr>
+      <tr>
+        <td>Viman Nagar / Kalyani Nagar</td>
+        <td>150–300</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td>Aundh / Baner</td>
+        <td>200–350</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>Total Estimated (Pune)</strong></td>
+        <td><strong>850–1,550 potential homemakers</strong></td>
+        <td><strong>Target: onboard 50 in Week 1</strong></td>
+      </tr>
+    </table>
+
+    <h3>Pune Pricing Benchmarks</h3>
+    <table>
+      <tr>
+        <th>Food Type</th>
+        <th>Typical Market Price</th>
+        <th>ZINGRO Target Price</th>
+      </tr>
+      <tr>
+        <td>Restaurant meal (delivery)</td>
+        <td>Rs 200–400</td>
+        <td>Not competing directly</td>
+      </tr>
+      <tr>
+        <td>Tiffin service (informal)</td>
+        <td>Rs 60–90/meal</td>
+        <td>Rs 70–110/meal (app convenience premium)</td>
+      </tr>
+      <tr>
+        <td>Monthly subscription (lunch only)</td>
+        <td>Rs 1,500–2,000</td>
+        <td>Rs 1,200–1,800</td>
+      </tr>
+      <tr>
+        <td>Monthly subscription (lunch + dinner)</td>
+        <td>Rs 2,800–3,500</td>
+        <td>Rs 2,400–3,000</td>
+      </tr>
+    </table>
+
+    <h2>2.3 City-Level Analysis — Bangalore</h2>
+
+    <h3>Demographics &amp; Opportunity</h3>
+    <table>
+      <tr>
+        <th>Metric</th>
+        <th>Data</th>
+        <th>Implication for ZINGRO</th>
+      </tr>
+      <tr>
+        <td>Population (urban)</td>
+        <td>~12.5 million</td>
+        <td>Largest single-city opportunity</td>
+      </tr>
+      <tr>
+        <td>IT/tech workforce</td>
+        <td>~2 million professionals</td>
+        <td>Highest density of target customers in India</td>
+      </tr>
+      <tr>
+        <td>Migrant population (non-local)</td>
+        <td>~40% of working population</td>
+        <td>Highest need for home-style food from their region</td>
+      </tr>
+      <tr>
+        <td>Average food spend per person/day</td>
+        <td>Rs 200–400</td>
+        <td>Higher spend = higher willingness for premium subscription</td>
+      </tr>
+      <tr>
+        <td>Existing tiffin market (informal)</td>
+        <td>~Rs 600 Cr/year (Bangalore)</td>
+        <td>3x Pune — largest informal market to digitize</td>
+      </tr>
+      <tr>
+        <td>Zomato/Swiggy penetration</td>
+        <td>Very high (top 3 city for Zomato)</td>
+        <td>
+          User already habituated to food apps — low behavior change needed
+        </td>
+      </tr>
+      <tr>
+        <td>Key residential hotspots</td>
+        <td>
+          Koramangala, HSR Layout, Indiranagar, Whitefield, Electronic City,
+          Bellandur
+        </td>
+        <td>Phase 1 delivery zones</td>
+      </tr>
+      <tr>
+        <td>Dunzo operational coverage</td>
+        <td>Full city coverage</td>
+        <td>Delivery partner confirmed available</td>
+      </tr>
+    </table>
+
+    <h3>Bangalore Homemaker Supply Estimate</h3>
+    <table>
+      <tr>
+        <th>Zone</th>
+        <th>Est. Homemaker Cooks Available</th>
+        <th>Priority</th>
+      </tr>
+      <tr>
+        <td>HSR Layout / Koramangala</td>
+        <td>400–700</td>
+        <td>Very High — dense tech workforce</td>
+      </tr>
+      <tr>
+        <td>Whitefield / Marathahalli</td>
+        <td>500–900</td>
+        <td>Very High — IT park concentration</td>
+      </tr>
+      <tr>
+        <td>Electronic City</td>
+        <td>300–600</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td>Indiranagar / Benson Town</td>
+        <td>200–400</td>
+        <td>Medium-High</td>
+      </tr>
+      <tr>
+        <td>Bellandur / Sarjapur</td>
+        <td>300–500</td>
+        <td>High — new residential growth</td>
+      </tr>
+      <tr>
+        <td><strong>Total Estimated (Bangalore)</strong></td>
+        <td><strong>1,700–3,100 potential homemakers</strong></td>
+        <td><strong>Target: onboard 80 in Week 1</strong></td>
+      </tr>
+    </table>
+
+    <h3>Bangalore Pricing Benchmarks</h3>
+    <table>
+      <tr>
+        <th>Food Type</th>
+        <th>Typical Market Price</th>
+        <th>ZINGRO Target Price</th>
+      </tr>
+      <tr>
+        <td>Restaurant meal (delivery)</td>
+        <td>Rs 250–500</td>
+        <td>Not competing directly</td>
+      </tr>
+      <tr>
+        <td>Tiffin service (informal)</td>
+        <td>Rs 80–120/meal</td>
+        <td>Rs 90–130/meal</td>
+      </tr>
+      <tr>
+        <td>Monthly subscription (lunch only)</td>
+        <td>Rs 1,800–2,500</td>
+        <td>Rs 1,500–2,200</td>
+      </tr>
+      <tr>
+        <td>Monthly subscription (lunch + dinner)</td>
+        <td>Rs 3,200–4,500</td>
+        <td>Rs 2,800–3,800</td>
+      </tr>
+    </table>
+
+    <h2>2.4 Combined Market Size — Both Cities</h2>
+    <table>
+      <tr>
+        <th>Metric</th>
+        <th>Pune Estimate</th>
+        <th>Bangalore Estimate</th>
+        <th>Combined</th>
+      </tr>
+      <tr>
+        <td>Potential homemakers (Year 1 target)</td>
+        <td>50 active</td>
+        <td>80 active</td>
+        <td>130 active homemakers</td>
+      </tr>
+      <tr>
+        <td>Target customers (Month 3)</td>
+        <td>1,000 MAU</td>
+        <td>2,000 MAU</td>
+        <td>3,000 MAU</td>
+      </tr>
+      <tr>
+        <td>Target subscriptions (Month 3)</td>
+        <td>100</td>
+        <td>200</td>
+        <td>300 active subscriptions</td>
+      </tr>
+      <tr>
+        <td>Projected GMV (Month 3)</td>
+        <td>Rs 6–8 Lakhs/month</td>
+        <td>Rs 12–16 Lakhs/month</td>
+        <td>Rs 18–24 Lakhs/month</td>
+      </tr>
+      <tr>
+        <td>Projected Revenue (Month 3, ~12%)</td>
+        <td>Rs 72,000–96,000</td>
+        <td>Rs 1.44L–1.92L</td>
+        <td>Rs 2.2L–2.9L/month</td>
+      </tr>
+    </table>
+
+    <h2>2.5 Demand Validation Signals</h2>
+    <ul>
+      <li>
+        Google Trends: searches for "tiffin service near me" in Pune and
+        Bangalore have grown 34% YoY (2023–2024)
+      </li>
+      <li>
+        Swiggy Daily launched in 2022 in Bangalore — validated the subscription
+        model demand; Swiggy discontinued it showing an execution gap ZINGRO can
+        fill
+      </li>
+      <li>
+        Facebook/WhatsApp groups for tiffin services in Pune (Hinjewadi Tiffin,
+        Baner Food Services etc.) have 10,000–50,000 members each — unorganized
+        demand already exists
+      </li>
+      <li>
+        Average informal tiffin provider in Pune serves 20–40 customers per day
+        with zero app infrastructure — immediate digitization opportunity
+      </li>
+    </ul>
+
+    <h2>2.6 Market Risks</h2>
+    <table>
+      <tr>
+        <th>Risk</th>
+        <th>Pune Specific</th>
+        <th>Bangalore Specific</th>
+      </tr>
+      <tr>
+        <td>Existing informal tiffin competition</td>
+        <td>High — well-established local tiffin culture</td>
+        <td>Medium — more fragmented</td>
+      </tr>
+      <tr>
+        <td>Food safety regulation (FSSAI)</td>
+        <td>Moderate enforcement</td>
+        <td>Stricter enforcement — verify carefully</td>
+      </tr>
+      <tr>
+        <td>Dunzo delivery coverage gaps</td>
+        <td>Covers Pune core zones</td>
+        <td>Full city — lower risk</td>
+      </tr>
+      <tr>
+        <td>Language localization</td>
+        <td>Marathi preferred by some homemakers</td>
+        <td>Kannada / multi-language needed by Month 3</td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 3 ===== -->
+    <h1 id="s3">3. Competitive Analysis</h1>
+
+    <table>
+      <tr>
+        <th>Platform</th>
+        <th>Restaurant Orders</th>
+        <th>Home Food</th>
+        <th>Subscriptions</th>
+        <th>Affordable Tier</th>
+        <th>Homemaker Marketplace</th>
+      </tr>
+      <tr>
+        <td><strong>Zomato</strong></td>
+        <td>Yes</td>
+        <td>No</td>
+        <td>No</td>
+        <td>No</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td><strong>Swiggy</strong></td>
+        <td>Yes</td>
+        <td>Limited</td>
+        <td>Discontinued</td>
+        <td>No</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td><strong>EatSure</strong></td>
+        <td>Yes (own brands)</td>
+        <td>No</td>
+        <td>No</td>
+        <td>Partial</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td><strong>Box8</strong></td>
+        <td>Yes (own)</td>
+        <td>No</td>
+        <td>Partial</td>
+        <td>Yes</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td><strong>Local Tiffin Apps</strong></td>
+        <td>No</td>
+        <td>Yes</td>
+        <td>Yes (manual)</td>
+        <td>Yes</td>
+        <td>No (single vendor)</td>
+      </tr>
+      <tr>
+        <td><strong>ZINGRO</strong></td>
+        <td>Yes</td>
+        <td>Yes (core)</td>
+        <td>Yes (core)</td>
+        <td>Yes</td>
+        <td>Yes (unique)</td>
+      </tr>
+    </table>
+
+    <div class="highlight">
+      <strong>Key Differentiation:</strong> ZINGRO is the only platform that
+      combines all five columns. Swiggy's discontinuation of Swiggy Daily in
+      2022 is not a market failure signal — it is an execution gap. Their unit
+      economics were poor because they used restaurant kitchens. ZINGRO uses
+      homemakers (lower cost base = viable economics).
+    </div>
+
+    <h3>SWOT Analysis</h3>
+    <table>
+      <tr>
+        <th>Strengths</th>
+        <th>Weaknesses</th>
+      </tr>
+      <tr>
+        <td>
+          <ul>
+            <li>
+              Only platform with homemaker marketplace + subscriptions combined
+            </li>
+            <li>Lower cost base (homemakers vs restaurants)</li>
+            <li>
+              Subscription model = predictable revenue and delivery routes
+            </li>
+            <li>Underserved segment — no dominant player</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>No delivery fleet — fully dependent on Dunzo</li>
+            <li>Supply side (homemakers) needs to be built from zero</li>
+            <li>Trust gap: customers unfamiliar with homemaker food quality</li>
+            <li>Small initial team / budget</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th>Opportunities</th>
+        <th>Threats</th>
+      </tr>
+      <tr>
+        <td>
+          <ul>
+            <li>28% CAGR growth in subscription meal segment</li>
+            <li>Swiggy Daily exit left clear market gap</li>
+            <li>WhatsApp/Facebook tiffin groups = untapped organized demand</li>
+            <li>Homemakers have capacity but no platform</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Swiggy/Zomato could re-enter homemaker segment</li>
+            <li>Dunzo service disruption = immediate fulfilment failure</li>
+            <li>Food safety incident could damage brand early</li>
+            <li>Cash-heavy tiffin market resistant to app adoption</li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 4 ===== -->
+    <h1 id="s4">4. Business Model &amp; Revenue</h1>
+
+    <h2>4.1 Revenue Streams</h2>
+    <table>
+      <tr>
+        <th>Revenue Stream</th>
+        <th>How It Works</th>
+        <th>Take Rate</th>
+      </tr>
+      <tr>
+        <td>Commission — Restaurant Orders</td>
+        <td>Platform fee per order placed via ZINGRO</td>
+        <td>12–18%</td>
+      </tr>
+      <tr>
+        <td>Commission — Homemaker One-Time Orders</td>
+        <td>Platform fee on each one-time homemaker order</td>
+        <td>8–12%</td>
+      </tr>
+      <tr>
+        <td>Subscription Platform Fee</td>
+        <td>Fee per active subscription plan per month</td>
+        <td>5–8% or flat Rs 30/month</td>
+      </tr>
+      <tr>
+        <td>Delivery Fee (Pass-through)</td>
+        <td>Customer pays delivery; ZINGRO retains margin over Dunzo cost</td>
+        <td>Rs 10–20 per order margin</td>
+      </tr>
+      <tr>
+        <td>Premium Homemaker Listing (Phase 2)</td>
+        <td>Featured placement in search results</td>
+        <td>Rs 499–999/month</td>
+      </tr>
+      <tr>
+        <td>Advertising (Phase 3)</td>
+        <td>Restaurant-sponsored listings</td>
+        <td>CPC model</td>
+      </tr>
+    </table>
+
+    <h2>4.2 Unit Economics Target</h2>
+    <table>
+      <tr>
+        <th>Metric</th>
+        <th>Target Value</th>
+      </tr>
+      <tr>
+        <td>Average Order Value (Customer)</td>
+        <td>Rs 150–250</td>
+      </tr>
+      <tr>
+        <td>Platform Commission per Order</td>
+        <td>Rs 15–35</td>
+      </tr>
+      <tr>
+        <td>Subscription Monthly Revenue per User</td>
+        <td>Rs 50–80</td>
+      </tr>
+      <tr>
+        <td>Dunzo Delivery Cost</td>
+        <td>Rs 40–60 per delivery</td>
+      </tr>
+      <tr>
+        <td>Target Customer Acquisition Cost (CAC)</td>
+        <td>Less than Rs 200</td>
+      </tr>
+      <tr>
+        <td>Target LTV (Subscription User, 6 months)</td>
+        <td>Greater than Rs 400</td>
+      </tr>
+      <tr>
+        <td>Break-even Orders/Month (City 1)</td>
+        <td>~2,000 orders/month</td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 5 ===== -->
+    <h1 id="s5">5. User Personas</h1>
+
+    <h2>5.1 Arjun — The Daily Eater (Primary Customer)</h2>
+    <table>
+      <tr>
+        <th>Attribute</th>
+        <th>Detail</th>
+      </tr>
+      <tr>
+        <td>Age / Role</td>
+        <td>27, Software Engineer, Hinjewadi Pune / HSR Layout Bangalore</td>
+      </tr>
+      <tr>
+        <td>Goal</td>
+        <td>
+          Eat healthy, affordable lunch/dinner without cooking or spending Rs
+          300+ per meal
+        </td>
+      </tr>
+      <tr>
+        <td>Pain Point</td>
+        <td>
+          Zomato is too expensive daily; local tiffin has no app convenience or
+          tracking
+        </td>
+      </tr>
+      <tr>
+        <td>Behaviour</td>
+        <td>
+          Orders food 5–6x per week; price-sensitive; values reliability over
+          variety
+        </td>
+      </tr>
+      <tr>
+        <td>ZINGRO Value</td>
+        <td>
+          Subscribes to Sharma Ji Kitchen for monthly lunch — saves 40% vs
+          restaurant ordering
+        </td>
+      </tr>
+    </table>
+
+    <h2>5.2 Sunita — The Homemaker Cook</h2>
+    <table>
+      <tr>
+        <th>Attribute</th>
+        <th>Detail</th>
+      </tr>
+      <tr>
+        <td>Age / Role</td>
+        <td>38, Homemaker, Kothrud Pune / Koramangala Bangalore</td>
+      </tr>
+      <tr>
+        <td>Goal</td>
+        <td>
+          Earn supplemental income from cooking without leaving home or
+          registering a business
+        </td>
+      </tr>
+      <tr>
+        <td>Pain Point</td>
+        <td>
+          No platform to scale beyond 5–10 known local customers; payment
+          collection is manual
+        </td>
+      </tr>
+      <tr>
+        <td>Behaviour</td>
+        <td>
+          Cooks lunch and dinner for family; has capacity for 15–20 additional
+          orders per day
+        </td>
+      </tr>
+      <tr>
+        <td>ZINGRO Value</td>
+        <td>
+          Lists meals on ZINGRO; earns Rs 8,000–15,000/month from subscriptions
+          with structured payments
+        </td>
+      </tr>
+    </table>
+
+    <h2>5.3 Ravi — The Delivery Partner</h2>
+    <table>
+      <tr>
+        <th>Attribute</th>
+        <th>Detail</th>
+      </tr>
+      <tr>
+        <td>Age / Role</td>
+        <td>24, Part-time delivery agent, Bangalore (Whitefield area)</td>
+      </tr>
+      <tr>
+        <td>Goal</td>
+        <td>
+          Maximize daily earnings across 4–6 hours with predictable routes
+        </td>
+      </tr>
+      <tr>
+        <td>Pain Point</td>
+        <td>
+          Inconsistent order flow with Swiggy/Zomato; no route predictability;
+          surge-dependent income
+        </td>
+      </tr>
+      <tr>
+        <td>Behaviour</td>
+        <td>
+          Currently uses Swiggy/Zomato fleet; owns a bike; available 11 AM–2 PM
+          and 6 PM–9 PM
+        </td>
+      </tr>
+      <tr>
+        <td>ZINGRO Value</td>
+        <td>
+          Stable subscription route deliveries — same pickup + drop locations
+          daily = less navigation time
+        </td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 6 ===== -->
+    <h1 id="s6">6. MVP Scope — 2-Week Build Plan</h1>
+
+    <div class="highlight">
+      <strong>MVP Definition:</strong> The minimum build that allows a customer
+      to discover a homemaker, subscribe to a meal plan, pay, and receive
+      delivery — with the homemaker accepting and marking ready, and the
+      delivery partner completing the drop.
+    </div>
+
+    <h2>6.1 What Is In the MVP (2 Weeks)</h2>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>App</th>
+        <th>Week Built</th>
+        <th>Priority</th>
+      </tr>
+      <tr>
+        <td>OTP Login (Phone + JWT)</td>
+        <td>All 3 Apps</td>
+        <td>Week 1</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Home Screen (Homemade tab only)</td>
+        <td>Customer App</td>
+        <td>Week 1</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Homemaker Detail + Meal List</td>
+        <td>Customer App</td>
+        <td>Week 1</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Subscription UI (Weekly / Monthly)</td>
+        <td>Customer App</td>
+        <td>Week 1</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Cart Screen</td>
+        <td>Customer App</td>
+        <td>Week 1</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Payment (Razorpay UPI + Card)</td>
+        <td>Customer App</td>
+        <td>Week 2</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Order Status Screen (5-step)</td>
+        <td>Customer App</td>
+        <td>Week 2</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Subscription Dashboard (view/pause/cancel)</td>
+        <td>Customer App</td>
+        <td>Week 2</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Push Notifications (order events)</td>
+        <td>All Apps</td>
+        <td>Week 2</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Homemaker Meal Management (add/edit/toggle)</td>
+        <td>Homemaker App</td>
+        <td>Week 1</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Homemaker Order Accept/Reject</td>
+        <td>Homemaker App</td>
+        <td>Week 2</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Delivery Partner Order View + Status Update</td>
+        <td>Delivery App</td>
+        <td>Week 2</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Subscription Order Auto-Generation (Cron Job)</td>
+        <td>Backend</td>
+        <td>Week 2</td>
+        <td>P0 — Blocker</td>
+      </tr>
+      <tr>
+        <td>Dunzo API Integration</td>
+        <td>Backend</td>
+        <td>Week 2</td>
+        <td>P0 — Blocker</td>
+      </tr>
+    </table>
+
+    <h2>6.2 What Is NOT in the MVP</h2>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Reason Deferred</th>
+        <th>Phase</th>
+      </tr>
+      <tr>
+        <td>Restaurant ordering (full menu)</td>
+        <td>Not core to homemaker value prop</td>
+        <td>Phase 2</td>
+      </tr>
+      <tr>
+        <td>Live map tracking</td>
+        <td>Dunzo provides tracking link; own map is extra dev</td>
+        <td>Phase 2</td>
+      </tr>
+      <tr>
+        <td>Ratings &amp; Reviews</td>
+        <td>Need order volume first</td>
+        <td>Phase 2</td>
+      </tr>
+      <tr>
+        <td>Coupons / Referrals</td>
+        <td>Growth feature; not core to transaction</td>
+        <td>Phase 2</td>
+      </tr>
+      <tr>
+        <td>Recommendation Engine</td>
+        <td>Needs data to be useful</td>
+        <td>Phase 2</td>
+      </tr>
+      <tr>
+        <td>COD Payment</td>
+        <td>Complexity; Razorpay first</td>
+        <td>Phase 2</td>
+      </tr>
+      <tr>
+        <td>Homemaker Earnings Dashboard (detailed)</td>
+        <td>Basic version sufficient for MVP</td>
+        <td>Phase 2</td>
+      </tr>
+      <tr>
+        <td>FSSAI Hygiene Badge</td>
+        <td>Verification process takes time</td>
+        <td>Phase 2</td>
+      </tr>
+    </table>
+
+    <h2>6.3 Day-by-Day Sprint Plan (2 Weeks)</h2>
+    <table>
+      <tr>
+        <th>Day</th>
+        <th>Backend Tasks</th>
+        <th>Flutter Tasks</th>
+      </tr>
+      <tr>
+        <td>Day 1</td>
+        <td>
+          DB schema setup (PostgreSQL + Supabase). Users, Homemakers, Meals
+          tables
+        </td>
+        <td>
+          Flutter project setup (3 apps). Core folder structure. Theme + routing
+        </td>
+      </tr>
+      <tr>
+        <td>Day 2</td>
+        <td>
+          Auth module: OTP endpoint + JWT generation. Role assignment logic
+        </td>
+        <td>
+          OTP login screen (all 3 apps). Phone input + OTP verification UI
+        </td>
+      </tr>
+      <tr>
+        <td>Day 3</td>
+        <td>
+          Homemaker module: GET /homemakers, GET /homemakers/:id. Meals CRUD
+        </td>
+        <td>
+          Customer: Home screen skeleton. Homemade tab with homemaker cards
+        </td>
+      </tr>
+      <tr>
+        <td>Day 4</td>
+        <td>
+          Meals API complete. Availability toggle. Subscription eligibility flag
+        </td>
+        <td>
+          Customer: Homemaker detail screen. Meal list. Pricing table (per meal
+          / weekly / monthly)
+        </td>
+      </tr>
+      <tr>
+        <td>Day 5</td>
+        <td>Subscriptions table. POST /subscriptions. Plan storage logic</td>
+        <td>
+          Customer: Subscription UI (plan selector, date picker, meal type).
+          Cart screen
+        </td>
+      </tr>
+      <tr>
+        <td>Day 6</td>
+        <td>
+          Razorpay integration: payment initiation + webhook handler. Orders
+          table
+        </td>
+        <td>
+          Customer: Payment screen (Razorpay SDK). Order confirmation screen
+        </td>
+      </tr>
+      <tr>
+        <td>Day 7</td>
+        <td>
+          Order module: POST /orders, status lifecycle, PATCH /order/status
+        </td>
+        <td>
+          Customer: Order status screen (5-step progress). Subscription
+          dashboard
+        </td>
+      </tr>
+      <tr>
+        <td>Day 8</td>
+        <td>
+          Dunzo API integration: send request, get tracking ID, store status
+        </td>
+        <td>Homemaker App: Dashboard. Meal management (add/edit/toggle)</td>
+      </tr>
+      <tr>
+        <td>Day 9</td>
+        <td>
+          Order timeout handler (10 min auto-cancel cron). Refund trigger logic
+        </td>
+        <td>
+          Homemaker App: Order accept/reject screen. Mark ready button. Basic
+          earnings view
+        </td>
+      </tr>
+      <tr>
+        <td>Day 10</td>
+        <td>
+          Subscription order generator cron (6 AM daily). Skip paused days logic
+        </td>
+        <td>
+          Delivery App: Dashboard. Order card (pickup/drop/distance).
+          Accept/reject
+        </td>
+      </tr>
+      <tr>
+        <td>Day 11</td>
+        <td>
+          Firebase push notification integration. Events: order accepted, out
+          for delivery, delivered
+        </td>
+        <td>
+          Delivery App: Status update buttons (Picked Up / Delivered). Earnings
+          summary
+        </td>
+      </tr>
+      <tr>
+        <td>Day 12</td>
+        <td>Full API testing. Postman collection. Error handling audit</td>
+        <td>
+          End-to-end flow test: Subscribe → Pay → Homemaker Accepts → Delivery →
+          Delivered
+        </td>
+      </tr>
+      <tr>
+        <td>Day 13</td>
+        <td>
+          Staging deployment (AWS). Supabase config for production DB.
+          Environment variables
+        </td>
+        <td>
+          Beta build on TestFlight (iOS) + Firebase App Distribution (Android)
+        </td>
+      </tr>
+      <tr>
+        <td>Day 14</td>
+        <td>
+          Bug fixes from beta testing. Performance check. Monitoring setup
+          (Sentry)
+        </td>
+        <td>
+          Bug fixes. Final UI polish. Submit to App Store / Play Store for
+          review
+        </td>
+      </tr>
+    </table>
+
+    <h2>6.4 MVP Risk Flags</h2>
+    <div class="warning">
+      <strong>Critical Risks in a 2-Week MVP:</strong>
+      <ul style="margin-top: 8px">
+        <li>
+          Razorpay webhook setup takes 1–2 days if not done before — do Day 1
+        </li>
+        <li>
+          Dunzo API sandbox access requires registration — request on Day 1, not
+          Day 8
+        </li>
+        <li>
+          App Store review takes 24–72 hrs — submit on Day 13 at the latest
+        </li>
+        <li>
+          Flutter for 3 separate app targets in 2 weeks requires at least 2
+          developers minimum
+        </li>
+        <li>
+          Supabase free tier has connection limits — confirm before launch
+        </li>
+      </ul>
+    </div>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 7 ===== -->
+    <h1 id="s7">7. Production Cost Breakdown</h1>
+
+    <h2>7.1 Monthly Recurring Infrastructure Costs</h2>
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Provider</th>
+        <th>Monthly Cost (Rs)</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Backend Hosting</td>
+        <td>AWS EC2 (t3.small)</td>
+        <td>Rs 1,800–2,500</td>
+        <td>Sufficient for 0–5,000 users. Scale to t3.medium at 10K users</td>
+      </tr>
+      <tr>
+        <td>Database</td>
+        <td>Supabase (Pro Plan)</td>
+        <td>Rs 2,100 (~$25)</td>
+        <td>Includes 8GB DB, auth, realtime. Free tier works for beta</td>
+      </tr>
+      <tr>
+        <td>File Storage (meal photos)</td>
+        <td>AWS S3</td>
+        <td>Rs 400–800</td>
+        <td>~10GB/month for meal images</td>
+      </tr>
+      <tr>
+        <td>Google Maps Platform</td>
+        <td>Google</td>
+        <td>Rs 0–3,500</td>
+        <td>$200 free credit/month covers ~40,000 map loads. Free for MVP</td>
+      </tr>
+      <tr>
+        <td>Firebase (Push Notifications)</td>
+        <td>Google</td>
+        <td>Rs 0</td>
+        <td>
+          Free tier covers 10M notifications/month — free forever at this scale
+        </td>
+      </tr>
+      <tr>
+        <td>OTP SMS (Twilio / MSG91)</td>
+        <td>MSG91</td>
+        <td>Rs 800–1,500</td>
+        <td>~Rs 0.15–0.25 per OTP. 5,000 OTPs/month = Rs 750–1,250</td>
+      </tr>
+      <tr>
+        <td>Dunzo API</td>
+        <td>Dunzo Business</td>
+        <td>Rs 0 platform fee</td>
+        <td>
+          Dunzo charges per delivery (Rs 40–60); passed to customer. No monthly
+          fee
+        </td>
+      </tr>
+      <tr>
+        <td>Razorpay</td>
+        <td>Razorpay</td>
+        <td>Rs 0 platform fee</td>
+        <td>2% per transaction; no monthly fee. Deducted from order value</td>
+      </tr>
+      <tr>
+        <td>Sentry (Error Monitoring)</td>
+        <td>Sentry</td>
+        <td>Rs 0</td>
+        <td>Free tier: 5,000 errors/month — sufficient for Year 1</td>
+      </tr>
+      <tr>
+        <td>SSL Certificate</td>
+        <td>AWS Certificate Manager</td>
+        <td>Rs 0</td>
+        <td>Free with AWS</td>
+      </tr>
+      <tr>
+        <td>Domain Name</td>
+        <td>GoDaddy / Namecheap</td>
+        <td>Rs 100 (amortized)</td>
+        <td>Rs 1,200/year = Rs 100/month</td>
+      </tr>
+      <tr>
+        <td>App Store / Play Store</td>
+        <td>Apple / Google</td>
+        <td>Rs 700 (amortized)</td>
+        <td>Apple: $99/year = Rs 8,300. Google: $25 one-time = Rs 2,100</td>
+      </tr>
+      <tr>
+        <th>Total Monthly Infrastructure</th>
+        <th></th>
+        <th><strong>Rs 5,900–11,200/month</strong></th>
+        <th>At MVP scale (0–1,000 users)</th>
+      </tr>
+    </table>
+
+    <h2>7.2 Per-Order Variable Costs</h2>
+    <table>
+      <tr>
+        <th>Cost Item</th>
+        <th>Cost</th>
+        <th>Who Pays</th>
+      </tr>
+      <tr>
+        <td>Dunzo Delivery Fee</td>
+        <td>Rs 40–60 per delivery</td>
+        <td>Customer (passed through)</td>
+      </tr>
+      <tr>
+        <td>Razorpay Transaction Fee</td>
+        <td>2% of order value</td>
+        <td>Deducted from ZINGRO revenue</td>
+      </tr>
+      <tr>
+        <td>SMS OTP per login</td>
+        <td>Rs 0.15–0.25</td>
+        <td>ZINGRO absorbs</td>
+      </tr>
+    </table>
+
+    <h2>7.3 One-Time Setup Costs</h2>
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Cost (Rs)</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Apple Developer Account</td>
+        <td>Rs 8,300 (~$99/year)</td>
+        <td>Required for App Store</td>
+      </tr>
+      <tr>
+        <td>Google Play Developer Account</td>
+        <td>Rs 2,100 (~$25, one-time)</td>
+        <td>Required for Play Store</td>
+      </tr>
+      <tr>
+        <td>Razorpay Business Account Setup</td>
+        <td>Rs 0</td>
+        <td>Free — need GST and business bank account</td>
+      </tr>
+      <tr>
+        <td>Dunzo Business API Access</td>
+        <td>Rs 0 (registration fee)</td>
+        <td>Need to contact Dunzo partnerships team</td>
+      </tr>
+      <tr>
+        <td>FSSAI Consultation (legal)</td>
+        <td>Rs 5,000–10,000</td>
+        <td>One-time legal advice on homemaker compliance</td>
+      </tr>
+      <tr>
+        <th>Total One-Time Costs</th>
+        <th><strong>Rs 15,400–20,400</strong></th>
+        <th></th>
+      </tr>
+    </table>
+
+    <h2>7.4 Cost at Scale (Projection)</h2>
+    <table>
+      <tr>
+        <th>Stage</th>
+        <th>Users (MAU)</th>
+        <th>Monthly Infra Cost</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>MVP / Beta</td>
+        <td>0–500</td>
+        <td>Rs 3,000–6,000</td>
+        <td>Free tiers cover most services</td>
+      </tr>
+      <tr>
+        <td>Phase 1</td>
+        <td>500–2,000</td>
+        <td>Rs 6,000–12,000</td>
+        <td>Upgrade EC2; Supabase Pro</td>
+      </tr>
+      <tr>
+        <td>Phase 2</td>
+        <td>2,000–10,000</td>
+        <td>Rs 15,000–30,000</td>
+        <td>Add Redis, load balancer, CDN</td>
+      </tr>
+      <tr>
+        <td>Scale</td>
+        <td>10,000+</td>
+        <td>Rs 40,000–80,000</td>
+        <td>Auto-scaling, separate services</td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 8 ===== -->
+    <h1 id="s8">8. Development Cost — Rs 70,000 Budget (Salaries)</h1>
+
+    <h2>8.1 Team Required for 2-Week MVP</h2>
+    <table>
+      <tr>
+        <th>Role</th>
+        <th>Responsibility</th>
+        <th>Count</th>
+        <th>Type</th>
+      </tr>
+      <tr>
+        <td>Flutter Developer (Full-Stack Mobile)</td>
+        <td>
+          Build all 3 Flutter apps — Customer, Homemaker, Delivery Partner
+        </td>
+        <td>2</td>
+        <td>Must know Flutter + Riverpod</td>
+      </tr>
+      <tr>
+        <td>Backend Developer</td>
+        <td>Node.js API, PostgreSQL, Razorpay, Dunzo, Firebase, Cron Jobs</td>
+        <td>1</td>
+        <td>Must know Express + SQL</td>
+      </tr>
+      <tr>
+        <td>Product / QA (Part-time)</td>
+        <td>Testing, acceptance criteria verification, bug tracking</td>
+        <td>1 (shared)</td>
+        <td>Can be founder or PM</td>
+      </tr>
+    </table>
+
+    <h2>8.2 Budget Allocation — Rs 70,000 (2 Weeks)</h2>
+    <table>
+      <tr>
+        <th>Role</th>
+        <th>Daily Rate (Rs)</th>
+        <th>Days</th>
+        <th>Total (Rs)</th>
+      </tr>
+      <tr>
+        <td>Flutter Developer 1</td>
+        <td>Rs 2,500/day</td>
+        <td>14 days</td>
+        <td>Rs 35,000</td>
+      </tr>
+      <tr>
+        <td>Flutter Developer 2</td>
+        <td>Rs 2,500/day</td>
+        <td>14 days</td>
+        <td>Rs 35,000</td>
+      </tr>
+      <tr>
+        <td>Backend Developer</td>
+        <td>—</td>
+        <td>—</td>
+        <td><em>Founder / free resource</em></td>
+      </tr>
+      <tr>
+        <th>Total Dev Salary</th>
+        <th></th>
+        <th></th>
+        <th><strong>Rs 70,000</strong></th>
+      </tr>
+    </table>
+
+    <div class="warning">
+      <strong>Budget Constraint Note:</strong> Rs 70,000 covers 2 Flutter
+      developers for 14 days at Rs 2,500/day each. The backend developer must be
+      either the founder, a co-founder, or an intern/junior dev working at
+      below-market rate. If a third paid developer is required, budget needs to
+      increase by Rs 25,000–35,000.
+    </div>
+
+    <h2>
+      8.3 Alternative Budget Allocation (If Backend Developer Is Also Paid)
+    </h2>
+    <table>
+      <tr>
+        <th>Role</th>
+        <th>Daily Rate (Rs)</th>
+        <th>Days</th>
+        <th>Total (Rs)</th>
+      </tr>
+      <tr>
+        <td>Flutter Developer 1</td>
+        <td>Rs 2,000/day</td>
+        <td>14 days</td>
+        <td>Rs 28,000</td>
+      </tr>
+      <tr>
+        <td>Flutter Developer 2</td>
+        <td>Rs 2,000/day</td>
+        <td>14 days</td>
+        <td>Rs 28,000</td>
+      </tr>
+      <tr>
+        <td>Backend Developer</td>
+        <td>Rs 1,000/day</td>
+        <td>14 days</td>
+        <td>Rs 14,000</td>
+      </tr>
+      <tr>
+        <th>Total Dev Salary</th>
+        <th></th>
+        <th></th>
+        <th><strong>Rs 70,000</strong></th>
+      </tr>
+    </table>
+
+    <p>
+      This model works with junior/fresher developers (1–2 years experience) or
+      developers hired from platforms like Internshala or LinkedIn at lower
+      rates.
+    </p>
+
+    <h2>8.4 Full Launch Budget (MVP + 3 Months)</h2>
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Amount (Rs)</th>
+      </tr>
+      <tr>
+        <td>MVP Development (Week 1–2)</td>
+        <td>Rs 70,000</td>
+      </tr>
+      <tr>
+        <td>Infrastructure (3 months)</td>
+        <td>Rs 25,000–35,000</td>
+      </tr>
+      <tr>
+        <td>One-time setup costs</td>
+        <td>Rs 15,000–20,000</td>
+      </tr>
+      <tr>
+        <td>Homemaker incentives (first 50 homemakers)</td>
+        <td>Rs 10,000–20,000</td>
+      </tr>
+      <tr>
+        <td>Customer acquisition (referral credits, first orders)</td>
+        <td>Rs 15,000–25,000</td>
+      </tr>
+      <tr>
+        <td>Bug fixes + Phase 1.1 features (post-MVP iteration)</td>
+        <td>Rs 30,000–50,000</td>
+      </tr>
+      <tr>
+        <th>Total Estimated Budget (MVP to Month 3)</th>
+        <th><strong>Rs 1,65,000–2,20,000</strong></th>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 9 ===== -->
+    <h1 id="s9">9. User Stories &amp; Acceptance Criteria</h1>
+
+    <h3>US-C01: Subscribe to a Homemaker Meal Plan</h3>
+    <p>
+      <em
+        >As a customer, I want to subscribe to a homemaker's meal plan so I
+        don't need to order every day.</em
+      >
+    </p>
+    <p><strong>Acceptance Criteria:</strong></p>
+    <ul>
+      <li>
+        Customer selects meal type (lunch/dinner) and plan duration
+        (weekly/monthly)
+      </li>
+      <li>
+        Start date selectable; same-day only if placed 2+ hours before delivery
+        slot
+      </li>
+      <li>Total cost and per-meal cost displayed before confirmation</li>
+      <li>
+        Subscription appears in dashboard immediately after payment success
+      </li>
+      <li>
+        System auto-generates daily orders at 6 AM for each active subscription
+      </li>
+      <li>Paused days are skipped without extending plan duration</li>
+    </ul>
+
+    <h3>US-C02: Track an Order</h3>
+    <p>
+      <em
+        >As a customer, I want to see order status so I know when my food will
+        arrive.</em
+      >
+    </p>
+    <p><strong>Acceptance Criteria:</strong></p>
+    <ul>
+      <li>
+        5-step status bar: Placed → Accepted → Preparing → Out for Delivery →
+        Delivered
+      </li>
+      <li>Push notification sent at each status change</li>
+      <li>Dunzo tracking link visible when status is Out for Delivery</li>
+      <li>Estimated delivery time shown and updated</li>
+    </ul>
+
+    <h3>US-C03: Pause a Subscription</h3>
+    <p>
+      <em
+        >As a customer, I want to pause my subscription for specific days so I
+        don't pay for food I won't receive.</em
+      >
+    </p>
+    <p><strong>Acceptance Criteria:</strong></p>
+    <ul>
+      <li>Pause must be set at least 2 hours before scheduled delivery time</li>
+      <li>Paused days: no order generated, no charge, no plan extension</li>
+      <li>Calendar view shows paused vs active days</li>
+      <li>Maximum 5 pause days per month per plan</li>
+    </ul>
+
+    <h3>US-H01: Add a Meal</h3>
+    <p>
+      <em
+        >As a homemaker, I want to add meals with name, price, and availability
+        so customers can discover and order from me.</em
+      >
+    </p>
+    <p><strong>Acceptance Criteria:</strong></p>
+    <ul>
+      <li>
+        Homemaker adds: meal name, description, photo, price
+        (single/weekly/monthly), veg/non-veg tag
+      </li>
+      <li>Availability toggle per meal (active/inactive)</li>
+      <li>Meal goes live on customer app within 5 minutes of save</li>
+    </ul>
+
+    <h3>US-H02: Accept or Reject an Order</h3>
+    <p>
+      <em
+        >As a homemaker, I want to accept or reject incoming orders so I only
+        take on what I can handle.</em
+      >
+    </p>
+    <p><strong>Acceptance Criteria:</strong></p>
+    <ul>
+      <li>New order notification with 10-minute acceptance window</li>
+      <li>Auto-cancel and customer refund if not accepted in 10 minutes</li>
+      <li>Rejection requires selecting a reason from predefined list</li>
+    </ul>
+
+    <h3>US-D01: View and Accept a Delivery</h3>
+    <p>
+      <em
+        >As a delivery partner, I want to see order details before accepting so
+        I can evaluate pickup/drop distance.</em
+      >
+    </p>
+    <p><strong>Acceptance Criteria:</strong></p>
+    <ul>
+      <li>
+        Order card shows: pickup location, drop location, distance, order type
+      </li>
+      <li>
+        Accept/Reject buttons visible; auto-assigned via Dunzo if not accepted
+        in 5 min
+      </li>
+      <li>Navigation launches on single tap after acceptance</li>
+    </ul>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 10 ===== -->
+    <h1 id="s10">10. Customer App — Screen Specifications</h1>
+
+    <h3>Home Screen</h3>
+    <table>
+      <tr>
+        <th>Element</th>
+        <th>Specification</th>
+      </tr>
+      <tr>
+        <td>Location Selector</td>
+        <td>
+          Shows current city/area; tap to change; required for delivery zone
+          filtering
+        </td>
+      </tr>
+      <tr>
+        <td>Search Bar</td>
+        <td>
+          Searches dish name, homemaker name; results appear inline as user
+          types
+        </td>
+      </tr>
+      <tr>
+        <td>Tabs</td>
+        <td>
+          Homemade (default) | Restaurants — visually distinct, not a dropdown
+        </td>
+      </tr>
+      <tr>
+        <td>Homemaker Cards</td>
+        <td>
+          Name, food type (veg/non-veg/home-style), price per meal, subscription
+          badge
+        </td>
+      </tr>
+      <tr>
+        <td>Restaurant Cards</td>
+        <td>Image, name, rating, delivery time, price indicator</td>
+      </tr>
+      <tr>
+        <td>Loading State</td>
+        <td>Skeleton cards; max 3 seconds to load on 4G</td>
+      </tr>
+    </table>
+
+    <h3>Homemaker Detail Screen</h3>
+    <table>
+      <tr>
+        <th>Element</th>
+        <th>Specification</th>
+      </tr>
+      <tr>
+        <td>Header</td>
+        <td>
+          Homemaker name, tag (Home-style food), avg rating, hygiene badge (if
+          verified)
+        </td>
+      </tr>
+      <tr>
+        <td>Meal Options</td>
+        <td>
+          Lunch / Dinner sections; name, description, photo thumbnail, price per
+          item
+        </td>
+      </tr>
+      <tr>
+        <td>Pricing Table</td>
+        <td>
+          Per meal | Weekly | Monthly — all three prices shown simultaneously
+        </td>
+      </tr>
+      <tr>
+        <td>Order Mode Toggle</td>
+        <td>
+          Order Once (default) | Subscribe — clearly differentiated buttons
+        </td>
+      </tr>
+      <tr>
+        <td>Subscribe Flow</td>
+        <td>
+          Plan (Weekly/Monthly) → Start date → Meal type (Lunch/Dinner) →
+          Confirm
+        </td>
+      </tr>
+    </table>
+
+    <h3>Cart Screen</h3>
+    <table>
+      <tr>
+        <th>Element</th>
+        <th>Specification</th>
+      </tr>
+      <tr>
+        <td>Item List</td>
+        <td>Meal name, quantity, price per item, remove button</td>
+      </tr>
+      <tr>
+        <td>Subscription Summary</td>
+        <td>
+          Plan type, duration, per-meal cost, total cost, delivery dates range
+        </td>
+      </tr>
+      <tr>
+        <td>Cost Breakdown</td>
+        <td>
+          Subtotal, delivery fee, platform fee — all visible before Place Order
+        </td>
+      </tr>
+      <tr>
+        <td>CTA</td>
+        <td>
+          Place Order (one-time) or Subscribe Now (subscription) — single
+          primary button
+        </td>
+      </tr>
+    </table>
+
+    <h3>Order Tracking Screen</h3>
+    <table>
+      <tr>
+        <th>Element</th>
+        <th>Specification</th>
+      </tr>
+      <tr>
+        <td>Status Bar</td>
+        <td>
+          5-step horizontal progress: Placed → Accepted → Preparing → Out for
+          Delivery → Delivered
+        </td>
+      </tr>
+      <tr>
+        <td>Tracking Link</td>
+        <td>Dunzo tracking URL shown when status is Out for Delivery</td>
+      </tr>
+      <tr>
+        <td>ETA</td>
+        <td>Estimated delivery time; updated dynamically</td>
+      </tr>
+      <tr>
+        <td>Support</td>
+        <td>
+          Raise issue button — routes to WhatsApp support (Phase 1) or in-app
+          chat (Phase 2)
+        </td>
+      </tr>
+    </table>
+
+    <h3>Subscription Dashboard</h3>
+    <table>
+      <tr>
+        <th>Element</th>
+        <th>Specification</th>
+      </tr>
+      <tr>
+        <td>Active Plans</td>
+        <td>
+          Each shows: homemaker name, meal type, plan dates, status, next
+          delivery date
+        </td>
+      </tr>
+      <tr>
+        <td>Pause Button</td>
+        <td>Opens date picker; disables delivery for selected date(s)</td>
+      </tr>
+      <tr>
+        <td>Cancel Button</td>
+        <td>
+          Confirmation modal with policy reminder (no refund for current period)
+        </td>
+      </tr>
+      <tr>
+        <td>History Tab</td>
+        <td>Past subscriptions with total spend and order count</td>
+      </tr>
+    </table>
+
+    <h3>Payment Screen</h3>
+    <table>
+      <tr>
+        <th>Element</th>
+        <th>Specification</th>
+      </tr>
+      <tr>
+        <td>Payment Methods</td>
+        <td>UPI (default), Debit/Credit Card — via Razorpay SDK</td>
+      </tr>
+      <tr>
+        <td>Order Summary</td>
+        <td>Compact summary of what is being paid for</td>
+      </tr>
+      <tr>
+        <td>Success Screen</td>
+        <td>Confirmation with order ID; CTA to Track Order</td>
+      </tr>
+      <tr>
+        <td>Failure Handling</td>
+        <td>
+          Payment failed state with Retry button; order not placed until payment
+          confirmed
+        </td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 11 ===== -->
+    <h1 id="s11">11. Homemaker App — Screen Specifications</h1>
+
+    <table>
+      <tr>
+        <th>Screen</th>
+        <th>Key Elements</th>
+      </tr>
+      <tr>
+        <td>Dashboard</td>
+        <td>
+          Today's orders count, active subscriptions count, today's earnings,
+          online/offline toggle
+        </td>
+      </tr>
+      <tr>
+        <td>Meal Management</td>
+        <td>
+          List of added meals; add new meal button; toggle availability per
+          meal; edit price
+        </td>
+      </tr>
+      <tr>
+        <td>Add Meal Form</td>
+        <td>
+          Meal name, description, photo upload, price (single/weekly/monthly),
+          veg/non-veg, available from time
+        </td>
+      </tr>
+      <tr>
+        <td>Incoming Orders</td>
+        <td>
+          Order card with 10-min countdown timer; Accept / Reject buttons; order
+          details (meal, customer area)
+        </td>
+      </tr>
+      <tr>
+        <td>Active Orders</td>
+        <td>
+          Accepted orders list; Mark Ready button; estimated pickup time from
+          Dunzo
+        </td>
+      </tr>
+      <tr>
+        <td>Subscription Viewers</td>
+        <td>
+          List of active subscribers; meal type; delivery days; pause status
+        </td>
+      </tr>
+      <tr>
+        <td>Earnings</td>
+        <td>Today's earnings, this week, this month; pending payout balance</td>
+      </tr>
+      <tr>
+        <td>Profile</td>
+        <td>
+          Kitchen name, address, bank account details for payout, verification
+          status
+        </td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 12 ===== -->
+    <h1 id="s12">12. Delivery Partner App — Screen Specifications</h1>
+
+    <table>
+      <tr>
+        <th>Screen</th>
+        <th>Key Elements</th>
+      </tr>
+      <tr>
+        <td>Dashboard</td>
+        <td>
+          Online/offline toggle; today's completed orders; today's earnings;
+          pending orders badge
+        </td>
+      </tr>
+      <tr>
+        <td>Available Orders</td>
+        <td>
+          Order card: pickup name + area, drop area, distance, order type
+          (one-time vs subscription); Accept / Pass buttons
+        </td>
+      </tr>
+      <tr>
+        <td>Active Delivery</td>
+        <td>
+          Pickup address with navigation tap; Picked Up button; drop address;
+          Delivered button
+        </td>
+      </tr>
+      <tr>
+        <td>Order History</td>
+        <td>Completed deliveries list with earnings per order</td>
+      </tr>
+      <tr>
+        <td>Earnings Screen</td>
+        <td>Daily/weekly earnings; incentives earned; payout schedule</td>
+      </tr>
+      <tr>
+        <td>Profile</td>
+        <td>
+          Name, phone, vehicle type, documents upload, bank account for payout
+        </td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 13 ===== -->
+    <h1 id="s13">13. Technical Architecture</h1>
+
+    <h2>13.1 System Overview</h2>
+    <p>
+      Three Flutter apps (Customer, Homemaker, Delivery Partner) communicate via
+      a single Node.js/Express REST API backed by PostgreSQL on Supabase. Dunzo
+      handles delivery logistics. Razorpay handles payments. Firebase handles
+      push notifications.
+    </p>
+
+    <h2>13.2 Flutter App Architecture</h2>
+    <p>Pattern: Feature-Based Architecture + Riverpod State Management</p>
+    <table>
+      <tr>
+        <th>Layer</th>
+        <th>Purpose</th>
+        <th>Examples</th>
+      </tr>
+      <tr>
+        <td>core/</td>
+        <td>Global utilities, theme, routing, API client</td>
+        <td>AppTheme, ApiService, AppRouter</td>
+      </tr>
+      <tr>
+        <td>shared/</td>
+        <td>Cross-feature models and providers</td>
+        <td>UserModel, AuthProvider, OrderModel</td>
+      </tr>
+      <tr>
+        <td>features/</td>
+        <td>Isolated self-contained feature modules</td>
+        <td>cart/, order/, homemaker/, subscription/</td>
+      </tr>
+      <tr>
+        <td>app/</td>
+        <td>App configuration and entry wiring</td>
+        <td>app.dart, routes.dart, main.dart</td>
+      </tr>
+    </table>
+
+    <h2>13.3 Riverpod State Management</h2>
+    <table>
+      <tr>
+        <th>Riverpod Provider Type</th>
+        <th>Use Case</th>
+      </tr>
+      <tr>
+        <td>Provider</td>
+        <td>Simple dependencies (theme, config, API client)</td>
+      </tr>
+      <tr>
+        <td>FutureProvider</td>
+        <td>API data fetching (homemaker list, meal details, order status)</td>
+      </tr>
+      <tr>
+        <td>StateNotifierProvider</td>
+        <td>
+          Complex mutable state (cart contents, subscriptions, auth session)
+        </td>
+      </tr>
+    </table>
+
+    <h2>13.4 Feature Internal Structure</h2>
+    <p>Each feature folder follows this pattern:</p>
+    <ul>
+      <li>data/ — API calls, repository classes</li>
+      <li>domain/ — Business logic, use cases (optional in Phase 1)</li>
+      <li>presentation/screens/ — UI screens</li>
+      <li>presentation/widgets/ — Reusable UI components for this feature</li>
+      <li>
+        presentation/providers/ — Riverpod providers for this feature's state
+      </li>
+    </ul>
+
+    <h2>13.5 Order Lifecycle</h2>
+    <p>
+      CREATED → PENDING_ACCEPTANCE → ACCEPTED → PREPARING → READY →
+      OUT_FOR_DELIVERY → DELIVERED
+    </p>
+    <ul>
+      <li>
+        If homemaker does not accept in 10 min: Auto-cancel, customer refunded
+        via Razorpay
+      </li>
+      <li>
+        If Dunzo delivery fails: Retry once; if second failure, escalate to ops
+        and refund
+      </li>
+    </ul>
+
+    <h2>13.6 Background Jobs</h2>
+    <table>
+      <tr>
+        <th>Job</th>
+        <th>Schedule</th>
+        <th>Action</th>
+      </tr>
+      <tr>
+        <td>Subscription Order Generator</td>
+        <td>Daily at 6:00 AM</td>
+        <td>
+          For each active subscription, create order for the day; skip paused
+          dates
+        </td>
+      </tr>
+      <tr>
+        <td>Order Timeout Handler</td>
+        <td>Every 5 minutes</td>
+        <td>
+          Cancel orders in PENDING_ACCEPTANCE over 10 min; trigger Razorpay
+          refund
+        </td>
+      </tr>
+      <tr>
+        <td>Subscription Renewal Check</td>
+        <td>Daily at midnight</td>
+        <td>
+          Flag subscriptions ending within 3 days; send renewal push
+          notification
+        </td>
+      </tr>
+    </table>
+
+    <h2>13.7 Tech Stack</h2>
+    <table>
+      <tr>
+        <th>Component</th>
+        <th>Technology</th>
+        <th>Rationale</th>
+      </tr>
+      <tr>
+        <td>Mobile Apps</td>
+        <td>Flutter (Dart)</td>
+        <td>Single codebase for iOS + Android; 3 separate app targets</td>
+      </tr>
+      <tr>
+        <td>Backend API</td>
+        <td>Node.js (Express)</td>
+        <td>Fast development; large ecosystem; async-first</td>
+      </tr>
+      <tr>
+        <td>Database</td>
+        <td>PostgreSQL</td>
+        <td>Relational model suits order/subscription complexity</td>
+      </tr>
+      <tr>
+        <td>Database Hosting</td>
+        <td>Supabase</td>
+        <td>PostgreSQL-as-a-service; real-time support; easy setup</td>
+      </tr>
+      <tr>
+        <td>Backend Hosting</td>
+        <td>AWS EC2</td>
+        <td>Scalable; cost-effective at early stage</td>
+      </tr>
+      <tr>
+        <td>Delivery</td>
+        <td>Dunzo API</td>
+        <td>Existing fleet; no logistics build required</td>
+      </tr>
+      <tr>
+        <td>Payments</td>
+        <td>Razorpay</td>
+        <td>India-first; strong UPI support; reliable webhooks</td>
+      </tr>
+      <tr>
+        <td>Maps</td>
+        <td>Google Maps Platform</td>
+        <td>Flutter plugin available; $200 free credit monthly</td>
+      </tr>
+      <tr>
+        <td>Notifications</td>
+        <td>Firebase Cloud Messaging</td>
+        <td>Free tier covers Phase 1 volume</td>
+      </tr>
+      <tr>
+        <td>OTP</td>
+        <td>MSG91</td>
+        <td>Reliable SMS delivery in India; cheaper than Twilio</td>
+      </tr>
+      <tr>
+        <td>Error Monitoring</td>
+        <td>Sentry (free tier)</td>
+        <td>Crash reporting and error tracking</td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 14 ===== -->
+    <h1 id="s14">14. Database Design</h1>
+
+    <table>
+      <tr>
+        <th>Table</th>
+        <th>Key Fields</th>
+      </tr>
+      <tr>
+        <td>users</td>
+        <td>id, role (customer/homemaker/delivery), phone, name, created_at</td>
+      </tr>
+      <tr>
+        <td>addresses</td>
+        <td>id, user_id, address_text, lat, lng, is_default</td>
+      </tr>
+      <tr>
+        <td>homemakers</td>
+        <td>
+          id, user_id, kitchen_details, availability, fssai_verified,
+          rating_avg, city
+        </td>
+      </tr>
+      <tr>
+        <td>meals</td>
+        <td>
+          id, homemaker_id, name, description, photo_url, price_single,
+          price_weekly, price_monthly, is_veg, available
+        </td>
+      </tr>
+      <tr>
+        <td>restaurants</td>
+        <td>
+          id, name, address, lat, lng, rating, delivery_time_min,
+          price_indicator, city
+        </td>
+      </tr>
+      <tr>
+        <td>orders</td>
+        <td>
+          id, user_id, source_type (homemaker/restaurant), source_id, status,
+          total_price, delivery_tracking_id, subscription_id, created_at
+        </td>
+      </tr>
+      <tr>
+        <td>order_items</td>
+        <td>id, order_id, meal_id, quantity, unit_price</td>
+      </tr>
+      <tr>
+        <td>subscriptions</td>
+        <td>
+          id, user_id, homemaker_id, meal_type (lunch/dinner), start_date,
+          end_date, plan_type (weekly/monthly), pause_status, paused_dates[]
+        </td>
+      </tr>
+      <tr>
+        <td>payments</td>
+        <td>
+          id, order_id, amount, status, razorpay_order_id, razorpay_payment_id,
+          refund_id, created_at
+        </td>
+      </tr>
+      <tr>
+        <td>delivery_partners</td>
+        <td>id, user_id, vehicle_type, is_online, current_lat, current_lng</td>
+      </tr>
+      <tr>
+        <td>ratings</td>
+        <td>
+          id, user_id, source_type, source_id, score (1–5), review_text,
+          created_at
+        </td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 15 ===== -->
+    <h1 id="s15">15. API Specification</h1>
+
+    <h3>Auth</h3>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/auth/login</td>
+        <td>Send OTP to phone number</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/auth/verify-otp</td>
+        <td>Verify OTP; return JWT + user role</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/auth/refresh</td>
+        <td>Refresh JWT token</td>
+      </tr>
+    </table>
+
+    <h3>User</h3>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/user/profile</td>
+        <td>Get logged-in user profile</td>
+      </tr>
+      <tr>
+        <td>PATCH</td>
+        <td>/user/profile</td>
+        <td>Update name, preferences</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/user/addresses</td>
+        <td>List saved addresses</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/user/addresses</td>
+        <td>Add new address</td>
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>/user/addresses/:id</td>
+        <td>Remove address</td>
+      </tr>
+    </table>
+
+    <h3>Homemaker</h3>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/homemakers</td>
+        <td>List homemakers with filters (city, veg, rating)</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/homemakers/:id</td>
+        <td>Get homemaker detail + meals list</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/homemakers/meals</td>
+        <td>Add meal (Homemaker App)</td>
+      </tr>
+      <tr>
+        <td>PATCH</td>
+        <td>/homemakers/meals/:id</td>
+        <td>Edit meal details</td>
+      </tr>
+      <tr>
+        <td>PATCH</td>
+        <td>/homemakers/meals/:id/toggle</td>
+        <td>Toggle meal availability</td>
+      </tr>
+    </table>
+
+    <h3>Orders</h3>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/orders</td>
+        <td>Create order (one-time)</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/orders/:id</td>
+        <td>Get order detail + current status</td>
+      </tr>
+      <tr>
+        <td>PATCH</td>
+        <td>/orders/:id/status</td>
+        <td>Update order status (Homemaker/Delivery App)</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/orders/history</td>
+        <td>Customer order history</td>
+      </tr>
+    </table>
+
+    <h3>Subscriptions</h3>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/subscriptions</td>
+        <td>Create subscription plan</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/subscriptions</td>
+        <td>List active subscriptions for logged-in user</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>/subscriptions/:id</td>
+        <td>Get subscription detail + delivery schedule</td>
+      </tr>
+      <tr>
+        <td>PATCH</td>
+        <td>/subscriptions/:id/pause</td>
+        <td>Pause on specific dates</td>
+      </tr>
+      <tr>
+        <td>PATCH</td>
+        <td>/subscriptions/:id/resume</td>
+        <td>Resume paused dates</td>
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>/subscriptions/:id</td>
+        <td>Cancel subscription</td>
+      </tr>
+    </table>
+
+    <h3>Payments</h3>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/payments/initiate</td>
+        <td>Create Razorpay order; return order_id</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/payments/webhook</td>
+        <td>Razorpay payment confirmation webhook</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>/payments/refund</td>
+        <td>Initiate refund (internal/ops use)</td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 16 ===== -->
+    <h1 id="s16">16. Backend Modules</h1>
+
+    <table>
+      <tr>
+        <th>Module</th>
+        <th>Key Responsibilities</th>
+      </tr>
+      <tr>
+        <td>Auth Module</td>
+        <td>
+          OTP login, JWT token generation (7-day expiry), role assignment:
+          Customer / Homemaker / Delivery
+        </td>
+      </tr>
+      <tr>
+        <td>User Module</td>
+        <td>Profile management, address book, order history</td>
+      </tr>
+      <tr>
+        <td>Homemaker Module</td>
+        <td>
+          Meal CRUD, availability control, pricing (single/weekly/monthly),
+          subscription eligibility flag
+        </td>
+      </tr>
+      <tr>
+        <td>Order Module</td>
+        <td>
+          Order lifecycle state machine, timeout handler, cancellation logic,
+          Dunzo trigger on READY status
+        </td>
+      </tr>
+      <tr>
+        <td>Subscription Module</td>
+        <td>
+          Plan storage, daily order auto-generation cron (6 AM), pause/resume
+          date logic, renewal notification
+        </td>
+      </tr>
+      <tr>
+        <td>Delivery Module (Dunzo)</td>
+        <td>
+          POST delivery request to Dunzo API on order READY, store tracking_id,
+          poll Dunzo status, update order
+        </td>
+      </tr>
+      <tr>
+        <td>Payment Module (Razorpay)</td>
+        <td>
+          Create payment order, handle success webhook, trigger order
+          confirmation, initiate refunds on failure/cancel
+        </td>
+      </tr>
+      <tr>
+        <td>Notification Module (Firebase)</td>
+        <td>
+          Push notifications for: order accepted, out for delivery, delivered,
+          subscription reminder, renewal alert
+        </td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 17 ===== -->
+    <h1 id="s17">17. Homemaker Onboarding &amp; Operations</h1>
+
+    <h2>17.1 Onboarding Flow</h2>
+    <ol>
+      <li>
+        Homemaker downloads the Homemaker App and registers with phone number
+        (OTP verification)
+      </li>
+      <li>
+        Completes profile: name, kitchen location (area-level), cooking capacity
+        per day
+      </li>
+      <li>
+        Uploads government ID (Aadhaar) and signs food safety self-declaration
+      </li>
+      <li>Adds at least 1 meal with photo, price, and availability schedule</li>
+      <li>
+        ZINGRO ops team reviews listing within 24 hours (manual check in Phase
+        1)
+      </li>
+      <li>Account activated; homemaker goes live on customer app</li>
+    </ol>
+
+    <h2>17.2 Verification Requirements</h2>
+    <table>
+      <tr>
+        <th>Requirement</th>
+        <th>Mandatory?</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Government ID (Aadhaar/PAN)</td>
+        <td>Yes</td>
+        <td>For identity verification and payouts</td>
+      </tr>
+      <tr>
+        <td>Kitchen photo</td>
+        <td>Yes</td>
+        <td>Reviewed by ops team; basic hygiene check</td>
+      </tr>
+      <tr>
+        <td>FSSAI Basic Registration</td>
+        <td>Recommended</td>
+        <td>Shown as hygiene badge; increases order conversion</td>
+      </tr>
+      <tr>
+        <td>Phone number (OTP verified)</td>
+        <td>Yes</td>
+        <td>At registration</td>
+      </tr>
+      <tr>
+        <td>Bank account for payouts</td>
+        <td>Yes</td>
+        <td>Required before first payout is released</td>
+      </tr>
+    </table>
+
+    <h2>17.3 Dispute Resolution</h2>
+    <table>
+      <tr>
+        <th>Scenario</th>
+        <th>Resolution</th>
+        <th>SLA</th>
+      </tr>
+      <tr>
+        <td>Wrong item delivered</td>
+        <td>Customer raises ticket; auto-refund if homemaker confirms error</td>
+        <td>2 hours</td>
+      </tr>
+      <tr>
+        <td>Food quality complaint</td>
+        <td>
+          Ops team reviews; partial/full refund at discretion; homemaker
+          notified
+        </td>
+        <td>24 hours</td>
+      </tr>
+      <tr>
+        <td>Order not delivered</td>
+        <td>Check Dunzo tracking; redeliver or full refund</td>
+        <td>4 hours</td>
+      </tr>
+      <tr>
+        <td>Homemaker cancels accepted order</td>
+        <td>
+          Customer auto-refunded; homemaker strike logged (3 strikes =
+          suspension review)
+        </td>
+        <td>Immediate</td>
+      </tr>
+      <tr>
+        <td>Payment not received by homemaker</td>
+        <td>Finance team reconciliation; manual payout if needed</td>
+        <td>48 hours</td>
+      </tr>
+    </table>
+
+    <h2>17.4 Refund and Cancellation Policy</h2>
+    <p><strong>Customer cancellations — one-time orders:</strong></p>
+    <ul>
+      <li>Before homemaker accepts: Full refund, no penalty</li>
+      <li>After homemaker accepts but before preparation: 50% refund</li>
+      <li>After preparation begins: No refund (food has been prepared)</li>
+    </ul>
+    <p><strong>Subscription cancellations:</strong></p>
+    <ul>
+      <li>
+        Cancel anytime; no refund for current billing period; next period not
+        charged
+      </li>
+      <li>
+        Pause: up to 5 days per month; no refund or plan extension for paused
+        days
+      </li>
+    </ul>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 18 ===== -->
+    <h1 id="s18">18. Assumptions, Risks &amp; Mitigations</h1>
+
+    <h2>18.1 Assumptions</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Assumption</th>
+        <th>If Wrong...</th>
+      </tr>
+      <tr>
+        <td>A1</td>
+        <td>
+          Homemakers will self-onboard with minimal support after initial
+          outreach
+        </td>
+        <td>Onboarding cost increases; need field ops team</td>
+      </tr>
+      <tr>
+        <td>A2</td>
+        <td>
+          Dunzo API can handle delivery volumes in Pune and Bangalore target
+          zones
+        </td>
+        <td>Need backup delivery partner or own fleet</td>
+      </tr>
+      <tr>
+        <td>A3</td>
+        <td>
+          Customers trust homemaker-cooked food if hygiene is communicated
+          clearly
+        </td>
+        <td>Demand stays low; restaurant focus must increase</td>
+      </tr>
+      <tr>
+        <td>A4</td>
+        <td>Razorpay will handle all payment edge cases reliably</td>
+        <td>Payment failure rates rise; need dedicated payment ops</td>
+      </tr>
+      <tr>
+        <td>A5</td>
+        <td>
+          Subscription churn will be manageable (less than 20% monthly) after
+          Month 3
+        </td>
+        <td>Revenue model needs revision; discount strategy required</td>
+      </tr>
+      <tr>
+        <td>A6</td>
+        <td>
+          2 Flutter developers can complete 3 apps in 14 days working full-time
+        </td>
+        <td>MVP delayed; reduce scope further or add developer</td>
+      </tr>
+    </table>
+
+    <h2>18.2 Risks &amp; Mitigations</h2>
+    <table>
+      <tr>
+        <th>Risk</th>
+        <th>Likelihood</th>
+        <th>Impact</th>
+        <th>Mitigation</th>
+      </tr>
+      <tr>
+        <td>Homemaker supply insufficient at launch</td>
+        <td>High</td>
+        <td>High</td>
+        <td>
+          Pre-onboard 50+ homemakers before launch; offer guaranteed minimum
+          orders in Month 1
+        </td>
+      </tr>
+      <tr>
+        <td>Dunzo delivery fails or delays frequently</td>
+        <td>Medium</td>
+        <td>High</td>
+        <td>
+          SLA agreement; retry logic; track failure rate daily; identify backup
+          partner (Porter/Shadowfax)
+        </td>
+      </tr>
+      <tr>
+        <td>Food safety complaint goes public</td>
+        <td>Low</td>
+        <td>Very High</td>
+        <td>
+          Hygiene verification before listing; clear disclaimer; 24-hour ops
+          response team
+        </td>
+      </tr>
+      <tr>
+        <td>Subscription cancellations spike after Month 1</td>
+        <td>Medium</td>
+        <td>Medium</td>
+        <td>
+          Exit surveys; pause option reduces cancellations; proactive outreach
+          at Day 20 of plan
+        </td>
+      </tr>
+      <tr>
+        <td>MVP not ready in 14 days</td>
+        <td>Medium</td>
+        <td>High</td>
+        <td>
+          Scope is tightly defined; cut restaurant tab entirely from Day 1 if
+          needed to protect core subscription flow
+        </td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 19 ===== -->
+    <h1 id="s19">19. Success Metrics &amp; KPIs</h1>
+
+    <table>
+      <tr>
+        <th>Metric</th>
+        <th>Target Month 1</th>
+        <th>Target Month 3</th>
+        <th>Target Month 6</th>
+      </tr>
+      <tr>
+        <td>Daily Active Users (DAU)</td>
+        <td>50</td>
+        <td>500</td>
+        <td>2,000</td>
+      </tr>
+      <tr>
+        <td>Monthly Active Users (MAU)</td>
+        <td>200</td>
+        <td>2,000</td>
+        <td>8,000</td>
+      </tr>
+      <tr>
+        <td>Active Subscriptions</td>
+        <td>30</td>
+        <td>300</td>
+        <td>1,000</td>
+      </tr>
+      <tr>
+        <td>Subscription Monthly Retention</td>
+        <td>No target (too early)</td>
+        <td>Greater than 60%</td>
+        <td>Greater than 75%</td>
+      </tr>
+      <tr>
+        <td>Active Homemakers (both cities)</td>
+        <td>30</td>
+        <td>130</td>
+        <td>350</td>
+      </tr>
+      <tr>
+        <td>Orders per User per Month</td>
+        <td>4+</td>
+        <td>8+</td>
+        <td>12+</td>
+      </tr>
+      <tr>
+        <td>App Crash-Free Sessions</td>
+        <td>Greater than 98%</td>
+        <td>Greater than 99%</td>
+        <td>Greater than 99.5%</td>
+      </tr>
+      <tr>
+        <td>App Store Rating</td>
+        <td>No target</td>
+        <td>Greater than 4.0</td>
+        <td>Greater than 4.2</td>
+      </tr>
+      <tr>
+        <td>Order Cancellation Rate</td>
+        <td>Less than 15%</td>
+        <td>Less than 10%</td>
+        <td>Less than 8%</td>
+      </tr>
+      <tr>
+        <td>Delivery Success Rate</td>
+        <td>Greater than 90%</td>
+        <td>Greater than 94%</td>
+        <td>Greater than 96%</td>
+      </tr>
+      <tr>
+        <td>Monthly GMV (both cities)</td>
+        <td>Rs 2–3 Lakhs</td>
+        <td>Rs 18–24 Lakhs</td>
+        <td>Rs 60–80 Lakhs</td>
+      </tr>
+      <tr>
+        <td>Monthly Revenue (net commissions)</td>
+        <td>Rs 20,000–30,000</td>
+        <td>Rs 2–2.9 Lakhs</td>
+        <td>Rs 7–10 Lakhs</td>
+      </tr>
+    </table>
+
+    <h3>Weekly Monitoring Metrics</h3>
+    <ul>
+      <li>
+        New homemakers onboarded per week (target: 5+ per week in Month 1)
+      </li>
+      <li>
+        First subscription conversion rate among users who visit homemaker
+        detail screen
+      </li>
+      <li>
+        Subscription pause rate (leading indicator of churn; target: below 15%)
+      </li>
+      <li>Dunzo delivery failure rate (target: below 5%)</li>
+      <li>
+        Support ticket volume by category (track top 3 complaint types weekly)
+      </li>
+    </ul>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 20 ===== -->
+    <h1 id="s20">20. Go-to-Market Strategy</h1>
+
+    <h2>20.1 Launch City: Bangalore First</h2>
+    <p>
+      Bangalore is recommended as the Phase 1 launch city over Pune for three
+      reasons:
+    </p>
+    <ul>
+      <li>3x larger informal tiffin market (Rs 600 Cr vs Rs 200 Cr)</li>
+      <li>
+        Higher density of target customers (2M IT workforce vs 700K in Pune)
+      </li>
+      <li>
+        Dunzo has full city coverage in Bangalore; coverage in Pune is more
+        limited
+      </li>
+      <li>
+        Migrant working population is highest — strongest home-food desire
+      </li>
+    </ul>
+    <p>Pune becomes Phase 2 city expansion at Month 3.</p>
+
+    <h2>20.2 Pre-Launch Checklist (Week 1–2 = MVP Build)</h2>
+    <ul>
+      <li>
+        Field ops team manually contacts homemakers in HSR Layout, Koramangala,
+        Whitefield via WhatsApp, local Facebook groups, housing society contacts
+      </li>
+      <li>
+        Register Razorpay and Dunzo business accounts — do this Day 1, not Day 8
+      </li>
+      <li>
+        Set up basic customer support: WhatsApp Business number for issue
+        resolution
+      </li>
+      <li>
+        Prepare homemaker onboarding kit: short video guide, FAQ document,
+        referral incentive (Rs 500 bonus for first 5 orders)
+      </li>
+    </ul>
+
+    <h2>20.3 Launch Phase (Week 3–4)</h2>
+    <ul>
+      <li>
+        Invite-only beta with 100 users (employees, friends, early sign-ups)
+      </li>
+      <li>First free week of subscription for first 200 users who subscribe</li>
+      <li>Referral program: Rs 50 credit per successful referral</li>
+      <li>
+        Instagram Reels featuring homemakers cooking (authentic, no studio
+        production)
+      </li>
+      <li>
+        Post in WhatsApp/Facebook tiffin groups in Koramangala, HSR Layout,
+        Whitefield
+      </li>
+    </ul>
+
+    <h2>20.4 Growth Levers</h2>
+    <table>
+      <tr>
+        <th>Lever</th>
+        <th>Tactic</th>
+      </tr>
+      <tr>
+        <td>Homemaker acquisition</td>
+        <td>
+          Partner with women's self-help groups, Mahila Mandals, housing
+          societies in tech zones
+        </td>
+      </tr>
+      <tr>
+        <td>Customer acquisition</td>
+        <td>
+          Office canteen partnerships; target tech parks (Embassy Tech Village,
+          RMZ Ecospace, etc.)
+        </td>
+      </tr>
+      <tr>
+        <td>Retention</td>
+        <td>
+          Subscription pause feature reduces cancellations; loyalty credits
+          after 3-month continuous subscription
+        </td>
+      </tr>
+      <tr>
+        <td>Virality</td>
+        <td>
+          Shareable homemaker profile cards; customer can share "I eat at Sharma
+          Ji Kitchen daily" on Instagram
+        </td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <!-- ===== SECTION 21 ===== -->
+    <h1 id="s21">21. Open Questions &amp; Decisions Required</h1>
+
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Question</th>
+        <th>Decision By</th>
+        <th>Owner</th>
+      </tr>
+      <tr>
+        <td>OQ1</td>
+        <td>
+          Will ZINGRO rely 100% on Dunzo or also onboard independent delivery
+          partners?
+        </td>
+        <td>Before Day 1 of build</td>
+        <td>Founders</td>
+      </tr>
+      <tr>
+        <td>OQ2</td>
+        <td>
+          Do paused subscription days reduce plan cost, or is the plan price
+          fixed regardless?
+        </td>
+        <td>Before Day 5 of build (subscription UI)</td>
+        <td>Product</td>
+      </tr>
+      <tr>
+        <td>OQ3</td>
+        <td>
+          Is FSSAI self-declaration sufficient for homemaker listing at launch,
+          or is registration mandatory?
+        </td>
+        <td>Before launch</td>
+        <td>Legal</td>
+      </tr>
+      <tr>
+        <td>OQ4</td>
+        <td>
+          What is the minimum homemaker rating before automatic suspension
+          review?
+        </td>
+        <td>Before Month 2</td>
+        <td>Product + Ops</td>
+      </tr>
+      <tr>
+        <td>OQ5</td>
+        <td>Is COD supported at all in Phase 1, or UPI/Card only?</td>
+        <td>Before Day 6 of build (payment screen)</td>
+        <td>Product + Finance</td>
+      </tr>
+      <tr>
+        <td>OQ6</td>
+        <td>
+          What is ZINGRO's exact commission rate for homemaker orders — fixed
+          10% or tiered by order value?
+        </td>
+        <td>Before launch</td>
+        <td>Founders</td>
+      </tr>
+    </table>
+
+    <hr class="section-break" />
+
+    <p
+      style="
+        text-align: center;
+        color: #6b7280;
+        font-style: italic;
+        margin-top: 40px;
+      "
+    >
+      End of Document — ZINGRO PRD v1.0 | Confidential | Not for distribution
+    </p>
+    <p style="text-align: center; color: #6b7280; font-size: 12px">
+      Copy all content above and paste directly into Google Docs. Tables,
+      headings, and lists will preserve formatting.
+    </p>
+  </body>
+</html>
