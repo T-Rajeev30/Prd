@@ -1,0 +1,2826 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GovFleet — Market Analysis & PRD</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #0f1729;
+        --navy-light: #1a2744;
+        --blue: #3b82f6;
+        --blue-dim: #2563eb;
+        --cyan: #06b6d4;
+        --emerald: #10b981;
+        --amber: #f59e0b;
+        --red: #ef4444;
+        --purple: #8b5cf6;
+        --text: #e2e8f0;
+        --text-dim: #94a3b8;
+        --text-muted: #64748b;
+        --surface: #1e293b;
+        --surface-2: #253349;
+        --border: #334155;
+        --glow: rgba(59, 130, 246, 0.15);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Outfit", sans-serif;
+        background: var(--navy);
+        color: var(--text);
+        line-height: 1.7;
+        font-size: 15px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Scrollbar ── */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--navy);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 3px;
+      }
+
+      /* ── Layout ── */
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      /* ── Cover ── */
+      .cover {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        background:
+          radial-gradient(
+            ellipse at 30% 20%,
+            rgba(59, 130, 246, 0.08) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 70% 80%,
+            rgba(6, 182, 212, 0.06) 0%,
+            transparent 60%
+          ),
+          var(--navy);
+      }
+
+      .cover::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+          linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        animation: gridMove 20s linear infinite;
+      }
+
+      @keyframes gridMove {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(60px, 60px);
+        }
+      }
+
+      .cover-content {
+        position: relative;
+        text-align: center;
+        z-index: 1;
+        animation: fadeUp 1s ease-out;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .cover-badge {
+        display: inline-block;
+        padding: 6px 18px;
+        border: 1px solid var(--blue);
+        border-radius: 100px;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin-bottom: 32px;
+      }
+
+      .cover h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(48px, 8vw, 96px);
+        color: #fff;
+        letter-spacing: -2px;
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+
+      .cover h1 span {
+        color: var(--blue);
+      }
+
+      .cover-sub {
+        font-size: clamp(16px, 2.5vw, 22px);
+        font-weight: 300;
+        color: var(--text-dim);
+        margin-bottom: 48px;
+      }
+
+      .cover-meta {
+        display: flex;
+        gap: 32px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .cover-meta-item {
+        font-size: 12px;
+        color: var(--text-muted);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .cover-meta-item strong {
+        display: block;
+        font-size: 14px;
+        color: var(--text);
+        letter-spacing: 0;
+        text-transform: none;
+        margin-top: 4px;
+      }
+
+      /* ── Navigation ── */
+      .toc {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(15, 23, 41, 0.85);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 0;
+        transition: box-shadow 0.3s;
+      }
+
+      .toc-inner {
+        display: flex;
+        gap: 4px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding: 0 32px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .toc-inner::-webkit-scrollbar {
+        display: none;
+      }
+
+      .toc a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 6px 12px;
+        border-radius: 6px;
+        white-space: nowrap;
+        transition: all 0.2s;
+      }
+
+      .toc a:hover {
+        color: var(--text);
+        background: var(--surface);
+      }
+
+      /* ── Section Headers ── */
+      .section {
+        padding: 80px 0 40px;
+      }
+
+      .section-label {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--blue);
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .section h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(28px, 4vw, 42px);
+        color: #fff;
+        letter-spacing: -1px;
+        margin-bottom: 24px;
+        line-height: 1.2;
+      }
+
+      .section h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #fff;
+        margin: 40px 0 16px;
+        padding-left: 16px;
+        border-left: 3px solid var(--blue);
+      }
+
+      .section h4 {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--cyan);
+        margin: 24px 0 8px;
+      }
+
+      .section p {
+        color: var(--text-dim);
+        margin-bottom: 16px;
+        max-width: 800px;
+      }
+
+      /* ── Part Divider ── */
+      .part-divider {
+        padding: 80px 0;
+        text-align: center;
+        position: relative;
+      }
+
+      .part-divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border),
+          transparent
+        );
+      }
+
+      .part-divider span {
+        position: relative;
+        display: inline-block;
+        background: var(--navy);
+        padding: 12px 32px;
+        font-family: "DM Serif Display", serif;
+        font-size: 28px;
+        color: var(--blue);
+        letter-spacing: 2px;
+      }
+
+      /* ── Stat Cards ── */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin: 24px 0;
+      }
+
+      .stat-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        transition:
+          transform 0.2s,
+          border-color 0.2s;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--blue);
+      }
+
+      .stat-card .value {
+        font-size: 28px;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--blue), var(--cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 4px;
+      }
+
+      .stat-card .label {
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+
+      .stat-card .source {
+        font-size: 10px;
+        color: var(--text-muted);
+        margin-top: 8px;
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* ── Tables ── */
+      .table-wrap {
+        overflow-x: auto;
+        margin: 20px 0;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+
+      thead th {
+        background: var(--surface-2);
+        color: var(--cyan);
+        font-weight: 600;
+        text-align: left;
+        padding: 14px 16px;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        white-space: nowrap;
+        border-bottom: 2px solid var(--blue);
+      }
+
+      tbody td {
+        padding: 12px 16px;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        color: var(--text-dim);
+        vertical-align: top;
+      }
+
+      tbody tr:hover {
+        background: rgba(59, 130, 246, 0.04);
+      }
+
+      tbody tr:nth-child(even) {
+        background: rgba(30, 41, 59, 0.4);
+      }
+
+      td:first-child {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      /* ── Priority badges ── */
+      .badge {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 100px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .badge-must {
+        background: rgba(239, 68, 68, 0.15);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+      .badge-should {
+        background: rgba(245, 158, 11, 0.15);
+        color: #fbbf24;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+      .badge-could {
+        background: rgba(16, 185, 129, 0.15);
+        color: #34d399;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+      .badge-wont {
+        background: rgba(100, 116, 139, 0.15);
+        color: #94a3b8;
+        border: 1px solid rgba(100, 116, 139, 0.3);
+      }
+      .badge-p0 {
+        background: rgba(239, 68, 68, 0.15);
+        color: #f87171;
+      }
+      .badge-p1 {
+        background: rgba(245, 158, 11, 0.15);
+        color: #fbbf24;
+      }
+      .badge-p2 {
+        background: rgba(139, 92, 246, 0.15);
+        color: #a78bfa;
+      }
+
+      /* ── Callout ── */
+      .callout {
+        background: var(--surface);
+        border-left: 4px solid var(--blue);
+        border-radius: 0 12px 12px 0;
+        padding: 20px 24px;
+        margin: 20px 0;
+      }
+
+      .callout.green {
+        border-left-color: var(--emerald);
+      }
+      .callout.amber {
+        border-left-color: var(--amber);
+      }
+      .callout.red {
+        border-left-color: var(--red);
+      }
+
+      .callout strong {
+        color: #fff;
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+
+      .callout p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--text-dim);
+      }
+
+      /* ── Bullets ── */
+      ul.clean {
+        list-style: none;
+        padding: 0;
+        margin: 16px 0;
+      }
+
+      ul.clean li {
+        padding: 8px 0 8px 24px;
+        position: relative;
+        color: var(--text-dim);
+        font-size: 14px;
+      }
+
+      ul.clean li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--blue);
+        font-weight: bold;
+      }
+
+      /* ── User Story Cards ── */
+      .story-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        margin: 16px 0;
+      }
+
+      .story-card .story-id {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--cyan);
+        margin-bottom: 8px;
+      }
+
+      .story-card .story-text {
+        font-size: 15px;
+        color: var(--text);
+        font-style: italic;
+        margin-bottom: 12px;
+        line-height: 1.6;
+      }
+
+      .story-card .ac-label {
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--emerald);
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      .story-card .ac-text {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.8;
+      }
+
+      /* ── Persona Card ── */
+      .persona-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        margin: 20px 0;
+      }
+
+      .persona-card .persona-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .persona-card .avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        flex-shrink: 0;
+      }
+
+      .persona-card h4 {
+        margin: 0;
+        color: #fff;
+        font-size: 18px;
+      }
+
+      .persona-card .role {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .persona-field {
+        margin: 12px 0;
+      }
+
+      .persona-field .field-label {
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--cyan);
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .persona-field p {
+        font-size: 14px;
+        color: var(--text-dim);
+        margin: 0;
+      }
+
+      /* ── Architecture boxes ── */
+      .arch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin: 20px 0;
+      }
+
+      .arch-box {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        border-top: 3px solid var(--blue);
+      }
+
+      .arch-box:nth-child(2) {
+        border-top-color: var(--cyan);
+      }
+      .arch-box:nth-child(3) {
+        border-top-color: var(--emerald);
+      }
+      .arch-box:nth-child(4) {
+        border-top-color: var(--purple);
+      }
+
+      .arch-box h5 {
+        font-size: 13px;
+        color: #fff;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .arch-box p {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin: 0;
+      }
+
+      /* ── Risk color ── */
+      .risk-high {
+        color: #f87171;
+        font-weight: 600;
+      }
+      .risk-medium {
+        color: #fbbf24;
+        font-weight: 600;
+      }
+      .risk-low {
+        color: #34d399;
+        font-weight: 600;
+      }
+      .risk-critical {
+        color: #ef4444;
+        font-weight: 700;
+      }
+
+      /* ── Timeline ── */
+      .timeline {
+        position: relative;
+        padding-left: 32px;
+        margin: 24px 0;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(
+          to bottom,
+          var(--blue),
+          var(--cyan),
+          var(--emerald)
+        );
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 24px;
+        padding: 16px 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -28px;
+        top: 20px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--blue);
+        border: 2px solid var(--navy);
+      }
+
+      .timeline-item .tm-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--cyan);
+        margin-bottom: 4px;
+      }
+
+      .timeline-item h5 {
+        color: #fff;
+        font-size: 15px;
+        margin-bottom: 6px;
+      }
+
+      .timeline-item p {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin: 0;
+      }
+
+      /* ── Footer ── */
+      .doc-footer {
+        padding: 60px 0;
+        text-align: center;
+        border-top: 1px solid var(--border);
+        margin-top: 60px;
+      }
+
+      .doc-footer p {
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      /* ── Print ── */
+      @media print {
+        body {
+          background: #fff;
+          color: #111;
+          font-size: 11px;
+        }
+        .toc {
+          display: none;
+        }
+        .cover {
+          min-height: auto;
+          padding: 60px 0;
+          background: #fff;
+        }
+        .cover h1 {
+          color: #111;
+        }
+        .cover h1 span {
+          color: #2563eb;
+        }
+        .section {
+          padding: 30px 0 10px;
+        }
+        table,
+        .stat-card,
+        .callout,
+        .story-card,
+        .persona-card,
+        .arch-box,
+        .timeline-item {
+          background: #f8fafc;
+          border-color: #ddd;
+          color: #333;
+        }
+        thead th {
+          background: #e2e8f0;
+          color: #111;
+        }
+        tbody td {
+          color: #333;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 16px;
+        }
+        .cover h1 {
+          letter-spacing: -1px;
+        }
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .arch-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- COVER -->
+    <!-- ══════════════════════════════════════════════ -->
+    <header class="cover">
+      <div class="cover-content">
+        <div class="cover-badge">Confidential Document</div>
+        <h1>Gov<span>Fleet</span></h1>
+        <p class="cover-sub">
+          GPS Vehicle & Fleet Tracking System<br />for Indian Government
+          Procurement
+        </p>
+        <p
+          style="color: var(--text-muted); font-size: 14px; margin-bottom: 40px"
+        >
+          Market Analysis & Product Requirements Document
+        </p>
+        <div class="cover-meta">
+          <div class="cover-meta-item">Version<strong>1.0</strong></div>
+          <div class="cover-meta-item">Date<strong>May 2026</strong></div>
+          <div class="cover-meta-item">
+            Classification<strong>Confidential</strong>
+          </div>
+          <div class="cover-meta-item">Status<strong>Draft</strong></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- STICKY NAV -->
+    <!-- ══════════════════════════════════════════════ -->
+    <nav class="toc">
+      <div class="toc-inner">
+        <a href="#exec">Executive Summary</a>
+        <a href="#market">Market</a>
+        <a href="#regulatory">Regulatory</a>
+        <a href="#segments">Segments</a>
+        <a href="#competition">Competition</a>
+        <a href="#revenue">Revenue</a>
+        <a href="#gtm">GTM</a>
+        <a href="#vision">Vision</a>
+        <a href="#personas">Personas</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#hardware">Hardware</a>
+        <a href="#software">Software</a>
+        <a href="#moscow">MoSCoW</a>
+        <a href="#stories">User Stories</a>
+        <a href="#nfr">NFR</a>
+        <a href="#integrations">Integrations</a>
+        <a href="#certs">Certifications</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#risks">Risks</a>
+        <a href="#kpis">KPIs</a>
+        <a href="#budget">Budget</a>
+      </div>
+    </nav>
+
+    <main class="container">
+      <!-- ══════════════════ PART A ══════════════════ -->
+      <div class="part-divider"><span>Part A — Market Analysis</span></div>
+
+      <!-- 1. EXECUTIVE SUMMARY -->
+      <section class="section" id="exec">
+        <div class="section-label">Section 01</div>
+        <h2>Executive Summary</h2>
+        <p>
+          GovFleet is an end-to-end IoT-based GPS vehicle tracking and fleet
+          management solution purpose-built for Indian government procurement.
+          The product targets the massive, underserved government fleet segment
+          — encompassing police vehicles, ambulances, municipal trucks, staff
+          cars, state transport buses, PSU fleets, and defense vehicles —
+          estimated at over 5 lakh vehicles across central and state government
+          bodies.
+        </p>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="value">$4.79B</div>
+            <div class="label">India Fleet Mgmt Market by FY2032</div>
+            <div class="source">MarketsandData</div>
+          </div>
+          <div class="stat-card">
+            <div class="value">15.25%</div>
+            <div class="label">Market CAGR (FY2025–FY2032)</div>
+            <div class="source">MarketsandData</div>
+          </div>
+          <div class="stat-card">
+            <div class="value">&lt;10%</div>
+            <div class="label">Govt Fleet Telematics Penetration</div>
+            <div class="source">Industry Estimate</div>
+          </div>
+          <div class="stat-card">
+            <div class="value">577+</div>
+            <div class="label">Live GPS Tracking Tenders (2025)</div>
+            <div class="source">TenderDetail</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>The Problem</strong>
+          <p>
+            Government vehicles are largely untracked. No real-time visibility
+            into vehicle location, driver behavior, fuel consumption, or
+            maintenance schedules. This leads to unauthorized use, fuel theft,
+            missed maintenance, inflated logbook entries, and zero
+            accountability. Existing solutions are designed for private
+            logistics — none are purpose-built for government procurement
+            workflows.
+          </p>
+        </div>
+
+        <div class="callout green">
+          <strong>The Solution</strong>
+          <p>
+            AIS 140-certified GPS hardware paired with a cloud-based SaaS
+            platform featuring real-time tracking, geofencing, driver behavior
+            scoring, fuel analytics, predictive maintenance, SOS/panic alerts,
+            and automated compliance reporting. Designed for GeM listing and
+            government procurement from Day 1.
+          </p>
+        </div>
+
+        <div class="callout amber">
+          <strong>Revenue Potential</strong>
+          <p>
+            At 10,000 vehicles in Year 1: ₹8-10 Cr revenue. At 50,000 vehicles
+            by Year 3: ₹55+ Cr annually with 60%+ blended margins. Seed capital
+            required: ₹13-15 Lakhs.
+          </p>
+        </div>
+      </section>
+
+      <!-- 2. MARKET -->
+      <section class="section" id="market">
+        <div class="section-label">Section 02</div>
+        <h2>Market Overview & Sizing</h2>
+
+        <h3>India Fleet Management Market</h3>
+        <p>
+          The Indian fleet management ecosystem has entered a high-growth phase
+          driven by regulatory mandates, rising fuel costs, digital
+          transformation in logistics, and government initiatives like Smart
+          Cities Mission and Digital India.
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Value</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>India Fleet Mgmt Market (FY2024)</td>
+                <td>USD 1.54 Billion</td>
+                <td>MarketsandData</td>
+              </tr>
+              <tr>
+                <td>Projected Market Size (FY2032)</td>
+                <td>USD 4.79 Billion</td>
+                <td>MarketsandData</td>
+              </tr>
+              <tr>
+                <td>CAGR (FY2025–FY2032)</td>
+                <td>15.25%</td>
+                <td>MarketsandData</td>
+              </tr>
+              <tr>
+                <td>Fleet Mgmt Software Market (2025)</td>
+                <td>USD 1.69 Billion</td>
+                <td>Mordor Intelligence</td>
+              </tr>
+              <tr>
+                <td>Software Market Projected (2031)</td>
+                <td>USD 3.51 Billion</td>
+                <td>Mordor Intelligence</td>
+              </tr>
+              <tr>
+                <td>IoT Asset Tracking Global (2025)</td>
+                <td>USD 5.56 Billion</td>
+                <td>TBRC</td>
+              </tr>
+              <tr>
+                <td>India Industrial IoT Market (2025)</td>
+                <td>USD 10.1 Billion</td>
+                <td>P&S Intelligence</td>
+              </tr>
+              <tr>
+                <td>India IIoT Projected (2032)</td>
+                <td>USD 22.1 Billion</td>
+                <td>P&S Intelligence</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>TAM / SAM / SOM</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Market Tier</th>
+                <th>Description</th>
+                <th>Est. Value (5-Year)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TAM (Total Addressable)</td>
+                <td>All government vehicles in India (5-8 lakh)</td>
+                <td>₹4,000–5,000 Cr</td>
+              </tr>
+              <tr>
+                <td>SAM (Serviceable Available)</td>
+                <td>Vehicles accessible via GeM + channel partners</td>
+                <td>₹1,200–1,500 Cr</td>
+              </tr>
+              <tr>
+                <td>SOM (Serviceable Obtainable)</td>
+                <td>Realistic capture in first 3 years (50K vehicles)</td>
+                <td>₹150–200 Cr</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 3. REGULATORY -->
+      <section class="section" id="regulatory">
+        <div class="section-label">Section 03</div>
+        <h2>Regulatory Landscape</h2>
+        <p>
+          The regulatory environment is the single biggest tailwind for
+          GovFleet. Multiple overlapping mandates create compliance-driven
+          demand for GPS tracking in government vehicles.
+        </p>
+
+        <h3>AIS 140 (Automotive Industry Standard 140)</h3>
+        <p>
+          Published by ARAI under MoRTH, AIS 140 mandates intelligent
+          transportation system devices for all public transport and commercial
+          vehicles.
+        </p>
+        <ul class="clean">
+          <li>GNSS-based real-time tracking with GPS + NavIC/IRNSS support</li>
+          <li>Emergency SOS/panic button hardwired into vehicle</li>
+          <li>
+            Dual IP data transmission — simultaneously to government server and
+            operator server
+          </li>
+          <li>Minimum 4-hour battery backup on device</li>
+          <li>Tamper-proof enclosure with tamper detection alerts</li>
+          <li>90-day on-device data storage capability</li>
+          <li>Integration with VAHAN national vehicle registry</li>
+          <li>GSM/GPRS communication module for data transmission</li>
+        </ul>
+
+        <div class="callout red">
+          <strong>Compliance Deadline</strong>
+          <p>
+            All commercial vehicles registered before January 2025 must comply
+            by October 31, 2025. Non-compliance results in fines, permit
+            suspension, or operational halts.
+          </p>
+        </div>
+
+        <h3>Other Relevant Regulations</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Regulation</th>
+                <th>Impact on GovFleet</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GFR Rule 149</td>
+                <td>
+                  Mandates all central government procurement through GeM —
+                  GovFleet must be GeM-listed
+                </td>
+              </tr>
+              <tr>
+                <td>Motor Vehicles (Amendment) Act 2019</td>
+                <td>
+                  Stricter compliance for commercial vehicles, increased
+                  penalties
+                </td>
+              </tr>
+              <tr>
+                <td>National Logistics Policy 2022</td>
+                <td>Push for digital fleet management across supply chain</td>
+              </tr>
+              <tr>
+                <td>CAG Audit Requirements</td>
+                <td>
+                  Government departments must maintain vehicle asset registers —
+                  GovFleet auto-generates these
+                </td>
+              </tr>
+              <tr>
+                <td>MoRTH Speed Limiter Rules</td>
+                <td>
+                  GPS-integrated speed governance required — GovFleet can
+                  integrate
+                </td>
+              </tr>
+              <tr>
+                <td>DPDP Act 2023</td>
+                <td>Data privacy compliance for location data handling</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 4. TARGET SEGMENTS -->
+      <section class="section" id="segments">
+        <div class="section-label">Section 04</div>
+        <h2>Target Customer Segments</h2>
+
+        <h3>Segment Priority Matrix</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Priority</th>
+                <th>Segment</th>
+                <th>Est. Fleet</th>
+                <th>Pain Point</th>
+                <th>Entry Difficulty</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-p0">P0</span></td>
+                <td>Municipal Corporations</td>
+                <td>50K–80K</td>
+                <td>Garbage truck routing, fuel theft, no tracking</td>
+                <td>Low — local tenders</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-p0">P0</span></td>
+                <td>State Transport Buses</td>
+                <td>1.5L+</td>
+                <td>AIS 140 mandate, route compliance</td>
+                <td>Medium — state level</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-p1">P1</span></td>
+                <td>Police Departments</td>
+                <td>80K–1L</td>
+                <td>Response time, patrol verification</td>
+                <td>Medium — security clearance</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-p1">P1</span></td>
+                <td>PSU Fleets (ONGC, NTPC, CIL)</td>
+                <td>50K–70K</td>
+                <td>Fuel analytics, driver safety</td>
+                <td>Medium — PSU procurement</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-p2">P2</span></td>
+                <td>Defense (Non-combat)</td>
+                <td>1L+</td>
+                <td>Asset tracking, maintenance logging</td>
+                <td>High — clearances</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-p2">P2</span></td>
+                <td>Central Govt Staff Cars</td>
+                <td>30K–50K</td>
+                <td>Unauthorized use, logbook fraud</td>
+                <td>Medium — via GeM</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Buyer Decision Hierarchy</h3>
+        <ul class="clean">
+          <li>
+            <strong>Secretary/Commissioner Level:</strong> Wants accountability,
+            audit compliance, reduced fuel spend
+          </li>
+          <li>
+            <strong>IT/NIC Department:</strong> Evaluates technical specs,
+            integration capability, data security
+          </li>
+          <li>
+            <strong>Transport Officer:</strong> Day-to-day user — needs simple
+            UI, alerts, reports
+          </li>
+          <li>
+            <strong>Finance/Accounts:</strong> Concerned with cost, AMC terms,
+            payment milestones
+          </li>
+          <li>
+            <strong>GeM Procurement Cell:</strong> Evaluates L1 pricing,
+            technical qualification, OEM status
+          </li>
+        </ul>
+      </section>
+
+      <!-- 5. COMPETITION -->
+      <section class="section" id="competition">
+        <div class="section-label">Section 05</div>
+        <h2>Competitive Analysis</h2>
+        <p>
+          The GPS tracking market in India has several players, but none are
+          purpose-built for government fleet management.
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Competitor</th>
+                <th>Strengths</th>
+                <th>Weaknesses</th>
+                <th>GovFleet Advantage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>MapmyIndia</td>
+                <td>AIS 140 certified, own maps, strong brand</td>
+                <td>
+                  Enterprise-focused, expensive, slow for small govt deals
+                </td>
+                <td>Purpose-built for govt procurement; competitive pricing</td>
+              </tr>
+              <tr>
+                <td>Fleetx.io</td>
+                <td>Strong software, good UX</td>
+                <td>No own hardware, private sector focus</td>
+                <td>Full-stack HW+SW; government compliance baked in</td>
+              </tr>
+              <tr>
+                <td>LocoNav</td>
+                <td>Large fleet base, AI-powered</td>
+                <td>Consumer/SME focus, not govt-oriented</td>
+                <td>Multi-tenant govt hierarchy; GeM integration</td>
+              </tr>
+              <tr>
+                <td>TrackoBit</td>
+                <td>Feature-rich SaaS, good analytics</td>
+                <td>No hardware manufacturing</td>
+                <td>Own hardware = better margins, full control</td>
+              </tr>
+              <tr>
+                <td>Intangles</td>
+                <td>OBD telematics, plug-and-play</td>
+                <td>Expensive, enterprise-focused</td>
+                <td>Lower cost AIS 140 device; govt pricing</td>
+              </tr>
+              <tr>
+                <td>Local GPS Vendors</td>
+                <td>Cheap hardware (China imports)</td>
+                <td>No software, no compliance, no support</td>
+                <td>Certified, compliant, SaaS + AMC support</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Competitive Moat</h3>
+        <ul class="clean">
+          <li>
+            <strong>Full-Stack Ownership:</strong> Hardware + firmware + cloud +
+            dashboard — no third-party dependency
+          </li>
+          <li>
+            <strong>Government-First Design:</strong> Multi-tenant hierarchy
+            (Ministry → Dept → Division → Vehicle), audit trails, RTI-ready
+            reports
+          </li>
+          <li>
+            <strong>GeM Native:</strong> Listed on GeM from Day 1, optimized for
+            L1 bidding
+          </li>
+          <li>
+            <strong>Channel Partner:</strong> Pre-existing government
+            relationships via IoT contract partner
+          </li>
+          <li>
+            <strong>Switching Cost:</strong> Once 10K+ vehicles onboarded,
+            migration cost makes it sticky
+          </li>
+          <li>
+            <strong>Data Moat:</strong> Over time, India's largest government
+            vehicle utilization dataset
+          </li>
+        </ul>
+      </section>
+
+      <!-- 6. REVENUE -->
+      <section class="section" id="revenue">
+        <div class="section-label">Section 06</div>
+        <h2>Revenue Model & Financial Projections</h2>
+
+        <h3>Revenue Streams</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Stream</th>
+                <th>Pricing</th>
+                <th>Unit Economics</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Hardware (GPS Device)</td>
+                <td>One-time per vehicle</td>
+                <td>MRP ₹6K–8K | Cost ₹2K–2.5K | Margin 60–68%</td>
+              </tr>
+              <tr>
+                <td>SaaS Platform</td>
+                <td>₹150–300/vehicle/month</td>
+                <td>Margin 85%+</td>
+              </tr>
+              <tr>
+                <td>SIM/Connectivity</td>
+                <td>₹80–120/vehicle/month</td>
+                <td>Margin 30–40%</td>
+              </tr>
+              <tr>
+                <td>AMC</td>
+                <td>18–22% of HW value/year</td>
+                <td>Margin 65%</td>
+              </tr>
+              <tr>
+                <td>Installation & Training</td>
+                <td>₹500–1K/vehicle one-time</td>
+                <td>Margin 50%</td>
+              </tr>
+              <tr>
+                <td>Custom Analytics</td>
+                <td>₹50K–2L/dept/year</td>
+                <td>Margin 90%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>3-Year Financial Projections</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Year 1</th>
+                <th>Year 2</th>
+                <th>Year 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Vehicles Deployed</td>
+                <td>10,000</td>
+                <td>30,000</td>
+                <td>50,000</td>
+              </tr>
+              <tr>
+                <td>Hardware Revenue</td>
+                <td>₹7.0 Cr</td>
+                <td>₹14.0 Cr</td>
+                <td>₹14.0 Cr</td>
+              </tr>
+              <tr>
+                <td>SaaS Revenue</td>
+                <td>₹1.5 Cr/yr</td>
+                <td>₹5.4 Cr/yr</td>
+                <td>₹12.0 Cr/yr</td>
+              </tr>
+              <tr>
+                <td>Connectivity Revenue</td>
+                <td>₹1.0 Cr/yr</td>
+                <td>₹3.0 Cr/yr</td>
+                <td>₹5.0 Cr/yr</td>
+              </tr>
+              <tr>
+                <td>AMC Revenue</td>
+                <td>₹0.5 Cr/yr</td>
+                <td>₹2.5 Cr/yr</td>
+                <td>₹5.5 Cr/yr</td>
+              </tr>
+              <tr>
+                <td style="color: var(--cyan); font-weight: 700">
+                  Total Revenue
+                </td>
+                <td style="color: var(--cyan); font-weight: 700">₹10.0 Cr</td>
+                <td style="color: var(--cyan); font-weight: 700">₹24.9 Cr</td>
+                <td style="color: var(--cyan); font-weight: 700">₹36.5 Cr</td>
+              </tr>
+              <tr>
+                <td>Gross Margin</td>
+                <td>55%</td>
+                <td>62%</td>
+                <td>68%</td>
+              </tr>
+              <tr>
+                <td>EBITDA Margin</td>
+                <td>15%</td>
+                <td>30%</td>
+                <td>40%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 7. GTM -->
+      <section class="section" id="gtm">
+        <div class="section-label">Section 07</div>
+        <h2>Go-To-Market Strategy</h2>
+
+        <h3>Phase-wise GTM Plan</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Phase</th>
+                <th>Timeline</th>
+                <th>Objective</th>
+                <th>Key Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Phase 0: Build</td>
+                <td>Month 1–4</td>
+                <td>Product + Certification</td>
+                <td>
+                  PCB design, 50 prototypes, ARAI submission, GeM registration,
+                  MVP dashboard
+                </td>
+              </tr>
+              <tr>
+                <td>Phase 1: Pilot</td>
+                <td>Month 4–6</td>
+                <td>100–500 vehicles</td>
+                <td>
+                  Deploy at 1 municipal corp / state transport via channel
+                  partner; case study
+                </td>
+              </tr>
+              <tr>
+                <td>Phase 2: Scale</td>
+                <td>Month 6–12</td>
+                <td>10,000 vehicles</td>
+                <td>
+                  GeM listing, bid on 577+ tenders, leverage case study, hire
+                  field team
+                </td>
+              </tr>
+              <tr>
+                <td>Phase 3: Expand</td>
+                <td>Year 2</td>
+                <td>30,000 vehicles</td>
+                <td>5+ states, PSUs, AMC revenue, EV fleet module</td>
+              </tr>
+              <tr>
+                <td>Phase 4: Dominate</td>
+                <td>Year 3</td>
+                <td>50,000+ vehicles</td>
+                <td>
+                  Market leadership, data analytics products, defense expansion
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Channel Strategy</h3>
+        <ul class="clean">
+          <li>
+            <strong>Primary:</strong> Direct sales via IoT contract partner with
+            existing government relationships
+          </li>
+          <li>
+            <strong>GeM Marketplace:</strong> Self-serve discovery by government
+            buyers; top search ranking target
+          </li>
+          <li>
+            <strong>System Integrators:</strong> Partner with TCS, Infosys,
+            Wipro who have government IT contracts
+          </li>
+          <li>
+            <strong>State IT / NIC:</strong> Build relationships with National
+            Informatics Centre for state endorsements
+          </li>
+          <li>
+            <strong>Tender Aggregators:</strong> Monitor TenderDekho,
+            NationalTenders, GlobalTenders daily
+          </li>
+        </ul>
+      </section>
+
+      <!-- ══════════════════ PART B ══════════════════ -->
+      <div class="part-divider"><span>Part B — Product Requirements</span></div>
+
+      <!-- 8. VISION -->
+      <section class="section" id="vision">
+        <div class="section-label">Section 08</div>
+        <h2>Product Vision & Objectives</h2>
+
+        <div class="callout">
+          <strong>Vision Statement</strong>
+          <p>
+            <em
+              >To become India's default fleet management platform for every
+              government vehicle — enabling real-time accountability,
+              operational efficiency, and data-driven governance across central,
+              state, and local government bodies.</em
+            >
+          </p>
+        </div>
+
+        <h3>Product Objectives</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Objective</th>
+                <th>Metric</th>
+                <th>Target</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Real-time vehicle visibility</td>
+                <td>% of fleet visible at any time</td>
+                <td>&gt;98% uptime</td>
+              </tr>
+              <tr>
+                <td>Reduce fuel wastage</td>
+                <td>Fuel cost reduction per vehicle</td>
+                <td>15–25% savings</td>
+              </tr>
+              <tr>
+                <td>Eliminate unauthorized use</td>
+                <td>Off-duty trips detected</td>
+                <td>100% detection</td>
+              </tr>
+              <tr>
+                <td>Automate compliance</td>
+                <td>Manual reports eliminated</td>
+                <td>&gt;90% automation</td>
+              </tr>
+              <tr>
+                <td>Improve emergency response</td>
+                <td>Response time improvement</td>
+                <td>30–40% faster</td>
+              </tr>
+              <tr>
+                <td>Predictive maintenance</td>
+                <td>Unplanned breakdowns prevented</td>
+                <td>40% reduction</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 9. PERSONAS -->
+      <section class="section" id="personas">
+        <div class="section-label">Section 09</div>
+        <h2>User Personas</h2>
+
+        <div class="persona-card">
+          <div class="persona-header">
+            <div
+              class="avatar"
+              style="background: linear-gradient(135deg, #3b82f6, #06b6d4)"
+            >
+              🚛
+            </div>
+            <div>
+              <h4>Rajesh Kumar</h4>
+              <div class="role">
+                Transport Officer, Municipal Corporation · Age 45
+              </div>
+            </div>
+          </div>
+          <div class="persona-field">
+            <div class="field-label">Role</div>
+            <p>
+              Manages 200+ garbage trucks and staff vehicles. Reports to
+              Commissioner.
+            </p>
+          </div>
+          <div class="persona-field">
+            <div class="field-label">Pain Points</div>
+            <p>
+              Cannot track if trucks complete assigned routes. Drivers siphon
+              fuel. Vehicles used for personal trips after hours. Manual
+              logbooks are fabricated. No data for audits.
+            </p>
+          </div>
+          <div class="persona-field">
+            <div class="field-label">Needs</div>
+            <p>
+              Simple mobile app showing all vehicles on map. Daily route
+              completion reports. Fuel consumption alerts. Hindi/regional
+              language support.
+            </p>
+          </div>
+        </div>
+
+        <div class="persona-card">
+          <div class="persona-header">
+            <div
+              class="avatar"
+              style="background: linear-gradient(135deg, #8b5cf6, #ec4899)"
+            >
+              👩‍💼
+            </div>
+            <div>
+              <h4>Dr. Priya Sharma, IAS</h4>
+              <div class="role">Municipal Commissioner · Age 52</div>
+            </div>
+          </div>
+          <div class="persona-field">
+            <div class="field-label">Role</div>
+            <p>Approves budgets, accountable for public service delivery.</p>
+          </div>
+          <div class="persona-field">
+            <div class="field-label">Pain Points</div>
+            <p>
+              No visibility into fleet utilization. CAG flags missing assets.
+              Citizen complaints about late garbage pickup. Cannot justify fleet
+              expansion without data.
+            </p>
+          </div>
+          <div class="persona-field">
+            <div class="field-label">Needs</div>
+            <p>
+              Executive dashboard with KPIs. Monthly reports for review
+              meetings. Cost savings data. Compliance certificates for audit.
+            </p>
+          </div>
+        </div>
+
+        <div class="persona-card">
+          <div class="persona-header">
+            <div
+              class="avatar"
+              style="background: linear-gradient(135deg, #10b981, #06b6d4)"
+            >
+              💻
+            </div>
+            <div>
+              <h4>Vikram Singh</h4>
+              <div class="role">NIC Coordinator · Age 35</div>
+            </div>
+          </div>
+          <div class="persona-field">
+            <div class="field-label">Role</div>
+            <p>Evaluates technical specifications for IT procurement.</p>
+          </div>
+          <div class="persona-field">
+            <div class="field-label">Pain Points</div>
+            <p>
+              Vendors don't meet AIS 140 specs. Poor integration with existing
+              systems. Data security concerns with cloud.
+            </p>
+          </div>
+          <div class="persona-field">
+            <div class="field-label">Needs</div>
+            <p>
+              API documentation. Data hosting in India (AWS Mumbai / Gov Cloud).
+              Security audit reports. AIS 140 certification proof.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. ARCHITECTURE -->
+      <section class="section" id="architecture">
+        <div class="section-label">Section 10</div>
+        <h2>Product Architecture</h2>
+
+        <h3>System Overview — 4 Layers</h3>
+        <div class="arch-grid">
+          <div class="arch-box">
+            <h5>Layer 1: Hardware</h5>
+            <p>
+              GPS device, SOS button, OBD connector, backup battery,
+              tamper-proof enclosure. ESP32-S3, u-blox NEO-M8N, Quectel EC200U.
+            </p>
+          </div>
+          <div class="arch-box">
+            <h5>Layer 2: Communication</h5>
+            <p>
+              4G LTE / NB-IoT connectivity, MQTT protocol, edge processing, 32MB
+              local buffer for offline operation.
+            </p>
+          </div>
+          <div class="arch-box">
+            <h5>Layer 3: Cloud Platform</h5>
+            <p>
+              AWS IoT Core, TimescaleDB (time-series), Node.js API, Redis
+              (real-time cache), Kafka (stream processing), rule engine.
+            </p>
+          </div>
+          <div class="arch-box">
+            <h5>Layer 4: Applications</h5>
+            <p>
+              React.js web dashboard, React Native mobile app, PDF report
+              engine, multi-channel alert system (push, SMS, email).
+            </p>
+          </div>
+        </div>
+
+        <h3>Data Flow</h3>
+        <ul class="clean">
+          <li>
+            GPS device collects location + speed + engine data every 10 seconds
+          </li>
+          <li>
+            Data transmitted via MQTT over 4G to AWS IoT Core (primary) and
+            VAHAN server (secondary) for AIS 140 dual-IP compliance
+          </li>
+          <li>
+            Kafka normalizes data → TimescaleDB (historical) + Redis (real-time
+            cache)
+          </li>
+          <li>
+            Rule engine evaluates geofence breaches, overspeed, SOS, idle time,
+            fuel anomalies → fires alerts
+          </li>
+          <li>Dashboard reads from Redis (live) and TimescaleDB (analytics)</li>
+          <li>
+            Report generator creates scheduled PDF/Excel reports delivered to
+            officers
+          </li>
+        </ul>
+      </section>
+
+      <!-- 11. HARDWARE -->
+      <section class="section" id="hardware">
+        <div class="section-label">Section 11</div>
+        <h2>Hardware Specifications</h2>
+
+        <h3>Bill of Materials (BOM)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Specification</th>
+                <th>Supplier Options</th>
+                <th>Cost (₹)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>MCU</td>
+                <td>ESP32-S3 (Wi-Fi + BLE + processing)</td>
+                <td>Espressif / nRF9160</td>
+                <td>350</td>
+              </tr>
+              <tr>
+                <td>GNSS Module</td>
+                <td>u-blox NEO-M8N (GPS + GLONASS + NavIC)</td>
+                <td>u-blox / Quectel L76K</td>
+                <td>400</td>
+              </tr>
+              <tr>
+                <td>Cellular Module</td>
+                <td>Quectel EC200U (4G Cat-1)</td>
+                <td>Quectel / SIMCom A7672S</td>
+                <td>450</td>
+              </tr>
+              <tr>
+                <td>Accelerometer</td>
+                <td>ADXL345 (3-axis, crash detection)</td>
+                <td>Analog Devices / MPU6050</td>
+                <td>80</td>
+              </tr>
+              <tr>
+                <td>SOS Button</td>
+                <td>IP67, tamper-proof, hardwired</td>
+                <td>Custom / off-shelf</td>
+                <td>50</td>
+              </tr>
+              <tr>
+                <td>Backup Battery</td>
+                <td>3.7V 2000mAh Li-Po (>4hr backup)</td>
+                <td>BYD / local vendor</td>
+                <td>150</td>
+              </tr>
+              <tr>
+                <td>OBD-II Connector</td>
+                <td>J1962, CAN bus interface</td>
+                <td>Custom harness</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>Flash Storage</td>
+                <td>32MB SPI NOR (90-day buffer)</td>
+                <td>Winbond W25Q256</td>
+                <td>60</td>
+              </tr>
+              <tr>
+                <td>Antennas</td>
+                <td>GPS patch + 4G PCB + BLE chip</td>
+                <td>Taoglas / Molex</td>
+                <td>140</td>
+              </tr>
+              <tr>
+                <td>Enclosure</td>
+                <td>IP67, ABS+PC, tamper-proof, screw mount</td>
+                <td>Custom injection mold</td>
+                <td>200</td>
+              </tr>
+              <tr>
+                <td>PCB + Assembly</td>
+                <td>4-layer FR-4, SMT + testing</td>
+                <td>PCBWay / local fab</td>
+                <td>250</td>
+              </tr>
+              <tr>
+                <td style="color: var(--cyan); font-weight: 700">TOTAL BOM</td>
+                <td></td>
+                <td></td>
+                <td style="color: var(--cyan); font-weight: 700">2,250</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Physical Specifications</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Specification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dimensions</td>
+                <td>95mm × 65mm × 28mm</td>
+              </tr>
+              <tr>
+                <td>Weight</td>
+                <td>&lt;180g (with battery)</td>
+              </tr>
+              <tr>
+                <td>Operating Temp</td>
+                <td>-20°C to +70°C</td>
+              </tr>
+              <tr>
+                <td>IP Rating</td>
+                <td>IP67 (dust-tight, waterproof)</td>
+              </tr>
+              <tr>
+                <td>Power Input</td>
+                <td>9–36V DC (12V and 24V systems)</td>
+              </tr>
+              <tr>
+                <td>Battery Backup</td>
+                <td>>4 hours (AIS 140 compliant)</td>
+              </tr>
+              <tr>
+                <td>Certifications</td>
+                <td>ARAI AIS 140, CE, BIS (optional)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 12. SOFTWARE -->
+      <section class="section" id="software">
+        <div class="section-label">Section 12</div>
+        <h2>Software Platform Requirements</h2>
+
+        <h3>Web Dashboard Modules</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Module</th>
+                <th>Features</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Live Map</td>
+                <td>
+                  All vehicles color-coded (moving/idle/stopped/offline). Click
+                  for details. Cluster view. Street/satellite toggle.
+                </td>
+              </tr>
+              <tr>
+                <td>Trip History</td>
+                <td>
+                  Route replay with speed control. Stop points, duration,
+                  distance. Export PDF/KML.
+                </td>
+              </tr>
+              <tr>
+                <td>Geofencing</td>
+                <td>
+                  Polygon/circle zones. Entry/exit alerts. Zone-to-group
+                  assignment. Office, depot, restricted areas.
+                </td>
+              </tr>
+              <tr>
+                <td>Driver Behavior</td>
+                <td>
+                  Overspeed, harsh braking, sharp turns, night driving scoring.
+                  Leaderboard. Trends.
+                </td>
+              </tr>
+              <tr>
+                <td>Fuel Analytics</td>
+                <td>
+                  Level monitoring (sensor/OBD). Consumption/km. Fill/drain
+                  detection. Anomaly alerts.
+                </td>
+              </tr>
+              <tr>
+                <td>Maintenance</td>
+                <td>
+                  Odometer/time-based scheduling. Upcoming service alerts.
+                  Maintenance log history.
+                </td>
+              </tr>
+              <tr>
+                <td>SOS/Emergency</td>
+                <td>
+                  Real-time SOS on map. One-click response. Escalation chain.
+                  Audio recording trigger.
+                </td>
+              </tr>
+              <tr>
+                <td>Reports</td>
+                <td>
+                  20+ templates. Daily/weekly/monthly auto-delivery.
+                  PDF/Excel/CSV export.
+                </td>
+              </tr>
+              <tr>
+                <td>Admin Panel</td>
+                <td>
+                  User management, RBAC, department hierarchy, device & SIM
+                  management.
+                </td>
+              </tr>
+              <tr>
+                <td>Audit Trail</td>
+                <td>
+                  Every action logged (timestamp, user, IP). Tamper-proof.
+                  RTI/CAG export.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Mobile App (Android + iOS)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Live Tracking</td>
+                <td>
+                  Map view of assigned vehicles. Pull-to-refresh. Offline cache.
+                </td>
+              </tr>
+              <tr>
+                <td>Push Alerts</td>
+                <td>
+                  Instant notifications for SOS, geofence, overspeed, tamper.
+                </td>
+              </tr>
+              <tr>
+                <td>Driver App</td>
+                <td>
+                  Login, trip start/end, SOS trigger, fuel entry, selfie
+                  attendance.
+                </td>
+              </tr>
+              <tr>
+                <td>Quick Actions</td>
+                <td>
+                  Immobilize vehicle, share live location link, call driver.
+                </td>
+              </tr>
+              <tr>
+                <td>Languages</td>
+                <td>
+                  Hindi, English + Tamil, Telugu, Marathi, Bengali, Kannada.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 13. MoSCoW -->
+      <section class="section" id="moscow">
+        <div class="section-label">Section 13</div>
+        <h2>Feature Prioritization — MoSCoW</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Priority</th>
+                <th>Feature</th>
+                <th>Rationale</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-must">MUST</span></td>
+                <td>Real-time GPS tracking on map</td>
+                <td>Core value proposition</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-must">MUST</span></td>
+                <td>AIS 140 compliance (dual-IP, SOS, NavIC, tamper-proof)</td>
+                <td>Legal requirement</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-must">MUST</span></td>
+                <td>Geofencing with alerts</td>
+                <td>Top government ask</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-must">MUST</span></td>
+                <td>Trip history with replay</td>
+                <td>Audit and accountability</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-must">MUST</span></td>
+                <td>Overspeed and idle alerts</td>
+                <td>Safety and fuel savings</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-must">MUST</span></td>
+                <td>Automated reports (PDF)</td>
+                <td>Officers need printable reports</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-must">MUST</span></td>
+                <td>Role-based access control</td>
+                <td>Government hierarchy</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-must">MUST</span></td>
+                <td>SOS/Panic button alert chain</td>
+                <td>AIS 140 mandate + safety</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-should">SHOULD</span></td>
+                <td>Fuel analytics with fill/drain detection</td>
+                <td>High ROI feature</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-should">SHOULD</span></td>
+                <td>Driver behavior scoring</td>
+                <td>Differentiator</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-should">SHOULD</span></td>
+                <td>Predictive maintenance alerts</td>
+                <td>Cost saving for large fleets</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-should">SHOULD</span></td>
+                <td>Mobile app (Android)</td>
+                <td>Field officer convenience</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-could">COULD</span></td>
+                <td>Video telematics (dashcam)</td>
+                <td>Future upsell</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-could">COULD</span></td>
+                <td>EV battery monitoring</td>
+                <td>Future-proofing</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-could">COULD</span></td>
+                <td>AI route optimization</td>
+                <td>Year 2 feature</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-wont">WON'T</span></td>
+                <td>Autonomous vehicle integration</td>
+                <td>Not relevant currently</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-wont">WON'T</span></td>
+                <td>Blockchain logging</td>
+                <td>Overengineered for market</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 14. USER STORIES -->
+      <section class="section" id="stories">
+        <div class="section-label">Section 14</div>
+        <h2>User Stories & Acceptance Criteria</h2>
+
+        <div class="story-card">
+          <div class="story-id">US-001</div>
+          <div class="story-text">
+            "As a Transport Officer, I want to see all my vehicles on a live map
+            so that I can know which vehicles are on route and which are idle."
+          </div>
+          <div class="ac-label">Acceptance Criteria</div>
+          <div class="ac-text">
+            Map loads within 3 seconds. Vehicle positions update every 10
+            seconds. Color coding: Green=moving, Yellow=idle >5min, Red=stopped
+            >30min, Gray=offline. Click on vehicle shows speed, driver name,
+            last update time.
+          </div>
+        </div>
+
+        <div class="story-card">
+          <div class="story-id">US-002</div>
+          <div class="story-text">
+            "As a Transport Officer, I want to receive an instant alert when a
+            vehicle exits its assigned geofence so that I can take immediate
+            action on unauthorized use."
+          </div>
+          <div class="ac-label">Acceptance Criteria</div>
+          <div class="ac-text">
+            Alert within 30 seconds of boundary crossing. Push notification +
+            SMS to designated officer. Alert includes vehicle number, driver,
+            location, time. Option to immobilize vehicle remotely.
+          </div>
+        </div>
+
+        <div class="story-card">
+          <div class="story-id">US-003</div>
+          <div class="story-text">
+            "As a Commissioner, I want a monthly fleet utilization report
+            auto-delivered to my email so that I can review performance in
+            monthly meetings."
+          </div>
+          <div class="ac-label">Acceptance Criteria</div>
+          <div class="ac-text">
+            Auto-generated on 1st of every month. Includes: total km per
+            vehicle, fuel consumed, idle %, trip count, maintenance alerts, top
+            5 overspeed incidents. PDF format, branded with department logo.
+          </div>
+        </div>
+
+        <div class="story-card">
+          <div class="story-id">US-004</div>
+          <div class="story-text">
+            "As a Driver, I want to press an SOS button during an emergency so
+            that my location is immediately shared with the control room."
+          </div>
+          <div class="ac-label">Acceptance Criteria</div>
+          <div class="ac-text">
+            SOS triggers within 2 seconds. Alert reaches control room with
+            audio/visual alarm. Location shared every 5 seconds during SOS mode.
+            Requires manual acknowledgment to deactivate.
+          </div>
+        </div>
+
+        <div class="story-card">
+          <div class="story-id">US-005</div>
+          <div class="story-text">
+            "As an IT Administrator, I want to manage user roles and department
+            hierarchy so that each department sees only their vehicles."
+          </div>
+          <div class="ac-label">Acceptance Criteria</div>
+          <div class="ac-text">
+            Create department tree (Ministry → Dept → Division → Section).
+            Assign vehicles to nodes. Users see only their node and below.
+            Super-admin sees all. Audit log for every permission change.
+          </div>
+        </div>
+
+        <div class="story-card">
+          <div class="story-id">US-006</div>
+          <div class="story-text">
+            "As a Finance Officer, I want fuel consumption reports per vehicle
+            so that I can identify fuel theft and reduce fleet costs."
+          </div>
+          <div class="ac-label">Acceptance Criteria</div>
+          <div class="ac-text">
+            Daily fuel consumption in liters and cost. Km/liter trend per
+            vehicle. Alert when consumption deviates >20% from baseline.
+            Fill/drain events detected. Monthly cost summary exportable to
+            Excel.
+          </div>
+        </div>
+      </section>
+
+      <!-- 15. NFR -->
+      <section class="section" id="nfr">
+        <div class="section-label">Section 15</div>
+        <h2>Non-Functional Requirements</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Requirement</th>
+                <th>Target</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Performance</td>
+                <td>Dashboard page load time</td>
+                <td>&lt;3 seconds on 4G</td>
+              </tr>
+              <tr>
+                <td>Performance</td>
+                <td>Real-time data latency</td>
+                <td>&lt;10 seconds</td>
+              </tr>
+              <tr>
+                <td>Performance</td>
+                <td>Concurrent users</td>
+                <td>5,000+</td>
+              </tr>
+              <tr>
+                <td>Performance</td>
+                <td>API response (P95)</td>
+                <td>&lt;500ms</td>
+              </tr>
+              <tr>
+                <td>Scalability</td>
+                <td>Max vehicles per tenant</td>
+                <td>1,00,000+</td>
+              </tr>
+              <tr>
+                <td>Scalability</td>
+                <td>Data retention</td>
+                <td>3yr online, 7yr archive</td>
+              </tr>
+              <tr>
+                <td>Availability</td>
+                <td>Platform uptime SLA</td>
+                <td>99.5%</td>
+              </tr>
+              <tr>
+                <td>Security</td>
+                <td>Encryption in transit</td>
+                <td>TLS 1.3</td>
+              </tr>
+              <tr>
+                <td>Security</td>
+                <td>Encryption at rest</td>
+                <td>AES-256</td>
+              </tr>
+              <tr>
+                <td>Security</td>
+                <td>Authentication</td>
+                <td>OAuth 2.0 + MFA</td>
+              </tr>
+              <tr>
+                <td>Security</td>
+                <td>Data hosting</td>
+                <td>India only (AWS Mumbai)</td>
+              </tr>
+              <tr>
+                <td>Security</td>
+                <td>Pen testing</td>
+                <td>Annual (CERT-In empaneled)</td>
+              </tr>
+              <tr>
+                <td>Localization</td>
+                <td>Languages at launch</td>
+                <td>English + Hindi</td>
+              </tr>
+              <tr>
+                <td>Compliance</td>
+                <td>AIS 140</td>
+                <td>ARAI type approval</td>
+              </tr>
+              <tr>
+                <td>Compliance</td>
+                <td>Data privacy</td>
+                <td>IT Act 2000 + DPDP 2023</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 16. INTEGRATIONS -->
+      <section class="section" id="integrations">
+        <div class="section-label">Section 16</div>
+        <h2>Integration Requirements</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Integration</th>
+                <th>Purpose</th>
+                <th>Priority</th>
+                <th>Approach</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GeM Portal</td>
+                <td>Procurement, catalog, order mgmt</td>
+                <td><span class="badge badge-p0">P0</span></td>
+                <td>GeM seller API + manual catalog</td>
+              </tr>
+              <tr>
+                <td>VAHAN (MoRTH)</td>
+                <td>Vehicle DB sync, AIS 140 push</td>
+                <td><span class="badge badge-p0">P0</span></td>
+                <td>Govt API gateway (NIC hosted)</td>
+              </tr>
+              <tr>
+                <td>State Transport Servers</td>
+                <td>Real-time data for AIS 140</td>
+                <td><span class="badge badge-p0">P0</span></td>
+                <td>TCP/IP to state SRTC servers</td>
+              </tr>
+              <tr>
+                <td>SMS Gateway</td>
+                <td>Alert delivery</td>
+                <td><span class="badge badge-p0">P0</span></td>
+                <td>MSG91 / Gupshup</td>
+              </tr>
+              <tr>
+                <td>PFMS</td>
+                <td>Payment tracking</td>
+                <td><span class="badge badge-p1">P1</span></td>
+                <td>Via buyer accounts dept</td>
+              </tr>
+              <tr>
+                <td>Fuel Sensor</td>
+                <td>Fuel level monitoring</td>
+                <td><span class="badge badge-p1">P1</span></td>
+                <td>0–5V analog input on device</td>
+              </tr>
+              <tr>
+                <td>OBD-II / CAN Bus</td>
+                <td>Engine diagnostics, DTC codes</td>
+                <td><span class="badge badge-p1">P1</span></td>
+                <td>J1962 connector, CAN parsing</td>
+              </tr>
+              <tr>
+                <td>CCTV/DVR</td>
+                <td>Video telematics</td>
+                <td><span class="badge badge-p2">P2</span></td>
+                <td>IP camera RTSP stream</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 17. CERTIFICATIONS -->
+      <section class="section" id="certs">
+        <div class="section-label">Section 17</div>
+        <h2>Certification & Compliance Roadmap</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Certification</th>
+                <th>Body</th>
+                <th>Timeline</th>
+                <th>Cost (₹)</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AIS 140 Type Approval</td>
+                <td>ARAI, Pune</td>
+                <td>3–4 months</td>
+                <td>3–5 Lakhs</td>
+                <td style="color: #f87171; font-weight: 600">
+                  CRITICAL — Start Day 1
+                </td>
+              </tr>
+              <tr>
+                <td>ICAT Testing (alt)</td>
+                <td>ICAT, Manesar</td>
+                <td>3–4 months</td>
+                <td>3–5 Lakhs</td>
+                <td>Backup option</td>
+              </tr>
+              <tr>
+                <td>BIS Certification</td>
+                <td>Bureau of Indian Standards</td>
+                <td>2–3 months</td>
+                <td>1–2 Lakhs</td>
+                <td>Optional, builds trust</td>
+              </tr>
+              <tr>
+                <td>GeM Seller Registration</td>
+                <td>GeM SPV</td>
+                <td>2–4 weeks</td>
+                <td>Free</td>
+                <td>Start in parallel</td>
+              </tr>
+              <tr>
+                <td>MSME / Udyam</td>
+                <td>MSME Ministry</td>
+                <td>1 day</td>
+                <td>Free</td>
+                <td>Bid preference on GeM</td>
+              </tr>
+              <tr>
+                <td>Startup India</td>
+                <td>DPIIT</td>
+                <td>1–2 weeks</td>
+                <td>Free</td>
+                <td>Tax + GeM preference</td>
+              </tr>
+              <tr>
+                <td>ISO 27001</td>
+                <td>Accredited CB</td>
+                <td>3–6 months</td>
+                <td>2–3 Lakhs</td>
+                <td>Year 1 target</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 18. ROADMAP -->
+      <section class="section" id="roadmap">
+        <div class="section-label">Section 18</div>
+        <h2>Development Roadmap</h2>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="tm-label">Week 1</div>
+            <h5>M0: Project Kickoff</h5>
+            <p>
+              Team alignment, component procurement, ARAI application filed.
+              Success: Components ordered, ARAI slot confirmed.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <div class="tm-label">Week 2–6</div>
+            <h5>M1: Prototype V1</h5>
+            <p>
+              Working PCB with GPS + 4G + SOS, basic firmware, MQTT data push.
+              Success: Device sends location to cloud every 10s.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <div class="tm-label">Week 4–10</div>
+            <h5>M2: Dashboard MVP</h5>
+            <p>
+              Web dashboard with live map, trip history, geofence, alerts.
+              Success: Map shows 10 test devices in real-time.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <div class="tm-label">Week 8</div>
+            <h5>M3: ARAI Submission</h5>
+            <p>
+              50 prototype units + documentation submitted for AIS 140 testing.
+              Success: ARAI accepts, testing scheduled.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <div class="tm-label">Week 14–18</div>
+            <h5>M4: Pilot Deployment</h5>
+            <p>
+              100–500 devices at pilot customer site. Success: >95% uptime for
+              30 days.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <div class="tm-label">Week 16–20</div>
+            <h5>M5: AIS 140 Certified</h5>
+            <p>ARAI type approval received. Success: Certificate in hand.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="tm-label">Week 18–22</div>
+            <h5>M6: GeM Listed</h5>
+            <p>
+              Product on GeM catalog, first bids submitted. Success: Visible in
+              search, first bid placed.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <div class="tm-label">Week 20–24</div>
+            <h5>M7: First Revenue</h5>
+            <p>
+              First paid deployment (500–1000 vehicles). Success: Invoice
+              raised.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <div class="tm-label">Month 6–12</div>
+            <h5>M8: Scale Phase</h5>
+            <p>
+              5K–10K vehicles, 3+ departments, mobile app launched. Success: ₹5
+              Cr+ revenue run-rate.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 19. RISKS -->
+      <section class="section" id="risks">
+        <div class="section-label">Section 19</div>
+        <h2>Risk Register</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Risk</th>
+                <th>Likelihood</th>
+                <th>Impact</th>
+                <th>Mitigation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ARAI certification delayed >4 months</td>
+                <td class="risk-medium">Medium</td>
+                <td class="risk-high">High</td>
+                <td>
+                  Apply to ARAI + ICAT simultaneously. Maintain direct lab
+                  contact.
+                </td>
+              </tr>
+              <tr>
+                <td>Channel partner doesn't convert to orders</td>
+                <td class="risk-medium">Medium</td>
+                <td class="risk-high">High</td>
+                <td>
+                  Build multiple channels: GeM, SI partnerships, direct tender
+                  bidding.
+                </td>
+              </tr>
+              <tr>
+                <td>L1 pricing war erodes margins</td>
+                <td class="risk-high">High</td>
+                <td class="risk-medium">Medium</td>
+                <td>
+                  Differentiate on SaaS value. Bundle HW + 3-year SaaS. Optimize
+                  BOM.
+                </td>
+              </tr>
+              <tr>
+                <td>Government payment delays (>90 days)</td>
+                <td class="risk-high">High</td>
+                <td class="risk-medium">Medium</td>
+                <td>
+                  6-month cash buffer. GeM SAHAY. Prioritize central govt
+                  initially.
+                </td>
+              </tr>
+              <tr>
+                <td>Competitor launches govt-specific product</td>
+                <td class="risk-low">Low</td>
+                <td class="risk-high">High</td>
+                <td>
+                  First-mover advantage. Deep VAHAN/state integrations.
+                  Switching cost.
+                </td>
+              </tr>
+              <tr>
+                <td>Hardware supply chain disruption</td>
+                <td class="risk-medium">Medium</td>
+                <td class="risk-medium">Medium</td>
+                <td>
+                  3-month inventory buffer. Dual-source every critical
+                  component.
+                </td>
+              </tr>
+              <tr>
+                <td>Data breach / security incident</td>
+                <td class="risk-low">Low</td>
+                <td class="risk-critical">Critical</td>
+                <td>
+                  ISO 27001. Annual pen testing. India-only hosting. Encryption
+                  everywhere.
+                </td>
+              </tr>
+              <tr>
+                <td>Low field staff adoption</td>
+                <td class="risk-medium">Medium</td>
+                <td class="risk-medium">Medium</td>
+                <td>
+                  Training, regional languages, simple mobile app, WhatsApp
+                  alerts, gamification.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 20. KPIs -->
+      <section class="section" id="kpis">
+        <div class="section-label">Section 20</div>
+        <h2>Success Metrics & KPIs</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Metric</th>
+                <th>Year 1</th>
+                <th>Year 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Growth</td>
+                <td>Vehicles tracked</td>
+                <td>10,000</td>
+                <td>50,000</td>
+              </tr>
+              <tr>
+                <td>Growth</td>
+                <td>Departments onboarded</td>
+                <td>10</td>
+                <td>50+</td>
+              </tr>
+              <tr>
+                <td>Growth</td>
+                <td>States covered</td>
+                <td>3</td>
+                <td>15+</td>
+              </tr>
+              <tr>
+                <td>Revenue</td>
+                <td>Total revenue</td>
+                <td>₹10 Cr</td>
+                <td>₹36.5 Cr</td>
+              </tr>
+              <tr>
+                <td>Revenue</td>
+                <td>MRR (Monthly Recurring)</td>
+                <td>₹20L</td>
+                <td>₹1.4 Cr</td>
+              </tr>
+              <tr>
+                <td>Revenue</td>
+                <td>SaaS as % of revenue</td>
+                <td>15%</td>
+                <td>33%+</td>
+              </tr>
+              <tr>
+                <td>Product</td>
+                <td>Device uptime</td>
+                <td>>95%</td>
+                <td>>99%</td>
+              </tr>
+              <tr>
+                <td>Product</td>
+                <td>Dashboard load (P95)</td>
+                <td>&lt;5s</td>
+                <td>&lt;3s</td>
+              </tr>
+              <tr>
+                <td>Customer</td>
+                <td>Retention rate</td>
+                <td>>85%</td>
+                <td>>95%</td>
+              </tr>
+              <tr>
+                <td>Customer</td>
+                <td>NPS</td>
+                <td>>30</td>
+                <td>>50</td>
+              </tr>
+              <tr>
+                <td>Operations</td>
+                <td>Installation time</td>
+                <td>&lt;60 min</td>
+                <td>&lt;30 min</td>
+              </tr>
+              <tr>
+                <td>Operations</td>
+                <td>Support resolution (P95)</td>
+                <td>&lt;48 hrs</td>
+                <td>&lt;24 hrs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 21. BUDGET -->
+      <section class="section" id="budget">
+        <div class="section-label">Section 21</div>
+        <h2>Budget & Resource Plan</h2>
+
+        <h3>Seed Budget (Month 0–6)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Cost (₹)</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>50 Prototype Devices</td>
+                <td>1,50,000</td>
+                <td>Components + PCB + assembly for testing + ARAI</td>
+              </tr>
+              <tr>
+                <td>PCB Design & Fabrication</td>
+                <td>1,00,000</td>
+                <td>EDA tool + PCBWay / local fab</td>
+              </tr>
+              <tr>
+                <td>ARAI AIS 140 Certification</td>
+                <td>4,00,000</td>
+                <td>Testing + documentation + certification fee</td>
+              </tr>
+              <tr>
+                <td>Cloud Infrastructure (6 months)</td>
+                <td>50,000</td>
+                <td>AWS IoT Core + EC2 + RDS + S3</td>
+              </tr>
+              <tr>
+                <td>GeM Registration + Legal</td>
+                <td>20,000</td>
+                <td>Company docs, GST, Udyam</td>
+              </tr>
+              <tr>
+                <td>Developer Salaries (3 × 3mo)</td>
+                <td>6,00,000</td>
+                <td>2 backend + 1 frontend</td>
+              </tr>
+              <tr>
+                <td>Embedded Engineer (1 × 3mo)</td>
+                <td>2,00,000</td>
+                <td>Firmware development</td>
+              </tr>
+              <tr>
+                <td>Travel & Meetings</td>
+                <td>50,000</td>
+                <td>Site visits, govt meetings</td>
+              </tr>
+              <tr>
+                <td>Miscellaneous</td>
+                <td>30,000</td>
+                <td>SIMs, testing tools</td>
+              </tr>
+              <tr>
+                <td style="color: var(--cyan); font-weight: 700">TOTAL</td>
+                <td style="color: var(--cyan); font-weight: 700">15,00,000</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Team Required</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Count</th>
+                <th>Responsibility</th>
+                <th>Start</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Embedded / HW Engineer</td>
+                <td>1</td>
+                <td>PCB design, firmware, ARAI coordination</td>
+                <td>Day 1</td>
+              </tr>
+              <tr>
+                <td>Backend Developer</td>
+                <td>2</td>
+                <td>Cloud platform, APIs, database, rule engine</td>
+                <td>Day 1</td>
+              </tr>
+              <tr>
+                <td>Frontend Developer</td>
+                <td>1</td>
+                <td>Dashboard, mobile app, reports UI</td>
+                <td>Month 2</td>
+              </tr>
+              <tr>
+                <td>Field / Sales Engineer</td>
+                <td>1</td>
+                <td>Pilot deployment, installation, training</td>
+                <td>Month 4</td>
+              </tr>
+              <tr>
+                <td>Business Development</td>
+                <td>1</td>
+                <td>GeM bidding, tenders, govt relationships</td>
+                <td>Month 3</td>
+              </tr>
+              <tr>
+                <td>Founder / CEO</td>
+                <td>1</td>
+                <td>Strategy, channel partner mgmt, product</td>
+                <td>Day 1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="doc-footer">
+      <p>GovFleet — Market Analysis & PRD v1.0 · May 2026 · Confidential</p>
+      <p style="margin-top: 8px; font-size: 11px; color: var(--text-muted)">
+        This document is proprietary. Do not distribute without authorization.
+      </p>
+    </footer>
+  </body>
+</html>
