@@ -1,0 +1,2523 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GovSource — Law Enforcement Recruiting Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0d12;
+        --surface: #11151c;
+        --surface-2: #1a1f29;
+        --surface-3: #232936;
+        --ink: #e8e5dc;
+        --ink-dim: #8a8b85;
+        --ink-faint: #5a5c56;
+        --accent: #d4ff3a;
+        --accent-dim: rgba(212, 255, 58, 0.15);
+        --warn: #ff6b35;
+        --success: #4ade80;
+        --info: #60a5fa;
+        --line: rgba(232, 229, 220, 0.08);
+        --line-strong: rgba(232, 229, 220, 0.15);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Inter Tight", sans-serif;
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+
+      /* ============ TOP NAV ============ */
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(10, 13, 18, 0.92);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--line);
+        padding: 16px 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .logo .badge {
+        background: var(--accent);
+        color: var(--bg);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 9px;
+        font-weight: 600;
+        padding: 3px 6px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .role-switcher {
+        display: flex;
+        gap: 4px;
+        background: var(--surface);
+        padding: 4px;
+        border-radius: 2px;
+        border: 1px solid var(--line);
+      }
+
+      .role-btn {
+        background: none;
+        border: none;
+        color: var(--ink-dim);
+        padding: 8px 18px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-weight: 500;
+      }
+
+      .role-btn.active {
+        background: var(--accent);
+        color: var(--bg);
+        font-weight: 600;
+      }
+
+      .role-btn:not(.active):hover {
+        color: var(--ink);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--ink-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .live-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--success);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      .avatar {
+        width: 32px;
+        height: 32px;
+        background: var(--accent);
+        color: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 13px;
+        border-radius: 50%;
+      }
+
+      /* ============ LAYOUT ============ */
+      .app-shell {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        min-height: calc(100vh - 65px);
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        background: var(--surface);
+        border-right: 1px solid var(--line);
+        padding: 24px 0;
+        height: calc(100vh - 65px);
+        position: sticky;
+        top: 65px;
+        overflow-y: auto;
+      }
+
+      .side-section {
+        padding: 0 16px;
+        margin-bottom: 24px;
+      }
+
+      .side-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--ink-faint);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        padding: 0 12px;
+        margin-bottom: 8px;
+      }
+
+      .side-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        color: var(--ink-dim);
+        cursor: pointer;
+        border-radius: 2px;
+        font-size: 14px;
+        transition: all 0.15s;
+        border-left: 2px solid transparent;
+      }
+
+      .side-link:hover {
+        background: var(--surface-2);
+        color: var(--ink);
+      }
+
+      .side-link.active {
+        background: var(--surface-2);
+        color: var(--accent);
+        border-left-color: var(--accent);
+      }
+
+      .side-link .ico {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+
+      .side-link .count {
+        margin-left: auto;
+        background: var(--surface-3);
+        padding: 2px 6px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* MAIN */
+      .main {
+        padding: 32px 40px;
+        overflow-x: hidden;
+      }
+
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 32px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .page-title-block .breadcrumb {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--ink-faint);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 8px;
+      }
+
+      .page-title {
+        font-family: "Fraunces", serif;
+        font-size: 38px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+
+      .page-title em {
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .page-actions {
+        display: flex;
+        gap: 12px;
+      }
+
+      .btn {
+        padding: 10px 18px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        border: 1px solid var(--line-strong);
+        background: var(--surface);
+        color: var(--ink);
+        transition: all 0.2s;
+      }
+
+      .btn:hover {
+        border-color: var(--ink-dim);
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: var(--bg);
+        border-color: var(--accent);
+      }
+
+      .btn-primary:hover {
+        background: var(--ink);
+        border-color: var(--ink);
+      }
+
+      /* ============ ROLE VIEWS ============ */
+      .role-view {
+        display: none;
+      }
+      .role-view.active {
+        display: block;
+      }
+
+      /* STAT GRID */
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        margin-bottom: 32px;
+      }
+
+      .stat-card {
+        background: var(--surface);
+        padding: 24px;
+        transition: background 0.2s;
+      }
+
+      .stat-card:hover {
+        background: var(--surface-2);
+      }
+
+      .stat-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--ink-faint);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 12px;
+      }
+
+      .stat-value {
+        font-family: "Fraunces", serif;
+        font-size: 38px;
+        font-weight: 500;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .stat-value.accent {
+        color: var(--accent);
+      }
+
+      .stat-trend {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--ink-dim);
+      }
+
+      .stat-trend.up {
+        color: var(--success);
+      }
+      .stat-trend.down {
+        color: var(--warn);
+      }
+
+      /* ============ APPLICANT — APPLICATIONS LIST ============ */
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        margin-bottom: 24px;
+      }
+
+      .panel-header {
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .panel-title {
+        font-family: "Fraunces", serif;
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      .panel-meta {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--ink-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      /* APPLICATION ROW */
+      .app-row {
+        display: grid;
+        grid-template-columns: 60px 1fr 200px 160px 120px 80px;
+        gap: 16px;
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--line);
+        align-items: center;
+        transition: background 0.15s;
+        cursor: pointer;
+      }
+
+      .app-row:hover {
+        background: var(--surface-2);
+      }
+      .app-row:last-child {
+        border-bottom: none;
+      }
+
+      .agency-mark {
+        width: 44px;
+        height: 44px;
+        background: var(--surface-3);
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        font-size: 16px;
+        border-radius: 2px;
+      }
+
+      .app-info .agency {
+        font-family: "Fraunces", serif;
+        font-size: 17px;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .app-info .position {
+        color: var(--ink-dim);
+        font-size: 13px;
+      }
+
+      .pipeline-track {
+        display: flex;
+        gap: 3px;
+        align-items: center;
+      }
+
+      .pipeline-dot {
+        flex: 1;
+        height: 4px;
+        background: var(--surface-3);
+        border-radius: 1px;
+      }
+
+      .pipeline-dot.done {
+        background: var(--accent);
+      }
+      .pipeline-dot.current {
+        background: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-dim);
+      }
+
+      .stage-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--ink-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .stage-label.current {
+        color: var(--accent);
+      }
+
+      .date-col {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: var(--ink-dim);
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 4px 10px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-radius: 2px;
+        font-weight: 500;
+      }
+
+      .tag-success {
+        background: rgba(74, 222, 128, 0.15);
+        color: var(--success);
+      }
+      .tag-info {
+        background: rgba(96, 165, 250, 0.15);
+        color: var(--info);
+      }
+      .tag-warn {
+        background: rgba(255, 107, 53, 0.15);
+        color: var(--warn);
+      }
+      .tag-neutral {
+        background: var(--surface-3);
+        color: var(--ink-dim);
+      }
+
+      .arrow-cell {
+        color: var(--ink-faint);
+        text-align: right;
+        font-size: 18px;
+      }
+
+      /* ============ PROFILE COMPLETION ============ */
+      .two-col {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+
+      .profile-completion {
+        padding: 28px;
+      }
+
+      .completion-bar-wrap {
+        margin: 20px 0 24px;
+      }
+
+      .completion-bar {
+        height: 6px;
+        background: var(--surface-3);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 8px;
+      }
+
+      .completion-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--success));
+        border-radius: 3px;
+        width: 87%;
+      }
+
+      .completion-meta {
+        display: flex;
+        justify-content: space-between;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--ink-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .field-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background: var(--line);
+        margin-top: 8px;
+      }
+
+      .field-item {
+        background: var(--surface);
+        padding: 14px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+      }
+
+      .field-item .name {
+        color: var(--ink);
+      }
+      .field-item .status {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .status.complete {
+        color: var(--success);
+      }
+      .status.missing {
+        color: var(--warn);
+      }
+
+      /* DOCS WIDGET */
+      .docs-widget {
+        padding: 28px;
+      }
+
+      .doc-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .doc-item:last-child {
+        border-bottom: none;
+      }
+
+      .doc-ico {
+        width: 36px;
+        height: 36px;
+        background: var(--surface-3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .doc-meta {
+        flex: 1;
+      }
+      .doc-name {
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
+      .doc-size {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--ink-faint);
+      }
+
+      /* ============ RECRUITER — KANBAN ============ */
+      .kanban {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .kanban-col {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        min-height: 500px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .kanban-head {
+        padding: 16px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .kanban-head .name {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-weight: 600;
+      }
+
+      .kanban-head .count {
+        background: var(--surface-3);
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--ink-dim);
+      }
+
+      .kanban-head.col-applied .name {
+        color: var(--info);
+      }
+      .kanban-head.col-review .name {
+        color: #c084fc;
+      }
+      .kanban-head.col-bg .name {
+        color: var(--warn);
+      }
+      .kanban-head.col-interview .name {
+        color: var(--accent);
+      }
+      .kanban-head.col-hired .name {
+        color: var(--success);
+      }
+
+      .kanban-cards {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+      }
+
+      .kanban-card {
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        padding: 14px;
+        cursor: grab;
+        transition: all 0.15s;
+      }
+
+      .kanban-card:hover {
+        border-color: var(--ink-dim);
+        transform: translateY(-1px);
+      }
+
+      .kc-name {
+        font-family: "Fraunces", serif;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .kc-pos {
+        color: var(--ink-dim);
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+
+      .kc-meta {
+        display: flex;
+        justify-content: space-between;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--ink-faint);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .kc-meta .priority {
+        color: var(--warn);
+      }
+
+      /* ============ ADMIN — TABLE ============ */
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      .admin-table thead th {
+        text-align: left;
+        padding: 14px 24px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--ink-faint);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        border-bottom: 1px solid var(--line);
+        font-weight: 500;
+      }
+
+      .admin-table tbody td {
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: middle;
+      }
+
+      .admin-table tbody tr {
+        transition: background 0.15s;
+        cursor: pointer;
+      }
+      .admin-table tbody tr:hover {
+        background: var(--surface-2);
+      }
+      .admin-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .user-cell {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .user-avi {
+        width: 36px;
+        height: 36px;
+        background: var(--surface-3);
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .user-info .nm {
+        font-weight: 500;
+        margin-bottom: 2px;
+      }
+      .user-info .em {
+        font-size: 12px;
+        color: var(--ink-dim);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* ============ MESSAGING ============ */
+      .messages-layout {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        height: 600px;
+      }
+
+      .conv-list {
+        background: var(--surface);
+        overflow-y: auto;
+      }
+
+      .conv-item {
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--line);
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      .conv-item:hover {
+        background: var(--surface-2);
+      }
+      .conv-item.active {
+        background: var(--surface-2);
+        border-left: 2px solid var(--accent);
+      }
+
+      .conv-top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4px;
+      }
+
+      .conv-name {
+        font-weight: 500;
+        font-size: 14px;
+      }
+      .conv-time {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--ink-faint);
+      }
+      .conv-preview {
+        font-size: 13px;
+        color: var(--ink-dim);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .chat-area {
+        background: var(--surface);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chat-head {
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .chat-head .who {
+        font-family: "Fraunces", serif;
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .chat-channel {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        border: 1px solid var(--accent);
+        padding: 4px 8px;
+      }
+
+      .chat-body {
+        flex: 1;
+        padding: 24px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .msg {
+        max-width: 70%;
+        padding: 12px 16px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .msg.in {
+        background: var(--surface-2);
+        align-self: flex-start;
+        border-radius: 2px 14px 14px 14px;
+      }
+
+      .msg.out {
+        background: var(--accent);
+        color: var(--bg);
+        align-self: flex-end;
+        border-radius: 14px 2px 14px 14px;
+      }
+
+      .msg-time {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--ink-faint);
+        margin-top: 4px;
+      }
+
+      .msg-time.out {
+        text-align: right;
+      }
+
+      .chat-input {
+        padding: 16px 24px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        gap: 12px;
+      }
+
+      .chat-input input {
+        flex: 1;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        color: var(--ink);
+        padding: 12px 16px;
+        font-family: "Inter Tight", sans-serif;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .chat-input input:focus {
+        border-color: var(--accent);
+      }
+
+      /* ============ APPLY MODAL — SHOWING DIFF ENGINE ============ */
+      .diff-banner {
+        background: linear-gradient(
+          135deg,
+          rgba(212, 255, 58, 0.08),
+          transparent
+        );
+        border: 1px solid var(--accent);
+        padding: 20px 24px;
+        margin-bottom: 24px;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .diff-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--accent);
+        color: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      .diff-text strong {
+        color: var(--accent);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .diff-text p {
+        font-size: 14px;
+        color: var(--ink-dim);
+      }
+
+      /* ============ JOB POSTINGS GRID ============ */
+      .jobs-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .job-card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        padding: 24px;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+
+      .job-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .job-agency {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 12px;
+      }
+
+      .job-title {
+        font-family: "Fraunces", serif;
+        font-size: 22px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        line-height: 1.2;
+      }
+
+      .job-loc {
+        color: var(--ink-dim);
+        font-size: 13px;
+        margin-bottom: 20px;
+      }
+
+      .job-meta-row {
+        display: flex;
+        gap: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--ink-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .job-meta-row .applied {
+        color: var(--accent);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 1100px) {
+        .kanban {
+          grid-template-columns: repeat(3, 1fr);
+          overflow-x: auto;
+        }
+        .stat-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .jobs-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .app-shell {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          display: none;
+        }
+        .main {
+          padding: 20px;
+        }
+        .role-switcher {
+          display: none;
+        }
+        .messages-layout {
+          grid-template-columns: 1fr;
+          height: auto;
+        }
+        .conv-list {
+          display: none;
+        }
+        .app-row {
+          grid-template-columns: 50px 1fr 80px;
+          gap: 12px;
+        }
+        .app-row > *:nth-child(3),
+        .app-row > *:nth-child(4),
+        .app-row > *:nth-child(5) {
+          display: none;
+        }
+        .admin-table thead {
+          display: none;
+        }
+        .admin-table tbody td {
+          padding: 8px 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOP NAV -->
+    <nav class="topnav">
+      <div class="logo">GovSource <span class="badge">MVP</span></div>
+      <div class="role-switcher">
+        <button class="role-btn active" data-role="applicant">Applicant</button>
+        <button class="role-btn" data-role="recruiter">Recruiter</button>
+        <button class="role-btn" data-role="admin">Admin</button>
+      </div>
+      <div class="nav-actions">
+        <span class="live-dot"></span>
+        <span>Live demo</span>
+        <div class="avatar">JM</div>
+      </div>
+    </nav>
+
+    <div class="app-shell">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <!-- APPLICANT SIDEBAR -->
+        <div class="sidebar-content" data-role="applicant">
+          <div class="side-section">
+            <div class="side-label">Workspace</div>
+            <div class="side-link active">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+              Dashboard
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+              My Profile
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+              Browse Jobs
+              <span class="count">42</span>
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
+              </svg>
+              Applications
+              <span class="count">7</span>
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
+                />
+              </svg>
+              Messages
+              <span class="count">3</span>
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+              Documents
+            </div>
+          </div>
+          <div class="side-section">
+            <div class="side-label">Account</div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+                />
+              </svg>
+              Settings
+            </div>
+          </div>
+        </div>
+
+        <!-- RECRUITER SIDEBAR -->
+        <div
+          class="sidebar-content"
+          data-role="recruiter"
+          style="display: none"
+        >
+          <div class="side-section">
+            <div class="side-label">Pipeline</div>
+            <div class="side-link active">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+              Candidate Board
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+              </svg>
+              My Candidates
+              <span class="count">28</span>
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
+                />
+              </svg>
+              Messages
+              <span class="count">12</span>
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M9 11H5a2 2 0 00-2 2v7a2 2 0 002 2h14a2 2 0 002-2v-7a2 2 0 00-2-2h-4M9 11V7a3 3 0 116 0v4M9 11h6"
+                />
+              </svg>
+              Background Checks
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              Interview Schedule
+            </div>
+          </div>
+          <div class="side-section">
+            <div class="side-label">Reports</div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+              </svg>
+              Analytics
+            </div>
+          </div>
+        </div>
+
+        <!-- ADMIN SIDEBAR -->
+        <div class="sidebar-content" data-role="admin" style="display: none">
+          <div class="side-section">
+            <div class="side-label">Platform</div>
+            <div class="side-link active">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+              Overview
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+              </svg>
+              All Users
+              <span class="count">1.2k</span>
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M3 21h18M3 7h18M3 14h18" />
+              </svg>
+              Agencies
+              <span class="count">47</span>
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+              Job Postings
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              Pipeline Stages
+            </div>
+            <div class="side-link">
+              <svg
+                class="ico"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+                />
+              </svg>
+              System Settings
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ============ MAIN CONTENT ============ -->
+      <main class="main">
+        <!-- ============ APPLICANT VIEW ============ -->
+        <div class="role-view active" data-role="applicant">
+          <div class="page-header">
+            <div class="page-title-block">
+              <div class="breadcrumb">Applicant / Dashboard</div>
+              <h1 class="page-title">Welcome back, <em>Jordan</em>.</h1>
+            </div>
+            <div class="page-actions">
+              <button class="btn">Export profile</button>
+              <button class="btn btn-primary">Apply to job</button>
+            </div>
+          </div>
+
+          <!-- DIFF BANNER -->
+          <div class="diff-banner">
+            <div class="diff-icon">⟂</div>
+            <div class="diff-text">
+              <strong>Reusable application engine</strong>
+              <p>
+                Your master profile is 87% complete. When you apply to a new
+                agency, only missing or job-specific fields will be requested —
+                not the full form again.
+              </p>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-label">Active applications</div>
+              <div class="stat-value accent">7</div>
+              <div class="stat-trend up">↑ 2 this week</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">In interview stage</div>
+              <div class="stat-value">3</div>
+              <div class="stat-trend up">↑ 1 since Monday</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Profile completeness</div>
+              <div class="stat-value">87%</div>
+              <div class="stat-trend">3 fields remaining</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Unread messages</div>
+              <div class="stat-value">3</div>
+              <div class="stat-trend">From recruiters</div>
+            </div>
+          </div>
+
+          <!-- APPLICATIONS LIST -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Your applications</div>
+              <div class="panel-meta">7 active &middot; updated 2m ago</div>
+            </div>
+
+            <div class="app-row">
+              <div class="agency-mark">DPD</div>
+              <div class="app-info">
+                <div class="agency">Denver Police Department</div>
+                <div class="position">Police Officer / Patrol Division</div>
+              </div>
+              <div>
+                <div class="pipeline-track">
+                  <div class="pipeline-dot done"></div>
+                  <div class="pipeline-dot done"></div>
+                  <div class="pipeline-dot done"></div>
+                  <div class="pipeline-dot current"></div>
+                  <div class="pipeline-dot"></div>
+                </div>
+                <div class="stage-label current" style="margin-top: 6px">
+                  Stage 4 / Interview
+                </div>
+              </div>
+              <div><span class="tag tag-info">Interview scheduled</span></div>
+              <div class="date-col">May 12, 2026</div>
+              <div class="arrow-cell">→</div>
+            </div>
+
+            <div class="app-row">
+              <div class="agency-mark">SFP</div>
+              <div class="app-info">
+                <div class="agency">San Francisco Police</div>
+                <div class="position">Patrol Officer / Bayview Station</div>
+              </div>
+              <div>
+                <div class="pipeline-track">
+                  <div class="pipeline-dot done"></div>
+                  <div class="pipeline-dot done"></div>
+                  <div class="pipeline-dot current"></div>
+                  <div class="pipeline-dot"></div>
+                  <div class="pipeline-dot"></div>
+                </div>
+                <div class="stage-label current" style="margin-top: 6px">
+                  Stage 3 / Background
+                </div>
+              </div>
+              <div><span class="tag tag-warn">Awaiting docs</span></div>
+              <div class="date-col">May 03, 2026</div>
+              <div class="arrow-cell">→</div>
+            </div>
+
+            <div class="app-row">
+              <div class="agency-mark">CPD</div>
+              <div class="app-info">
+                <div class="agency">Chicago Police Department</div>
+                <div class="position">Detective Division Trainee</div>
+              </div>
+              <div>
+                <div class="pipeline-track">
+                  <div class="pipeline-dot done"></div>
+                  <div class="pipeline-dot current"></div>
+                  <div class="pipeline-dot"></div>
+                  <div class="pipeline-dot"></div>
+                  <div class="pipeline-dot"></div>
+                </div>
+                <div class="stage-label current" style="margin-top: 6px">
+                  Stage 2 / Review
+                </div>
+              </div>
+              <div><span class="tag tag-neutral">Under review</span></div>
+              <div class="date-col">Apr 28, 2026</div>
+              <div class="arrow-cell">→</div>
+            </div>
+
+            <div class="app-row">
+              <div class="agency-mark">SHF</div>
+              <div class="app-info">
+                <div class="agency">King County Sheriff's Office</div>
+                <div class="position">Deputy Sheriff / Recruit Class 2026B</div>
+              </div>
+              <div>
+                <div class="pipeline-track">
+                  <div class="pipeline-dot done"></div>
+                  <div class="pipeline-dot done"></div>
+                  <div class="pipeline-dot done"></div>
+                  <div class="pipeline-dot done"></div>
+                  <div class="pipeline-dot current"></div>
+                </div>
+                <div class="stage-label current" style="margin-top: 6px">
+                  Stage 5 / Hired
+                </div>
+              </div>
+              <div><span class="tag tag-success">Offer extended</span></div>
+              <div class="date-col">Apr 22, 2026</div>
+              <div class="arrow-cell">→</div>
+            </div>
+
+            <div class="app-row">
+              <div class="agency-mark">AUS</div>
+              <div class="app-info">
+                <div class="agency">Austin Police Department</div>
+                <div class="position">Officer Cadet / Class 153</div>
+              </div>
+              <div>
+                <div class="pipeline-track">
+                  <div class="pipeline-dot current"></div>
+                  <div class="pipeline-dot"></div>
+                  <div class="pipeline-dot"></div>
+                  <div class="pipeline-dot"></div>
+                  <div class="pipeline-dot"></div>
+                </div>
+                <div class="stage-label current" style="margin-top: 6px">
+                  Stage 1 / Applied
+                </div>
+              </div>
+              <div><span class="tag tag-neutral">Submitted</span></div>
+              <div class="date-col">Apr 18, 2026</div>
+              <div class="arrow-cell">→</div>
+            </div>
+          </div>
+
+          <!-- TWO COL: PROFILE + DOCS -->
+          <div class="two-col">
+            <div class="panel profile-completion">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 8px;
+                "
+              >
+                <div class="panel-title">Master profile</div>
+                <span class="tag tag-success">87% complete</span>
+              </div>
+              <div
+                style="
+                  color: var(--ink-dim);
+                  font-size: 14px;
+                  margin-bottom: 12px;
+                "
+              >
+                Used across all your applications. Update once, applies
+                everywhere.
+              </div>
+
+              <div class="completion-bar-wrap">
+                <div class="completion-bar">
+                  <div class="completion-fill"></div>
+                </div>
+                <div class="completion-meta">
+                  <span>26 of 30 fields</span>
+                  <span>+ 4 to complete</span>
+                </div>
+              </div>
+
+              <div class="field-list">
+                <div class="field-item">
+                  <span class="name">Personal information</span
+                  ><span class="status complete">Complete</span>
+                </div>
+                <div class="field-item">
+                  <span class="name">Education history</span
+                  ><span class="status complete">Complete</span>
+                </div>
+                <div class="field-item">
+                  <span class="name">Employment history</span
+                  ><span class="status complete">Complete</span>
+                </div>
+                <div class="field-item">
+                  <span class="name">Background disclosures</span
+                  ><span class="status missing">3 fields missing</span>
+                </div>
+                <div class="field-item">
+                  <span class="name">References</span
+                  ><span class="status missing">1 field missing</span>
+                </div>
+                <div class="field-item">
+                  <span class="name">Physical fitness assessment</span
+                  ><span class="status complete">Complete</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel docs-widget">
+              <div class="panel-title">Documents</div>
+              <div
+                style="
+                  color: var(--ink-dim);
+                  font-size: 14px;
+                  margin: 8px 0 16px;
+                "
+              >
+                Reused across all applications
+              </div>
+
+              <div class="doc-item">
+                <div class="doc-ico">PDF</div>
+                <div class="doc-meta">
+                  <div class="doc-name">Driver's License</div>
+                  <div class="doc-size">2.3 MB &middot; Verified</div>
+                </div>
+              </div>
+              <div class="doc-item">
+                <div class="doc-ico">PDF</div>
+                <div class="doc-meta">
+                  <div class="doc-name">POST Certification</div>
+                  <div class="doc-size">1.8 MB &middot; Verified</div>
+                </div>
+              </div>
+              <div class="doc-item">
+                <div class="doc-ico">PDF</div>
+                <div class="doc-meta">
+                  <div class="doc-name">DD-214 Military Record</div>
+                  <div class="doc-size">3.1 MB &middot; Verified</div>
+                </div>
+              </div>
+              <div class="doc-item">
+                <div class="doc-ico">JPG</div>
+                <div class="doc-meta">
+                  <div class="doc-name">Headshot Photo</div>
+                  <div class="doc-size">1.2 MB</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BROWSE JOBS -->
+          <div class="panel" style="padding: 28px">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 24px;
+              "
+            >
+              <div class="panel-title">Recommended jobs</div>
+              <span class="panel-meta">Based on your profile</span>
+            </div>
+
+            <div class="jobs-grid">
+              <div class="job-card">
+                <div class="job-agency">Phoenix Police Dept.</div>
+                <div class="job-title">Patrol Officer</div>
+                <div class="job-loc">Phoenix, AZ &middot; Full-time</div>
+                <div class="job-meta-row">
+                  <span>$62k — $85k</span>
+                  <span class="applied">2 fields needed</span>
+                </div>
+              </div>
+              <div class="job-card">
+                <div class="job-agency">Boston Police Dept.</div>
+                <div class="job-title">Officer Trainee</div>
+                <div class="job-loc">Boston, MA &middot; Full-time</div>
+                <div class="job-meta-row">
+                  <span>$58k — $79k</span>
+                  <span class="applied">5 fields needed</span>
+                </div>
+              </div>
+              <div class="job-card">
+                <div class="job-agency">Miami-Dade PD</div>
+                <div class="job-title">Police Officer</div>
+                <div class="job-loc">Miami, FL &middot; Full-time</div>
+                <div class="job-meta-row">
+                  <span>$60k — $82k</span>
+                  <span class="applied">0 fields needed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ RECRUITER VIEW ============ -->
+        <div class="role-view" data-role="recruiter">
+          <div class="page-header">
+            <div class="page-title-block">
+              <div class="breadcrumb">Recruiter / Pipeline</div>
+              <h1 class="page-title">Candidate <em>pipeline</em></h1>
+            </div>
+            <div class="page-actions">
+              <button class="btn">Filter</button>
+              <button class="btn">Export</button>
+              <button class="btn btn-primary">+ Add candidate</button>
+            </div>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-label">Assigned candidates</div>
+              <div class="stat-value accent">28</div>
+              <div class="stat-trend up">↑ 4 this week</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">In interview stage</div>
+              <div class="stat-value">9</div>
+              <div class="stat-trend up">↑ 3 scheduled</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Hired this month</div>
+              <div class="stat-value">6</div>
+              <div class="stat-trend up">↑ 50% MoM</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Pending review</div>
+              <div class="stat-value">12</div>
+              <div class="stat-trend">Average 2.3 days</div>
+            </div>
+          </div>
+
+          <!-- KANBAN -->
+          <div class="kanban">
+            <!-- APPLIED -->
+            <div class="kanban-col">
+              <div class="kanban-head col-applied">
+                <span class="name">Applied</span>
+                <span class="count">8</span>
+              </div>
+              <div class="kanban-cards">
+                <div class="kanban-card">
+                  <div class="kc-name">Marcus Chen</div>
+                  <div class="kc-pos">Patrol Officer / DPD</div>
+                  <div class="kc-meta">
+                    <span>2d ago</span><span>3 prior apps</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">Jordan Reyes</div>
+                  <div class="kc-pos">Cadet Class 153</div>
+                  <div class="kc-meta">
+                    <span>1d ago</span><span class="priority">⚡ Veteran</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">Sarah Williams</div>
+                  <div class="kc-pos">Detective Trainee</div>
+                  <div class="kc-meta">
+                    <span>3d ago</span><span>1 prior app</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">Daniel Park</div>
+                  <div class="kc-pos">Patrol / Bayview</div>
+                  <div class="kc-meta">
+                    <span>4h ago</span
+                    ><span class="priority">⚡ Top match</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">Amelia Brooks</div>
+                  <div class="kc-pos">Officer Cadet</div>
+                  <div class="kc-meta">
+                    <span>2d ago</span><span>POST cert.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- REVIEW -->
+            <div class="kanban-col">
+              <div class="kanban-head col-review">
+                <span class="name">Review</span>
+                <span class="count">5</span>
+              </div>
+              <div class="kanban-cards">
+                <div class="kanban-card">
+                  <div class="kc-name">Elena Rodriguez</div>
+                  <div class="kc-pos">Police Officer</div>
+                  <div class="kc-meta">
+                    <span>1d in stage</span><span>Score: 92</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">James Foster</div>
+                  <div class="kc-pos">Patrol / Northside</div>
+                  <div class="kc-meta">
+                    <span>3d in stage</span><span>Score: 88</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">Tom Mitchell</div>
+                  <div class="kc-pos">Cadet Trainee</div>
+                  <div class="kc-meta">
+                    <span>5d in stage</span
+                    ><span class="priority">⚠ Stalled</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BACKGROUND -->
+            <div class="kanban-col">
+              <div class="kanban-head col-bg">
+                <span class="name">Background</span>
+                <span class="count">6</span>
+              </div>
+              <div class="kanban-cards">
+                <div class="kanban-card">
+                  <div class="kc-name">Rachel Green</div>
+                  <div class="kc-pos">Detective Trainee</div>
+                  <div class="kc-meta">
+                    <span>Day 12 / 21</span><span>BG: 65%</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">David Kim</div>
+                  <div class="kc-pos">Patrol Officer</div>
+                  <div class="kc-meta">
+                    <span>Day 8 / 21</span><span>BG: 40%</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">Mike O'Brien</div>
+                  <div class="kc-pos">Patrol / South</div>
+                  <div class="kc-meta">
+                    <span>Day 19 / 21</span><span>BG: 95%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- INTERVIEW -->
+            <div class="kanban-col">
+              <div class="kanban-head col-interview">
+                <span class="name">Interview</span>
+                <span class="count">9</span>
+              </div>
+              <div class="kanban-cards">
+                <div class="kanban-card">
+                  <div class="kc-name">Jordan Mitchell</div>
+                  <div class="kc-pos">Police Officer / DPD</div>
+                  <div class="kc-meta">
+                    <span>May 12</span><span>Round 2</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">Lisa Chang</div>
+                  <div class="kc-pos">Patrol Officer</div>
+                  <div class="kc-meta">
+                    <span>May 14</span><span>Final</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">Carlos Ruiz</div>
+                  <div class="kc-pos">Detective Track</div>
+                  <div class="kc-meta">
+                    <span>May 8</span><span>Panel</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- HIRED -->
+            <div class="kanban-col">
+              <div class="kanban-head col-hired">
+                <span class="name">Hired</span>
+                <span class="count">6</span>
+              </div>
+              <div class="kanban-cards">
+                <div class="kanban-card">
+                  <div class="kc-name">Brandon Hayes</div>
+                  <div class="kc-pos">Deputy / King County</div>
+                  <div class="kc-meta">
+                    <span>Apr 22</span><span>Class 2026B</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">Nina Patel</div>
+                  <div class="kc-pos">Patrol / Boston PD</div>
+                  <div class="kc-meta">
+                    <span>Apr 18</span><span>Onboarding</span>
+                  </div>
+                </div>
+                <div class="kanban-card">
+                  <div class="kc-name">Trevor Brooks</div>
+                  <div class="kc-pos">Officer / Phoenix</div>
+                  <div class="kc-meta">
+                    <span>Apr 15</span><span>Day 1: Jun 1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MESSAGES -->
+          <div class="panel" style="margin-top: 32px">
+            <div class="panel-header">
+              <div class="panel-title">Live messaging</div>
+              <div class="panel-meta">
+                TextUs &middot; In-app &middot; Real-time
+              </div>
+            </div>
+
+            <div class="messages-layout">
+              <div class="conv-list">
+                <div class="conv-item active">
+                  <div class="conv-top">
+                    <span class="conv-name">Marcus Chen</span
+                    ><span class="conv-time">2m</span>
+                  </div>
+                  <div class="conv-preview">
+                    Thanks, I'll have the docs uploaded by tonight.
+                  </div>
+                </div>
+                <div class="conv-item">
+                  <div class="conv-top">
+                    <span class="conv-name">Sarah Williams</span
+                    ><span class="conv-time">14m</span>
+                  </div>
+                  <div class="conv-preview">
+                    Confirming my interview slot for Thursday at 2pm.
+                  </div>
+                </div>
+                <div class="conv-item">
+                  <div class="conv-top">
+                    <span class="conv-name">Daniel Park</span
+                    ><span class="conv-time">1h</span>
+                  </div>
+                  <div class="conv-preview">
+                    Quick question on the background check timeline...
+                  </div>
+                </div>
+                <div class="conv-item">
+                  <div class="conv-top">
+                    <span class="conv-name">Elena Rodriguez</span
+                    ><span class="conv-time">3h</span>
+                  </div>
+                  <div class="conv-preview">
+                    Just submitted the missing reference. Let me know.
+                  </div>
+                </div>
+                <div class="conv-item">
+                  <div class="conv-top">
+                    <span class="conv-name">James Foster</span
+                    ><span class="conv-time">1d</span>
+                  </div>
+                  <div class="conv-preview">
+                    Appreciate the update — looking forward to next steps.
+                  </div>
+                </div>
+              </div>
+
+              <div class="chat-area">
+                <div class="chat-head">
+                  <span class="who">Marcus Chen</span>
+                  <span class="chat-channel">TextUs SMS</span>
+                </div>
+                <div class="chat-body">
+                  <div>
+                    <div class="msg in">
+                      Hey Marcus, just wanted to follow up on your application
+                      to the patrol position at Denver PD.
+                    </div>
+                    <div class="msg-time">10:42 AM</div>
+                  </div>
+                  <div>
+                    <div class="msg out">
+                      Hi! Thanks for reaching out. I just need to upload my POST
+                      certification — should I do that through the app?
+                    </div>
+                    <div class="msg-time out">10:45 AM</div>
+                  </div>
+                  <div>
+                    <div class="msg in">
+                      Yes, exactly. Once it's uploaded the system will
+                      automatically update your application across all DPD
+                      postings you've applied to.
+                    </div>
+                    <div class="msg-time">10:46 AM</div>
+                  </div>
+                  <div>
+                    <div class="msg out">
+                      Thanks, I'll have the docs uploaded by tonight.
+                    </div>
+                    <div class="msg-time out">10:48 AM</div>
+                  </div>
+                </div>
+                <div class="chat-input">
+                  <input type="text" placeholder="Type a message…" />
+                  <button class="btn btn-primary">Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ ADMIN VIEW ============ -->
+        <div class="role-view" data-role="admin">
+          <div class="page-header">
+            <div class="page-title-block">
+              <div class="breadcrumb">Admin / Platform overview</div>
+              <h1 class="page-title">System <em>overview</em></h1>
+            </div>
+            <div class="page-actions">
+              <button class="btn">System logs</button>
+              <button class="btn btn-primary">+ New agency</button>
+            </div>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-label">Total users</div>
+              <div class="stat-value accent">1,247</div>
+              <div class="stat-trend up">↑ 142 this month</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Active agencies</div>
+              <div class="stat-value">47</div>
+              <div class="stat-trend up">↑ 3 onboarded</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Open applications</div>
+              <div class="stat-value">892</div>
+              <div class="stat-trend">Across 156 jobs</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Hires (90 days)</div>
+              <div class="stat-value">68</div>
+              <div class="stat-trend up">↑ 24% YoY</div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">All users</div>
+              <div class="panel-meta">1,247 total &middot; filterable</div>
+            </div>
+
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Role</th>
+                  <th>Agency</th>
+                  <th>Status</th>
+                  <th>Last active</th>
+                  <th>Apps</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <div class="user-avi">JM</div>
+                      <div class="user-info">
+                        <div class="nm">Jordan Mitchell</div>
+                        <div class="em">jordan.m@email.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-info">Applicant</span></td>
+                  <td style="color: var(--ink-dim)">—</td>
+                  <td><span class="tag tag-success">Active</span></td>
+                  <td class="date-col">2 min ago</td>
+                  <td><strong>7</strong></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <div class="user-avi">SR</div>
+                      <div class="user-info">
+                        <div class="nm">Sarah Reynolds</div>
+                        <div class="em">s.reynolds@dpd.gov</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-warn">Recruiter</span></td>
+                  <td>Denver Police Dept.</td>
+                  <td><span class="tag tag-success">Active</span></td>
+                  <td class="date-col">5 min ago</td>
+                  <td><strong>28</strong></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <div class="user-avi">MC</div>
+                      <div class="user-info">
+                        <div class="nm">Marcus Chen</div>
+                        <div class="em">marcus.c@email.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-info">Applicant</span></td>
+                  <td style="color: var(--ink-dim)">—</td>
+                  <td><span class="tag tag-success">Active</span></td>
+                  <td class="date-col">12 min ago</td>
+                  <td><strong>4</strong></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <div class="user-avi">RP</div>
+                      <div class="user-info">
+                        <div class="nm">Robert Phillips</div>
+                        <div class="em">r.phillips@cpd.gov</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-warn">Recruiter</span></td>
+                  <td>Chicago Police Dept.</td>
+                  <td><span class="tag tag-success">Active</span></td>
+                  <td class="date-col">1 hr ago</td>
+                  <td><strong>22</strong></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <div class="user-avi">EW</div>
+                      <div class="user-info">
+                        <div class="nm">Emily Wagner</div>
+                        <div class="em">e.wagner@govsource.io</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span
+                      class="tag"
+                      style="background: var(--accent); color: var(--bg)"
+                      >Admin</span
+                    >
+                  </td>
+                  <td>GovSource</td>
+                  <td><span class="tag tag-success">Active</span></td>
+                  <td class="date-col">Just now</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <div class="user-avi">DP</div>
+                      <div class="user-info">
+                        <div class="nm">Daniel Park</div>
+                        <div class="em">dpark@email.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-info">Applicant</span></td>
+                  <td style="color: var(--ink-dim)">—</td>
+                  <td><span class="tag tag-neutral">Pending verify</span></td>
+                  <td class="date-col">3 hr ago</td>
+                  <td><strong>2</strong></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <div class="user-avi">AT</div>
+                      <div class="user-info">
+                        <div class="nm">Alex Tanaka</div>
+                        <div class="em">a.tanaka@aus-pd.gov</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="tag tag-warn">Recruiter</span></td>
+                  <td>Austin Police Dept.</td>
+                  <td><span class="tag tag-success">Active</span></td>
+                  <td class="date-col">5 hr ago</td>
+                  <td><strong>14</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- AGENCIES PANEL -->
+          <div class="two-col" style="margin-top: 24px">
+            <div class="panel" style="padding: 28px">
+              <div class="panel-title" style="margin-bottom: 8px">
+                Agency management
+              </div>
+              <div
+                style="
+                  color: var(--ink-dim);
+                  font-size: 14px;
+                  margin-bottom: 24px;
+                "
+              >
+                Assign candidates, manage recruiters, track onboarding.
+              </div>
+
+              <div class="field-list">
+                <div class="field-item">
+                  <div>
+                    <div class="name" style="font-weight: 500">
+                      Denver Police Department
+                    </div>
+                    <div
+                      style="
+                        font-size: 12px;
+                        color: var(--ink-faint);
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        margin-top: 4px;
+                      "
+                    >
+                      3 recruiters &middot; 14 active jobs
+                    </div>
+                  </div>
+                  <span class="tag tag-success">Active</span>
+                </div>
+                <div class="field-item">
+                  <div>
+                    <div class="name" style="font-weight: 500">
+                      Chicago Police Department
+                    </div>
+                    <div
+                      style="
+                        font-size: 12px;
+                        color: var(--ink-faint);
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        margin-top: 4px;
+                      "
+                    >
+                      5 recruiters &middot; 22 active jobs
+                    </div>
+                  </div>
+                  <span class="tag tag-success">Active</span>
+                </div>
+                <div class="field-item">
+                  <div>
+                    <div class="name" style="font-weight: 500">
+                      San Francisco Police
+                    </div>
+                    <div
+                      style="
+                        font-size: 12px;
+                        color: var(--ink-faint);
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        margin-top: 4px;
+                      "
+                    >
+                      4 recruiters &middot; 11 active jobs
+                    </div>
+                  </div>
+                  <span class="tag tag-success">Active</span>
+                </div>
+                <div class="field-item">
+                  <div>
+                    <div class="name" style="font-weight: 500">
+                      Austin Police Department
+                    </div>
+                    <div
+                      style="
+                        font-size: 12px;
+                        color: var(--ink-faint);
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        margin-top: 4px;
+                      "
+                    >
+                      2 recruiters &middot; 6 active jobs
+                    </div>
+                  </div>
+                  <span class="tag tag-info">Onboarding</span>
+                </div>
+                <div class="field-item">
+                  <div>
+                    <div class="name" style="font-weight: 500">
+                      Phoenix Police Department
+                    </div>
+                    <div
+                      style="
+                        font-size: 12px;
+                        color: var(--ink-faint);
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        margin-top: 4px;
+                      "
+                    >
+                      1 recruiter &middot; 3 active jobs
+                    </div>
+                  </div>
+                  <span class="tag tag-warn">Setup needed</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel" style="padding: 28px">
+              <div class="panel-title" style="margin-bottom: 8px">
+                Pipeline configuration
+              </div>
+              <div
+                style="
+                  color: var(--ink-dim);
+                  font-size: 14px;
+                  margin-bottom: 24px;
+                "
+              >
+                Custom stages per agency.
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <div
+                  style="
+                    padding: 12px;
+                    background: var(--surface-2);
+                    border-left: 3px solid var(--info);
+                  "
+                >
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: var(--info);
+                      text-transform: uppercase;
+                      letter-spacing: 0.15em;
+                    "
+                  >
+                    Stage 01
+                  </div>
+                  <div style="margin-top: 4px">Applied</div>
+                </div>
+                <div
+                  style="
+                    padding: 12px;
+                    background: var(--surface-2);
+                    border-left: 3px solid #c084fc;
+                  "
+                >
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: #c084fc;
+                      text-transform: uppercase;
+                      letter-spacing: 0.15em;
+                    "
+                  >
+                    Stage 02
+                  </div>
+                  <div style="margin-top: 4px">Review</div>
+                </div>
+                <div
+                  style="
+                    padding: 12px;
+                    background: var(--surface-2);
+                    border-left: 3px solid var(--warn);
+                  "
+                >
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: var(--warn);
+                      text-transform: uppercase;
+                      letter-spacing: 0.15em;
+                    "
+                  >
+                    Stage 03
+                  </div>
+                  <div style="margin-top: 4px">Background Check</div>
+                </div>
+                <div
+                  style="
+                    padding: 12px;
+                    background: var(--surface-2);
+                    border-left: 3px solid var(--accent);
+                  "
+                >
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: var(--accent);
+                      text-transform: uppercase;
+                      letter-spacing: 0.15em;
+                    "
+                  >
+                    Stage 04
+                  </div>
+                  <div style="margin-top: 4px">Interview</div>
+                </div>
+                <div
+                  style="
+                    padding: 12px;
+                    background: var(--surface-2);
+                    border-left: 3px solid var(--success);
+                  "
+                >
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: var(--success);
+                      text-transform: uppercase;
+                      letter-spacing: 0.15em;
+                    "
+                  >
+                    Stage 05
+                  </div>
+                  <div style="margin-top: 4px">Hired</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Role switcher
+      const roleBtns = document.querySelectorAll(".role-btn");
+      const views = document.querySelectorAll(".role-view");
+      const sidebars = document.querySelectorAll(".sidebar-content");
+
+      roleBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const role = btn.dataset.role;
+
+          roleBtns.forEach((b) => b.classList.toggle("active", b === btn));
+          views.forEach((v) =>
+            v.classList.toggle("active", v.dataset.role === role),
+          );
+          sidebars.forEach(
+            (s) =>
+              (s.style.display = s.dataset.role === role ? "block" : "none"),
+          );
+
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+
+      // Sidebar link active state
+      document.querySelectorAll(".side-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          const parent = link.closest(".sidebar-content");
+          parent
+            .querySelectorAll(".side-link")
+            .forEach((l) => l.classList.remove("active"));
+          link.classList.add("active");
+        });
+      });
+
+      // Conv item active state
+      document.querySelectorAll(".conv-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          document
+            .querySelectorAll(".conv-item")
+            .forEach((i) => i.classList.remove("active"));
+          item.classList.add("active");
+        });
+      });
+    </script>
+  </body>
+</html>
