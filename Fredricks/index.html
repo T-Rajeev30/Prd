@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fredrick's of Savourys | Mariposa, CA</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --ink: #1a1410;
+        --cream: #f5f0e8;
+        --warm: #c9a96e;
+        --rust: #8b4513;
+        --deep: #2c1810;
+        --sage: #6b7c5e;
+        --wine: #722f37;
+        --stone: #9c8b7a;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Cormorant Garamond", serif;
+        color: var(--ink);
+        background: var(--cream);
+        overflow-x: hidden;
+      }
+
+      /* HERO */
+      .hero {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          165deg,
+          #1a1410 0%,
+          #2c1810 40%,
+          #3d2517 70%,
+          #1a1410 100%
+        );
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 20% 80%,
+            rgba(107, 124, 94, 0.15),
+            transparent
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 80% 20%,
+            rgba(201, 169, 110, 0.1),
+            transparent
+          );
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+        opacity: 0.5;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 2rem;
+      }
+      .hero-tag {
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 300;
+        font-size: 0.85rem;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: var(--warm);
+        margin-bottom: 1.5rem;
+        opacity: 0;
+        animation: fadeUp 0.8s ease 0.3s forwards;
+      }
+      .hero h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.8rem, 7vw, 6rem);
+        font-weight: 400;
+        color: var(--cream);
+        line-height: 1.05;
+        margin-bottom: 0.5rem;
+        opacity: 0;
+        animation: fadeUp 0.8s ease 0.5s forwards;
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--warm);
+      }
+      .hero-line {
+        width: 60px;
+        height: 1px;
+        background: var(--warm);
+        margin: 1.5rem auto;
+        opacity: 0;
+        animation: fadeUp 0.8s ease 0.7s forwards;
+      }
+      .hero-sub {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.15rem;
+        color: var(--stone);
+        font-style: italic;
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        opacity: 0;
+        animation: fadeUp 0.8s ease 0.9s forwards;
+      }
+      .scroll-hint {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--stone);
+        z-index: 2;
+        opacity: 0;
+        animation: fadeUp 0.8s ease 1.2s forwards;
+      }
+      .scroll-hint::after {
+        content: "";
+        display: block;
+        width: 1px;
+        height: 30px;
+        background: var(--warm);
+        margin: 8px auto 0;
+        animation: pulse 2s ease infinite;
+      }
+
+      /* DECORATIVE TREE SVG */
+      .tree-deco {
+        position: absolute;
+        opacity: 0.04;
+        z-index: 1;
+      }
+      .tree-left {
+        left: -5%;
+        top: 10%;
+        width: 300px;
+        height: 600px;
+      }
+      .tree-right {
+        right: -3%;
+        bottom: 5%;
+        width: 250px;
+        height: 500px;
+        transform: scaleX(-1);
+      }
+
+      /* NAVIGATION */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 1.2rem 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.4s ease;
+      }
+      nav.scrolled {
+        background: rgba(26, 20, 16, 0.95);
+        backdrop-filter: blur(12px);
+        padding: 0.8rem 3rem;
+        box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
+      }
+      .nav-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.1rem;
+        color: var(--cream);
+        letter-spacing: 0.1em;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--stone);
+        text-decoration: none;
+        transition: color 0.3s;
+        position: relative;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--warm);
+        transition: width 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--cream);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      /* MOBILE NAV */
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 22px;
+        height: 1.5px;
+        background: var(--cream);
+        margin: 5px 0;
+        transition: 0.3s;
+      }
+
+      /* SECTIONS */
+      section {
+        padding: 6rem 2rem;
+      }
+      .section-tag {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--warm);
+        margin-bottom: 1rem;
+      }
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 400;
+        color: var(--deep);
+        line-height: 1.2;
+        margin-bottom: 2rem;
+      }
+
+      /* ABOUT */
+      .about {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        align-items: center;
+      }
+      .about-text p {
+        font-size: 1.05rem;
+        line-height: 1.9;
+        color: #4a3f35;
+        margin-bottom: 1.5rem;
+        font-weight: 300;
+      }
+      .about-visual {
+        position: relative;
+        height: 500px;
+        background: linear-gradient(135deg, var(--deep), #3d2517);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .about-visual::before {
+        content: "";
+        position: absolute;
+        inset: 15px;
+        border: 1px solid rgba(201, 169, 110, 0.2);
+        border-radius: 2px;
+      }
+      .about-visual-inner {
+        position: absolute;
+        inset: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .about-visual .big-year {
+        font-family: "Playfair Display", serif;
+        font-size: 5rem;
+        color: rgba(201, 169, 110, 0.15);
+        line-height: 1;
+      }
+      .about-visual .est-text {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        color: var(--warm);
+        margin-top: 1rem;
+      }
+      .about-visual .gallery-note {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 0.9rem;
+        font-style: italic;
+        color: var(--stone);
+        margin-top: 2rem;
+        max-width: 200px;
+        line-height: 1.6;
+      }
+
+      /* SPECIALS */
+      .specials-section {
+        background: var(--deep);
+        color: var(--cream);
+      }
+      .specials-section .section-title {
+        color: var(--cream);
+      }
+      .specials-grid {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+      .special-card {
+        background: rgba(245, 240, 232, 0.04);
+        border: 1px solid rgba(201, 169, 110, 0.12);
+        padding: 2.5rem 2rem;
+        position: relative;
+        transition: all 0.4s;
+      }
+      .special-card:hover {
+        background: rgba(245, 240, 232, 0.08);
+        border-color: rgba(201, 169, 110, 0.3);
+        transform: translateY(-4px);
+      }
+      .special-card .card-tag {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--warm);
+        margin-bottom: 1rem;
+      }
+      .special-card h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+      }
+      .special-card p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: var(--stone);
+        font-weight: 300;
+      }
+
+      /* SUSHI SUNDAYS */
+      .sushi {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .sushi p {
+        font-size: 1.1rem;
+        line-height: 1.9;
+        color: #4a3f35;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+      }
+      .sushi-rolls {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .sushi-pill {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0.6rem 1.5rem;
+        border: 1px solid var(--warm);
+        color: var(--rust);
+        background: rgba(201, 169, 110, 0.08);
+      }
+
+      /* INFO */
+      .info-section {
+        background: var(--deep);
+        color: var(--cream);
+      }
+      .info-grid {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        text-align: center;
+      }
+      .info-block h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+      }
+      .info-block p {
+        font-size: 0.95rem;
+        line-height: 1.8;
+        color: var(--stone);
+        font-weight: 300;
+      }
+      .info-block a {
+        color: var(--warm);
+        text-decoration: none;
+        transition: opacity 0.3s;
+      }
+      .info-block a:hover {
+        opacity: 0.7;
+      }
+
+      /* CTA */
+      .cta-section {
+        text-align: center;
+        padding: 8rem 2rem;
+        background: linear-gradient(to bottom, var(--cream), #ede5d8);
+      }
+      .cta-section .section-title {
+        margin-bottom: 1rem;
+      }
+      .cta-section p {
+        font-size: 1.1rem;
+        color: var(--stone);
+        font-style: italic;
+        margin-bottom: 2.5rem;
+      }
+      .cta-btn {
+        display: inline-block;
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        padding: 1rem 3rem;
+        border: 1px solid var(--warm);
+        color: var(--deep);
+        background: transparent;
+        text-decoration: none;
+        transition: all 0.4s;
+        cursor: pointer;
+      }
+      .cta-btn:hover {
+        background: var(--warm);
+        color: var(--cream);
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--ink);
+        color: var(--stone);
+        text-align: center;
+        padding: 3rem 2rem;
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+      }
+      footer a {
+        color: var(--warm);
+        text-decoration: none;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        nav {
+          padding: 1rem 1.5rem;
+        }
+        nav.scrolled {
+          padding: 0.7rem 1.5rem;
+        }
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(26, 20, 16, 0.97);
+          padding: 2rem;
+          gap: 1.5rem;
+        }
+        .nav-links.open {
+          display: flex;
+        }
+        .nav-toggle {
+          display: block;
+        }
+        .about {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .about-visual {
+          height: 350px;
+        }
+        .specials-grid {
+          grid-template-columns: 1fr;
+        }
+        .info-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        section {
+          padding: 4rem 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav id="nav">
+      <div class="nav-logo">FREDRICK'S</div>
+      <button
+        class="nav-toggle"
+        onclick="document.querySelector('.nav-links').classList.toggle('open')"
+      >
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#specials">Specials</a></li>
+        <li><a href="#sushi">Sushi Sundays</a></li>
+        <li><a href="#info">Visit</a></li>
+        <li><a href="#reserve">Reserve</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <svg class="tree-deco tree-left" viewBox="0 0 200 500">
+        <path
+          d="M100 500 L100 200 Q60 180 40 120 Q20 60 100 0 Q180 60 160 120 Q140 180 100 200Z"
+          fill="currentColor"
+          color="var(--cream)"
+        />
+      </svg>
+      <svg class="tree-deco tree-right" viewBox="0 0 200 500">
+        <path
+          d="M100 500 L100 200 Q60 180 40 120 Q20 60 100 0 Q180 60 160 120 Q140 180 100 200Z"
+          fill="currentColor"
+          color="var(--cream)"
+        />
+      </svg>
+      <div class="hero-content">
+        <p class="hero-tag">Mariposa, California</p>
+        <h1>Fredrick's <em>of</em><br />Savourys</h1>
+        <div class="hero-line"></div>
+        <p class="hero-sub">
+          Dinner & handcrafted cocktails at the gateway to Yosemite
+        </p>
+      </div>
+      <div class="scroll-hint">Scroll</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" style="padding-top: 8rem">
+      <div class="about">
+        <div class="about-text">
+          <p class="section-tag">Our Story</p>
+          <h2 class="section-title">Where Mariposa<br />Comes to Gather</h2>
+          <p>
+            What began with just 11 tables and a seasonal patio has grown into
+            one of Mariposa's most beloved dining destinations. Nestled at the
+            corner of 6th and Highway 140, Fredrick's of Savourys offers a warm,
+            refined space with 22 tables year-round.
+          </p>
+          <p>
+            The Ansel Adams Gallery from Yosemite graciously hangs artwork from
+            their featured photographers throughout the restaurant — because
+            here, it's all about the trees, great food, and genuine hospitality.
+          </p>
+        </div>
+        <div class="about-visual">
+          <div class="about-visual-inner">
+            <div class="big-year">EST.</div>
+            <div class="est-text">Mariposa, California</div>
+            <p class="gallery-note">
+              Featuring photography from the Ansel Adams Gallery, Yosemite
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPECIALS -->
+    <section id="specials" class="specials-section">
+      <div style="text-align: center; margin-bottom: 3rem">
+        <p class="section-tag">From the Kitchen</p>
+        <h2 class="section-title">Featured Specials</h2>
+      </div>
+      <div class="specials-grid">
+        <div class="special-card reveal">
+          <p class="card-tag">Seafood</p>
+          <h3>Mahi Mahi</h3>
+          <p>
+            Topped with cilantro lime aioli and crispy fried onion. A house
+            favorite returning by popular demand.
+          </p>
+        </div>
+        <div class="special-card reveal">
+          <p class="card-tag">Steak</p>
+          <h3>Pepper Encrusted Ribeye</h3>
+          <p>
+            Finished with a rich morel fondue. Bold, earthy, and unforgettable.
+          </p>
+        </div>
+        <div class="special-card reveal">
+          <p class="card-tag">Poultry</p>
+          <h3>Blackened Chicken</h3>
+          <p>
+            Glazed with honey dijon tarragon — the perfect balance of sweet,
+            tangy, and herbaceous.
+          </p>
+        </div>
+        <div class="special-card reveal">
+          <p class="card-tag">Seafood</p>
+          <h3>Chilean Sea Bass</h3>
+          <p>
+            Pan seared to perfection, served with a vibrant chimichurri rojo.
+          </p>
+        </div>
+        <div class="special-card reveal">
+          <p class="card-tag">Appetizer</p>
+          <h3>Loaded Potato Skins</h3>
+          <p>
+            Crispy potato shells loaded with bacon, melted cheese, and fresh
+            green onion.
+          </p>
+        </div>
+        <div class="special-card reveal">
+          <p class="card-tag">Cocktail</p>
+          <h3>The Mistletoe Martini</h3>
+          <p>
+            Tanqueray Rangpur, stone fruit liqueur, aperol, fresh lime — crowned
+            with sugared rosemary.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUSHI SUNDAYS -->
+    <section id="sushi">
+      <div class="sushi">
+        <p class="section-tag">Every Sunday</p>
+        <h2 class="section-title">Sushi Sundays</h2>
+        <p>
+          Every Sunday evening, our kitchen transforms with fresh sushi rolls
+          crafted with care. From spicy tuna to dragon rolls, each week brings
+          something new to the table.
+        </p>
+        <div class="sushi-rolls">
+          <span class="sushi-pill">Spicy Tuna Roll</span>
+          <span class="sushi-pill">Dragon Roll</span>
+          <span class="sushi-pill">Tempura Prawn Roll</span>
+          <span class="sushi-pill">Katsu Salmon</span>
+          <span class="sushi-pill">Poke Bowls</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFO -->
+    <section id="info" class="info-section">
+      <div style="text-align: center; margin-bottom: 3rem">
+        <p class="section-tag">Plan Your Visit</p>
+        <h2 class="section-title" style="color: var(--cream)">
+          Join Us Tonight
+        </h2>
+      </div>
+      <div class="info-grid">
+        <div class="info-block">
+          <h3>Hours</h3>
+          <p>Dinner service daily<br />beginning at 5:00 PM</p>
+        </div>
+        <div class="info-block">
+          <h3>Location</h3>
+          <p>
+            5034 CA-140<br />Mariposa, CA 95338<br />Corner of 6th & Hwy 140
+          </p>
+        </div>
+        <div class="info-block">
+          <h3>Reservations</h3>
+          <p>Call us at<br /><a href="tel:+12099667677">(209) 966-7677</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="reserve" class="cta-section">
+      <p class="section-tag">Your Table Awaits</p>
+      <h2 class="section-title">Make a Reservation</h2>
+      <p>We'd love to welcome you to Fredrick's</p>
+      <a href="tel:+12099667677" class="cta-btn">Call (209) 966-7677</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>
+        Fredrick's of Savourys &nbsp;·&nbsp; 5034 CA-140, Mariposa, CA 95338
+        &nbsp;·&nbsp; <a href="tel:+12099667677">(209) 966-7677</a>
+      </p>
+      <p style="margin-top: 0.8rem; opacity: 0.5">
+        &copy; 2026 Fredrick's of Savourys. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      // Nav scroll effect
+      window.addEventListener("scroll", () => {
+        document
+          .getElementById("nav")
+          .classList.toggle("scrolled", window.scrollY > 50);
+      });
+
+      // Reveal on scroll
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.15 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+      // Close mobile nav on link click
+      document.querySelectorAll(".nav-links a").forEach((a) => {
+        a.addEventListener("click", () =>
+          document.querySelector(".nav-links").classList.remove("open"),
+        );
+      });
+    </script>
+  </body>
+</html>
