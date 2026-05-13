@@ -1,0 +1,3150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Canary — Complete Product Playbook</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #fafaf7;
+        --surface: #ffffff;
+        --surface-2: #f1efe8;
+        --text: #2c2c2a;
+        --text-secondary: #5f5e5a;
+        --text-tertiary: #888780;
+        --border: rgba(0, 0, 0, 0.08);
+        --border-strong: rgba(0, 0, 0, 0.15);
+        --purple: #7f77dd;
+        --purple-bg: #eeedfe;
+        --purple-text: #3c3489;
+        --teal: #1d9e75;
+        --teal-bg: #e1f5ee;
+        --teal-text: #085041;
+        --amber: #ba7517;
+        --amber-bg: #faeeda;
+        --amber-text: #633806;
+        --coral: #d85a30;
+        --coral-bg: #faece7;
+        --coral-text: #712b13;
+        --blue: #378add;
+        --blue-bg: #e6f1fb;
+        --blue-text: #0c447c;
+        --red: #e24b4a;
+        --red-bg: #fcebeb;
+        --red-text: #a32d2d;
+        --green: #639922;
+        --green-bg: #eaf3de;
+        --green-text: #3b6d11;
+        --gray: #888780;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1a1a18;
+          --surface: #25251f;
+          --surface-2: #2c2c2a;
+          --text: #c2c0b6;
+          --text-secondary: #9c9a92;
+          --text-tertiary: #73726c;
+          --border: rgba(255, 255, 255, 0.08);
+          --border-strong: rgba(255, 255, 255, 0.15);
+        }
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.6;
+        font-size: 15px;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        min-height: 100vh;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      nav.sidebar {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 24px 16px;
+        border-right: 0.5px solid var(--border);
+        background: var(--surface);
+      }
+
+      .brand {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .brand-sub {
+        font-size: 12px;
+        color: var(--text-tertiary);
+        margin-bottom: 20px;
+      }
+
+      .nav-section {
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-tertiary);
+        margin-top: 18px;
+        margin-bottom: 6px;
+        padding: 0 8px;
+      }
+
+      .nav-link {
+        display: block;
+        font-size: 13px;
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 5px 8px;
+        border-radius: 6px;
+        margin-bottom: 1px;
+        transition: all 0.15s;
+      }
+
+      .nav-link:hover {
+        background: var(--surface-2);
+        color: var(--text);
+      }
+
+      main {
+        padding: 48px 56px;
+        max-width: 900px;
+      }
+
+      h1 {
+        font-size: 28px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        letter-spacing: -0.01em;
+      }
+
+      h1 .sub {
+        font-size: 16px;
+        color: var(--text-tertiary);
+        font-weight: 400;
+        display: block;
+        margin-top: 6px;
+      }
+
+      h2 {
+        font-size: 22px;
+        font-weight: 500;
+        margin-top: 56px;
+        margin-bottom: 12px;
+        padding-top: 24px;
+        border-top: 0.5px solid var(--border);
+        letter-spacing: -0.01em;
+      }
+
+      h2:first-of-type {
+        border-top: none;
+        padding-top: 0;
+      }
+
+      h3 {
+        font-size: 16px;
+        font-weight: 500;
+        margin-top: 28px;
+        margin-bottom: 10px;
+      }
+
+      h4 {
+        font-size: 13px;
+        font-weight: 500;
+        margin-top: 16px;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-tertiary);
+      }
+
+      p {
+        margin-bottom: 12px;
+        color: var(--text-secondary);
+      }
+      p strong,
+      li strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      ul,
+      ol {
+        margin: 8px 0 14px 22px;
+        color: var(--text-secondary);
+      }
+      li {
+        margin-bottom: 5px;
+        line-height: 1.6;
+      }
+
+      code {
+        font-family: "SF Mono", Monaco, Consolas, monospace;
+        font-size: 12.5px;
+        background: var(--surface-2);
+        padding: 2px 6px;
+        border-radius: 4px;
+        color: var(--text);
+      }
+
+      pre {
+        background: var(--surface-2);
+        border: 0.5px solid var(--border);
+        border-radius: 8px;
+        padding: 14px 16px;
+        overflow-x: auto;
+        margin: 10px 0;
+        font-family: "SF Mono", Monaco, Consolas, monospace;
+        font-size: 12.5px;
+        line-height: 1.7;
+        color: var(--text);
+      }
+
+      pre code {
+        background: none;
+        padding: 0;
+        font-size: inherit;
+      }
+
+      .lead {
+        font-size: 17px;
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+        line-height: 1.6;
+      }
+
+      .callout {
+        border: 0.5px solid var(--border-strong);
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin: 16px 0;
+        background: var(--surface);
+      }
+
+      .callout-amber {
+        border-color: var(--amber);
+        background: var(--amber-bg);
+      }
+      .callout-amber p,
+      .callout-amber li {
+        color: var(--amber-text);
+      }
+
+      .callout-teal {
+        border-color: var(--teal);
+        background: var(--teal-bg);
+      }
+      .callout-teal p,
+      .callout-teal li {
+        color: var(--teal-text);
+      }
+
+      .callout-red {
+        border-color: var(--red);
+        background: var(--red-bg);
+      }
+      .callout-red p,
+      .callout-red li {
+        color: var(--red-text);
+      }
+
+      .callout-label {
+        font-size: 11px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 6px;
+      }
+
+      .callout-amber .callout-label {
+        color: var(--amber-text);
+      }
+      .callout-teal .callout-label {
+        color: var(--teal-text);
+      }
+      .callout-red .callout-label {
+        color: var(--red-text);
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin: 14px 0;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin: 14px 0;
+      }
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin: 14px 0;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 10px;
+        padding: 14px 16px;
+      }
+
+      .metric {
+        background: var(--surface-2);
+        border-radius: 8px;
+        padding: 14px 16px;
+      }
+      .metric-label {
+        font-size: 11px;
+        color: var(--text-tertiary);
+        margin-bottom: 4px;
+      }
+      .metric-value {
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 1.1;
+        margin-bottom: 3px;
+      }
+      .metric-sub {
+        font-size: 11px;
+        color: var(--text-secondary);
+      }
+
+      .pill {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 500;
+        padding: 2px 9px;
+        border-radius: 20px;
+        vertical-align: middle;
+      }
+      .pill-purple {
+        background: var(--purple-bg);
+        color: var(--purple-text);
+      }
+      .pill-teal {
+        background: var(--teal-bg);
+        color: var(--teal-text);
+      }
+      .pill-amber {
+        background: var(--amber-bg);
+        color: var(--amber-text);
+      }
+      .pill-coral {
+        background: var(--coral-bg);
+        color: var(--coral-text);
+      }
+      .pill-red {
+        background: var(--red-bg);
+        color: var(--red-text);
+      }
+      .pill-green {
+        background: var(--green-bg);
+        color: var(--green-text);
+      }
+      .pill-blue {
+        background: var(--blue-bg);
+        color: var(--blue-text);
+      }
+      .pill-gray {
+        background: var(--surface-2);
+        color: var(--text-secondary);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0;
+        font-size: 13px;
+      }
+
+      th {
+        text-align: left;
+        font-weight: 500;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-tertiary);
+        padding: 8px 10px;
+        border-bottom: 0.5px solid var(--border-strong);
+      }
+
+      td {
+        padding: 9px 10px;
+        border-bottom: 0.5px solid var(--border);
+        color: var(--text-secondary);
+        vertical-align: top;
+      }
+
+      td strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .video-row {
+        display: grid;
+        grid-template-columns: 36px 1fr;
+        gap: 12px;
+        padding: 14px 0;
+        border-bottom: 0.5px solid var(--border);
+      }
+
+      .video-num {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--text-tertiary);
+        padding-top: 2px;
+      }
+
+      .video-title {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      .video-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        font-size: 12.5px;
+      }
+
+      .video-cols .label {
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-tertiary);
+        margin-bottom: 4px;
+      }
+
+      .phase-divider {
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-tertiary);
+        padding: 16px 0 8px;
+        margin-top: 8px;
+        border-bottom: 0.5px solid var(--border-strong);
+      }
+
+      .toc {
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin: 20px 0 40px;
+      }
+      .toc h4 {
+        margin-top: 0;
+      }
+      .toc ol {
+        margin-left: 18px;
+      }
+      .toc a {
+        color: var(--text-secondary);
+        text-decoration: none;
+      }
+      .toc a:hover {
+        color: var(--text);
+      }
+
+      hr {
+        border: none;
+        border-top: 0.5px solid var(--border);
+        margin: 32px 0;
+      }
+
+      .timeline-row {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 9px 0;
+        border-bottom: 0.5px solid var(--border);
+      }
+
+      .timeline-time {
+        font-size: 11px;
+        color: var(--text-tertiary);
+        width: 80px;
+        flex-shrink: 0;
+        padding-top: 2px;
+      }
+
+      .timeline-body {
+        flex: 1;
+      }
+      .timeline-title {
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .timeline-detail {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-top: 2px;
+      }
+
+      .prompt-card {
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 10px;
+        padding: 14px 18px;
+        margin-bottom: 12px;
+      }
+
+      .prompt-card-header {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+
+      .prompt-when {
+        font-size: 11px;
+        color: var(--text-tertiary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .prompt-title {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .prompt-body {
+        font-family: "SF Mono", Monaco, Consolas, monospace;
+        font-size: 12.5px;
+        background: var(--surface-2);
+        padding: 12px 14px;
+        border-radius: 6px;
+        white-space: pre-wrap;
+        line-height: 1.7;
+      }
+      .prompt-why {
+        font-size: 12px;
+        color: var(--text-tertiary);
+        margin-top: 8px;
+        font-style: italic;
+      }
+
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        nav.sidebar {
+          position: static;
+          height: auto;
+          border-right: none;
+          border-bottom: 0.5px solid var(--border);
+        }
+        main {
+          padding: 28px 20px;
+        }
+        .grid-2,
+        .grid-3,
+        .grid-4 {
+          grid-template-columns: 1fr;
+        }
+        .video-cols {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media print {
+        nav.sidebar {
+          display: none;
+        }
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        main {
+          padding: 0;
+          max-width: 100%;
+        }
+        h2 {
+          page-break-before: auto;
+        }
+        h2:first-of-type {
+          page-break-before: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <nav class="sidebar">
+        <div class="brand">API Canary</div>
+        <div class="brand-sub">Complete product playbook</div>
+
+        <div class="nav-section">Foundation</div>
+        <a class="nav-link" href="#overview">Product overview</a>
+        <a class="nav-link" href="#what-it-is">What it actually is</a>
+        <a class="nav-link" href="#problem">The problem</a>
+        <a class="nav-link" href="#solution">How it works</a>
+
+        <div class="nav-section">Business</div>
+        <a class="nav-link" href="#market">Market opportunity</a>
+        <a class="nav-link" href="#competition">Competition</a>
+        <a class="nav-link" href="#pricing">Pricing</a>
+        <a class="nav-link" href="#revenue">Revenue model</a>
+        <a class="nav-link" href="#objections">Objections answered</a>
+
+        <div class="nav-section">Product</div>
+        <a class="nav-link" href="#features">Features</a>
+        <a class="nav-link" href="#users">Target users</a>
+        <a class="nav-link" href="#onboarding">User onboarding</a>
+
+        <div class="nav-section">Build</div>
+        <a class="nav-link" href="#architecture">System design</a>
+        <a class="nav-link" href="#timeline">Release timeline</a>
+        <a class="nav-link" href="#curriculum">Video-by-video plan</a>
+        <a class="nav-link" href="#stack">Tech stack &amp; infra</a>
+
+        <div class="nav-section">Operations</div>
+        <a class="nav-link" href="#claude-system">Claude usage system</a>
+        <a class="nav-link" href="#growth">Growth strategy</a>
+        <a class="nav-link" href="#discipline">The discipline rules</a>
+        <a class="nav-link" href="#day-one">Day one starter</a>
+      </nav>
+
+      <main>
+        <h1>
+          API Canary
+          <span class="sub"
+            >A complete product playbook — from idea to first paying
+            customer</span
+          >
+        </h1>
+
+        <p class="lead">
+          This document captures the entire vision, plan, and execution strategy
+          for API Canary — a developer-focused API monitoring SaaS. Treat it as
+          the source of truth while building. Reference it before every major
+          decision.
+        </p>
+
+        <div class="toc">
+          <h4>Quick contents</h4>
+          <ol>
+            <li><a href="#overview">Product overview</a></li>
+            <li>
+              <a href="#what-it-is">What API Canary actually is — from zero</a>
+            </li>
+            <li><a href="#problem">The problem it solves</a></li>
+            <li><a href="#solution">How the product works end-to-end</a></li>
+            <li><a href="#market">Market opportunity &amp; sizing</a></li>
+            <li><a href="#competition">Competitive landscape</a></li>
+            <li><a href="#pricing">Pricing tiers</a></li>
+            <li><a href="#revenue">Revenue model &amp; trajectory</a></li>
+            <li>
+              <a href="#objections">Every objection &amp; the honest answer</a>
+            </li>
+            <li><a href="#features">Complete feature list</a></li>
+            <li><a href="#users">Target users</a></li>
+            <li><a href="#onboarding">User onboarding strategy</a></li>
+            <li>
+              <a href="#architecture">System design &amp; architecture</a>
+            </li>
+            <li><a href="#timeline">Release timeline by version</a></li>
+            <li><a href="#curriculum">Video-by-video build plan</a></li>
+            <li>
+              <a href="#stack">Tech stack &amp; zero-cost infrastructure</a>
+            </li>
+            <li><a href="#claude-system">How to use Claude effectively</a></li>
+            <li><a href="#growth">Customer acquisition strategy</a></li>
+            <li><a href="#discipline">The discipline rules</a></li>
+            <li><a href="#day-one">Day one — starting today</a></li>
+          </ol>
+        </div>
+
+        <h2 id="overview">1. Product overview</h2>
+
+        <p>
+          <strong>One-line pitch:</strong> API Canary is a developer-first SaaS
+          that monitors your API endpoints on a schedule, validates that
+          responses match your defined contracts, and alerts your team before
+          your customers notice something is broken.
+        </p>
+
+        <h4>Core differentiator</h4>
+        <p>
+          Most monitoring tools check only "did this URL respond?" API Canary
+          checks "did this URL respond <em>correctly</em>?" — validating status
+          codes, response time, JSON schema, and specific field values against
+          user-defined rules. This is called contract assertions, and no
+          SMB-priced competitor does it well.
+        </p>
+
+        <h4>The wedge</h4>
+        <p>
+          Between UptimeRobot (too shallow — just URL pings) and Datadog (too
+          expensive — $30/host/month). The gap in the middle, for 5–50 person
+          engineering teams, is real and underserved.
+        </p>
+
+        <div class="callout callout-teal">
+          <div class="callout-label">The product in one paragraph</div>
+          <p>
+            A developer signs up, pastes in their API URL, sets a 1-minute check
+            interval, adds assertions like "status must be 200" and "response
+            time under 800ms," and hits save. API Canary pings the endpoint
+            every minute. The moment any assertion fails, an incident opens,
+            Slack and email alerts fire, and the public status page updates. The
+            engineer fixes the issue, the incident auto-resolves. End of story.
+          </p>
+        </div>
+
+        <h2 id="what-it-is">
+          2. What API Canary actually is — explained from zero
+        </h2>
+
+        <h3>What is an API</h3>
+        <p>
+          An API is a URL your code can call to get data or trigger an action.
+          When you open Swiggy, the app calls an API like
+          <code>GET /restaurants?city=bangalore</code> and gets back a list of
+          restaurants as JSON. That's it.
+        </p>
+
+        <h3>What can go wrong with an API</h3>
+        <div class="grid-2">
+          <div class="card">
+            <strong style="color: var(--red-text)">Down</strong>
+            <p style="margin-top: 4px; font-size: 13px">
+              The server crashes. The URL returns no response. Your app hangs or
+              shows an error screen.
+            </p>
+          </div>
+          <div class="card">
+            <strong style="color: var(--amber-text)">Slow</strong>
+            <p style="margin-top: 4px; font-size: 13px">
+              The API responds but takes 8 seconds. Users see a white screen.
+              They leave.
+            </p>
+          </div>
+          <div class="card">
+            <strong style="color: var(--red-text)">Wrong data</strong>
+            <p style="margin-top: 4px; font-size: 13px">
+              The API responds 200 OK but the price field is missing. App
+              crashes silently. Orders fail.
+            </p>
+          </div>
+          <div class="card">
+            <strong style="color: var(--amber-text)">Wrong status</strong>
+            <p style="margin-top: 4px; font-size: 13px">
+              Payment API returns 500 but the charge went through. Customer gets
+              double-charged.
+            </p>
+          </div>
+        </div>
+
+        <h3>How most companies find out their API broke</h3>
+
+        <div class="card" style="margin: 12px 0">
+          <h4 style="margin-top: 0">Without API Canary</h4>
+          <div class="timeline-row">
+            <div class="timeline-time">2:14 AM</div>
+            <div class="timeline-body">
+              <div class="timeline-detail">Payment API goes down silently</div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">2:14 AM</div>
+            <div class="timeline-body">
+              <div class="timeline-detail">Zero alerts fire. No one knows.</div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">2:47 AM</div>
+            <div class="timeline-body">
+              <div class="timeline-detail">
+                First user tweets "your app is broken"
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">3:10 AM</div>
+            <div class="timeline-body">
+              <div class="timeline-detail">
+                Support ticket arrives. Engineer wakes up.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">3:40 AM</div>
+            <div class="timeline-body">
+              <div class="timeline-detail">
+                Engineer finds the issue and fixes it
+              </div>
+            </div>
+          </div>
+          <p style="margin-top: 12px; font-size: 13px">
+            <strong>The damage:</strong> 86 minutes of downtime. Thousands of
+            rupees lost. Customers angry. No SLA report to show.
+          </p>
+        </div>
+
+        <div class="card" style="margin: 12px 0">
+          <h4 style="margin-top: 0">With API Canary</h4>
+          <div class="timeline-row">
+            <div class="timeline-time">2:14 AM</div>
+            <div class="timeline-body">
+              <div class="timeline-detail">Payment API goes down</div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">2:15 AM</div>
+            <div class="timeline-body">
+              <div class="timeline-detail">
+                API Canary detects failure on next check
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">2:15 AM</div>
+            <div class="timeline-body">
+              <div class="timeline-detail">
+                Slack message fires to on-call engineer
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">2:31 AM</div>
+            <div class="timeline-body">
+              <div class="timeline-detail">
+                Engineer fixes it. 17 minutes total.
+              </div>
+            </div>
+          </div>
+          <p style="margin-top: 12px; font-size: 13px">
+            <strong>The difference:</strong> 17 minutes instead of 86. No
+            customer ever noticed. The SLA report shows 99.98% uptime.
+          </p>
+        </div>
+
+        <h3>The contract assertion difference</h3>
+        <p>
+          This is the key feature that separates API Canary from simple URL
+          checkers. Users define rules for what a healthy response looks like:
+        </p>
+
+        <table>
+          <tr>
+            <th>Assertion</th>
+            <th>Rule</th>
+            <th>Result</th>
+          </tr>
+          <tr>
+            <td>Status code</td>
+            <td><code>must be 200</code></td>
+            <td><span class="pill pill-green">pass</span></td>
+          </tr>
+          <tr>
+            <td>Response time</td>
+            <td><code>under 800ms</code></td>
+            <td><span class="pill pill-green">pass</span></td>
+          </tr>
+          <tr>
+            <td>Body has field</td>
+            <td><code>transaction_id exists</code></td>
+            <td><span class="pill pill-red">FAIL</span></td>
+          </tr>
+          <tr>
+            <td>Body field type</td>
+            <td><code>amount is a number</code></td>
+            <td><span class="pill pill-green">pass</span></td>
+          </tr>
+        </table>
+
+        <p>
+          Even though the API returned 200, API Canary catches that
+          <code>transaction_id</code> is missing and fires an incident.
+          UptimeRobot would have said "all good."
+        </p>
+
+        <h2 id="problem">3. The problem it solves</h2>
+
+        <p>
+          API downtime costs enterprises an average of
+          <strong>$14,056 per minute</strong> (EMA Research 2024). API downtime
+          incidents increased <strong>60% between Q1 2024 and Q1 2025</strong>.
+          Yet the tooling available to small engineering teams hasn't kept pace.
+        </p>
+
+        <div class="grid-3">
+          <div class="metric">
+            <div class="metric-label">Average downtime cost</div>
+            <div class="metric-value" style="color: var(--coral)">
+              $14,056/min
+            </div>
+            <div class="metric-sub">Mid-size enterprise, EMA 2024</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Annual downtime at 99.9% SLA</div>
+            <div class="metric-value" style="color: var(--coral)">
+              8.7 hours
+            </div>
+            <div class="metric-sub">Industry-standard floor</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Detection lag</div>
+            <div class="metric-value" style="color: var(--coral)">
+              10–30 min
+            </div>
+            <div class="metric-sub">Customer notifies before tool</div>
+          </div>
+        </div>
+
+        <h3>Who feels this pain</h3>
+        <ul>
+          <li>
+            <strong>Backend engineers at startups</strong> — deploy on Friday
+            evening, find out Monday from a user that something broke
+          </li>
+          <li>
+            <strong>Solo founders / indie hackers</strong> — they ARE the
+            on-call team, find out from customer support
+          </li>
+          <li>
+            <strong>DevOps leads at scaling companies</strong> — need to know
+            which specific endpoint is degraded, not just "something is wrong"
+          </li>
+          <li>
+            <strong>CTOs negotiating enterprise contracts</strong> — need
+            verifiable SLA reports for sales conversations
+          </li>
+        </ul>
+
+        <h2 id="solution">4. How the product works end-to-end</h2>
+
+        <h3>The core loop</h3>
+        <p>
+          API Canary is essentially a machine that wakes up every 60 seconds,
+          calls someone else's API, checks if the response is correct, and
+          either goes back to sleep or screams at an engineer. Everything else —
+          database, queue, workers, alerts, dashboard — exists to make that one
+          loop work reliably at scale.
+        </p>
+
+        <h3>The three surfaces</h3>
+        <div class="grid-3">
+          <div class="card">
+            <strong>Dashboard</strong>
+            <p style="font-size: 13px; margin-top: 4px">
+              Internal. You and your team see all checks, current status,
+              incidents, latency charts. Login required.
+            </p>
+          </div>
+          <div class="card">
+            <strong>Status page</strong>
+            <p style="font-size: 13px; margin-top: 4px">
+              Public. Customers visit status.yourapp.com to see if your service
+              is up. No login. Live updates.
+            </p>
+          </div>
+          <div class="card">
+            <strong>Alerts</strong>
+            <p style="font-size: 13px; margin-top: 4px">
+              Push. Slack, email, or webhook fires the moment a check fails. No
+              one has to watch a dashboard.
+            </p>
+          </div>
+        </div>
+
+        <h3>End-to-end user journey</h3>
+        <ol>
+          <li>Developer signs up with email + password</li>
+          <li>
+            Pastes their first endpoint URL — say
+            <code>https://api.acme.com/payments</code>
+          </li>
+          <li>Sets check interval (1 minute)</li>
+          <li>Adds one assertion: status must be 200</li>
+          <li>Saves the check — within 60 seconds, first result appears</li>
+          <li>
+            Adds more assertions (latency under 800ms, body must contain
+            transaction_id)
+          </li>
+          <li>Connects Slack via webhook</li>
+          <li>Goes to bed</li>
+          <li>At 3am, their deployment breaks the endpoint</li>
+          <li>Slack ping wakes them up before any user complains</li>
+          <li>They fix the bug, watch the incident auto-resolve</li>
+          <li>
+            Monday morning, they export the SLA report — 99.94% uptime for the
+            month
+          </li>
+        </ol>
+
+        <h2 id="market">5. Market opportunity</h2>
+
+        <h3>Market sizing</h3>
+        <div class="grid-3">
+          <div class="metric">
+            <div class="metric-label">API Management market (2025)</div>
+            <div class="metric-value" style="color: var(--purple)">$8.86B</div>
+            <div class="metric-sub">CAGR 16.8% → $19B by 2030</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">API Monitoring sub-market</div>
+            <div class="metric-value" style="color: var(--teal)">$1.87B</div>
+            <div class="metric-sub">CAGR 19.4% → $8.84B by 2033</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Observability platform market</div>
+            <div class="metric-value" style="color: var(--amber)">$4.8B</div>
+            <div class="metric-sub">CAGR 16% → $18.1B by 2034</div>
+          </div>
+        </div>
+
+        <h3>TAM → SAM → SOM</h3>
+        <table>
+          <tr>
+            <th>Tier</th>
+            <th>Definition</th>
+            <th>Size</th>
+          </tr>
+          <tr>
+            <td><strong>TAM</strong></td>
+            <td>All companies running APIs that need monitoring</td>
+            <td style="color: var(--purple); font-weight: 500">$1.87B</td>
+          </tr>
+          <tr>
+            <td><strong>SAM</strong></td>
+            <td>SMB + Dev teams underserved by Datadog pricing</td>
+            <td style="color: var(--teal); font-weight: 500">~$560M</td>
+          </tr>
+          <tr>
+            <td><strong>SOM Y1-Y3</strong></td>
+            <td>Realistic early capture at ~$28 ARPU across 5,000 customers</td>
+            <td style="color: var(--amber); font-weight: 500">~$1.2M ARR</td>
+          </tr>
+        </table>
+
+        <h3>Market tailwinds</h3>
+        <ul>
+          <li>
+            <strong>92%</strong> of organizations now prioritize API-first
+            development strategies (2024)
+          </li>
+          <li><strong>94%</strong> of developers use APIs daily</li>
+          <li>
+            API security incidents rose <strong>400%</strong> between 2021–2023
+          </li>
+          <li>
+            <strong>68.6%</strong> of organizations use cloud-based
+            observability tools
+          </li>
+          <li>
+            SMEs are the fastest-growing buyer segment at
+            <strong>17% CAGR</strong>
+          </li>
+          <li>
+            Public API calls globally exceeded <strong>100 trillion</strong> in
+            2022 (up 300% from 2020)
+          </li>
+        </ul>
+
+        <h2 id="competition">6. Competitive landscape</h2>
+
+        <table>
+          <tr>
+            <th>Competitor</th>
+            <th>Strength</th>
+            <th>Weakness API Canary exploits</th>
+            <th>Price</th>
+          </tr>
+          <tr>
+            <td><strong>UptimeRobot</strong></td>
+            <td>3.2M users, brand recognition</td>
+            <td>
+              No schema validation. Just URL pings. Banned commercial free use
+              in Dec 2024 — mass migration underway.
+            </td>
+            <td>$8/mo</td>
+          </tr>
+          <tr>
+            <td><strong>Checkly</strong></td>
+            <td>Strong technical features</td>
+            <td>
+              No built-in incident management. Complex Playwright setup. Few
+              reviews online — weak adoption.
+            </td>
+            <td>$30+/mo</td>
+          </tr>
+          <tr>
+            <td><strong>Better Stack</strong></td>
+            <td>Beautiful UX, all-in-one</td>
+            <td>
+              ~65% more expensive than UptimeRobot. Positioned enterprise.
+              Complex for small teams.
+            </td>
+            <td>$25/mo</td>
+          </tr>
+          <tr>
+            <td><strong>Datadog / New Relic</strong></td>
+            <td>Enterprise-grade observability</td>
+            <td>
+              Overkill for API monitoring. Expensive at scale. Complex setup.
+              SMBs priced out.
+            </td>
+            <td>$15–30/host</td>
+          </tr>
+        </table>
+
+        <h3>Differentiation window</h3>
+        <table>
+          <tr>
+            <th>Feature</th>
+            <th>Coverage in competitors</th>
+          </tr>
+          <tr>
+            <td>Contract / schema testing</td>
+            <td><span class="pill pill-purple">rare</span></td>
+          </tr>
+          <tr>
+            <td>Multi-region checks</td>
+            <td><span class="pill pill-amber">mid-tier only</span></td>
+          </tr>
+          <tr>
+            <td>Incident + on-call built-in</td>
+            <td><span class="pill pill-coral">few tools</span></td>
+          </tr>
+          <tr>
+            <td>Public status page</td>
+            <td><span class="pill pill-blue">common</span></td>
+          </tr>
+          <tr>
+            <td>SLA report export</td>
+            <td><span class="pill pill-coral">mostly enterprise</span></td>
+          </tr>
+        </table>
+
+        <h2 id="pricing">7. Pricing</h2>
+
+        <div class="grid-4">
+          <div class="card">
+            <strong>Free</strong>
+            <div style="font-size: 22px; font-weight: 500; margin: 6px 0">
+              $0
+            </div>
+            <p style="font-size: 12px">
+              3 checks · 5-min intervals · 1 region · email alerts · 7-day
+              history
+            </p>
+          </div>
+          <div class="card" style="border-color: var(--purple)">
+            <strong style="color: var(--purple-text)">Pro</strong>
+            <div
+              style="
+                font-size: 22px;
+                font-weight: 500;
+                margin: 6px 0;
+                color: var(--purple);
+              "
+            >
+              $19/mo
+            </div>
+            <p style="font-size: 12px">
+              50 checks · 1-min intervals · 3 regions · Slack + webhook alerts ·
+              90-day history · public status page · SLA export
+            </p>
+          </div>
+          <div class="card" style="border-color: var(--teal)">
+            <strong style="color: var(--teal-text)">Team</strong>
+            <div
+              style="
+                font-size: 22px;
+                font-weight: 500;
+                margin: 6px 0;
+                color: var(--teal);
+              "
+            >
+              $79/mo
+            </div>
+            <p style="font-size: 12px">
+              200 checks · 30-sec intervals · 5 regions · on-call scheduling ·
+              response archival · log search · API access
+            </p>
+          </div>
+          <div class="card">
+            <strong>Enterprise</strong>
+            <div style="font-size: 22px; font-weight: 500; margin: 6px 0">
+              Custom
+            </div>
+            <p style="font-size: 12px">
+              Unlimited checks · custom regions · SSO · dedicated support · SLA
+              guarantee · custom retention
+            </p>
+          </div>
+        </div>
+
+        <h4>Blended ARPU estimate</h4>
+        <p>
+          Assuming 80% Pro and 20% Team customers, blended ARPU lands at
+          approximately <strong>$28/month per paying customer</strong>.
+        </p>
+
+        <h2 id="revenue">8. Revenue model &amp; trajectory</h2>
+
+        <h3>Three scenarios at month 12</h3>
+
+        <table>
+          <tr>
+            <th>Scenario</th>
+            <th>Free users</th>
+            <th>Paid users</th>
+            <th>MRR</th>
+            <th>Annual</th>
+          </tr>
+          <tr>
+            <td>
+              <strong>Slow</strong> — inconsistent posting, word of mouth only
+            </td>
+            <td>400</td>
+            <td>25–35</td>
+            <td style="color: var(--coral)">$500–800</td>
+            <td>~$7,200</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Realistic</strong> — 2 posts/week + 20 DMs/week + PH
+              launch
+            </td>
+            <td>2,000</td>
+            <td>100–150</td>
+            <td style="color: var(--amber)">$2,500–4,000</td>
+            <td>~$36,000</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Aggressive</strong> — daily content + 1 viral post + 2
+              enterprise deals
+            </td>
+            <td>6,000</td>
+            <td>300–400</td>
+            <td style="color: var(--teal)">$8,000–12,000</td>
+            <td>~$120,000</td>
+          </tr>
+        </table>
+
+        <h3>Month-by-month trajectory (realistic scenario)</h3>
+        <div class="card" style="margin: 12px 0">
+          <div class="timeline-row">
+            <div class="timeline-time">Month 1</div>
+            <div class="timeline-body">
+              <div class="timeline-title">$0 MRR</div>
+              <div class="timeline-detail">
+                Building V1. No users yet. Post every build on LinkedIn. DM 5
+                people for beta access.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">Month 2</div>
+            <div class="timeline-body">
+              <div class="timeline-title" style="color: var(--purple)">
+                $100–200 MRR
+              </div>
+              <div class="timeline-detail">
+                V1 ships. 5–10 beta users. 3–5 convert to Pro. First real
+                revenue.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">Month 3</div>
+            <div class="timeline-body">
+              <div class="timeline-title" style="color: var(--purple)">
+                $300–500 MRR
+              </div>
+              <div class="timeline-detail">
+                Word of mouth starts. ProductHunt launch. 15–25 paid users.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">Month 4–5</div>
+            <div class="timeline-body">
+              <div class="timeline-title" style="color: var(--amber)">
+                $600–1,000 MRR
+              </div>
+              <div class="timeline-detail">
+                LinkedIn content compounds. First Team plan customers. 35–50
+                paid users.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">Month 6</div>
+            <div class="timeline-body">
+              <div class="timeline-title" style="color: var(--amber)">
+                $1,200–1,800 MRR
+              </div>
+              <div class="timeline-detail">
+                V2 ships (on-call scheduling). Churn stabilises. 60–80 paid
+                users.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">Month 9</div>
+            <div class="timeline-body">
+              <div class="timeline-title" style="color: var(--teal)">
+                $2,000–3,000 MRR
+              </div>
+              <div class="timeline-detail">
+                SEO starts working. 100–120 paid users. First enterprise
+                inquiry.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">Month 12</div>
+            <div class="timeline-body">
+              <div class="timeline-title" style="color: var(--teal)">
+                $3,000–5,000 MRR
+              </div>
+              <div class="timeline-detail">
+                150–200 paid users. Stable compounding growth. Full-time income
+                territory.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row" style="border-bottom: none">
+            <div class="timeline-time">Month 18</div>
+            <div class="timeline-body">
+              <div class="timeline-title" style="color: var(--teal)">
+                $8,000–15,000 MRR
+              </div>
+              <div class="timeline-detail">
+                If consistent. 400+ paid users. Research paper published.
+                Acqui-hire interest possible.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Infrastructure cost vs revenue</h3>
+        <div class="grid-2">
+          <div>
+            <h4>Monthly fixed costs (at scale)</h4>
+            <table>
+              <tr>
+                <td>DigitalOcean Droplet (2GB)</td>
+                <td><strong>$12</strong></td>
+              </tr>
+              <tr>
+                <td>Managed PostgreSQL</td>
+                <td><strong>$15</strong></td>
+              </tr>
+              <tr>
+                <td>Managed Redis</td>
+                <td><strong>$15</strong></td>
+              </tr>
+              <tr>
+                <td>S3 / Spaces storage</td>
+                <td><strong>$5</strong></td>
+              </tr>
+              <tr>
+                <td>Resend email (free tier)</td>
+                <td><strong>$0</strong></td>
+              </tr>
+              <tr style="background: var(--surface-2)">
+                <td><strong>Total fixed</strong></td>
+                <td><strong style="color: var(--coral)">~$47/mo</strong></td>
+              </tr>
+            </table>
+          </div>
+          <div>
+            <h4>Break-even &amp; profit</h4>
+            <table>
+              <tr>
+                <td>Break-even users</td>
+                <td><strong style="color: var(--purple)">3 Pro</strong></td>
+              </tr>
+              <tr>
+                <td>Profit at 50 users</td>
+                <td><strong style="color: var(--teal)">~$1,300/mo</strong></td>
+              </tr>
+              <tr>
+                <td>Profit at 150 users</td>
+                <td><strong style="color: var(--teal)">~$4,100/mo</strong></td>
+              </tr>
+              <tr>
+                <td>Profit margin at scale</td>
+                <td><strong style="color: var(--teal)">85–90%</strong></td>
+              </tr>
+              <tr>
+                <td>Acquisition cost (organic)</td>
+                <td><strong>~$0</strong></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <h2 id="objections">9. Every objection &amp; the honest answer</h2>
+
+        <p>
+          This section captures every concern raised about the viability of API
+          Canary, with an honest assessment.
+          <strong>Read this before every major build decision.</strong>
+        </p>
+
+        <h3>The four objections that are genuinely real</h3>
+
+        <div class="callout callout-red">
+          <div class="callout-label">Real risk #1 — operational warfare</div>
+          <p>
+            If your customers rely on alerts, YOU are effectively on-call too.
+            Queues fail at 3am. SMTP providers break. Workers freeze. At 50
+            customers this is manageable. At 500 it becomes your full-time job.
+            There is no clever counter — accept this going in.
+          </p>
+        </div>
+
+        <div class="callout callout-red">
+          <div class="callout-label">
+            Real risk #2 — building features nobody asked for
+          </div>
+          <p>
+            The curriculum maps too perfectly to the features (Elasticsearch =
+            search, SSE = live dashboard, S3 = archival). The risk of building
+            features to practice concepts rather than to solve customer problems
+            is enormous. <strong>Mitigation:</strong> hard rule that no feature
+            gets built until a paying customer asks for it.
+          </p>
+        </div>
+
+        <div class="callout callout-red">
+          <div class="callout-label">
+            Real risk #3 — distribution is harder than building
+          </div>
+          <p>
+            The graveyard of technically brilliant devtools with zero users is
+            enormous. Building is the easy part. Getting 100 developers to trust
+            you with production monitoring is the actual hard problem.
+            <strong>Mitigation:</strong> build in public from day one. Audience
+            before launch.
+          </p>
+        </div>
+
+        <div class="callout callout-red">
+          <div class="callout-label">Real risk #4 — no code moat</div>
+          <p>
+            Anyone can clone the V1 architecture in 2–3 months. There is no
+            proprietary algorithm or data network effect. The moat is
+            distribution and trust, not code. A 1,000-person LinkedIn audience
+            is harder to clone than the codebase. This takes 12–18 months —
+            start now.
+          </p>
+        </div>
+
+        <h3>Objections that are partially true or wrong</h3>
+
+        <table>
+          <tr>
+            <th>Objection</th>
+            <th>Verdict</th>
+            <th>Honest response</th>
+          </tr>
+          <tr>
+            <td>Market is crowded with giants</td>
+            <td><span class="pill pill-amber">partial</span></td>
+            <td>
+              Crowded means demand is proven. Notion launched against Evernote.
+              Linear launched against Jira. The question is positioning, not
+              entry.
+            </td>
+          </tr>
+          <tr>
+            <td>Developers are skeptical and lazy to switch</td>
+            <td><span class="pill pill-red">real</span></td>
+            <td>
+              True. Counter: build in public, show your work, developers trust
+              builders they can watch building.
+            </td>
+          </tr>
+          <tr>
+            <td>Infra becomes a monster at scale</td>
+            <td><span class="pill pill-amber">true at scale</span></td>
+            <td>
+              At 100 users on a single Droplet, this is a solved problem.
+              Complexity grows with revenue, not before it.
+            </td>
+          </tr>
+          <tr>
+            <td>Multi-region monitoring is expensive</td>
+            <td><span class="pill pill-green">wrong at V1</span></td>
+            <td>
+              V1 needs zero multi-region. One server, one region. That's fine
+              for the first 100 customers.
+            </td>
+          </tr>
+          <tr>
+            <td>Need massive reliability before revenue</td>
+            <td><span class="pill pill-amber">partial</span></td>
+            <td>
+              "Good enough" reliability is the bar, not "massive." A single
+              server with proper error handling is sufficient for early
+              customers.
+            </td>
+          </tr>
+          <tr>
+            <td>APIs are becoming self-observable (OpenTelemetry, etc.)</td>
+            <td><span class="pill pill-green">wrong target</span></td>
+            <td>
+              Setting up Prometheus + Grafana needs a DevOps engineer and 2
+              weeks. Your customer has no DevOps engineer and needs monitoring
+              in 5 minutes.
+            </td>
+          </tr>
+          <tr>
+            <td>The "interesting tech" trap</td>
+            <td><span class="pill pill-red">real</span></td>
+            <td>
+              Most dangerous objection on the list. Counter: hard rule — no
+              feature without a paying customer asking for it.
+            </td>
+          </tr>
+          <tr>
+            <td>Alert fatigue kills products</td>
+            <td><span class="pill pill-red">real</span></td>
+            <td>
+              Solvable with smart confirmation logic — alert only when 2/3
+              regions fail. Product design problem, not architecture.
+            </td>
+          </tr>
+          <tr>
+            <td>Competing on price is dangerous</td>
+            <td><span class="pill pill-amber">if price-only</span></td>
+            <td>
+              Price is not the strategy. Contract assertions + simplicity is the
+              wedge.
+            </td>
+          </tr>
+          <tr>
+            <td>Monitoring has weak product virality</td>
+            <td><span class="pill pill-amber">partial</span></td>
+            <td>
+              True about the product. False about the builder story. "I built X
+              in Go" performs very well as content.
+            </td>
+          </tr>
+          <tr>
+            <td>Operationally stressful</td>
+            <td><span class="pill pill-red">real</span></td>
+            <td>100% accurate. No counter. Know this going in.</td>
+          </tr>
+          <tr>
+            <td>Enterprises won't trust a solo founder</td>
+            <td><span class="pill pill-green">wrong target</span></td>
+            <td>
+              Don't sell to enterprises. Sell to 3–20 person startups that don't
+              need SOC2.
+            </td>
+          </tr>
+        </table>
+
+        <h2 id="features">10. Complete feature list</h2>
+
+        <h4>Core (V1)</h4>
+        <ul>
+          <li>
+            <strong>Check runner</strong> — HTTP checks with configurable
+            method, headers, body, timeout. Schedule from 30s to 15min.
+          </li>
+          <li>
+            <strong>Contract assertions</strong> — status code, response time,
+            JSON body schema, field type, header presence
+          </li>
+          <li>
+            <strong>Incident management</strong> — auto-create on failure,
+            auto-resolve on recovery, timeline of events
+          </li>
+          <li>
+            <strong>Email alerts</strong> — incident opened, incident resolved,
+            weekly summary
+          </li>
+          <li>
+            <strong>Slack integration</strong> — webhook-based, signed payloads
+            with HMAC
+          </li>
+          <li>
+            <strong>Public status page</strong> — uptime %, incident history,
+            customer subscriptions
+          </li>
+          <li>
+            <strong>Internal dashboard</strong> — check list, current status,
+            latency charts, incident log
+          </li>
+          <li>
+            <strong>Stripe billing</strong> — free tier limits + Pro plan
+            subscription
+          </li>
+        </ul>
+
+        <h4>Growth (V2)</h4>
+        <ul>
+          <li>
+            <strong>Team accounts</strong> — invites, roles (admin/member)
+          </li>
+          <li>
+            <strong>On-call scheduling</strong> — rotation definition,
+            escalation policy
+          </li>
+          <li>
+            <strong>Heartbeat / cron monitoring</strong> — separate check type
+            for background jobs
+          </li>
+          <li>
+            <strong>Elasticsearch log search</strong> — search across check runs
+          </li>
+          <li><strong>SLA report export</strong> — PDF/CSV downloads</li>
+          <li>
+            <strong>Live dashboard via SSE</strong> — real-time status updates
+            without refresh
+          </li>
+          <li><strong>PagerDuty + generic webhooks</strong></li>
+          <li><strong>Latency percentile charts</strong> — p50, p95, p99</li>
+        </ul>
+
+        <h4>Scale + moat (V3)</h4>
+        <ul>
+          <li>
+            <strong>S3 response archival</strong> — full payload storage for
+            failed checks
+          </li>
+          <li><strong>Multi-region checks</strong> — 5 AWS regions</li>
+          <li><strong>Public REST API</strong> — full OpenAPI docs</li>
+          <li>
+            <strong>Anomaly detection</strong> — flag latency spikes before full
+            failure
+          </li>
+          <li><strong>Check tagging</strong> — environments, bulk actions</li>
+          <li><strong>Usage-based billing</strong> — per-check overages</li>
+          <li>
+            <strong>Enterprise features</strong> — SSO (SAML), audit log, custom
+            retention
+          </li>
+        </ul>
+
+        <h2 id="users">11. Target users</h2>
+
+        <div class="grid-2">
+          <div class="card">
+            <strong
+              ><span class="pill pill-purple">Primary</span> Backend
+              engineer</strong
+            >
+            <p style="font-size: 13px; margin-top: 6px">
+              Works at a 5–50 person startup or scale-up. Runs the API in
+              production. Pays $19/month to not be surprised by 3am outages they
+              find out about from users.
+            </p>
+          </div>
+          <div class="card">
+            <strong
+              ><span class="pill pill-blue">Primary</span> Startup CTO</strong
+            >
+            <p style="font-size: 13px; margin-top: 6px">
+              Negotiating an enterprise contract that requires a 99.9% SLA
+              report. API Canary generates that PDF in one click. Closes the
+              deal. Worth the entire annual subscription.
+            </p>
+          </div>
+          <div class="card">
+            <strong
+              ><span class="pill pill-purple">Secondary</span> Indie
+              developer</strong
+            >
+            <p style="font-size: 13px; margin-top: 6px">
+              Runs a paid SaaS solo. Finds out about outages from customer DMs.
+              Can't afford Datadog. Free tier converts them when they need more
+              than 3 checks.
+            </p>
+          </div>
+          <div class="card">
+            <strong
+              ><span class="pill pill-blue">Tertiary</span> DevOps lead</strong
+            >
+            <p style="font-size: 13px; margin-top: 6px">
+              Mid-size company, 50 microservices. Needs to know which specific
+              endpoint broke. Team plan for $79/month is a no-brainer at that
+              scale.
+            </p>
+          </div>
+        </div>
+
+        <h2 id="onboarding">12. User onboarding strategy</h2>
+
+        <h3>In-product activation funnel</h3>
+        <ol>
+          <li>
+            <strong>Sign up</strong> — email + password, no credit card, 30
+            seconds
+          </li>
+          <li>
+            <strong>Add first check</strong> — paste URL, set interval,
+            one-click save
+          </li>
+          <li>
+            <strong>First check runs</strong> — auto-runs within 60s, result
+            shown live in dashboard
+          </li>
+          <li>
+            <strong>Add one assertion</strong> — guided prompt: "Add a rule —
+            status must be 200"
+          </li>
+          <li>
+            <strong>Connect Slack</strong> — one OAuth flow, test alert sent
+            immediately
+          </li>
+          <li>
+            <strong>Aha moment</strong> — user sees their first failed
+            assertion, realizes the value
+          </li>
+        </ol>
+
+        <h3>Automated email sequence</h3>
+        <div class="card" style="margin: 12px 0">
+          <div class="timeline-row">
+            <div class="timeline-time">Day 0</div>
+            <div class="timeline-body">
+              <div class="timeline-title">
+                Welcome — your first check is ready
+              </div>
+              <div class="timeline-detail">
+                Confirms signup. Links directly to "add your first check." No
+                fluff.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">Day 1</div>
+            <div class="timeline-body">
+              <div class="timeline-title">
+                Did you know? UptimeRobot won't catch this.
+              </div>
+              <div class="timeline-detail">
+                Educational. Explains contract assertions vs URL pings. Shows
+                how to add an assertion.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">Day 3</div>
+            <div class="timeline-body">
+              <div class="timeline-title">Connect Slack in 30 seconds</div>
+              <div class="timeline-detail">
+                Sent only if Slack not connected. Direct link to integration
+                page. Short email, one CTA.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">Day 7</div>
+            <div class="timeline-body">
+              <div class="timeline-title">
+                Your week in review — X checks, Y runs
+              </div>
+              <div class="timeline-detail">
+                Personalized summary. Shows uptime %, incidents. Creates habit.
+                Re-engages dormant users.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row" style="border-bottom: none">
+            <div class="timeline-time">Day 14</div>
+            <div class="timeline-body">
+              <div class="timeline-title">
+                You're hitting limits — here's what Pro unlocks
+              </div>
+              <div class="timeline-detail">
+                Sent only to users near free tier limits. Specific: "3/3 checks
+                used. Pro gives you 50."
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Upgrade conversion triggers</h3>
+        <ul>
+          <li>
+            <strong>Check limit hit</strong> — user tries to add check #4 →
+            inline paywall with upgrade CTA
+          </li>
+          <li>
+            <strong>1-min interval blocked</strong> — user selects 1-min →
+            tooltip: "Pro feature — upgrade"
+          </li>
+          <li>
+            <strong>Slack blocked</strong> — free users see Slack greyed out →
+            one-click upgrade modal
+          </li>
+          <li>
+            <strong>Incident occurred</strong> — post-incident email: "You were
+            down 4 min. Multi-region would have caught it sooner."
+          </li>
+          <li>
+            <strong>Team invite attempted</strong> — invite teammate → "Team
+            feature — upgrade to Pro"
+          </li>
+          <li>
+            <strong>SLA report requested</strong> — customer asks for SLA proof
+            → "Export on Pro" banner
+          </li>
+        </ul>
+
+        <h2 id="architecture">13. System design &amp; architecture</h2>
+
+        <h3>The component map</h3>
+
+        <table>
+          <tr>
+            <th>Layer</th>
+            <th>Component</th>
+            <th>Purpose</th>
+          </tr>
+          <tr>
+            <td rowspan="3">Clients</td>
+            <td>Web dashboard</td>
+            <td>Internal team UI</td>
+          </tr>
+          <tr>
+            <td>REST API client</td>
+            <td>Programmatic access</td>
+          </tr>
+          <tr>
+            <td>Status page</td>
+            <td>Public-facing</td>
+          </tr>
+          <tr>
+            <td>Core</td>
+            <td><strong>Go API server</strong></td>
+            <td>Auth, routing, validation, SSE, rate limiting</td>
+          </tr>
+          <tr>
+            <td rowspan="3">Data</td>
+            <td>Redis</td>
+            <td>Job queue, cache, sessions</td>
+          </tr>
+          <tr>
+            <td>Scheduler goroutine</td>
+            <td>Cron-style: pushes check jobs to queue</td>
+          </tr>
+          <tr>
+            <td>PostgreSQL</td>
+            <td>Users, checks, incidents</td>
+          </tr>
+          <tr>
+            <td>Workers</td>
+            <td><strong>Worker pool (goroutines)</strong></td>
+            <td>Execute HTTP checks, run assertions, store results</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Storage</td>
+            <td>Elasticsearch</td>
+            <td>Check run log search</td>
+          </tr>
+          <tr>
+            <td>S3 / Spaces</td>
+            <td>Response payload archive</td>
+          </tr>
+          <tr>
+            <td rowspan="3">External</td>
+            <td>Resend</td>
+            <td>Transactional email</td>
+          </tr>
+          <tr>
+            <td>Slack / PagerDuty webhooks</td>
+            <td>Alert delivery</td>
+          </tr>
+          <tr>
+            <td>Stripe</td>
+            <td>Payments</td>
+          </tr>
+          <tr>
+            <td>Infra</td>
+            <td>DigitalOcean / AWS EC2</td>
+            <td>Nginx reverse proxy, Docker, GitHub Actions CI/CD</td>
+          </tr>
+        </table>
+
+        <h3>Data flow — what happens when you add a check</h3>
+        <ol>
+          <li>User POSTs to <code>/api/v1/checks</code> from dashboard</li>
+          <li>API server validates input, writes to PostgreSQL</li>
+          <li>Scheduler goroutine notices new check, computes next run time</li>
+          <li>At run time, scheduler pushes job to Redis queue</li>
+          <li>Worker pulls job, executes HTTP request to user's API</li>
+          <li>
+            Worker runs assertions on response, stores result in PostgreSQL
+          </li>
+          <li>
+            If assertion fails, worker creates incident, fires Slack webhook +
+            email
+          </li>
+          <li>Status page Redis cache is invalidated</li>
+          <li>Dashboard receives SSE event for live update</li>
+        </ol>
+
+        <h2 id="timeline">14. Release timeline</h2>
+
+        <h3>Phase 0 — Foundation (Week 1–2)</h3>
+        <p>
+          Goal:
+          <strong
+            >A check runs on schedule and the result is saved. Nothing
+            else.</strong
+          >
+        </p>
+        <ul>
+          <li>Go project structure, env config, graceful shutdown</li>
+          <li>PostgreSQL schema: users, checks, check_runs, incidents</li>
+          <li>Auth: email + password, JWT, API key generation</li>
+          <li>Core REST routes: CRUD for checks</li>
+          <li>Redis-backed job queue + scheduler goroutine</li>
+          <li>Worker: HTTP check execution, store result in DB</li>
+          <li>EC2 + Nginx + RDS setup on AWS (or local Docker for now)</li>
+          <li>GitHub Actions: build + deploy pipeline</li>
+        </ul>
+
+        <h3>V1 — MVP (Week 3–4)</h3>
+        <p>
+          Goal:
+          <strong
+            >Someone can sign up, add a check, get alerted, and pay you
+            $19/month.</strong
+          >
+        </p>
+        <ul>
+          <li>Assertion engine: status, latency, JSON body, header checks</li>
+          <li>Incident creation + auto-resolve logic</li>
+          <li>Transactional email via Resend: alert + recovery</li>
+          <li>Slack webhook integration</li>
+          <li>Public status page (server-side rendered, Redis-cached)</li>
+          <li>Internal dashboard: check list, uptime %, incident log</li>
+          <li>Stripe integration: free tier limits + Pro plan billing</li>
+          <li>Multi-region checks (2 AWS regions via separate workers)</li>
+        </ul>
+
+        <h3>V2 — Growth (Week 5–8)</h3>
+        <p>
+          Goal: <strong>Teams use this as their primary on-call tool.</strong>
+        </p>
+        <ul>
+          <li>Team accounts: invites, roles (admin/member)</li>
+          <li>On-call scheduling: rotations, escalation policy</li>
+          <li>Heartbeat / cron job monitoring</li>
+          <li>Elasticsearch: index check runs, search UI</li>
+          <li>SLA report export (PDF/CSV)</li>
+          <li>SSE: live dashboard status updates</li>
+          <li>Generic webhooks + PagerDuty integration</li>
+          <li>Latency percentile charts (p50, p95, p99)</li>
+        </ul>
+
+        <h3>V3 — Scale + moat (Week 9–12)</h3>
+        <p>
+          Goal:
+          <strong
+            >$5,000 MRR. Public API competitors can't easily match.</strong
+          >
+        </p>
+        <ul>
+          <li>S3 response payload archival on failed checks</li>
+          <li>5-region checks (us-east, eu-west, ap-south, us-west, ap-se)</li>
+          <li>Full public REST API with OpenAPI docs</li>
+          <li>Anomaly detection: flag latency spikes before full failure</li>
+          <li>Check tagging, environments (prod/staging), bulk actions</li>
+          <li>Usage-based billing: per-check overages</li>
+          <li>Enterprise: SSO (SAML), audit log, custom retention</li>
+          <li>Full test suite: unit + integration + load tests</li>
+        </ul>
+
+        <h2 id="curriculum">15. Video-by-video build plan</h2>
+
+        <p>
+          The rule:
+          <strong
+            >never open the next video until you have a git commit from the
+            current one.</strong
+          >
+          Watch → build → commit → next.
+        </p>
+
+        <div class="phase-divider">Phase 1 — Foundation (Videos 1–5)</div>
+
+        <div class="video-row">
+          <div class="video-num">01</div>
+          <div>
+            <div class="video-title">A high-level understanding</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                What backend engineering is. Client-server model. Where your
+                code lives vs the user.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Create project structure: <code>go mod init</code>, folder
+                layout <code>cmd/server</code>,
+                <code>internal/</code>.<br /><span
+                  class="pill pill-gray"
+                  style="margin-top: 6px"
+                  >commit: project scaffold</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">02</div>
+          <div>
+            <div class="video-title">HTTP protocol</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Methods, status codes, headers, request/response lifecycle.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                First Go HTTP server with <code>/health</code> endpoint. Run and
+                curl it.<br /><span class="pill pill-gray"
+                  >commit: http server with /health</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">03</div>
+          <div>
+            <div class="video-title">Routing</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                URL pattern matching, path params, route grouping.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Install chi. Define all routes:
+                <code>GET/POST/PATCH/DELETE /checks</code>.<br /><span
+                  class="pill pill-gray"
+                  >commit: all routes defined with stub handlers</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">04</div>
+          <div>
+            <div class="video-title">Serialisation and deserialisation</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                JSON encoding/decoding, struct tags, malformed input handling.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Define Check struct. Make POST /checks read JSON body and return
+                it.<br /><span class="pill pill-gray"
+                  >commit: check struct + json in/out</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">05</div>
+          <div>
+            <div class="video-title">Handlers, controllers and services</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Layered architecture: handler → service → repo.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Refactor into folders. Handler calls service. Service stub.<br /><span
+                  class="pill pill-gray"
+                  >commit: layered architecture scaffold</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-divider">Phase 2 — Data + Identity (Videos 6–11)</div>
+
+        <div class="video-row">
+          <div class="video-num">06</div>
+          <div>
+            <div class="video-title">Databases</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                SQL basics, indexes, migrations, connection pooling.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Connect PostgreSQL. Create 4 tables: users, checks, check_runs,
+                incidents.<br /><span class="pill pill-gray"
+                  >commit: postgres connected + 4 tables migrated</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">07</div>
+          <div>
+            <div class="video-title">CRUD deepdive</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Parameterised queries, transactions, soft deletes, pagination.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                All 4 check endpoints hitting Postgres for real.<br /><span
+                  class="pill pill-gray"
+                  >commit: full CRUD for checks hitting postgres</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">08</div>
+          <div>
+            <div class="video-title">Validation and transformation</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Input validation, struct validators, clear error messages.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Validate URL, interval, assertions. Return 400 on invalid
+                input.<br /><span class="pill pill-gray"
+                  >commit: input validation on check creation</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">09</div>
+          <div>
+            <div class="video-title">Authentication and authorisation</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Password hashing, JWT, refresh tokens, RBAC.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Register/login endpoints. JWT issued. Auth required on
+                /api/v1/*.<br /><span class="pill pill-gray"
+                  >commit: register + login + JWT auth working</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">10</div>
+          <div>
+            <div class="video-title">Middlewares</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Middleware chain, logging, CORS, rate limiting, panic recovery.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Stack: logger → recovery → CORS → rate-limit → auth.<br /><span
+                  class="pill pill-gray"
+                  >commit: middleware stack complete</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">11</div>
+          <div>
+            <div class="video-title">Request context</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                context.Context, cancellation, passing values.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                User flows from middleware → handler → service → repo via
+                ctx.<br /><span class="pill pill-gray"
+                  >commit: user flows through context end to end</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-divider">Phase 3 — Business logic (Videos 12–21)</div>
+
+        <div class="video-row">
+          <div class="video-num">12</div>
+          <div>
+            <div class="video-title">
+              RESTful architecture and best practices
+            </div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Resource naming, idempotency, HTTP verb semantics, versioning.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Audit and fix all routes for REST compliance.<br /><span
+                  class="pill pill-gray"
+                  >commit: routes audited and fixed</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">13</div>
+          <div>
+            <div class="video-title">Business logic layer (BLL)</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Where business rules live. Domain invariants. Pure testable
+                logic.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Write the assertion engine — pure logic, fully testable.<br /><span
+                  class="pill pill-gray"
+                  >commit: assertion engine in service layer</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">14</div>
+          <div>
+            <div class="video-title">Task queuing and scheduling</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Job queues, at-least-once delivery, idempotency, cron
+                scheduling.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Scheduler goroutine + Redis queue + worker pool.
+                <strong>This is the heart of the product.</strong><br /><span
+                  class="pill pill-gray"
+                  >commit: scheduler + worker pool — checks run
+                  automatically</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">15</div>
+          <div>
+            <div class="video-title">Concurrency and parallelism</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Goroutines, channels, WaitGroups, mutexes, race conditions.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Multi-region concurrent check execution.<br /><span
+                  class="pill pill-gray"
+                  >commit: multi-region concurrent check execution</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">16</div>
+          <div>
+            <div class="video-title">Caching</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Cache-aside, TTL, invalidation, avoiding stampedes.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Cache status page in Redis with 30s TTL.<br /><span
+                  class="pill pill-gray"
+                  >commit: status page cached in Redis</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">17</div>
+          <div>
+            <div class="video-title">Transactional emails</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Email APIs, idempotency, templates, deliverability.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Resend integration — incident open and resolved emails.<br /><span
+                  class="pill pill-gray"
+                  >commit: incident emails via Resend</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-teal" style="margin: 16px 0">
+          <div class="callout-label">Milestone — V1 shippable here</div>
+          <p>
+            After Video 17, you have a working monitoring product. You could put
+            this in front of real users between videos 17 and 18. Everything
+            after this is making it production-grade.
+          </p>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">18</div>
+          <div>
+            <div class="video-title">Webhooks</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Outbound webhooks, HMAC signing, retry logic.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Slack integration with HMAC-signed payloads.<br /><span
+                  class="pill pill-gray"
+                  >commit: Slack webhook with HMAC signature</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">19</div>
+          <div>
+            <div class="video-title">Real-time backend systems</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                SSE vs WebSockets, event streams, fan-out.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                SSE endpoint pushing live status changes to dashboard.<br /><span
+                  class="pill pill-gray"
+                  >commit: SSE endpoint live</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">20</div>
+          <div>
+            <div class="video-title">Elasticsearch</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Inverted index, mappings, queries, aggregations.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Index check_runs, search endpoint with filters.
+                <strong>Only if a user asks.</strong><br /><span
+                  class="pill pill-gray"
+                  >commit: ES indexing + search</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">21</div>
+          <div>
+            <div class="video-title">Object storage and large files</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                S3 API, presigned URLs, multipart uploads, lifecycle.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Failed response bodies to S3 with presigned download URLs.<br /><span
+                  class="pill pill-gray"
+                  >commit: S3 response archival</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-divider">
+          Phase 4 — Production ready (Videos 22–30)
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">22</div>
+          <div>
+            <div class="video-title">Error handling</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Sentinel errors, wrapping, custom error types.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Central error handler with consistent HTTP responses.<br /><span
+                  class="pill pill-gray"
+                  >commit: central error handler</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">23</div>
+          <div>
+            <div class="video-title">Config management</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                12-factor config, env vars, fail-fast on missing config.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Config struct loaded at startup. Server refuses to start if env
+                missing.<br /><span class="pill pill-gray"
+                  >commit: config struct fails fast</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">24</div>
+          <div>
+            <div class="video-title">Logging, monitoring and observability</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Structured logs, log levels, request IDs, metrics, tracing.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                slog structured logging + /metrics endpoint.<br /><span
+                  class="pill pill-gray"
+                  >commit: structured slog + /metrics</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">25</div>
+          <div>
+            <div class="video-title">Graceful shutdown</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                SIGTERM handling, drain period, in-flight completion.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Clean shutdown — drain workers before exit.<br /><span
+                  class="pill pill-gray"
+                  >commit: graceful shutdown on SIGTERM</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">26</div>
+          <div>
+            <div class="video-title">Security</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                OWASP Top 10, SQL injection, rate limiting, HTTPS.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Security headers, parameterised queries audit, secrets to
+                env.<br /><span class="pill pill-gray"
+                  >commit: security audit complete</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">27</div>
+          <div>
+            <div class="video-title">Scaling and performance</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                DB indexes, N+1 problem, profiling, load testing.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Add critical indexes. Load test with k6. Profile with pprof.<br /><span
+                  class="pill pill-gray"
+                  >commit: indexes + k6 baseline</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">28</div>
+          <div>
+            <div class="video-title">Testing and code quality</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                Unit, integration, table-driven tests, mocking.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Test assertion engine. Integration test full check run flow.<br /><span
+                  class="pill pill-gray"
+                  >commit: unit tests + CI integration</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row">
+          <div class="video-num">29</div>
+          <div>
+            <div class="video-title">12-factor app principle</div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                The 12 rules for cloud-native software.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                Audit against all 12 factors. Fix anything non-compliant.<br /><span
+                  class="pill pill-gray"
+                  >commit: 12-factor audit passed</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-row" style="border-bottom: none">
+          <div class="video-num">30</div>
+          <div>
+            <div class="video-title">
+              OpenAPI + DevOps for backend engineers
+            </div>
+            <div class="video-cols">
+              <div>
+                <div class="label">Learn</div>
+                OpenAPI 3.0, Docker, CI/CD, zero-downtime deploys.
+              </div>
+              <div>
+                <div class="label">Build in API Canary</div>
+                openapi.yaml + Dockerfile + full deploy pipeline.
+                <strong>This is launch day.</strong><br /><span
+                  class="pill pill-gray"
+                  >commit: SHIPPED</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="stack">16. Tech stack &amp; zero-cost infrastructure</h2>
+
+        <h3>Language and framework choice</h3>
+        <p>
+          <strong>Backend:</strong> Go (learning while building).
+          <strong>Tooling:</strong> Node.js where useful. Go is the right
+          upgrade from Node.js/Django because it forces explicit thinking about
+          concurrency, has a fantastic standard library, and compiles to a
+          single binary. Every backend concept in the curriculum maps cleanly to
+          Go.
+        </p>
+
+        <h3>Free stack for bootstrapping</h3>
+
+        <table>
+          <tr>
+            <th>Service</th>
+            <th>What it gives you</th>
+            <th>How to claim</th>
+          </tr>
+          <tr>
+            <td><strong>Docker Desktop (local)</strong></td>
+            <td>
+              PostgreSQL + Redis + Elasticsearch on your laptop — free forever
+              during build phase
+            </td>
+            <td>docker.com — free download</td>
+          </tr>
+          <tr>
+            <td><strong>DigitalOcean</strong></td>
+            <td>
+              $200 credit valid 1 year via Student Pack. Covers Droplet +
+              Postgres + Redis + Spaces.
+            </td>
+            <td>GitHub Student Pack → DigitalOcean offer</td>
+          </tr>
+          <tr>
+            <td><strong>Namecheap domain</strong></td>
+            <td>Free 1 year via Student Pack. Get apicanary.me or .dev</td>
+            <td>GitHub Student Pack → Namecheap</td>
+          </tr>
+          <tr>
+            <td><strong>Resend email</strong></td>
+            <td>3,000 emails/month free forever. No credit card required.</td>
+            <td>resend.com — free signup</td>
+          </tr>
+          <tr>
+            <td><strong>Stripe payments</strong></td>
+            <td>Free to use. 2.9% + 30¢ per transaction. No monthly fee.</td>
+            <td>stripe.com — connect Indian bank</td>
+          </tr>
+          <tr>
+            <td><strong>GitHub Actions CI/CD</strong></td>
+            <td>
+              Free unlimited for public repos. Generous limits for private.
+            </td>
+            <td>Included in Student Pack</td>
+          </tr>
+          <tr>
+            <td><strong>JetBrains GoLand</strong></td>
+            <td>Best Go IDE. Free while student.</td>
+            <td>GitHub Student Pack → JetBrains</td>
+          </tr>
+          <tr>
+            <td><strong>GitHub Copilot</strong></td>
+            <td>AI coding assistant. Free for verified students.</td>
+            <td>Included in Student Pack</td>
+          </tr>
+        </table>
+
+        <h3>Cost trajectory — zero rupees until revenue</h3>
+
+        <div class="card" style="margin: 12px 0">
+          <div class="timeline-row">
+            <div class="timeline-time">Phase 1<br />Building</div>
+            <div class="timeline-body">
+              <div class="timeline-title" style="color: var(--teal)">
+                ₹0/month
+              </div>
+              <div class="timeline-detail">
+                Everything runs locally via Docker on your laptop. Zero cloud
+                cost.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">Phase 2<br />Beta users</div>
+            <div class="timeline-body">
+              <div class="timeline-title" style="color: var(--teal)">
+                ₹0/month
+              </div>
+              <div class="timeline-detail">
+                DigitalOcean Droplet on $200 student credit. Postgres + Redis as
+                Docker containers on same Droplet. ~$12/mo from credit.
+              </div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-time">Phase 3<br />Revenue</div>
+            <div class="timeline-body">
+              <div class="timeline-title" style="color: var(--amber)">
+                self-funding
+              </div>
+              <div class="timeline-detail">
+                3 Pro users at $19/mo = $57 covers $47 infra. Break-even by
+                Month 3. Users fund the infra. You never pay out of pocket.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="claude-system">17. How to use Claude effectively</h2>
+
+        <h3>Three modes — learning, coding, business</h3>
+
+        <h4>Mode 1: Learning partner (while watching videos)</h4>
+
+        <div class="prompt-card">
+          <div class="prompt-card-header">
+            <span class="prompt-when">before video</span
+            ><span class="prompt-title">Prime yourself</span>
+          </div>
+          <div class="prompt-body">
+            I'm about to watch a video on [TOPIC] as part of learning backend
+            engineering. I'm building an API monitoring SaaS called API Canary
+            in Go. Before I watch: give me a 5-sentence mental model of what
+            this concept is, why it exists, and where it will show up in API
+            Canary specifically.
+          </div>
+          <p class="prompt-why">
+            You absorb the video 2x faster when you already have the frame.
+          </p>
+        </div>
+
+        <div class="prompt-card">
+          <div class="prompt-card-header">
+            <span class="prompt-when">after video</span
+            ><span class="prompt-title">Verify understanding</span>
+          </div>
+          <div class="prompt-body">
+            I just watched the video on [TOPIC]. Here's my understanding: [WRITE
+            YOUR UNDERSTANDING IN YOUR OWN WORDS — 3-5 sentences] Am I correct?
+            What am I missing? Tell me: what is the single most important thing
+            to implement in API Canary from this video, and what file does it go
+            in?
+          </div>
+          <p class="prompt-why">
+            Forces articulation. Claude corrects misunderstandings before they
+            become wrong code.
+          </p>
+        </div>
+
+        <h4>Mode 2: Coding partner (while building)</h4>
+
+        <div class="prompt-card">
+          <div class="prompt-card-header">
+            <span class="prompt-when">starting to code</span
+            ><span class="prompt-title">Plan before writing</span>
+          </div>
+          <div class="prompt-body">
+            I just watched the video on [TOPIC]. Here is my current project
+            structure: [PASTE FOLDER STRUCTURE] Here is the relevant existing
+            code: [PASTE FILE] I need to implement: [FEATURE] Don't write the
+            code yet. Tell me: 1. Which files I need to create or modify 2. What
+            the function signatures should look like 3. What the gotchas are in
+            Go for this implementation Then I'll write it and show you.
+          </div>
+          <p class="prompt-why">
+            Planning before coding catches design mistakes early.
+          </p>
+        </div>
+
+        <div class="prompt-card">
+          <div class="prompt-card-header">
+            <span class="prompt-when">code review</span
+            ><span class="prompt-title">Senior engineer review</span>
+          </div>
+          <div class="prompt-body">
+            I implemented [FEATURE] in API Canary. Here's the code: [PASTE CODE]
+            Review this as a senior Go engineer would. Focus on: 1. Correctness
+            — will this actually work? 2. Go idioms — is this written the Go
+            way? 3. Production issues — what will break at scale? 4. Security —
+            any vulnerabilities? Don't rewrite it. Point out specific line
+            numbers. Give me priority order of what to fix first.
+          </div>
+          <p class="prompt-why">
+            You learn more from reviewing your own code than reading someone
+            else's.
+          </p>
+        </div>
+
+        <div class="prompt-card">
+          <div class="prompt-card-header">
+            <span class="prompt-when">debugging</span
+            ><span class="prompt-title">When stuck 20+ minutes</span>
+          </div>
+          <div class="prompt-body">
+            I have a bug in API Canary and I've been stuck for [TIME]. Expected:
+            [EXPECTED] Actual: [ACTUAL] Error: [PASTE ERROR] Code: [PASTE CODE]
+            What I've tried: [LIST] Walk me through your reasoning: what's the
+            root cause and why? Then give the fix with explanation of why it
+            works.
+          </div>
+          <p class="prompt-why">
+            "What I've tried" stops Claude suggesting ruled-out fixes. Reasoning
+            teaches debugging.
+          </p>
+        </div>
+
+        <h4>Mode 3: Business operator (content + growth)</h4>
+
+        <div class="prompt-card">
+          <div class="prompt-card-header">
+            <span class="prompt-when">after each build</span
+            ><span class="prompt-title">LinkedIn post</span>
+          </div>
+          <div class="prompt-body">
+            I just implemented [FEATURE] in API Canary, my API monitoring SaaS.
+            Built: [1-2 sentences of what the code does] Surprised by: [YOUR
+            OBSERVATION] Snippet: [PASTE] Write a LinkedIn post. Rules: - First
+            line must be a hook - No buzzwords, no "excited to share" -
+            Technical enough that developers respect it - Human enough that
+            non-devs understand - End with one question - Max 150 words Write 2
+            versions: technical insight vs business problem.
+          </div>
+          <p class="prompt-why">
+            Two versions lets you pick. No-buzzwords rule is non-negotiable.
+          </p>
+        </div>
+
+        <h3>The meta-rules</h3>
+        <ul>
+          <li>
+            <strong>Always give context first.</strong> Start every prompt with:
+            "I'm building API Canary, Go backend, solo, targeting developers."
+          </li>
+          <li>
+            <strong>Paste the actual code/error.</strong> Never describe code.
+            Paste it.
+          </li>
+          <li>
+            <strong>Ask for reasoning, not just answers.</strong> Add "explain
+            why" to every important question.
+          </li>
+          <li>
+            <strong>Push back when it feels off.</strong> "That doesn't fit my
+            use case because X — reconsider."
+          </li>
+          <li>
+            <strong>One conversation per topic.</strong> Keep one long thread
+            per video. Context compounds.
+          </li>
+          <li>
+            <strong>Use it for the hard 20%, not the easy 80%.</strong> Write
+            boilerplate yourself. Use Claude for concurrency bugs, security
+            review, architecture decisions.
+          </li>
+        </ul>
+
+        <h2 id="growth">18. Customer acquisition strategy</h2>
+
+        <h3>Four channels in priority order</h3>
+
+        <div class="grid-2">
+          <div class="card">
+            <strong>1. LinkedIn content</strong>
+            <p style="font-size: 13px; margin-top: 6px">
+              Post every build milestone as a technical story. "I built X today,
+              here's what I learned." Each post = soft funnel. Target: 2
+              posts/week minimum. Each video = one post.
+            </p>
+          </div>
+          <div class="card">
+            <strong>2. Cold outreach</strong>
+            <p style="font-size: 13px; margin-top: 6px">
+              Target backend engineers at 10–50 person SaaS companies. Message:
+              "Free beta access, 15 min of feedback." 20 DMs/week. Each becomes
+              a testimonial.
+            </p>
+          </div>
+          <div class="card">
+            <strong>3. Free tier as funnel</strong>
+            <p style="font-size: 13px; margin-top: 6px">
+              3 checks permanent free. Enough to feel value, not enough for
+              production. Natural upgrade triggers: 4th check, 1-min interval,
+              Slack alerts, team invites, SLA reports.
+            </p>
+          </div>
+          <div class="card">
+            <strong>4. Dev communities</strong>
+            <p style="font-size: 13px; margin-top: 6px">
+              Show HN once V1 solid. r/devops, r/selfhosted, IndieHackers.
+              Dev.to long-form: "How I built an API monitoring tool in Go from
+              scratch."
+            </p>
+          </div>
+        </div>
+
+        <h3>LinkedIn post formula (use after every video build)</h3>
+        <div class="callout">
+          <p>
+            "Today I learned [concept] and here's the specific problem it solves
+            in the API monitoring tool I'm building. [One concrete example from
+            your code]. Here's what surprised me: [one non-obvious thing].
+            [Screenshot or code snippet]."
+          </p>
+          <p style="margin-top: 8px">
+            That's 30 posts over 5–6 weeks. Each one builds your audience while
+            you build the product.
+          </p>
+        </div>
+
+        <h2 id="discipline">19. The discipline rules</h2>
+
+        <p>
+          These rules exist because the most likely failure mode of this project
+          is engineering beautiful systems nobody pays for. Print these. Read
+          them weekly.
+        </p>
+
+        <div class="callout callout-amber">
+          <div class="callout-label">
+            Rule 1 — No feature without a paying customer
+          </div>
+          <p>
+            Learn the concept from the video. Implement only what V1 needs.
+            Elasticsearch, multi-region, S3 archival — these get built when a
+            beta user explicitly asks AND pays. Not before.
+          </p>
+        </div>
+
+        <div class="callout callout-amber">
+          <div class="callout-label">
+            Rule 2 — Ship at video 17, not video 30
+          </div>
+          <p>
+            After video 17 you have a shippable product. Stop building. Start
+            selling. The next 13 videos are for production-grade, not features.
+            Don't withhold launching because you "want to add Elasticsearch
+            first."
+          </p>
+        </div>
+
+        <div class="callout callout-amber">
+          <div class="callout-label">Rule 3 — Build in public from day one</div>
+          <p>
+            Every video you watch produces one LinkedIn post. Every commit is
+            shared. Your audience IS your distribution. Most devtool founders
+            build in private then wonder where the users are.
+          </p>
+        </div>
+
+        <div class="callout callout-amber">
+          <div class="callout-label">Rule 4 — Talk to users every week</div>
+          <p>
+            Once V1 ships, you do at least 2 user calls per week. Not for
+            features — for understanding. Their words become your marketing.
+            Their pain becomes your roadmap.
+          </p>
+        </div>
+
+        <div class="callout callout-amber">
+          <div class="callout-label">Rule 5 — Never compete on price alone</div>
+          <p>
+            The wedge is contract assertions + simplicity, NOT "cheaper
+            Datadog." Don't race to the bottom. Positioning matters more than
+            price.
+          </p>
+        </div>
+
+        <div class="callout callout-amber">
+          <div class="callout-label">
+            Rule 6 — Ignore enterprise until $5K MRR
+          </div>
+          <p>
+            Enterprise requires SOC2, dedicated support, legal contracts. You
+            can't provide this as a solo founder yet. Stay in the SMB tier until
+            revenue justifies infrastructure investment.
+          </p>
+        </div>
+
+        <div class="callout callout-amber">
+          <div class="callout-label">
+            Rule 7 — One server, one region, no exceptions until customers ask
+          </div>
+          <p>
+            Multi-region is a V3 feature. Distributed systems complexity grows
+            with revenue, never before. Resist the urge to "build it right from
+            the start."
+          </p>
+        </div>
+
+        <div class="callout callout-amber">
+          <div class="callout-label">
+            Rule 8 — Watch one video, build one feature, commit one change
+          </div>
+          <p>
+            Don't batch videos. Don't batch builds. The discipline of complete →
+            commit → next preserves understanding and prevents context loss.
+          </p>
+        </div>
+
+        <h2 id="day-one">20. Day one — starting today</h2>
+
+        <h3>While GitHub Student Pack verifies (1–3 days)</h3>
+
+        <h4>Step 1: Confirm your environment</h4>
+        <pre>
+go version         # must be 1.21+
+docker --version   # must be installed
+git --version      # any version</pre
+        >
+
+        <h4>Step 2: Apply for GitHub Student Pack</h4>
+        <p>
+          Go to <code>education.github.com/pack</code>. Apply with your college
+          email or student ID. Takes 1–3 days to verify.
+        </p>
+
+        <h4>Step 3: Sign up for free services that don't need verification</h4>
+        <ul>
+          <li>
+            <code>resend.com</code> — sign up, get API key (free, no card)
+          </li>
+          <li>
+            <code>stripe.com</code> — sign up, connect Indian bank account
+          </li>
+        </ul>
+
+        <h4>Step 4: Create the project</h4>
+        <pre>
+mkdir api-canary
+cd api-canary
+go mod init github.com/YOURNAME/api-canary
+mkdir -p cmd/server internal/handler internal/service internal/repo internal/model config
+touch cmd/server/main.go .env .gitignore README.md
+git init</pre
+        >
+
+        <h4>Step 5: First Go file</h4>
+        <p>Paste this into <code>cmd/server/main.go</code>:</p>
+        <pre>
+package main
+
+import (
+    "fmt"
+    "log"
+    "net/http"
+)
+
+func main() {
+    http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set("Content-Type", "application/json")
+        w.WriteHeader(http.StatusOK)
+        fmt.Fprintln(w, `{"status":"ok","service":"api-canary"}`)
+    })
+
+    log.Println("API Canary starting on :8080")
+    log.Fatal(http.ListenAndServe(":8080", nil))
+}</pre
+        >
+
+        <h4>Step 6: Run it</h4>
+        <pre>
+go run ./cmd/server/main.go
+# open http://localhost:8080/health
+# expect: {"status":"ok","service":"api-canary"}</pre
+        >
+
+        <h4>Step 7: First commit</h4>
+        <pre>
+git add .
+git commit -m "day 1: api canary server running on /health"</pre
+        >
+
+        <h4>Step 8: First Claude prompt</h4>
+        <div class="prompt-body">
+          I just got API Canary running. Here's my main.go: [paste it] I'm about
+          to watch the HTTP protocol video. Prime me on HTTP in 5 sentences
+          using API Canary as the context. What specifically from HTTP do I need
+          to understand to build the check runner — the part that pings
+          someone's API endpoint?
+        </div>
+
+        <h4>Step 9: First LinkedIn post</h4>
+        <p>
+          Today: Day 1 of building API Canary. Server running. Git initialised.
+          About to start watching the HTTP protocol video. Here's why I'm
+          building this... [link to this document or short description].
+        </p>
+
+        <div class="callout callout-teal" style="margin-top: 32px">
+          <div class="callout-label">The mindset</div>
+          <p>
+            You're not trying to build the next Datadog. You're trying to get 50
+            developers to pay $19/month. That requires shipping the smallest
+            possible useful thing, then talking to users. The product is viable.
+            The path is clear. The only question is whether you have the
+            discipline to ship the small version and the patience to build trust
+            in public before anyone knows who you are.
+          </p>
+        </div>
+
+        <hr />
+
+        <p
+          style="
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-align: center;
+            margin-top: 32px;
+          "
+        >
+          API Canary Product Playbook · Generated as a permanent reference
+          document<br />
+          Bookmark this file. Update it as you learn. Revisit before every major
+          decision.
+        </p>
+      </main>
+    </div>
+  </body>
+</html>
