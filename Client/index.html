@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RecurBase — USDC Subscription Billing on Base</title>
+    <title>RecurBase — Crypto-Native Subscription Billing on Base</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap"
@@ -21,7 +21,6 @@
         margin: 0;
         padding: 0;
       }
-
       :root {
         --bg: #06080b;
         --s1: #0c1018;
@@ -30,7 +29,6 @@
         --border-mid: rgba(255, 255, 255, 0.12);
         --green: #00d68f;
         --green-dim: rgba(0, 214, 143, 0.08);
-        --green-glow: rgba(0, 214, 143, 0.15);
         --text: #f0f4ff;
         --muted: #7a8499;
         --hint: #3d4557;
@@ -38,7 +36,6 @@
         --sans: "Geist", sans-serif;
         --mono: "Geist Mono", monospace;
       }
-
       html {
         scroll-behavior: smooth;
       }
@@ -46,11 +43,10 @@
         font-family: var(--sans);
         background: var(--bg);
         color: var(--text);
-        min-height: 100vh;
         overflow-x: hidden;
       }
 
-      /* ── NAV ── */
+      /* NAV */
       nav {
         position: fixed;
         top: 0;
@@ -67,12 +63,10 @@
         border-bottom: 1px solid var(--border);
       }
       .nav-logo {
-        font-family: var(--sans);
         font-size: 17px;
         font-weight: 600;
         letter-spacing: -0.3px;
         cursor: pointer;
-        color: var(--text);
       }
       .nav-logo span {
         color: var(--green);
@@ -94,13 +88,12 @@
         border: none;
         background: none;
         font-family: var(--sans);
+        text-decoration: none;
       }
-      .nav-link:hover {
-        color: var(--text);
-        background: rgba(255, 255, 255, 0.05);
-      }
+      .nav-link:hover,
       .nav-link.active {
         color: var(--text);
+        background: rgba(255, 255, 255, 0.05);
       }
       .nav-cta {
         font-size: 13px;
@@ -112,33 +105,19 @@
         border-radius: 6px;
         border: none;
         cursor: pointer;
-        transition:
-          opacity 0.15s,
-          transform 0.15s;
+        text-decoration: none;
+        transition: opacity 0.15s;
       }
       .nav-cta:hover {
         opacity: 0.88;
-        transform: translateY(-1px);
       }
-
-      /* ── PAGES ── */
-      .page {
-        display: none;
-        padding-top: 60px;
-        min-height: 100vh;
-      }
-      .page.active {
-        display: block;
-      }
-
-      /* ── SHARED ── */
       .container {
         max-width: 1080px;
         margin: 0 auto;
         padding: 0 48px;
       }
       .section {
-        padding: 96px 0;
+        padding: 100px 0;
       }
       .eyebrow {
         font-family: var(--mono);
@@ -168,17 +147,18 @@
         font-size: 16px;
         color: var(--muted);
         line-height: 1.75;
-        max-width: 500px;
+        max-width: 520px;
         margin-bottom: 60px;
       }
 
-      /* ── HOME: HERO ── */
+      /* ── HERO ── */
       .hero {
-        min-height: calc(100vh - 60px);
+        min-height: 100vh;
         display: flex;
         align-items: center;
         position: relative;
         overflow: hidden;
+        padding-top: 60px;
       }
       .hero-glow {
         position: absolute;
@@ -260,7 +240,7 @@
         font-size: 18px;
         color: var(--muted);
         line-height: 1.7;
-        max-width: 520px;
+        max-width: 540px;
         margin-bottom: 40px;
       }
       .hero-actions {
@@ -308,11 +288,9 @@
         border-color: rgba(255, 255, 255, 0.25);
         color: var(--text);
       }
-
-      /* HERO STATS */
       .hero-stats {
         display: flex;
-        gap: 40px;
+        gap: 48px;
         padding-top: 40px;
         border-top: 1px solid var(--border);
       }
@@ -320,7 +298,6 @@
         font-family: var(--mono);
         font-size: 22px;
         font-weight: 500;
-        color: var(--text);
       }
       .hero-stat-label {
         font-size: 12px;
@@ -328,9 +305,9 @@
         margin-top: 3px;
       }
 
-      /* HERO DASHBOARD PREVIEW */
+      /* HERO PREVIEW */
       .hero-preview {
-        margin-top: 80px;
+        margin-top: 72px;
         background: var(--s1);
         border: 1px solid var(--border);
         border-radius: 14px;
@@ -378,8 +355,8 @@
       }
       .preview-body {
         display: grid;
-        grid-template-columns: 160px 1fr;
-        min-height: 320px;
+        grid-template-columns: 150px 1fr;
+        min-height: 300px;
       }
       .preview-sidebar {
         background: var(--s2);
@@ -390,8 +367,8 @@
         display: flex;
         align-items: center;
         gap: 7px;
-        padding: 7px 14px;
-        font-size: 11px;
+        padding: 7px 12px;
+        font-size: 10px;
         color: var(--hint);
       }
       .p-nav.act {
@@ -400,13 +377,13 @@
         border-left: 2px solid var(--green);
       }
       .p-nav i {
-        font-size: 13px;
+        font-size: 12px;
       }
       .preview-main {
         padding: 16px;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 10px;
       }
       .p-metrics {
         display: grid;
@@ -416,20 +393,21 @@
       .p-metric {
         background: var(--s2);
         border-radius: 6px;
-        padding: 10px 12px;
+        padding: 10px;
       }
       .p-metric-label {
-        font-size: 9px;
+        font-size: 8px;
         color: var(--hint);
-        margin-bottom: 4px;
+        margin-bottom: 3px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
       .p-metric-val {
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 500;
-        color: var(--text);
       }
       .p-metric-sub {
-        font-size: 9px;
+        font-size: 8px;
         color: var(--green);
         margin-top: 2px;
       }
@@ -441,20 +419,22 @@
       .p-card {
         background: var(--s2);
         border: 1px solid var(--border);
-        border-radius: 8px;
+        border-radius: 6px;
         padding: 10px;
       }
       .p-card-title {
-        font-size: 9px;
+        font-size: 8px;
         color: var(--muted);
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
       .p-row {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 4px 0;
+        padding: 3px 0;
         border-bottom: 1px solid var(--border);
         font-size: 10px;
       }
@@ -464,16 +444,50 @@
       .p-row-label {
         color: var(--muted);
       }
-      .p-row-val {
-        color: var(--text);
-      }
       .p-row-green {
         color: var(--green);
       }
 
-      /* ── FEATURES PAGE ── */
-      .features-hero {
-        padding: 80px 0 60px;
+      /* ── HOW IT WORKS ── */
+      .how-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .how-card {
+        background: var(--bg);
+        padding: 36px 28px;
+        transition: background 0.2s;
+      }
+      .how-card:hover {
+        background: var(--s1);
+      }
+      .how-num {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--green);
+        margin-bottom: 14px;
+      }
+      .how-title {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        letter-spacing: -0.2px;
+      }
+      .how-desc {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      /* ── FEATURES ── */
+      .feat-section {
+        background: var(--s1);
+        border-top: 1px solid var(--border);
         border-bottom: 1px solid var(--border);
       }
       .features-grid {
@@ -484,15 +498,14 @@
         border: 1px solid var(--border);
         border-radius: 12px;
         overflow: hidden;
-        margin-top: 60px;
       }
       .feat-card {
-        background: var(--bg);
+        background: var(--s1);
         padding: 36px 32px;
         transition: background 0.2s;
       }
       .feat-card:hover {
-        background: var(--s1);
+        background: var(--s2);
       }
       .feat-icon {
         width: 42px;
@@ -517,9 +530,9 @@
         font-size: 13px;
         color: var(--muted);
         line-height: 1.7;
+        margin-bottom: 14px;
       }
       .feat-list {
-        margin-top: 12px;
         display: flex;
         flex-direction: column;
         gap: 5px;
@@ -540,20 +553,14 @@
         flex-shrink: 0;
       }
 
-      /* STACK */
-      .stack-section {
-        background: var(--s1);
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-      }
+      /* ── STACK ── */
       .stack-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 12px;
-        margin-top: 0;
       }
       .stack-card {
-        background: var(--bg);
+        background: var(--s1);
         border: 1px solid var(--border);
         border-radius: 10px;
         padding: 20px 16px;
@@ -577,7 +584,6 @@
       .stack-name {
         font-size: 13px;
         font-weight: 500;
-        color: var(--text);
         line-height: 1.4;
       }
       .stack-sub {
@@ -586,191 +592,7 @@
         margin-top: 3px;
       }
 
-      /* ── PRICING PAGE ── */
-      .pricing-hero {
-        padding: 80px 0 60px;
-      }
-      .pricing-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-        margin-top: 60px;
-      }
-      .price-card {
-        background: var(--s1);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 32px;
-        position: relative;
-        transition:
-          border-color 0.2s,
-          transform 0.2s;
-      }
-      .price-card:hover {
-        transform: translateY(-3px);
-      }
-      .price-card.featured {
-        border-color: rgba(0, 214, 143, 0.35);
-        background: var(--s2);
-      }
-      .price-card.featured::before {
-        content: "Most popular";
-        position: absolute;
-        top: -12px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-family: var(--mono);
-        font-size: 10px;
-        background: var(--green);
-        color: #06080b;
-        padding: 3px 12px;
-        border-radius: 100px;
-        white-space: nowrap;
-        font-weight: 500;
-      }
-      .price-name {
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--muted);
-        margin-bottom: 12px;
-      }
-      .price-amount {
-        font-family: var(--serif);
-        font-size: 48px;
-        line-height: 1;
-        margin-bottom: 4px;
-      }
-      .price-period {
-        font-size: 13px;
-        color: var(--hint);
-        margin-bottom: 24px;
-      }
-      .price-desc {
-        font-size: 13px;
-        color: var(--muted);
-        margin-bottom: 24px;
-        line-height: 1.6;
-      }
-      .price-divider {
-        height: 1px;
-        background: var(--border);
-        margin-bottom: 24px;
-      }
-      .price-feature {
-        display: flex;
-        align-items: start;
-        gap: 10px;
-        margin-bottom: 12px;
-        font-size: 13px;
-        color: var(--muted);
-      }
-      .price-feature i {
-        font-size: 15px;
-        color: var(--green);
-        margin-top: 1px;
-        flex-shrink: 0;
-      }
-      .price-btn {
-        width: 100%;
-        margin-top: 28px;
-        padding: 12px;
-        border-radius: 7px;
-        font-family: var(--sans);
-        font-size: 13px;
-        font-weight: 500;
-        cursor: pointer;
-        border: 1px solid var(--border-mid);
-        background: none;
-        color: var(--text);
-        transition: all 0.15s;
-      }
-      .price-btn:hover {
-        background: rgba(255, 255, 255, 0.06);
-      }
-      .price-btn.featured-btn {
-        background: var(--green);
-        color: #06080b;
-        border-color: transparent;
-      }
-      .price-btn.featured-btn:hover {
-        opacity: 0.88;
-      }
-
-      /* MILESTONE TABLE */
-      .milestone-section {
-        background: var(--s1);
-        border-top: 1px solid var(--border);
-      }
-      .ms-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 48px;
-      }
-      .ms-table th {
-        font-family: var(--mono);
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--hint);
-        padding: 0 16px 14px;
-        text-align: left;
-        border-bottom: 1px solid var(--border);
-      }
-      .ms-table td {
-        padding: 16px;
-        font-size: 13px;
-        border-bottom: 1px solid var(--border);
-        vertical-align: top;
-      }
-      .ms-table tr:last-child td {
-        border-bottom: none;
-      }
-      .ms-table tr:hover td {
-        background: rgba(255, 255, 255, 0.02);
-      }
-      .ms-num {
-        font-family: var(--mono);
-        font-size: 11px;
-        color: var(--green);
-      }
-      .ms-title {
-        font-weight: 500;
-        color: var(--text);
-        margin-bottom: 4px;
-      }
-      .ms-dur {
-        color: var(--muted);
-        font-size: 12px;
-      }
-      .ms-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
-        margin-top: 6px;
-      }
-      .ms-tag {
-        font-size: 10px;
-        padding: 2px 8px;
-        background: var(--green-dim);
-        border: 1px solid rgba(0, 214, 143, 0.12);
-        border-radius: 4px;
-        color: var(--text);
-      }
-      .ms-cost {
-        font-family: var(--mono);
-        font-size: 15px;
-        font-weight: 500;
-        color: var(--green);
-      }
-      .total-row td {
-        background: var(--s2);
-        font-weight: 500;
-      }
-
-      /* ── DASHBOARD PAGE ── */
-      .demo-section {
-        padding: 60px 0;
-      }
+      /* ── DASHBOARD DEMO ── */
       .demo-label {
         text-align: center;
         font-family: var(--mono);
@@ -790,8 +612,6 @@
         height: 1px;
         background: var(--border);
       }
-
-      /* DASHBOARD MOCK */
       .dash-wrap {
         background: var(--s1);
         border: 1px solid var(--border);
@@ -840,20 +660,18 @@
       }
       .dash-body {
         display: grid;
-        grid-template-columns: 220px 1fr;
+        grid-template-columns: 210px 1fr;
       }
       .dash-sidebar {
         background: rgba(0, 0, 0, 0.25);
         border-right: 1px solid var(--border);
         padding: 16px 0;
-        min-height: 520px;
+        min-height: 500px;
       }
       .d-logo {
-        padding: 0 18px 16px;
+        padding: 0 16px 14px;
         border-bottom: 1px solid var(--border);
         margin-bottom: 8px;
-      }
-      .d-logo-text {
         font-size: 14px;
         font-weight: 500;
       }
@@ -871,36 +689,31 @@
         text-transform: uppercase;
         letter-spacing: 0.1em;
         color: var(--hint);
-        padding: 10px 18px 4px;
+        padding: 10px 16px 4px;
       }
       .d-nav {
         display: flex;
         align-items: center;
         gap: 8px;
-        padding: 8px 18px;
+        padding: 8px 16px;
         font-size: 12px;
         color: var(--muted);
-        cursor: pointer;
+        cursor: default;
         border-left: 2px solid transparent;
-        transition: all 0.15s;
-      }
-      .d-nav:hover {
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--text);
       }
       .d-nav.act {
         color: var(--text);
         background: rgba(255, 255, 255, 0.05);
-        border-left: 2px solid var(--green);
+        border-left-color: var(--green);
       }
       .d-nav i {
         font-size: 15px;
       }
       .dash-main {
-        padding: 24px;
+        padding: 20px;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 16px;
       }
       .d-topbar {
         display: flex;
@@ -908,7 +721,7 @@
         justify-content: space-between;
       }
       .d-title {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 500;
       }
       .d-right {
@@ -933,7 +746,6 @@
         color: var(--text);
         padding: 7px 14px;
         border-radius: 6px;
-        cursor: pointer;
         font-family: var(--sans);
         display: flex;
         align-items: center;
@@ -942,7 +754,7 @@
       .d-metrics {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
+        gap: 10px;
       }
       .d-metric {
         background: var(--s2);
@@ -952,7 +764,7 @@
       .d-metric-label {
         font-size: 11px;
         color: var(--muted);
-        margin-bottom: 6px;
+        margin-bottom: 5px;
       }
       .d-metric-val {
         font-size: 20px;
@@ -961,7 +773,7 @@
       .d-metric-sub {
         font-size: 10px;
         color: var(--green);
-        margin-top: 4px;
+        margin-top: 3px;
         display: flex;
         align-items: center;
         gap: 3px;
@@ -972,19 +784,19 @@
       .d-row2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        gap: 14px;
       }
       .d-card {
         background: var(--s2);
         border: 1px solid var(--border);
         border-radius: 10px;
-        padding: 16px;
+        padding: 14px;
       }
       .d-card-head {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
       }
       .d-card-title {
         font-size: 12px;
@@ -993,13 +805,12 @@
       .d-card-action {
         font-size: 11px;
         color: var(--muted);
-        cursor: pointer;
       }
       .d-plan {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 9px 0;
+        padding: 8px 0;
         border-bottom: 1px solid var(--border);
       }
       .d-plan:last-of-type {
@@ -1009,7 +820,7 @@
         font-size: 12px;
       }
       .d-plan-price {
-        font-size: 11px;
+        font-size: 10px;
         color: var(--muted);
       }
       .d-plan-badge {
@@ -1023,7 +834,7 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        margin-bottom: 7px;
+        margin-bottom: 6px;
       }
       .d-bar-label {
         font-size: 10px;
@@ -1054,29 +865,28 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 8px 0;
+        padding: 7px 0;
         border-bottom: 1px solid var(--border);
       }
       .d-tx:last-child {
         border-bottom: none;
       }
       .d-tx-av {
-        width: 28px;
-        height: 28px;
+        width: 26px;
+        height: 26px;
         border-radius: 50%;
         background: rgba(0, 214, 143, 0.12);
         color: var(--green);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 500;
         flex-shrink: 0;
       }
       .d-tx-addr {
         font-family: var(--mono);
         font-size: 11px;
-        color: var(--text);
       }
       .d-tx-plan {
         font-size: 10px;
@@ -1096,7 +906,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 7px 0;
+        padding: 6px 0;
         border-bottom: 1px solid var(--border);
       }
       .d-status:last-child {
@@ -1120,10 +930,83 @@
         color: #f0a542;
       }
 
-      /* ── FOOTER ── */
+      /* ── USE CASES ── */
+      .use-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .use-card {
+        background: var(--s1);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 28px 24px;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .use-card:hover {
+        border-color: rgba(0, 214, 143, 0.25);
+        transform: translateY(-2px);
+      }
+      .use-icon {
+        font-size: 28px;
+        margin-bottom: 16px;
+        color: var(--green);
+      }
+      .use-title {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+      .use-desc {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      /* ── CTA ── */
+      .cta-section {
+        text-align: center;
+        padding: 100px 48px;
+        border-top: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(0, 214, 143, 0.06) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .cta-inner {
+        position: relative;
+        z-index: 1;
+      }
+      .cta-inner h2 {
+        font-family: var(--serif);
+        font-size: clamp(32px, 5vw, 52px);
+        letter-spacing: -1px;
+        margin-bottom: 18px;
+      }
+      .cta-inner p {
+        font-size: 16px;
+        color: var(--muted);
+        margin-bottom: 40px;
+      }
+
+      /* FOOTER */
       footer {
         border-top: 1px solid var(--border);
-        padding: 40px 48px;
+        padding: 32px 48px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -1144,6 +1027,7 @@
         color: var(--muted);
         cursor: pointer;
         transition: color 0.15s;
+        text-decoration: none;
       }
       .footer-link:hover {
         color: var(--text);
@@ -1153,35 +1037,17 @@
         color: var(--hint);
       }
 
-      /* ── ANIMATIONS ── */
+      /* FADE */
       .fade-up {
         opacity: 0;
         transform: translateY(20px);
-        animation: fadeUp 0.6s ease forwards;
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
       }
-      .fade-up:nth-child(1) {
-        animation-delay: 0.05s;
-      }
-      .fade-up:nth-child(2) {
-        animation-delay: 0.12s;
-      }
-      .fade-up:nth-child(3) {
-        animation-delay: 0.19s;
-      }
-      .fade-up:nth-child(4) {
-        animation-delay: 0.26s;
-      }
-      .fade-up:nth-child(5) {
-        animation-delay: 0.33s;
-      }
-      .fade-up:nth-child(6) {
-        animation-delay: 0.4s;
-      }
-      @keyframes fadeUp {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
       }
 
       /* RESPONSIVE */
@@ -1189,34 +1055,40 @@
         nav {
           padding: 0 20px;
         }
-        .nav-links {
-          display: none;
-        }
         .container {
           padding: 0 20px;
+        }
+        .nav-links {
+          display: none;
         }
         .hero h1 {
           font-size: 40px;
         }
+        .how-grid,
         .features-grid,
-        .pricing-grid,
         .d-metrics,
-        .d-row2,
-        .d-metrics {
+        .d-row2 {
           grid-template-columns: 1fr;
         }
-        .stack-grid {
-          grid-template-columns: repeat(3, 1fr);
+        .stack-grid,
+        .use-grid {
+          grid-template-columns: repeat(2, 1fr);
         }
+        .preview-body,
         .dash-body {
           grid-template-columns: 1fr;
         }
+        .preview-sidebar,
         .dash-sidebar {
           display: none;
         }
+        .hero-stats {
+          flex-wrap: wrap;
+          gap: 24px;
+        }
         footer {
           flex-direction: column;
-          gap: 16px;
+          gap: 12px;
           text-align: center;
         }
       }
@@ -1225,284 +1097,202 @@
   <body>
     <!-- NAV -->
     <nav>
-      <div class="nav-logo" onclick="showPage('home')">
-        Recur<span>Base</span>
-      </div>
+      <div class="nav-logo">Recur<span>Base</span></div>
       <div class="nav-links">
-        <button class="nav-link active" onclick="showPage('home')">Home</button>
-        <button class="nav-link" onclick="showPage('features')">
-          Features
-        </button>
-        <button class="nav-link" onclick="showPage('pricing')">Pricing</button>
-        <button class="nav-link" onclick="showPage('dashboard')">
-          Live Demo
-        </button>
+        <a class="nav-link" href="#hero">Home</a>
+        <a class="nav-link" href="#features">Features</a>
+        <a class="nav-link" href="#stack">Stack</a>
+        <a class="nav-link" href="#demo">Dashboard</a>
+        <a class="nav-link" href="#usecases">Use Cases</a>
       </div>
-      <button class="nav-cta" onclick="showPage('pricing')">
-        Get Started →
-      </button>
+      <a class="nav-cta" href="#contact">Contact Us →</a>
     </nav>
 
-    <!-- ════════════════════════════ HOME ════════════════════════════ -->
-    <div id="page-home" class="page active">
-      <section class="hero">
-        <div class="hero-glow"></div>
-        <div class="hero-grid"></div>
-        <div class="container hero-inner">
-          <div class="hero-tag">
-            <div class="hero-tag-dot"></div>
-            Live on Base Mainnet
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-grid"></div>
+      <div class="container hero-inner">
+        <div class="hero-tag">
+          <div class="hero-tag-dot"></div>
+          Built on Base · Powered by USDC
+        </div>
+        <h1>Recurring billing<br />for the <em>on-chain</em> era</h1>
+        <p class="hero-sub">
+          RecurBase lets merchants accept automated, recurring USDC subscription
+          payments on Base — with the simplicity of Stripe and the transparency
+          of the blockchain.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#demo">See the Dashboard →</a>
+          <a class="btn-ghost" href="#features">Explore Features</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-val">$0</div>
+            <div class="hero-stat-label">Card network fees</div>
           </div>
-          <h1>Stripe Billing,<br />rebuilt on <em>Base</em></h1>
-          <p class="hero-sub">
-            Automated recurring USDC payments for SaaS, creator tools, and Web3
-            products. Non-custodial, on-chain, and merchant-friendly.
-          </p>
-
-          <div class="hero-actions">
-            <button class="btn-primary" onclick="showPage('dashboard')">
-              See Live Demo →
-            </button>
-            <button class="btn-ghost" onclick="showPage('pricing')">
-              View Pricing
-            </button>
+          <div>
+            <div class="hero-stat-val">~2s</div>
+            <div class="hero-stat-label">Settlement on Base</div>
           </div>
-
-          <div class="hero-stats">
-            <div>
-              <div class="hero-stat-val">$0</div>
-              <div class="hero-stat-label">Card network fees</div>
-            </div>
-            <div>
-              <div class="hero-stat-val">~2s</div>
-              <div class="hero-stat-label">Settlement on Base</div>
-            </div>
-            <div>
-              <div class="hero-stat-val">98.4%</div>
-              <div class="hero-stat-label">Payment recovery</div>
-            </div>
-            <div>
-              <div class="hero-stat-val">USDC</div>
-              <div class="hero-stat-label">Stablecoin native</div>
-            </div>
+          <div>
+            <div class="hero-stat-val">98.4%</div>
+            <div class="hero-stat-label">Payment recovery</div>
           </div>
+          <div>
+            <div class="hero-stat-val">USDC</div>
+            <div class="hero-stat-label">Stablecoin native</div>
+          </div>
+        </div>
 
-          <!-- MINI DASHBOARD PREVIEW -->
-          <div class="hero-preview" style="margin-top: 64px">
-            <div class="preview-bar">
-              <div class="preview-dot" style="background: #ff5f57"></div>
-              <div class="preview-dot" style="background: #febc2e"></div>
-              <div class="preview-dot" style="background: #28c840"></div>
-              <div class="preview-url">app.recurbase.xyz/dashboard</div>
+        <!-- MINI DASHBOARD -->
+        <div class="hero-preview">
+          <div class="preview-bar">
+            <div class="preview-dot" style="background: #ff5f57"></div>
+            <div class="preview-dot" style="background: #febc2e"></div>
+            <div class="preview-dot" style="background: #28c840"></div>
+            <div class="preview-url">app.recurbase.xyz/dashboard</div>
+          </div>
+          <div class="preview-body">
+            <div class="preview-sidebar">
+              <div class="p-nav act">
+                <i class="ti ti-layout-dashboard"></i> Dashboard
+              </div>
+              <div class="p-nav">
+                <i class="ti ti-repeat"></i> Subscriptions
+              </div>
+              <div class="p-nav"><i class="ti ti-file-invoice"></i> Plans</div>
+              <div class="p-nav"><i class="ti ti-wallet"></i> Payouts</div>
+              <div class="p-nav"><i class="ti ti-users"></i> Customers</div>
+              <div class="p-nav">
+                <i class="ti ti-alert-circle"></i> Recovery
+              </div>
             </div>
-            <div class="preview-body">
-              <div class="preview-sidebar">
-                <div
-                  class="p-nav act"
-                  style="
-                    padding: 8px 14px;
-                    font-size: 11px;
-                    border-left: 2px solid #00d68f;
-                  "
-                >
-                  <i class="ti ti-layout-dashboard" style="font-size: 12px"></i>
-                  Dashboard
+            <div class="preview-main">
+              <div class="p-metrics">
+                <div class="p-metric">
+                  <div class="p-metric-label">MRR</div>
+                  <div class="p-metric-val">$48,220</div>
+                  <div class="p-metric-sub">+12.4%</div>
                 </div>
-                <div class="p-nav">
-                  <i class="ti ti-repeat" style="font-size: 12px"></i>
-                  Subscriptions
+                <div class="p-metric">
+                  <div class="p-metric-label">Subscribers</div>
+                  <div class="p-metric-val">347</div>
+                  <div class="p-metric-sub">+23 this week</div>
                 </div>
-                <div class="p-nav">
-                  <i class="ti ti-file-invoice" style="font-size: 12px"></i>
-                  Plans
-                </div>
-                <div class="p-nav">
-                  <i class="ti ti-wallet" style="font-size: 12px"></i> Payouts
-                </div>
-                <div class="p-nav">
-                  <i class="ti ti-users" style="font-size: 12px"></i> Customers
-                </div>
-                <div class="p-nav">
-                  <i class="ti ti-alert-circle" style="font-size: 12px"></i>
-                  Recovery
+                <div class="p-metric">
+                  <div class="p-metric-label">Recovery</div>
+                  <div class="p-metric-val">98.4%</div>
+                  <div class="p-metric-sub">3 pending</div>
                 </div>
               </div>
-              <div class="preview-main">
-                <div class="p-metrics">
-                  <div class="p-metric">
-                    <div class="p-metric-label">MRR (USDC)</div>
-                    <div class="p-metric-val">$48,220</div>
-                    <div class="p-metric-sub">↑ 12.4%</div>
+              <div class="p-cards">
+                <div class="p-card">
+                  <div class="p-card-title">Plans</div>
+                  <div class="p-row">
+                    <span class="p-row-label">Starter $29</span
+                    ><span class="p-row-green">184 subs</span>
                   </div>
-                  <div class="p-metric">
-                    <div class="p-metric-label">Subscribers</div>
-                    <div class="p-metric-val">347</div>
-                    <div class="p-metric-sub">↑ +23</div>
+                  <div class="p-row">
+                    <span class="p-row-label">Pro $99</span
+                    ><span class="p-row-green">121 subs</span>
                   </div>
-                  <div class="p-metric">
-                    <div class="p-metric-label">Recovery</div>
-                    <div class="p-metric-val">98.4%</div>
-                    <div class="p-metric-sub">3 pending</div>
+                  <div class="p-row">
+                    <span class="p-row-label">Enterprise $299</span
+                    ><span class="p-row-green">42 subs</span>
                   </div>
                 </div>
-                <div class="p-cards">
-                  <div class="p-card">
-                    <div class="p-card-title">Plans</div>
-                    <div class="p-row">
-                      <span class="p-row-label">Starter $29</span
-                      ><span class="p-row-green">184 subs</span>
-                    </div>
-                    <div class="p-row">
-                      <span class="p-row-label">Pro $99</span
-                      ><span class="p-row-green">121 subs</span>
-                    </div>
-                    <div class="p-row">
-                      <span class="p-row-label">Enterprise $299</span
-                      ><span class="p-row-green">42 subs</span>
-                    </div>
+                <div class="p-card">
+                  <div class="p-card-title">Transactions</div>
+                  <div class="p-row">
+                    <span class="p-row-label">0x3f8a…c2d1</span
+                    ><span class="p-row-green">+$99</span>
                   </div>
-                  <div class="p-card">
-                    <div class="p-card-title">Recent Transactions</div>
-                    <div class="p-row">
-                      <span class="p-row-label">0x3f8a…c2d1</span
-                      ><span class="p-row-green">+$99</span>
-                    </div>
-                    <div class="p-row">
-                      <span class="p-row-label">0x9b1e…44fa</span
-                      ><span class="p-row-green">+$299</span>
-                    </div>
-                    <div class="p-row">
-                      <span class="p-row-label">0x7d2c…81bc</span
-                      ><span class="p-row-green">+$29</span>
-                    </div>
+                  <div class="p-row">
+                    <span class="p-row-label">0x9b1e…44fa</span
+                    ><span class="p-row-green">+$299</span>
+                  </div>
+                  <div class="p-row">
+                    <span class="p-row-label">0x7d2c…81bc</span
+                    ><span class="p-row-green">+$29</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- HOW IT WORKS -->
-      <section class="section" style="border-top: 1px solid var(--border)">
-        <div class="container">
-          <div class="eyebrow">How it works</div>
-          <h2 class="section-title">
-            From plan creation<br />to on-chain settlement
-          </h2>
-          <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(4, 1fr);
-              gap: 1px;
-              background: var(--border);
-              border: 1px solid var(--border);
-              border-radius: 12px;
-              overflow: hidden;
-              margin-top: 48px;
-            "
-          >
-            <div class="feat-card fade-up" style="border-right: none">
-              <div
-                style="
-                  font-family: var(--mono);
-                  font-size: 11px;
-                  color: var(--green);
-                  margin-bottom: 12px;
-                "
-              >
-                01
-              </div>
-              <div class="feat-title">Create a plan</div>
-              <div class="feat-desc">
-                Define billing cycles, amounts, and trial periods from the
-                merchant dashboard. A smart contract deploys automatically.
-              </div>
-            </div>
-            <div class="feat-card fade-up">
-              <div
-                style="
-                  font-family: var(--mono);
-                  font-size: 11px;
-                  color: var(--green);
-                  margin-bottom: 12px;
-                "
-              >
-                02
-              </div>
-              <div class="feat-title">User subscribes</div>
-              <div class="feat-desc">
-                Subscribers connect via Privy embedded wallets — no MetaMask
-                required. One-click authorization to the contract.
-              </div>
-            </div>
-            <div class="feat-card fade-up">
-              <div
-                style="
-                  font-family: var(--mono);
-                  font-size: 11px;
-                  color: var(--green);
-                  margin-bottom: 12px;
-                "
-              >
-                03
-              </div>
-              <div class="feat-title">Billing runs</div>
-              <div class="feat-desc">
-                USDC is pulled automatically on each billing date. Failed
-                payments are retried with configurable grace periods.
-              </div>
-            </div>
-            <div class="feat-card fade-up">
-              <div
-                style="
-                  font-family: var(--mono);
-                  font-size: 11px;
-                  color: var(--green);
-                  margin-bottom: 12px;
-                "
-              >
-                04
-              </div>
-              <div class="feat-title">Merchant paid</div>
-              <div class="feat-desc">
-                Funds flow directly to your wallet. Track payouts, revenue, and
-                subscriber health in real time.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- ════════════════════════════ FEATURES ════════════════════════════ -->
-    <div id="page-features" class="page">
-      <section class="features-hero">
-        <div class="container">
-          <div class="eyebrow">Platform features</div>
-          <h1 class="section-title">
-            Everything you need<br />to run crypto billing
-          </h1>
-          <p class="section-sub">
-            Six core modules that cover the full subscription lifecycle — from
-            merchant onboarding to automated payouts.
-          </p>
-        </div>
-      </section>
-
+    <!-- ═══ HOW IT WORKS ═══ -->
+    <section class="section" style="border-top: 1px solid var(--border)">
       <div class="container">
+        <div class="eyebrow">How it works</div>
+        <h2 class="section-title">Four steps. Zero card networks.</h2>
+        <p class="section-sub">
+          From plan creation to merchant payout — fully automated, fully
+          on-chain.
+        </p>
+        <div class="how-grid">
+          <div class="how-card fade-up">
+            <div class="how-num">01</div>
+            <div class="how-title">Create a plan</div>
+            <div class="how-desc">
+              Define billing amount, cycle, and trial period. A dedicated smart
+              contract deploys automatically on Base.
+            </div>
+          </div>
+          <div class="how-card fade-up">
+            <div class="how-num">02</div>
+            <div class="how-title">User subscribes</div>
+            <div class="how-desc">
+              Subscribers connect via Privy embedded wallets — no MetaMask
+              needed. One-click authorization to the billing contract.
+            </div>
+          </div>
+          <div class="how-card fade-up">
+            <div class="how-num">03</div>
+            <div class="how-title">Billing runs</div>
+            <div class="how-desc">
+              USDC is pulled automatically each billing date. Failed payments
+              are retried with smart grace periods.
+            </div>
+          </div>
+          <div class="how-card fade-up">
+            <div class="how-num">04</div>
+            <div class="how-title">Merchant gets paid</div>
+            <div class="how-desc">
+              Funds flow directly to your wallet. Track revenue, payouts, and
+              subscriber health in real time.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FEATURES ═══ -->
+    <section class="section feat-section" id="features">
+      <div class="container">
+        <div class="eyebrow">Core modules</div>
+        <h2 class="section-title">
+          Everything to run<br />crypto subscriptions
+        </h2>
+        <p class="section-sub">
+          Six purpose-built modules covering the complete subscription
+          lifecycle.
+        </p>
         <div class="features-grid">
           <div class="feat-card fade-up">
             <div class="feat-icon"><i class="ti ti-layout-dashboard"></i></div>
             <div class="feat-title">Merchant Dashboard</div>
             <div class="feat-desc">
-              A complete merchant control center for managing plans,
-              subscribers, billing status, and revenue analytics.
+              Manage plans, view subscribers, track billing status, and monitor
+              revenue analytics.
             </div>
             <div class="feat-list">
-              <div class="feat-list-item">Create & edit subscription plans</div>
-              <div class="feat-list-item">Subscriber management</div>
-              <div class="feat-list-item">Revenue analytics & charts</div>
+              <div class="feat-list-item">Create & edit plans</div>
+              <div class="feat-list-item">Revenue analytics</div>
               <div class="feat-list-item">Payout tracking</div>
             </div>
           </div>
@@ -1510,54 +1300,50 @@
             <div class="feat-icon"><i class="ti ti-file-code"></i></div>
             <div class="feat-title">Smart Contract Engine</div>
             <div class="feat-desc">
-              Auto-deploy a dedicated Solidity contract per plan. Handles USDC
-              billing cycles, renewals, and cancellations on Base.
+              Auto-deploy a Solidity contract per plan. Handles USDC billing,
+              renewals, and cancellations on Base.
             </div>
             <div class="feat-list">
               <div class="feat-list-item">One contract per plan</div>
               <div class="feat-list-item">Automated billing cycles</div>
-              <div class="feat-list-item">Upgrade & cancellation support</div>
-              <div class="feat-list-item">Contract testing & audit prep</div>
+              <div class="feat-list-item">Upgrade & cancel support</div>
             </div>
           </div>
           <div class="feat-card fade-up">
             <div class="feat-icon"><i class="ti ti-wallet"></i></div>
-            <div class="feat-title">Privy Embedded Wallets</div>
+            <div class="feat-title">Embedded Wallets</div>
             <div class="feat-desc">
-              Zero-friction subscriber onboarding. Users get embedded wallets
-              without installing anything — just sign in and subscribe.
+              Privy-powered onboarding. Users sign in with email or social — no
+              extensions, no seed phrases.
             </div>
             <div class="feat-list">
               <div class="feat-list-item">Email / social login</div>
-              <div class="feat-list-item">No browser extension needed</div>
+              <div class="feat-list-item">No browser extension</div>
               <div class="feat-list-item">One-click authorization</div>
-              <div class="feat-list-item">Secure session handling</div>
             </div>
           </div>
           <div class="feat-card fade-up">
             <div class="feat-icon"><i class="ti ti-refresh"></i></div>
             <div class="feat-title">Payment Recovery</div>
             <div class="feat-desc">
-              Automated retry workflows with configurable grace periods.
-              Intelligent recovery keeps churn low and MRR stable.
+              Automated retry with configurable grace periods. Keeps churn low
+              and MRR stable.
             </div>
             <div class="feat-list">
-              <div class="feat-list-item">Configurable retry schedules</div>
+              <div class="feat-list-item">Smart retry schedules</div>
               <div class="feat-list-item">Grace period management</div>
               <div class="feat-list-item">Subscriber notifications</div>
-              <div class="feat-list-item">State machine per subscription</div>
             </div>
           </div>
           <div class="feat-card fade-up">
             <div class="feat-icon"><i class="ti ti-building-bank"></i></div>
             <div class="feat-title">Merchant Payouts</div>
             <div class="feat-desc">
-              Automated USDC payout processing direct to merchant wallets, with
-              full transaction logs and payout history.
+              Automated USDC payouts direct to merchant wallets with full
+              transaction logs.
             </div>
             <div class="feat-list">
-              <div class="feat-list-item">Automated payout schedules</div>
-              <div class="feat-list-item">Transaction logs</div>
+              <div class="feat-list-item">Automated schedules</div>
               <div class="feat-list-item">On-chain audit trail</div>
               <div class="feat-list-item">Multi-wallet support</div>
             </div>
@@ -1566,616 +1352,305 @@
             <div class="feat-icon"><i class="ti ti-radar"></i></div>
             <div class="feat-title">Monitoring & Admin</div>
             <div class="feat-desc">
-              Platform-level visibility — event logs, webhook delivery, error
-              tracking, and audit trails for full operational control.
+              Event logs, webhook delivery, error tracking, and audit trails for
+              full operational control.
             </div>
             <div class="feat-list">
               <div class="feat-list-item">Real-time event logs</div>
               <div class="feat-list-item">Webhook management</div>
-              <div class="feat-list-item">Error alerts</div>
-              <div class="feat-list-item">Admin controls</div>
+              <div class="feat-list-item">Error alerts & admin</div>
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- TECH STACK -->
-      <section class="section stack-section" style="margin-top: 80px">
-        <div class="container">
-          <div class="eyebrow">Technical stack</div>
-          <h2 class="section-title" style="margin-bottom: 48px">
-            Built for scale<br />from day one
-          </h2>
-          <div class="stack-grid">
-            <div class="stack-card">
-              <div class="stack-layer">Frontend</div>
-              <div class="stack-name">Next.js + React</div>
-              <div class="stack-sub">TailwindCSS</div>
-            </div>
-            <div class="stack-card">
-              <div class="stack-layer">Backend</div>
-              <div class="stack-name">Node.js + Express</div>
-              <div class="stack-sub">PostgreSQL</div>
-            </div>
-            <div class="stack-card">
-              <div class="stack-layer">Queue</div>
-              <div class="stack-name">Redis</div>
-              <div class="stack-sub">Webhooks & Events</div>
-            </div>
-            <div class="stack-card">
-              <div class="stack-layer">Blockchain</div>
-              <div class="stack-name">Solidity on Base</div>
-              <div class="stack-sub">USDC payments</div>
-            </div>
-            <div class="stack-card">
-              <div class="stack-layer">Wallets</div>
-              <div class="stack-name">Privy</div>
-              <div class="stack-sub">Embedded wallets</div>
-            </div>
+    <!-- ═══ STACK ═══ -->
+    <section class="section" id="stack">
+      <div class="container">
+        <div class="eyebrow">Technical architecture</div>
+        <h2 class="section-title" style="margin-bottom: 48px">
+          Built to scale from day one
+        </h2>
+        <div class="stack-grid">
+          <div class="stack-card fade-up">
+            <div class="stack-layer">Frontend</div>
+            <div class="stack-name">Next.js + React</div>
+            <div class="stack-sub">TailwindCSS</div>
+          </div>
+          <div class="stack-card fade-up">
+            <div class="stack-layer">Backend</div>
+            <div class="stack-name">Node.js + Express</div>
+            <div class="stack-sub">PostgreSQL</div>
+          </div>
+          <div class="stack-card fade-up">
+            <div class="stack-layer">Queue</div>
+            <div class="stack-name">Redis</div>
+            <div class="stack-sub">Webhooks & Events</div>
+          </div>
+          <div class="stack-card fade-up">
+            <div class="stack-layer">Blockchain</div>
+            <div class="stack-name">Solidity on Base</div>
+            <div class="stack-sub">USDC payments</div>
+          </div>
+          <div class="stack-card fade-up">
+            <div class="stack-layer">Wallets</div>
+            <div class="stack-name">Privy</div>
+            <div class="stack-sub">Embedded wallets</div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
 
-    <!-- ════════════════════════════ PRICING ════════════════════════════ -->
-    <div id="page-pricing" class="page">
-      <section class="pricing-hero">
-        <div class="container">
-          <div class="eyebrow">Project investment</div>
-          <h1 class="section-title">
-            Transparent pricing,<br />milestone by milestone
-          </h1>
-          <p class="section-sub">
-            Fixed cost per milestone. No hourly surprises. Payment on delivery
-            of each phase.
-          </p>
-
-          <div class="pricing-grid">
-            <div class="price-card fade-up">
-              <div class="price-name">Architecture & Planning</div>
-              <div class="price-amount">$600</div>
-              <div class="price-period">Milestone 1 · 4–6 days</div>
-              <div class="price-desc">
-                Full technical blueprint before a single line of production code
-                is written.
-              </div>
-              <div class="price-divider"></div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Requirement analysis
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>System architecture design
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Database schema
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Smart contract flow design
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Technical documentation
-              </div>
-              <button class="price-btn">Start here</button>
-            </div>
-
-            <div class="price-card featured fade-up">
-              <div class="price-name">Smart Contracts + Backend</div>
-              <div class="price-amount">$3,800</div>
-              <div class="price-period">Milestones 2 & 3 · 4–5 weeks</div>
-              <div class="price-desc">
-                The core engine — on-chain billing logic and the full backend
-                API that powers it.
-              </div>
-              <div class="price-divider"></div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Solidity subscription contracts
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>USDC payment handling
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Auto contract deployment
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Billing automation engine
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Retry & recovery workflows
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Event listeners & webhooks
-              </div>
-              <button class="price-btn featured-btn">Core phase</button>
-            </div>
-
-            <div class="price-card fade-up">
-              <div class="price-name">Frontend + Privy + Launch</div>
-              <div class="price-amount">$3,200</div>
-              <div class="price-period">Milestones 4–6 · 3–4 weeks</div>
-              <div class="price-desc">
-                Merchant dashboard, wallet integration, end-to-end testing, and
-                production deployment.
-              </div>
-              <div class="price-divider"></div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Merchant dashboard UI
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Analytics & reporting views
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Privy embedded wallets
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>User onboarding flows
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>E2E testing & bug fixes
-              </div>
-              <div class="price-feature">
-                <i class="ti ti-check"></i>Production deployment
-              </div>
-              <button class="price-btn">Final phase</button>
-            </div>
-          </div>
-
-          <!-- TOTAL -->
-          <div
-            style="
-              margin-top: 32px;
-              background: var(--s1);
-              border: 1px solid rgba(0, 214, 143, 0.2);
-              border-radius: 12px;
-              padding: 40px;
-              text-align: center;
-              position: relative;
-              overflow: hidden;
-            "
-          >
-            <div
-              style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 1px;
-                background: linear-gradient(
-                  90deg,
-                  transparent,
-                  var(--green),
-                  transparent
-                );
-              "
-            ></div>
-            <div
-              style="
-                font-family: var(--mono);
-                font-size: 11px;
-                color: var(--muted);
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                margin-bottom: 12px;
-              "
-            >
-              Total project estimate
-            </div>
-            <div
-              style="
-                font-family: var(--serif);
-                font-size: 72px;
-                line-height: 1;
-                color: var(--green);
-                letter-spacing: -2px;
-              "
-            >
-              $7,600
-            </div>
-            <div style="font-size: 14px; color: var(--muted); margin-top: 8px">
-              USD · Final pricing confirmed after spec review · 8–10 weeks
-              delivery
-            </div>
-          </div>
+    <!-- ═══ DASHBOARD DEMO ═══ -->
+    <section
+      class="section"
+      id="demo"
+      style="
+        background: var(--s1);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      "
+    >
+      <div class="container">
+        <div class="eyebrow" style="justify-content: center">
+          Product preview
         </div>
-      </section>
+        <h2 class="section-title" style="text-align: center">
+          The merchant dashboard
+        </h2>
+        <p class="section-sub" style="text-align: center; margin: 0 auto 40px">
+          What merchants see every day to manage USDC subscriptions, track
+          revenue, and monitor system health.
+        </p>
+        <div class="demo-label">Interactive mockup · sample data</div>
 
-      <!-- MILESTONE TABLE -->
-      <section class="section milestone-section">
-        <div class="container">
-          <div class="eyebrow">Milestone breakdown</div>
-          <h2 class="section-title">Detailed delivery plan</h2>
-          <table class="ms-table">
-            <thead>
-              <tr>
-                <th style="width: 60px">M#</th>
-                <th>Milestone</th>
-                <th>Duration</th>
-                <th>Deliverables</th>
-                <th style="text-align: right">Cost</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><div class="ms-num">M1</div></td>
-                <td><div class="ms-title">Architecture & Planning</div></td>
-                <td><div class="ms-dur">4–6 days</div></td>
-                <td>
-                  <div class="ms-tags">
-                    <span class="ms-tag">Requirements</span
-                    ><span class="ms-tag">Architecture</span
-                    ><span class="ms-tag">DB schema</span
-                    ><span class="ms-tag">Contract flow</span>
-                  </div>
-                </td>
-                <td style="text-align: right">
-                  <div class="ms-cost">$600</div>
-                </td>
-              </tr>
-              <tr>
-                <td><div class="ms-num">M2</div></td>
-                <td><div class="ms-title">Smart Contract Development</div></td>
-                <td><div class="ms-dur">2–3 weeks</div></td>
-                <td>
-                  <div class="ms-tags">
-                    <span class="ms-tag">Subscription contracts</span
-                    ><span class="ms-tag">Auto-deploy</span
-                    ><span class="ms-tag">USDC handling</span
-                    ><span class="ms-tag">Billing cycles</span
-                    ><span class="ms-tag">Testing</span>
-                  </div>
-                </td>
-                <td style="text-align: right">
-                  <div class="ms-cost">$2,000</div>
-                </td>
-              </tr>
-              <tr>
-                <td><div class="ms-num">M3</div></td>
-                <td>
-                  <div class="ms-title">Backend API & Billing Engine</div>
-                </td>
-                <td><div class="ms-dur">2 weeks</div></td>
-                <td>
-                  <div class="ms-tags">
-                    <span class="ms-tag">Merchant APIs</span
-                    ><span class="ms-tag">Billing automation</span
-                    ><span class="ms-tag">Retry workflows</span
-                    ><span class="ms-tag">Webhooks</span>
-                  </div>
-                </td>
-                <td style="text-align: right">
-                  <div class="ms-cost">$1,800</div>
-                </td>
-              </tr>
-              <tr>
-                <td><div class="ms-num">M4</div></td>
-                <td><div class="ms-title">Frontend Dashboard</div></td>
-                <td><div class="ms-dur">2 weeks</div></td>
-                <td>
-                  <div class="ms-tags">
-                    <span class="ms-tag">Merchant UI</span
-                    ><span class="ms-tag">Plan management</span
-                    ><span class="ms-tag">Analytics</span
-                    ><span class="ms-tag">Subscription screens</span>
-                  </div>
-                </td>
-                <td style="text-align: right">
-                  <div class="ms-cost">$1,500</div>
-                </td>
-              </tr>
-              <tr>
-                <td><div class="ms-num">M5</div></td>
-                <td>
-                  <div class="ms-title">Privy Integration & User Flows</div>
-                </td>
-                <td><div class="ms-dur">4–6 days</div></td>
-                <td>
-                  <div class="ms-tags">
-                    <span class="ms-tag">Embedded wallets</span
-                    ><span class="ms-tag">Auth setup</span
-                    ><span class="ms-tag">Onboarding flows</span>
-                  </div>
-                </td>
-                <td style="text-align: right">
-                  <div class="ms-cost">$700</div>
-                </td>
-              </tr>
-              <tr>
-                <td><div class="ms-num">M6</div></td>
-                <td>
-                  <div class="ms-title">Testing, Security & Deployment</div>
-                </td>
-                <td><div class="ms-dur">1 week</div></td>
-                <td>
-                  <div class="ms-tags">
-                    <span class="ms-tag">E2E testing</span
-                    ><span class="ms-tag">Audit prep</span
-                    ><span class="ms-tag">Production deploy</span
-                    ><span class="ms-tag">Docs handoff</span>
-                  </div>
-                </td>
-                <td style="text-align: right">
-                  <div class="ms-cost">$1,000</div>
-                </td>
-              </tr>
-              <tr class="total-row">
-                <td colspan="4" style="font-size: 14px">Total · 8–10 weeks</td>
-                <td style="text-align: right">
-                  <div class="ms-cost" style="font-size: 20px">$7,600</div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </div>
-
-    <!-- ════════════════════════════ DASHBOARD DEMO ════════════════════════════ -->
-    <div id="page-dashboard" class="page">
-      <section class="demo-section">
-        <div class="container">
-          <div class="eyebrow" style="justify-content: center">
-            Interactive mockup
+        <div class="dash-wrap">
+          <div class="dash-bar">
+            <div class="dash-dot" style="background: #ff5f57"></div>
+            <div class="dash-dot" style="background: #febc2e"></div>
+            <div class="dash-dot" style="background: #28c840"></div>
+            <div class="dash-url">app.recurbase.xyz/dashboard</div>
           </div>
-          <h1 class="section-title" style="text-align: center">
-            The merchant dashboard
-          </h1>
-          <p
-            class="section-sub"
-            style="text-align: center; margin: 0 auto 40px"
-          >
-            A realistic preview of what merchants will see and use every day to
-            manage their USDC subscription business.
-          </p>
-          <div class="demo-label">
-            <span>Preview · not connected to live data</span>
-          </div>
-
-          <div class="dash-wrap">
-            <div class="dash-bar">
-              <div class="dash-dot" style="background: #ff5f57"></div>
-              <div class="dash-dot" style="background: #febc2e"></div>
-              <div class="dash-dot" style="background: #28c840"></div>
-              <div class="dash-url">app.recurbase.xyz/dashboard</div>
-            </div>
-            <div class="dash-body">
-              <!-- SIDEBAR -->
-              <div class="dash-sidebar">
-                <div class="d-logo">
-                  <span class="d-logo-text"
-                    >RecurBase<span class="d-logo-badge">Base</span></span
-                  >
-                </div>
-                <div class="d-label">Overview</div>
-                <div class="d-nav act">
-                  <i class="ti ti-layout-dashboard"></i> Dashboard
-                </div>
-                <div class="d-nav">
-                  <i class="ti ti-repeat"></i> Subscriptions
-                </div>
-                <div class="d-nav">
-                  <i class="ti ti-file-invoice"></i> Plans
-                </div>
-                <div class="d-nav"><i class="ti ti-wallet"></i> Payouts</div>
-                <div class="d-label">Manage</div>
-                <div class="d-nav"><i class="ti ti-users"></i> Customers</div>
-                <div class="d-nav">
-                  <i class="ti ti-alert-circle"></i> Recovery
-                </div>
-                <div class="d-nav">
-                  <i class="ti ti-chart-bar"></i> Analytics
-                </div>
-                <div class="d-label">System</div>
-                <div class="d-nav"><i class="ti ti-code"></i> Contracts</div>
-                <div class="d-nav"><i class="ti ti-settings"></i> Settings</div>
+          <div class="dash-body">
+            <div class="dash-sidebar">
+              <div class="d-logo">
+                RecurBase<span class="d-logo-badge">Base</span>
               </div>
-
-              <!-- MAIN -->
-              <div class="dash-main">
-                <div class="d-topbar">
-                  <div class="d-title">Dashboard</div>
-                  <div class="d-right">
-                    <div class="d-badge">
-                      <div
-                        style="
-                          width: 6px;
-                          height: 6px;
-                          border-radius: 50%;
-                          background: var(--green);
-                          animation: blink 2s infinite;
-                        "
-                      ></div>
-                      Base mainnet
-                    </div>
-                    <button class="d-btn">
-                      <i class="ti ti-plus" style="font-size: 13px"></i> New
-                      plan
-                    </button>
-                  </div>
-                </div>
-
-                <div class="d-metrics">
-                  <div class="d-metric">
-                    <div class="d-metric-label">MRR (USDC)</div>
-                    <div class="d-metric-val">$48,220</div>
-                    <div class="d-metric-sub">
-                      <i class="ti ti-trending-up" style="font-size: 11px"></i>
-                      +12.4% vs last month
-                    </div>
-                  </div>
-                  <div class="d-metric">
-                    <div class="d-metric-label">Active subscribers</div>
-                    <div class="d-metric-val">347</div>
-                    <div class="d-metric-sub">
-                      <i class="ti ti-trending-up" style="font-size: 11px"></i>
-                      +23 this week
-                    </div>
-                  </div>
-                  <div class="d-metric">
-                    <div class="d-metric-label">Payment recovery</div>
-                    <div class="d-metric-val">98.4%</div>
-                    <div class="d-metric-sub">
-                      <i class="ti ti-check" style="font-size: 11px"></i> 3
-                      retries pending
-                    </div>
-                  </div>
-                  <div class="d-metric">
-                    <div class="d-metric-label">Pending payout</div>
-                    <div class="d-metric-val">$11,430</div>
-                    <div class="d-metric-sub warn">
-                      <i class="ti ti-clock" style="font-size: 11px"></i> Next:
-                      in 2 days
-                    </div>
-                  </div>
-                </div>
-
-                <div class="d-row2">
-                  <div class="d-card">
-                    <div class="d-card-head">
-                      <span class="d-card-title">Subscription plans</span>
-                      <span class="d-card-action">View all →</span>
-                    </div>
-                    <div class="d-plan">
-                      <div>
-                        <div class="d-plan-name">Starter</div>
-                        <div class="d-plan-price">$29 / month</div>
-                      </div>
-                      <div style="font-size: 11px; color: var(--muted)">
-                        184 subs
-                      </div>
-                      <span class="d-plan-badge">Active</span>
-                    </div>
-                    <div class="d-plan">
-                      <div>
-                        <div class="d-plan-name">Pro</div>
-                        <div class="d-plan-price">$99 / month</div>
-                      </div>
-                      <div style="font-size: 11px; color: var(--muted)">
-                        121 subs
-                      </div>
-                      <span class="d-plan-badge">Active</span>
-                    </div>
-                    <div class="d-plan" style="border-bottom: none">
-                      <div>
-                        <div class="d-plan-name">Enterprise</div>
-                        <div class="d-plan-price">$299 / month</div>
-                      </div>
-                      <div style="font-size: 11px; color: var(--muted)">
-                        42 subs
-                      </div>
-                      <span class="d-plan-badge">Active</span>
-                    </div>
+              <div class="d-label">Overview</div>
+              <div class="d-nav act">
+                <i class="ti ti-layout-dashboard"></i> Dashboard
+              </div>
+              <div class="d-nav">
+                <i class="ti ti-repeat"></i> Subscriptions
+              </div>
+              <div class="d-nav"><i class="ti ti-file-invoice"></i> Plans</div>
+              <div class="d-nav"><i class="ti ti-wallet"></i> Payouts</div>
+              <div class="d-label">Manage</div>
+              <div class="d-nav"><i class="ti ti-users"></i> Customers</div>
+              <div class="d-nav">
+                <i class="ti ti-alert-circle"></i> Recovery
+              </div>
+              <div class="d-nav"><i class="ti ti-chart-bar"></i> Analytics</div>
+              <div class="d-label">System</div>
+              <div class="d-nav"><i class="ti ti-code"></i> Contracts</div>
+              <div class="d-nav"><i class="ti ti-settings"></i> Settings</div>
+            </div>
+            <div class="dash-main">
+              <div class="d-topbar">
+                <div class="d-title">Dashboard</div>
+                <div class="d-right">
+                  <div class="d-badge">
                     <div
                       style="
-                        margin-top: 14px;
-                        padding-top: 14px;
-                        border-top: 1px solid var(--border);
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 50%;
+                        background: var(--green);
+                        animation: blink 2s infinite;
+                      "
+                    ></div>
+                    Base mainnet
+                  </div>
+                  <div class="d-btn">
+                    <i class="ti ti-plus" style="font-size: 13px"></i> New plan
+                  </div>
+                </div>
+              </div>
+              <div class="d-metrics">
+                <div class="d-metric">
+                  <div class="d-metric-label">MRR (USDC)</div>
+                  <div class="d-metric-val">$48,220</div>
+                  <div class="d-metric-sub">
+                    <i class="ti ti-trending-up" style="font-size: 11px"></i>
+                    +12.4%
+                  </div>
+                </div>
+                <div class="d-metric">
+                  <div class="d-metric-label">Active subscribers</div>
+                  <div class="d-metric-val">347</div>
+                  <div class="d-metric-sub">
+                    <i class="ti ti-trending-up" style="font-size: 11px"></i>
+                    +23 this week
+                  </div>
+                </div>
+                <div class="d-metric">
+                  <div class="d-metric-label">Payment recovery</div>
+                  <div class="d-metric-val">98.4%</div>
+                  <div class="d-metric-sub">
+                    <i class="ti ti-check" style="font-size: 11px"></i> 3
+                    retries
+                  </div>
+                </div>
+                <div class="d-metric">
+                  <div class="d-metric-label">Pending payout</div>
+                  <div class="d-metric-val">$11,430</div>
+                  <div class="d-metric-sub warn">
+                    <i class="ti ti-clock" style="font-size: 11px"></i> In 2
+                    days
+                  </div>
+                </div>
+              </div>
+              <div class="d-row2">
+                <div class="d-card">
+                  <div class="d-card-head">
+                    <span class="d-card-title">Subscription plans</span
+                    ><span class="d-card-action">View all →</span>
+                  </div>
+                  <div class="d-plan">
+                    <div>
+                      <div class="d-plan-name">Starter</div>
+                      <div class="d-plan-price">$29/mo</div>
+                    </div>
+                    <div style="font-size: 10px; color: var(--muted)">184</div>
+                    <span class="d-plan-badge">Active</span>
+                  </div>
+                  <div class="d-plan">
+                    <div>
+                      <div class="d-plan-name">Pro</div>
+                      <div class="d-plan-price">$99/mo</div>
+                    </div>
+                    <div style="font-size: 10px; color: var(--muted)">121</div>
+                    <span class="d-plan-badge">Active</span>
+                  </div>
+                  <div class="d-plan">
+                    <div>
+                      <div class="d-plan-name">Enterprise</div>
+                      <div class="d-plan-price">$299/mo</div>
+                    </div>
+                    <div style="font-size: 10px; color: var(--muted)">42</div>
+                    <span class="d-plan-badge">Active</span>
+                  </div>
+                  <div
+                    style="
+                      margin-top: 12px;
+                      padding-top: 12px;
+                      border-top: 1px solid var(--border);
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 10px;
+                        color: var(--muted);
+                        margin-bottom: 8px;
                       "
                     >
-                      <div
-                        style="
-                          font-size: 11px;
-                          color: var(--muted);
-                          margin-bottom: 10px;
-                        "
-                      >
-                        Revenue by plan
+                      Revenue by plan
+                    </div>
+                    <div class="d-bar-row">
+                      <span class="d-bar-label">Starter</span>
+                      <div class="d-bar-track">
+                        <div class="d-bar-fill" style="width: 38%"></div>
                       </div>
-                      <div class="d-bar-row">
-                        <span class="d-bar-label">Starter</span>
-                        <div class="d-bar-track">
-                          <div class="d-bar-fill" style="width: 38%"></div>
-                        </div>
-                        <span class="d-bar-val">$5,336</span>
+                      <span class="d-bar-val">$5,336</span>
+                    </div>
+                    <div class="d-bar-row">
+                      <span class="d-bar-label">Pro</span>
+                      <div class="d-bar-track">
+                        <div class="d-bar-fill" style="width: 68%"></div>
                       </div>
-                      <div class="d-bar-row">
-                        <span class="d-bar-label">Pro</span>
-                        <div class="d-bar-track">
-                          <div class="d-bar-fill" style="width: 68%"></div>
-                        </div>
-                        <span class="d-bar-val">$11,979</span>
+                      <span class="d-bar-val">$11,979</span>
+                    </div>
+                    <div class="d-bar-row">
+                      <span class="d-bar-label">Enterp.</span>
+                      <div class="d-bar-track">
+                        <div class="d-bar-fill" style="width: 100%"></div>
                       </div>
-                      <div class="d-bar-row">
-                        <span class="d-bar-label">Enterp.</span>
-                        <div class="d-bar-track">
-                          <div class="d-bar-fill" style="width: 100%"></div>
-                        </div>
-                        <span class="d-bar-val">$12,558</span>
+                      <span class="d-bar-val">$12,558</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px">
+                  <div class="d-card">
+                    <div class="d-card-head">
+                      <span class="d-card-title">Recent transactions</span
+                      ><span class="d-card-action">View all →</span>
+                    </div>
+                    <div class="d-tx">
+                      <div class="d-tx-av">3F</div>
+                      <div style="flex: 1">
+                        <div class="d-tx-addr">0x3f8a…c2d1</div>
+                        <div class="d-tx-plan">Pro · renewal</div>
+                      </div>
+                      <div style="text-align: right">
+                        <div class="d-tx-amt">+$99</div>
+                        <div class="d-tx-time">2 min ago</div>
+                      </div>
+                    </div>
+                    <div class="d-tx">
+                      <div class="d-tx-av">9B</div>
+                      <div style="flex: 1">
+                        <div class="d-tx-addr">0x9b1e…44fa</div>
+                        <div class="d-tx-plan">Enterprise · renewal</div>
+                      </div>
+                      <div style="text-align: right">
+                        <div class="d-tx-amt">+$299</div>
+                        <div class="d-tx-time">18 min ago</div>
+                      </div>
+                    </div>
+                    <div class="d-tx">
+                      <div class="d-tx-av">7D</div>
+                      <div style="flex: 1">
+                        <div class="d-tx-addr">0x7d2c…81bc</div>
+                        <div class="d-tx-plan">Starter · new</div>
+                      </div>
+                      <div style="text-align: right">
+                        <div class="d-tx-amt">+$29</div>
+                        <div class="d-tx-time">1 hr ago</div>
                       </div>
                     </div>
                   </div>
-
-                  <div style="display: flex; flex-direction: column; gap: 14px">
-                    <div class="d-card">
-                      <div class="d-card-head">
-                        <span class="d-card-title">Recent transactions</span>
-                        <span class="d-card-action">View all →</span>
-                      </div>
-                      <div class="d-tx">
-                        <div class="d-tx-av">3F</div>
-                        <div style="flex: 1">
-                          <div class="d-tx-addr">0x3f8a…c2d1</div>
-                          <div class="d-tx-plan">Pro · renewal</div>
-                        </div>
-                        <div style="text-align: right">
-                          <div class="d-tx-amt">+$99</div>
-                          <div class="d-tx-time">2 min ago</div>
-                        </div>
-                      </div>
-                      <div class="d-tx">
-                        <div class="d-tx-av">9B</div>
-                        <div style="flex: 1">
-                          <div class="d-tx-addr">0x9b1e…44fa</div>
-                          <div class="d-tx-plan">Enterprise · renewal</div>
-                        </div>
-                        <div style="text-align: right">
-                          <div class="d-tx-amt">+$299</div>
-                          <div class="d-tx-time">18 min ago</div>
-                        </div>
-                      </div>
-                      <div class="d-tx">
-                        <div class="d-tx-av">7D</div>
-                        <div style="flex: 1">
-                          <div class="d-tx-addr">0x7d2c…81bc</div>
-                          <div class="d-tx-plan">Starter · new</div>
-                        </div>
-                        <div style="text-align: right">
-                          <div class="d-tx-amt">+$29</div>
-                          <div class="d-tx-time">1 hr ago</div>
-                        </div>
-                      </div>
+                  <div class="d-card">
+                    <div class="d-card-head">
+                      <span class="d-card-title">System status</span>
                     </div>
-
-                    <div class="d-card">
-                      <div class="d-card-head">
-                        <span class="d-card-title">System status</span>
-                      </div>
-                      <div class="d-status">
-                        <span class="d-status-key">Billing engine</span
-                        ><span class="d-status-val ok"
-                          ><i class="ti ti-check" style="font-size: 12px"></i>
-                          Operational</span
-                        >
-                      </div>
-                      <div class="d-status">
-                        <span class="d-status-key">Smart contracts</span
-                        ><span class="d-status-val ok"
-                          ><i class="ti ti-check" style="font-size: 12px"></i> 3
-                          deployed</span
-                        >
-                      </div>
-                      <div class="d-status">
-                        <span class="d-status-key">Retry queue</span
-                        ><span class="d-status-val warn"
-                          ><i class="ti ti-clock" style="font-size: 12px"></i> 3
-                          pending</span
-                        >
-                      </div>
-                      <div class="d-status">
-                        <span class="d-status-key">Webhook events</span
-                        ><span class="d-status-val ok"
-                          ><i class="ti ti-check" style="font-size: 12px"></i>
-                          All delivered</span
-                        >
-                      </div>
+                    <div class="d-status">
+                      <span class="d-status-key">Billing engine</span
+                      ><span class="d-status-val ok"
+                        ><i class="ti ti-check" style="font-size: 12px"></i>
+                        Operational</span
+                      >
+                    </div>
+                    <div class="d-status">
+                      <span class="d-status-key">Smart contracts</span
+                      ><span class="d-status-val ok"
+                        ><i class="ti ti-check" style="font-size: 12px"></i> 3
+                        deployed</span
+                      >
+                    </div>
+                    <div class="d-status">
+                      <span class="d-status-key">Retry queue</span
+                      ><span class="d-status-val warn"
+                        ><i class="ti ti-clock" style="font-size: 12px"></i> 3
+                        pending</span
+                      >
+                    </div>
+                    <div class="d-status">
+                      <span class="d-status-key">Webhooks</span
+                      ><span class="d-status-val ok"
+                        ><i class="ti ti-check" style="font-size: 12px"></i>
+                        Delivered</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -2183,35 +1658,110 @@
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <!-- ═══ USE CASES ═══ -->
+    <section class="section" id="usecases">
+      <div class="container">
+        <div class="eyebrow">Use cases</div>
+        <h2 class="section-title">Built for modern<br />digital businesses</h2>
+        <p class="section-sub">
+          Any product that charges recurring fees can switch to crypto-native
+          billing.
+        </p>
+        <div class="use-grid">
+          <div class="use-card fade-up">
+            <div class="use-icon"><i class="ti ti-cloud"></i></div>
+            <div class="use-title">SaaS Products</div>
+            <div class="use-desc">
+              Accept recurring USDC from global customers without banking
+              infrastructure in every country.
+            </div>
+          </div>
+          <div class="use-card fade-up">
+            <div class="use-icon"><i class="ti ti-brush"></i></div>
+            <div class="use-title">Creator Tools</div>
+            <div class="use-desc">
+              Membership platforms, newsletter subscriptions, and digital
+              content access with instant settlement.
+            </div>
+          </div>
+          <div class="use-card fade-up">
+            <div class="use-icon"><i class="ti ti-cpu"></i></div>
+            <div class="use-title">AI Products</div>
+            <div class="use-desc">
+              Usage-based and tiered billing for AI APIs, compute platforms, and
+              inference services.
+            </div>
+          </div>
+          <div class="use-card fade-up">
+            <div class="use-icon"><i class="ti ti-hexagons"></i></div>
+            <div class="use-title">Web3 Services</div>
+            <div class="use-desc">
+              DAOs, protocols, and dApps that need on-chain recurring revenue
+              infrastructure.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CTA ═══ -->
+    <section class="cta-section" id="contact">
+      <div class="cta-glow"></div>
+      <div class="cta-inner">
+        <h2>Ready to go on-chain?</h2>
+        <p>
+          RecurBase is the subscription billing layer the crypto economy has
+          been waiting for.
+        </p>
+        <a class="btn-primary" href="mailto:">Get in Touch →</a>
+      </div>
+    </section>
 
     <!-- FOOTER -->
     <footer>
       <div class="footer-logo">Recur<span>Base</span></div>
       <div class="footer-links">
-        <span class="footer-link" onclick="showPage('home')">Home</span>
-        <span class="footer-link" onclick="showPage('features')">Features</span>
-        <span class="footer-link" onclick="showPage('pricing')">Pricing</span>
-        <span class="footer-link" onclick="showPage('dashboard')">Demo</span>
+        <a class="footer-link" href="#hero">Home</a>
+        <a class="footer-link" href="#features">Features</a>
+        <a class="footer-link" href="#demo">Dashboard</a>
+        <a class="footer-link" href="#usecases">Use Cases</a>
       </div>
-      <div class="footer-copy">Prepared by Rajeev Tiwari · 2025</div>
+      <div class="footer-copy">&copy; 2025 RecurBase</div>
     </footer>
 
     <script>
-      function showPage(id) {
-        document
-          .querySelectorAll(".page")
-          .forEach((p) => p.classList.remove("active"));
-        document
-          .querySelectorAll(".nav-link")
-          .forEach((l) => l.classList.remove("active"));
-        document.getElementById("page-" + id).classList.add("active");
-        const map = { home: 0, features: 1, pricing: 2, dashboard: 3 };
-        const links = document.querySelectorAll(".nav-link");
-        if (links[map[id]]) links[map[id]].classList.add("active");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      // Scroll-triggered fade-in
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+      document.querySelectorAll(".fade-up").forEach((el) => obs.observe(el));
+
+      // Active nav highlight on scroll
+      const sections = document.querySelectorAll("section[id], .section[id]");
+      const navLinks = document.querySelectorAll(".nav-link");
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 120)
+            current = s.getAttribute("id");
+        });
+        navLinks.forEach((l) => {
+          l.classList.remove("active");
+          if (l.getAttribute("href") === "#" + current)
+            l.classList.add("active");
+        });
+      });
     </script>
   </body>
 </html>
