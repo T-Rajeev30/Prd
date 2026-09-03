@@ -1,0 +1,1811 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KLLCTRS — One-Week Build Plan</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap");
+
+      :root {
+        --ink: #10141f;
+        --ink-soft: #1a2033;
+        --cream: #f6f1e4;
+        --cream-dim: #e7dfc9;
+        --gold: #b98a2f;
+        --gold-bright: #d8a94a;
+        --red: #9c3b34;
+        --text-on-cream: #1b1f2b;
+        --text-on-ink: #ede7d9;
+        --text-on-ink-dim: #9fa3b0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--ink);
+        color: var(--text-on-ink);
+        font-family: "Inter", system-ui, sans-serif;
+        line-height: 1.6;
+      }
+      .wrap {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Barlow Condensed", system-ui, sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        margin: 0;
+      }
+      .mono {
+        font-family: "IBM Plex Mono", monospace;
+      }
+
+      /* HERO */
+      .hero {
+        padding: 96px 0 72px;
+      }
+      .wordmark {
+        font-family: "Barlow Condensed";
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: 0.28em;
+        color: var(--gold-bright);
+        margin-bottom: 28px;
+      }
+      .hero h1 {
+        font-size: clamp(40px, 6vw, 64px);
+        line-height: 1.05;
+        color: var(--text-on-ink);
+        max-width: 14ch;
+      }
+      .hero p.sub {
+        font-size: 19px;
+        color: var(--text-on-ink-dim);
+        max-width: 52ch;
+        margin-top: 22px;
+      }
+      .stat-row {
+        display: flex;
+        gap: 0;
+        margin-top: 52px;
+        border-top: 1px solid rgba(237, 231, 217, 0.15);
+      }
+      .stat {
+        flex: 1;
+        padding: 22px 20px 0 0;
+        border-right: 1px solid rgba(237, 231, 217, 0.15);
+      }
+      .stat:last-child {
+        border-right: none;
+      }
+      .stat .num {
+        font-family: "Barlow Condensed";
+        font-weight: 800;
+        font-size: 38px;
+        color: var(--gold-bright);
+      }
+      .stat .lbl {
+        font-size: 13px;
+        color: var(--text-on-ink-dim);
+        margin-top: 4px;
+      }
+
+      /* SECTION BAND */
+      .band {
+        padding: 64px 0;
+      }
+      .band.cream {
+        background: var(--cream);
+        color: var(--text-on-cream);
+      }
+      .band.cream .wordmark {
+        color: var(--red);
+      }
+      .eyebrow-rule {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 36px;
+      }
+      .eyebrow-rule .tick {
+        width: 18px;
+        height: 2px;
+        background: var(--gold);
+      }
+      .band.cream .eyebrow-rule .tick {
+        background: var(--red);
+      }
+      .eyebrow-rule span {
+        font-size: 14px;
+        color: var(--text-on-ink-dim);
+      }
+      .band.cream .eyebrow-rule span {
+        color: #6b6350;
+      }
+      .band h2 {
+        font-size: clamp(28px, 4vw, 38px);
+        max-width: 22ch;
+        margin-bottom: 18px;
+      }
+      .band p.lead {
+        font-size: 16.5px;
+        max-width: 62ch;
+        color: var(--text-on-ink-dim);
+      }
+      .band.cream p.lead {
+        color: #5c543f;
+      }
+
+      /* FLOW DIAGRAM */
+      .flow {
+        margin-top: 44px;
+      }
+      svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .node-label {
+        font-family: "Inter";
+        font-size: 13px;
+        font-weight: 600;
+        fill: var(--text-on-cream);
+      }
+      .node-sub {
+        font-family: "Inter";
+        font-size: 11px;
+        fill: #6b6350;
+      }
+
+      /* RESPONSIBILITY SPLIT */
+      .split {
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 0;
+        margin-top: 44px;
+        border: 1px solid rgba(237, 231, 217, 0.18);
+      }
+      .split > div {
+        padding: 32px 28px;
+      }
+      .split .who {
+        font-family: "Barlow Condensed";
+        font-weight: 800;
+        font-size: 15px;
+        letter-spacing: 0.18em;
+        margin-bottom: 18px;
+      }
+      .split .leo {
+        border-right: 1px solid rgba(237, 231, 217, 0.18);
+      }
+      .split .leo .who {
+        color: var(--gold-bright);
+      }
+      .split .dev .who {
+        color: var(--red);
+      }
+      .split ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .split li {
+        margin-bottom: 10px;
+        font-size: 15px;
+        color: var(--text-on-ink-dim);
+      }
+      .split .tag {
+        display: inline-block;
+        font-size: 11px;
+        font-family: "IBM Plex Mono";
+        padding: 2px 8px;
+        border: 1px solid rgba(237, 231, 217, 0.25);
+        border-radius: 3px;
+        margin-top: 14px;
+        color: var(--text-on-ink-dim);
+      }
+      @media (max-width: 640px) {
+        .split {
+          grid-template-columns: 1fr;
+        }
+        .split .leo {
+          border-right: none;
+          border-bottom: 1px solid rgba(237, 231, 217, 0.18);
+        }
+      }
+
+      /* TIMELINE */
+      .timeline {
+        margin-top: 44px;
+      }
+      .day {
+        display: grid;
+        grid-template-columns: 64px 1fr;
+        gap: 20px;
+        padding: 18px 0;
+        border-top: 1px solid rgba(27, 31, 43, 0.12);
+      }
+      .day:last-child {
+        border-bottom: 1px solid rgba(27, 31, 43, 0.12);
+      }
+      .day .n {
+        font-family: "Barlow Condensed";
+        font-weight: 800;
+        font-size: 30px;
+        color: var(--red);
+      }
+      .day h3 {
+        font-size: 17px;
+        margin-bottom: 6px;
+      }
+      .day p {
+        margin: 0;
+        font-size: 14.5px;
+        color: #5c543f;
+      }
+      .day.ship {
+        background: rgba(156, 59, 52, 0.06);
+      }
+      .day .badge {
+        display: inline-block;
+        font-family: "IBM Plex Mono";
+        font-size: 10.5px;
+        letter-spacing: 0.06em;
+        color: var(--red);
+        border: 1px solid var(--red);
+        padding: 1px 7px;
+        border-radius: 2px;
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+
+      /* LIST BLOCK */
+      .entertain-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+        margin-top: 40px;
+      }
+      .entertain-grid .item {
+        border-left: 2px solid var(--gold);
+        padding-left: 16px;
+      }
+      .entertain-grid .item h3 {
+        font-size: 16px;
+        margin-bottom: 6px;
+        color: var(--text-on-ink);
+      }
+      .entertain-grid .item p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--text-on-ink-dim);
+      }
+      @media (max-width: 640px) {
+        .entertain-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* IMPACT GRID */
+      .impact-grid {
+        margin-top: 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background: rgba(27, 31, 43, 0.12);
+        border: 1px solid rgba(27, 31, 43, 0.12);
+      }
+      .impact-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+      }
+      .impact-before,
+      .impact-after {
+        background: var(--cream);
+        padding: 18px 22px;
+        font-size: 14.5px;
+        color: #3d3625;
+      }
+      .impact-after {
+        background: #fbf3e4;
+      }
+      .impact-tag {
+        display: block;
+        font-family: "IBM Plex Mono";
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        margin-bottom: 6px;
+      }
+      .impact-tag.before {
+        color: #8a8064;
+      }
+      .impact-tag.after {
+        color: var(--red);
+      }
+      @media (max-width: 640px) {
+        .impact-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* COUNT / STATUS */
+      .count-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+        margin-top: 40px;
+      }
+      .count-box {
+        border: 1px solid rgba(237, 231, 217, 0.18);
+        padding: 26px 22px;
+      }
+      .count-num {
+        font-family: "Barlow Condensed";
+        font-weight: 800;
+        font-size: 52px;
+        color: var(--gold-bright);
+        line-height: 1;
+      }
+      .count-lbl {
+        font-size: 14px;
+        color: var(--text-on-ink);
+        margin-top: 8px;
+        font-weight: 600;
+      }
+      .count-detail {
+        font-size: 12.5px;
+        color: var(--text-on-ink-dim);
+        margin-top: 6px;
+      }
+      @media (max-width: 640px) {
+        .count-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .status-rows {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .status-row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        font-size: 14.5px;
+        color: var(--text-on-ink-dim);
+      }
+      .status-row strong {
+        color: var(--text-on-ink);
+      }
+      .status-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        margin-top: 6px;
+        flex-shrink: 0;
+      }
+      .status-dot.done {
+        background: #5b8a6b;
+      }
+      .status-dot.progress {
+        background: var(--gold-bright);
+      }
+      .status-dot.todo {
+        background: #6b7280;
+      }
+
+      /* PROOF GRID */
+      .proof-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: rgba(27, 31, 43, 0.15);
+        margin-top: 36px;
+        border: 1px solid rgba(27, 31, 43, 0.15);
+      }
+      .proof {
+        background: var(--cream);
+        padding: 26px 24px;
+      }
+      .proof-num {
+        font-family: "Barlow Condensed";
+        font-weight: 800;
+        font-size: 34px;
+        color: var(--red);
+      }
+      .proof-lbl {
+        font-size: 14px;
+        color: #3d3625;
+        margin-top: 6px;
+        max-width: 34ch;
+      }
+      .proof-src {
+        font-family: "IBM Plex Mono";
+        font-size: 10.5px;
+        color: #8a8064;
+        margin-top: 10px;
+        letter-spacing: 0.02em;
+      }
+      @media (max-width: 640px) {
+        .proof-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* FUNNEL */
+      .funnel {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .funnel-row {
+        background: rgba(185, 138, 47, 0.1);
+        border-left: 3px solid var(--gold-bright);
+        padding: 16px 22px;
+      }
+      .funnel-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-on-ink);
+      }
+      .funnel-sub {
+        font-size: 13.5px;
+        color: var(--text-on-ink-dim);
+        margin-top: 4px;
+      }
+
+      /* FOOTER */
+      .footer {
+        padding: 64px 0 90px;
+        border-top: 1px solid rgba(237, 231, 217, 0.15);
+      }
+      .footer p {
+        color: var(--text-on-ink-dim);
+        font-size: 14.5px;
+        max-width: 50ch;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap hero">
+      <div class="wordmark">KLLCTRS</div>
+      <h1>
+        The data engine behind sponsorship decisions in the trading-card hobby.
+      </h1>
+      <p class="sub">
+        Collectors get a site worth visiting. Leo gets structured, credible data
+        to sell. This is the one-week plan to ship both.
+      </p>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="num">62</div>
+          <div class="lbl">dead files removed in cleanup</div>
+        </div>
+        <div class="stat">
+          <div class="num">5</div>
+          <div class="lbl">broken endpoints fixed</div>
+        </div>
+        <div class="stat">
+          <div class="num mono">7</div>
+          <div class="lbl">days to next milestone</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap band" id="whats-live">
+      <div class="eyebrow-rule">
+        <div class="tick"></div>
+        <span>Where we actually are</span>
+      </div>
+      <h2>What's live today, not what's planned.</h2>
+      <p class="lead">
+        Straight from this week's production build — not an estimate.
+      </p>
+
+      <div class="count-grid">
+        <div class="count-box">
+          <div class="count-num count-up" data-target="25">0</div>
+          <div class="count-lbl">consumer-facing pages</div>
+          <div class="count-detail">
+            auth, profile, shops, events, sponsors, maps, blog, valuation tool,
+            chat
+          </div>
+        </div>
+        <div class="count-box">
+          <div class="count-num count-up" data-target="13">0</div>
+          <div class="count-lbl">admin pages</div>
+          <div class="count-detail">
+            Leo's back office — full shop/event/sponsor/user/blog management
+          </div>
+        </div>
+        <div class="count-box">
+          <div class="count-num count-up" data-target="29">0</div>
+          <div class="count-lbl">API endpoints</div>
+          <div class="count-detail">
+            eBay comps, valuation, geocoding, webhooks, scraping pipeline
+          </div>
+        </div>
+      </div>
+
+      <div class="status-rows">
+        <div class="status-row">
+          <span class="status-dot done"></span>
+          <div>
+            <strong>Fixed this week:</strong> 5 endpoints that had silently
+            never run, including sponsor submission
+          </div>
+        </div>
+        <div class="status-row">
+          <span class="status-dot done"></span>
+          <div>
+            <strong>Removed this week:</strong> ~55 dead files — abandoned
+            rewrites, duplicate scrapers, unused components
+          </div>
+        </div>
+        <div class="status-row">
+          <span class="status-dot done"></span>
+          <div>
+            <strong>Turned out to already be live:</strong> shop &amp; event
+            favoriting (full SaveButton system) and a working web-traffic
+            analytics dashboard — found during a closer look, not newly built
+          </div>
+        </div>
+        <div class="status-row">
+          <span class="status-dot done"></span>
+          <div>
+            <strong>Built:</strong> Sponsorship Insights admin page — aggregates
+            real favorite/save/click data into top shops, top events, and
+            engagement by state.
+          </div>
+        </div>
+        <div class="status-row">
+          <span class="status-dot progress"></span>
+          <div>
+            <strong>Built, not wired in:</strong> the content engine — runs as a
+            standalone skill, nothing in the site triggers it yet
+          </div>
+        </div>
+        <div class="status-row">
+          <span class="status-dot todo"></span>
+          <div>
+            <strong>Not started:</strong> homepage story slot, visible interest
+            tags, any billing infrastructure
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band cream">
+      <div class="wrap">
+        <div class="eyebrow-rule">
+          <div class="tick"></div>
+          <span>The reframe</span>
+        </div>
+        <h2>Two products, one build.</h2>
+        <p class="lead">
+          The collector-facing site isn't the business — it's the instrument.
+          What it produces is what Leo sells.
+        </p>
+
+        <div class="flow">
+          <svg viewBox="0 0 820 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Collectors -->
+            <rect
+              x="10"
+              y="70"
+              width="150"
+              height="60"
+              rx="2"
+              fill="none"
+              stroke="#1B1F2B"
+              stroke-width="1.4"
+            />
+            <text x="85" y="96" text-anchor="middle" class="node-label">
+              Collectors
+            </text>
+            <text x="85" y="113" text-anchor="middle" class="node-sub">
+              shows up, browses, RSVPs
+            </text>
+
+            <path
+              d="M160 100 L215 100"
+              stroke="#B98A2F"
+              stroke-width="2"
+              marker-end="url(#arrow)"
+            />
+
+            <!-- Website -->
+            <rect
+              x="220"
+              y="60"
+              width="170"
+              height="80"
+              rx="2"
+              fill="none"
+              stroke="#1B1F2B"
+              stroke-width="1.4"
+            />
+            <text x="305" y="92" text-anchor="middle" class="node-label">
+              KLLCTRS website
+            </text>
+            <text x="305" y="109" text-anchor="middle" class="node-sub">
+              shops · events · sponsors
+            </text>
+            <text x="305" y="123" text-anchor="middle" class="node-sub">
+              content engine
+            </text>
+
+            <path
+              d="M390 100 L445 100"
+              stroke="#B98A2F"
+              stroke-width="2"
+              marker-end="url(#arrow)"
+            />
+
+            <!-- Data layer -->
+            <rect
+              x="450"
+              y="60"
+              width="150"
+              height="80"
+              rx="2"
+              fill="none"
+              stroke="#9C3B34"
+              stroke-width="1.6"
+            />
+            <text x="525" y="92" text-anchor="middle" class="node-label">
+              Structured data
+            </text>
+            <text x="525" y="109" text-anchor="middle" class="node-sub">
+              RSVPs, favorites,
+            </text>
+            <text x="525" y="123" text-anchor="middle" class="node-sub">
+              interest, engagement
+            </text>
+
+            <path
+              d="M600 100 L655 100"
+              stroke="#B98A2F"
+              stroke-width="2"
+              marker-end="url(#arrow)"
+            />
+
+            <!-- Leo -->
+            <rect
+              x="660"
+              y="70"
+              width="150"
+              height="60"
+              rx="2"
+              fill="#9C3B34"
+              stroke="#9C3B34"
+              stroke-width="1.4"
+            />
+            <text
+              x="735"
+              y="96"
+              text-anchor="middle"
+              class="node-label"
+              fill="#F6F1E4"
+            >
+              Leo sells it
+            </text>
+            <text
+              x="735"
+              y="113"
+              text-anchor="middle"
+              class="node-sub"
+              fill="#EAD9D6"
+            >
+              to sponsors &amp; brands
+            </text>
+
+            <defs>
+              <marker
+                id="arrow"
+                markerWidth="8"
+                markerHeight="8"
+                refX="6"
+                refY="4"
+                orient="auto"
+              >
+                <path d="M0,0 L8,4 L0,8 Z" fill="#B98A2F" />
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap band">
+      <div class="eyebrow-rule">
+        <div class="tick"></div>
+        <span>Who owns what</span>
+      </div>
+      <h2>
+        Onboarding and growth are Leo's job. Making the site worth staying on is
+        the developer's.
+      </h2>
+
+      <div class="split">
+        <div class="leo">
+          <div class="who">LEO</div>
+          <ul>
+            <li>Bring collectors, shops, and sponsors onto the platform</li>
+            <li>
+              Pitch the sponsorship-intelligence concept to existing consulting
+              clients now, in parallel with the build
+            </li>
+            <li>Turn what the site produces into a sellable report</li>
+          </ul>
+          <div class="tag">SALES ENGINE</div>
+        </div>
+        <div class="dev">
+          <div class="who">DEVELOPER</div>
+          <ul>
+            <li>
+              Ship the content engine, running daily, feeding both social and
+              the KLLCTRS blog
+            </li>
+            <li>
+              Make the site itself entertaining enough that a visit turns into a
+              habit, not a bounce
+            </li>
+            <li>
+              Every engagement feature doubles as a data signal — favoriting,
+              RSVPing, and interest tags aren't just "fun," they're what Leo
+              eventually sells
+            </li>
+          </ul>
+          <div class="tag">BUILD ENGINE</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band cream">
+      <div class="wrap">
+        <div class="eyebrow-rule">
+          <div class="tick"></div>
+          <span>This week</span>
+        </div>
+        <h2>Seven days, in order.</h2>
+
+        <div class="timeline">
+          <div class="day">
+            <div class="n">1</div>
+            <div>
+              <h3>Content engine live<span class="badge">TODAY</span></h3>
+              <p>
+                Wire the skill, run it manually, review the first content pack
+                for quality before trusting the daily cadence.
+              </p>
+            </div>
+          </div>
+          <div class="day">
+            <div class="n">2</div>
+            <div>
+              <h3>Entertaining-site scope</h3>
+              <p>
+                Pick the three engagement bets (below) and cut anything that
+                doesn't fit the week.
+              </p>
+            </div>
+          </div>
+          <div class="day">
+            <div class="n">3</div>
+            <div>
+              <h3>Build: homepage "today's story"</h3>
+              <p>
+                Surface the content engine's daily pick directly on the site —
+                it's already written, just needs a home.
+              </p>
+            </div>
+          </div>
+          <div class="day">
+            <div class="n">4</div>
+            <div>
+              <h3>Build: interest tags + favoriting</h3>
+              <p>
+                Revive ProfileBadges (interest tags) and finish shop-favoriting
+                — visible personality for the user, real signal for Leo.
+              </p>
+            </div>
+          </div>
+          <div class="day">
+            <div class="n">5</div>
+            <div>
+              <h3>Polish pass</h3>
+              <p>
+                Micro-interactions on favoriting/RSVP, empty states with actual
+                personality, mobile check.
+              </p>
+            </div>
+          </div>
+          <div class="day">
+            <div class="n">6</div>
+            <div>
+              <h3>QA</h3>
+              <p>
+                Full click-through, confirm a week of content-engine output
+                landed cleanly, fix what's broken.
+              </p>
+            </div>
+          </div>
+          <div class="day ship">
+            <div class="n">7</div>
+            <div>
+              <h3>Ship<span class="badge">DEADLINE</span></h3>
+              <p>
+                Deploy. This deck goes to Leo as the artifact of what shipped
+                and why.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap band">
+      <div class="eyebrow-rule">
+        <div class="tick"></div>
+        <span>Content engine, in one loop</span>
+      </div>
+      <h2>Runs once a day. Every step already scoped.</h2>
+
+      <div class="flow">
+        <svg viewBox="0 0 820 130" xmlns="http://www.w3.org/2000/svg">
+          <rect
+            x="10"
+            y="30"
+            width="140"
+            height="60"
+            rx="2"
+            fill="none"
+            stroke="#EDE7D9"
+            stroke-width="1.2"
+            opacity="0.9"
+          />
+          <text
+            x="80"
+            y="55"
+            text-anchor="middle"
+            class="node-label"
+            fill="#EDE7D9"
+          >
+            Search hobby news
+          </text>
+          <text
+            x="80"
+            y="72"
+            text-anchor="middle"
+            class="node-sub"
+            fill="#9FA3B0"
+          >
+            last 24–48h
+          </text>
+
+          <path
+            d="M150 60 L200 60"
+            stroke="#B98A2F"
+            stroke-width="2"
+            marker-end="url(#arrow2)"
+          />
+
+          <rect
+            x="205"
+            y="30"
+            width="140"
+            height="60"
+            rx="2"
+            fill="none"
+            stroke="#EDE7D9"
+            stroke-width="1.2"
+            opacity="0.9"
+          />
+          <text
+            x="275"
+            y="55"
+            text-anchor="middle"
+            class="node-label"
+            fill="#EDE7D9"
+          >
+            Pick one angle
+          </text>
+          <text
+            x="275"
+            y="72"
+            text-anchor="middle"
+            class="node-sub"
+            fill="#9FA3B0"
+          >
+            the strongest hook
+          </text>
+
+          <path
+            d="M345 60 L395 60"
+            stroke="#B98A2F"
+            stroke-width="2"
+            marker-end="url(#arrow2)"
+          />
+
+          <rect
+            x="400"
+            y="20"
+            width="150"
+            height="80"
+            rx="2"
+            fill="none"
+            stroke="#EDE7D9"
+            stroke-width="1.2"
+            opacity="0.9"
+          />
+          <text
+            x="475"
+            y="48"
+            text-anchor="middle"
+            class="node-label"
+            fill="#EDE7D9"
+          >
+            Draft everything
+          </text>
+          <text
+            x="475"
+            y="65"
+            text-anchor="middle"
+            class="node-sub"
+            fill="#9FA3B0"
+          >
+            IG carousel · LinkedIn
+          </text>
+          <text
+            x="475"
+            y="79"
+            text-anchor="middle"
+            class="node-sub"
+            fill="#9FA3B0"
+          >
+            X post · blog
+          </text>
+
+          <path
+            d="M550 60 L600 60"
+            stroke="#B98A2F"
+            stroke-width="2"
+            marker-end="url(#arrow2)"
+          />
+
+          <rect
+            x="605"
+            y="30"
+            width="100"
+            height="60"
+            rx="2"
+            fill="none"
+            stroke="#EDE7D9"
+            stroke-width="1.2"
+            opacity="0.9"
+          />
+          <text
+            x="655"
+            y="55"
+            text-anchor="middle"
+            class="node-label"
+            fill="#EDE7D9"
+          >
+            Local file
+          </text>
+          <text
+            x="655"
+            y="72"
+            text-anchor="middle"
+            class="node-sub"
+            fill="#9FA3B0"
+          >
+            copy-paste
+          </text>
+
+          <path
+            d="M475 100 L475 115 L620 115"
+            stroke="#9C3B34"
+            stroke-width="2"
+            fill="none"
+            marker-end="url(#arrow3)"
+          />
+          <text
+            x="590"
+            y="128"
+            text-anchor="middle"
+            class="node-sub"
+            fill="#EAD9D6"
+          >
+            → Supabase draft, human approves
+          </text>
+
+          <defs>
+            <marker
+              id="arrow2"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="4"
+              orient="auto"
+            >
+              <path d="M0,0 L8,4 L0,8 Z" fill="#B98A2F" />
+            </marker>
+            <marker
+              id="arrow3"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="4"
+              orient="auto"
+            >
+              <path d="M0,0 L8,4 L0,8 Z" fill="#9C3B34" />
+            </marker>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="eyebrow-rule" style="margin-top: 56px">
+        <div class="tick"></div>
+        <span>What "entertaining" means this week</span>
+      </div>
+      <div class="entertain-grid">
+        <div class="item">
+          <h3>Today's story, on the homepage</h3>
+          <p>
+            The content engine already writes something worth reading daily —
+            give it a real spot on the site instead of only social media.
+          </p>
+        </div>
+        <div class="item">
+          <h3>Visible interests</h3>
+          <p>
+            Reviving the interest tags makes a profile feel like a personality,
+            not a form — and it's the same data Leo needs.
+          </p>
+        </div>
+        <div class="item">
+          <h3>Favoriting that feels good</h3>
+          <p>
+            A small confirming animation on favoriting a shop costs an afternoon
+            and makes the action feel worth repeating.
+          </p>
+        </div>
+        <div class="item">
+          <h3>Empty states with a voice</h3>
+          <p>
+            "No events yet" is a dead end. "Nothing here yet — be the first to
+            submit one" is an invitation.
+          </p>
+        </div>
+      </div>
+
+      <div class="eyebrow-rule" style="margin-top: 56px">
+        <div class="tick"></div>
+        <span>Making it easy to love</span>
+      </div>
+      <h2 style="font-size: 26px; max-width: 26ch">
+        Six principles for a collector who's often standing in a crowded show
+        with one hand free.
+      </h2>
+      <div class="entertain-grid">
+        <div class="item">
+          <h3>Fast images, honestly</h3>
+          <p>
+            13MB of uncompressed PNGs (flagged in the original audit) means a
+            slow load on show-floor wifi. WebP + lazy-loading isn't polish, it's
+            the difference between someone waiting and someone leaving.
+          </p>
+        </div>
+        <div class="item">
+          <h3>One tap, no forms</h3>
+          <p>
+            Favoriting and saving already work this way — protect that. Every
+            new feature should ask "can this be one tap?" before it becomes a
+            form.
+          </p>
+        </div>
+        <div class="item">
+          <h3>Near me, by default</h3>
+          <p>
+            Lead with location-sorted results, not a directory someone has to
+            filter down. The most relevant thing should be the first thing.
+          </p>
+        </div>
+        <div class="item">
+          <h3>Never a dead end</h3>
+          <p>
+            Every empty screen is an invitation to act, not a wall. Same
+            principle as the empty-states item above, applied everywhere —
+            search results, no-favorites-yet, first login.
+          </p>
+        </div>
+        <div class="item">
+          <h3>Built for the show floor</h3>
+          <p>
+            Assume one thumb, bad lighting, and patchy signal. Optimistic UI
+            (show the favorite as saved instantly, sync after) matters more here
+            than almost anywhere else.
+          </p>
+        </div>
+        <div class="item">
+          <h3>Talk like a collector</h3>
+          <p>
+            "Profile 80% complete" is database language. "Add your first
+            favorite shop" is collector language. Small wording choices are part
+            of the product, not an afterthought.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap band">
+      <div class="eyebrow-rule">
+        <div class="tick"></div>
+        <span>Next — driving real interaction</span>
+      </div>
+      <h2>After this week: five moves to earn repeat visits, in order.</h2>
+      <p class="lead" style="color: var(--text-on-ink-dim)">
+        Every one of these does double duty — it's a reason to come back, and
+        it's a data point Leo eventually sells. Sequenced by build cost against
+        payoff.
+      </p>
+
+      <div class="timeline">
+        <div class="day">
+          <div class="n">1</div>
+          <div>
+            <h3>"Near you" feed</h3>
+            <p>
+              Events and shops ranked by distance + interest tags on the
+              homepage, instead of a generic directory. Turns a browse into a
+              reason to check back weekly.
+            </p>
+          </div>
+        </div>
+        <div class="day">
+          <div class="n">2</div>
+          <div>
+            <h3>Verified event check-in</h3>
+            <p>
+              Upgrade the existing "save an event" signal into a
+              confirmed-you're-here action at the actual show. The single most
+              valuable, hardest-to-fake number in any sponsorship report — and a
+              nice "I was there" moment for the collector.
+            </p>
+          </div>
+        </div>
+        <div class="day">
+          <div class="n">3</div>
+          <div>
+            <h3>Weekly digest email</h3>
+            <p>
+              Curated from the content engine's daily picks. Brings back
+              collectors who haven't opened the site in a while, and
+              opens/clicks are their own engagement signal.
+            </p>
+          </div>
+        </div>
+        <div class="day">
+          <div class="n">4</div>
+          <div>
+            <h3>Shop &amp; event reactions</h3>
+            <p>
+              Lightweight — a save or a quick reaction, not a full review
+              system. Cheap to build, and surfaces which shops are actually
+              well-regarded, not just listed.
+            </p>
+          </div>
+        </div>
+        <div class="day ship">
+          <div class="n">5</div>
+          <div>
+            <h3>Invite a collector<span class="badge">GROWTH</span></h3>
+            <p>
+              A simple share/referral mechanic. More users in a region is what
+              makes the eventual report credible in the first place — this is
+              the one Leo should push once the product side is ready.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band cream">
+      <div class="wrap">
+        <div class="eyebrow-rule">
+          <div class="tick"></div>
+          <span>What changes once this ships</span>
+        </div>
+        <h2>The same site, doing more work.</h2>
+        <p class="lead">
+          None of this is a redesign — it's the existing product with a reason
+          to come back and a reason for that return to matter.
+        </p>
+
+        <div class="impact-grid">
+          <div class="impact-row">
+            <div class="impact-before">
+              <span class="impact-tag before">BEFORE</span>A directory someone
+              browses once and forgets.
+            </div>
+            <div class="impact-after">
+              <span class="impact-tag after">AFTER</span>A near-you feed and
+              daily story give a reason to check back.
+            </div>
+          </div>
+          <div class="impact-row">
+            <div class="impact-before">
+              <span class="impact-tag before">BEFORE</span>Favorites and saves
+              happen silently — nobody sees the pattern.
+            </div>
+            <div class="impact-after">
+              <span class="impact-tag after">AFTER</span>Every favorite, save,
+              and click surfaces in Sponsorship Insights.
+            </div>
+          </div>
+          <div class="impact-row">
+            <div class="impact-before">
+              <span class="impact-tag before">BEFORE</span>A save means "I
+              bookmarked this."
+            </div>
+            <div class="impact-after">
+              <span class="impact-tag after">AFTER</span>A verified check-in
+              means "I was actually there" — the number sponsors actually want.
+            </div>
+          </div>
+          <div class="impact-row">
+            <div class="impact-before">
+              <span class="impact-tag before">BEFORE</span>Leo pitches with
+              experience and instinct.
+            </div>
+            <div class="impact-after">
+              <span class="impact-tag after">AFTER</span>Leo pitches with a live
+              page showing real regional numbers.
+            </div>
+          </div>
+        </div>
+        <p class="lead" style="margin-top: 24px; font-size: 14px">
+          Worth saying plainly: more usage doesn't guarantee more revenue, it
+          guarantees better <em>evidence</em>. The revenue scenarios later in
+          this deck are still estimates — what changes here is whether Leo is
+          estimating too, or pointing at a number.
+        </p>
+      </div>
+    </div>
+
+    <div class="wrap band">
+      <div class="eyebrow-rule">
+        <div class="tick"></div>
+        <span>How Leo brings in users</span>
+      </div>
+      <h2>
+        He doesn't need broad marketing — he needs to point people already near
+        the hobby at the site.
+      </h2>
+      <p class="lead" style="color: var(--text-on-ink-dim)">
+        Sequenced by how much it costs to try, not by size of eventual impact —
+        start with what's free.
+      </p>
+
+      <div class="timeline">
+        <div class="day">
+          <div class="n">1</div>
+          <div>
+            <h3>Ask existing consulting clients</h3>
+            <p>
+              The companies Leo already advises can point their own audience at
+              KLLCTRS — a QR code at a sponsored booth, a link in a newsletter.
+              Costs Leo one conversation, uses trust that already exists.
+            </p>
+          </div>
+        </div>
+        <div class="day">
+          <div class="n">2</div>
+          <div>
+            <h3>Work the shows he's already at</h3>
+            <p>
+              A physical sign-up moment (QR code, flyer, a person at a table) at
+              shows like Dallas, where collector intent is at its highest point
+              of the year.
+            </p>
+          </div>
+        </div>
+        <div class="day">
+          <div class="n">3</div>
+          <div>
+            <h3>Recruit shops as promoters</h3>
+            <p>
+              A shop listed on KLLCTRS benefits from exposure — ask them to
+              display a sign-up code in-store. Shops have their own incentive to
+              say yes, no cold pitch needed.
+            </p>
+          </div>
+        </div>
+        <div class="day">
+          <div class="n">4</div>
+          <div>
+            <h3>Trade visibility with sponsors</h3>
+            <p>
+              Companies being pitched the data product can also promote sign-up
+              to their own customer base in exchange for being an early, favored
+              voice in the reports — aligns their interest with growing the
+              platform.
+            </p>
+          </div>
+        </div>
+        <div class="day ship">
+          <div class="n">5</div>
+          <div>
+            <h3>
+              Let the content engine compound<span class="badge">ONGOING</span>
+            </h3>
+            <p>
+              The daily social content isn't just Leo's sales narrative — it's
+              real top-of-funnel marketing, running whether or not anyone's
+              actively pushing it that day.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band cream">
+      <div class="wrap">
+        <div class="eyebrow-rule">
+          <div class="tick"></div>
+          <span>Market reality check</span>
+        </div>
+        <h2>
+          The card-collecting economy is real and growing. The "market size"
+          you'll see quoted usually isn't.
+        </h2>
+        <p class="lead">
+          Search "trading card market size" and you'll get numbers from $1.1B to
+          $52B for the same year, from reports that can't agree with each other.
+          Rather than pick whichever number sounds best in a pitch, here's
+          what's actually verifiable:
+        </p>
+
+        <div class="proof-grid">
+          <div class="proof">
+            <div class="proof-num">$2.62B</div>
+            <div class="proof-lbl">
+              spent on trading-card singles on eBay alone in 2025
+            </div>
+            <div class="proof-src">eBay Collected Report</div>
+          </div>
+          <div class="proof">
+            <div class="proof-num">26M</div>
+            <div class="proof-lbl">
+              cards professionally graded in 2025 — up 32% year over year
+            </div>
+            <div class="proof-src">GemRate</div>
+          </div>
+          <div class="proof">
+            <div class="proof-num">$100K–$5M</div>
+            <div class="proof-lbl">
+              typical annual value of a single regional sports-sponsorship deal
+            </div>
+            <div class="proof-src">Industry sponsorship benchmarks</div>
+          </div>
+          <div class="proof">
+            <div class="proof-num">$5K–$75K</div>
+            <div class="proof-lbl">
+              what boutique, sector-specific market-intelligence engagements
+              typically charge
+            </div>
+            <div class="proof-src">Comparable niche research pricing</div>
+          </div>
+        </div>
+        <p class="lead" style="margin-top: 28px; font-size: 14px">
+          The pitch to a buyer isn't "here's the size of the card market" — it's
+          "here's real, structured demand data about the specific events and
+          shops you're deciding whether to sponsor." That's a narrower, more
+          defensible claim, and it's the one the data can actually back up.
+        </p>
+      </div>
+    </div>
+
+    <div class="wrap band">
+      <div class="eyebrow-rule">
+        <div class="tick"></div>
+        <span>Who's actually buying</span>
+      </div>
+      <h2>
+        You don't need a mass market. You need a few dozen of the right
+        companies.
+      </h2>
+      <p class="lead" style="color: var(--text-on-ink-dim)">
+        This is a relationship-driven sale riding on Leo's existing book of
+        business, not a self-serve product that needs broad awareness. The
+        funnel is narrow on purpose:
+      </p>
+
+      <div class="funnel">
+        <div class="funnel-row" style="width: 100%">
+          <div class="funnel-label">
+            Companies with money riding on card-hobby sponsorship
+          </div>
+          <div class="funnel-sub">
+            card manufacturers, grading companies, marketplaces, regional show
+            organizers — realistically dozens to low hundreds of serious
+            spenders
+          </div>
+        </div>
+        <div class="funnel-row" style="width: 72%">
+          <div class="funnel-label">
+            Companies who'd value structured allocation data over gut instinct
+          </div>
+          <div class="funnel-sub">
+            the subset already spending enough that a bad sponsorship bet
+            actually costs them something
+          </div>
+        </div>
+        <div class="funnel-row" style="width: 40%">
+          <div class="funnel-label">
+            Companies inside Leo's reach in year one
+          </div>
+          <div class="funnel-sub">
+            existing consulting clients + warm introductions — this is the
+            number that actually matters this year
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band cream">
+      <div class="wrap">
+        <div class="eyebrow-rule">
+          <div class="tick"></div>
+          <span>The full picture</span>
+        </div>
+        <h2>Everything we're building, in one view.</h2>
+
+        <div class="flow">
+          <svg viewBox="0 0 860 420" xmlns="http://www.w3.org/2000/svg">
+            <!-- collector layer -->
+            <rect
+              x="20"
+              y="20"
+              width="820"
+              height="100"
+              rx="2"
+              fill="none"
+              stroke="#1B1F2B"
+              stroke-width="1.2"
+              stroke-dasharray="3 3"
+            />
+            <text
+              x="40"
+              y="42"
+              class="node-sub"
+              style="font-size: 11px; letter-spacing: 0.06em"
+            >
+              COLLECTOR-FACING SITE — the developer's job this week
+            </text>
+
+            <rect
+              x="40"
+              y="55"
+              width="150"
+              height="50"
+              rx="2"
+              fill="none"
+              stroke="#1B1F2B"
+              stroke-width="1.3"
+            />
+            <text x="115" y="78" text-anchor="middle" class="node-label">
+              Shop &amp; event
+            </text>
+            <text x="115" y="93" text-anchor="middle" class="node-label">
+              directory
+            </text>
+
+            <rect
+              x="210"
+              y="55"
+              width="150"
+              height="50"
+              rx="2"
+              fill="none"
+              stroke="#1B1F2B"
+              stroke-width="1.3"
+            />
+            <text x="285" y="78" text-anchor="middle" class="node-label">
+              Profile +
+            </text>
+            <text x="285" y="93" text-anchor="middle" class="node-label">
+              interest tags
+            </text>
+
+            <rect
+              x="380"
+              y="55"
+              width="150"
+              height="50"
+              rx="2"
+              fill="none"
+              stroke="#1B1F2B"
+              stroke-width="1.3"
+            />
+            <text x="455" y="78" text-anchor="middle" class="node-label">
+              Favoriting +
+            </text>
+            <text x="455" y="93" text-anchor="middle" class="node-label">
+              RSVP
+            </text>
+
+            <rect
+              x="550"
+              y="55"
+              width="150"
+              height="50"
+              rx="2"
+              fill="none"
+              stroke="#B98A2F"
+              stroke-width="1.6"
+            />
+            <text x="625" y="78" text-anchor="middle" class="node-label">
+              Content engine
+            </text>
+            <text x="625" y="93" text-anchor="middle" class="node-label">
+              (daily)
+            </text>
+
+            <rect
+              x="710"
+              y="55"
+              width="110"
+              height="50"
+              rx="2"
+              fill="none"
+              stroke="#1B1F2B"
+              stroke-width="1.3"
+            />
+            <text x="765" y="78" text-anchor="middle" class="node-label">
+              Blog
+            </text>
+            <text x="765" y="93" text-anchor="middle" class="node-label">
+              (SEO)
+            </text>
+
+            <!-- arrows down -->
+            <path
+              d="M115 120 L115 155"
+              stroke="#B98A2F"
+              stroke-width="1.6"
+              marker-end="url(#a4)"
+            />
+            <path
+              d="M285 120 L285 155"
+              stroke="#B98A2F"
+              stroke-width="1.6"
+              marker-end="url(#a4)"
+            />
+            <path
+              d="M455 120 L455 155"
+              stroke="#B98A2F"
+              stroke-width="1.6"
+              marker-end="url(#a4)"
+            />
+            <path
+              d="M625 120 L625 155"
+              stroke="#B98A2F"
+              stroke-width="1.6"
+              marker-end="url(#a4)"
+            />
+            <path
+              d="M765 120 L765 155"
+              stroke="#B98A2F"
+              stroke-width="1.6"
+              marker-end="url(#a4)"
+            />
+
+            <!-- data layer -->
+            <rect
+              x="20"
+              y="160"
+              width="820"
+              height="90"
+              rx="2"
+              fill="rgba(156,59,52,0.06)"
+              stroke="#9C3B34"
+              stroke-width="1.2"
+            />
+            <text
+              x="40"
+              y="182"
+              class="node-sub"
+              style="font-size: 11px; letter-spacing: 0.06em; fill: #9c3b34"
+            >
+              STRUCTURED DATA LAYER — the Sponsorship Insights page
+            </text>
+            <text
+              x="430"
+              y="215"
+              text-anchor="middle"
+              class="node-label"
+              style="font-size: 15px"
+            >
+              Attendance intent · shop popularity · collector interest · content
+              engagement — stored over time, not just live snapshots
+            </text>
+
+            <path
+              d="M430 250 L430 285"
+              stroke="#9C3B34"
+              stroke-width="1.8"
+              marker-end="url(#a5)"
+            />
+
+            <!-- Leo layer -->
+            <rect
+              x="20"
+              y="290"
+              width="380"
+              height="90"
+              rx="2"
+              fill="none"
+              stroke="#1B1F2B"
+              stroke-width="1.3"
+            />
+            <text
+              x="210"
+              y="320"
+              text-anchor="middle"
+              class="node-label"
+              style="font-size: 15px"
+            >
+              Leo pulls the report
+            </text>
+            <text x="210" y="340" text-anchor="middle" class="node-sub">
+              packages as a sponsorship-allocation
+            </text>
+            <text x="210" y="354" text-anchor="middle" class="node-sub">
+              intelligence brief
+            </text>
+
+            <path
+              d="M400 335 L455 335"
+              stroke="#B98A2F"
+              stroke-width="1.8"
+              marker-end="url(#a4)"
+            />
+
+            <rect
+              x="460"
+              y="290"
+              width="380"
+              height="90"
+              rx="2"
+              fill="#9C3B34"
+              stroke="#9C3B34"
+              stroke-width="1.3"
+            />
+            <text
+              x="650"
+              y="320"
+              text-anchor="middle"
+              class="node-label"
+              fill="#F6F1E4"
+              style="font-size: 15px"
+            >
+              Sold to companies deciding
+            </text>
+            <text
+              x="650"
+              y="340"
+              text-anchor="middle"
+              class="node-sub"
+              fill="#EAD9D6"
+            >
+              sponsorship budgets — manufacturers,
+            </text>
+            <text
+              x="650"
+              y="354"
+              text-anchor="middle"
+              class="node-sub"
+              fill="#EAD9D6"
+            >
+              graders, marketplaces, show organizers
+            </text>
+
+            <defs>
+              <marker
+                id="a4"
+                markerWidth="8"
+                markerHeight="8"
+                refX="6"
+                refY="4"
+                orient="auto"
+              >
+                <path d="M0,0 L8,4 L0,8 Z" fill="#B98A2F" />
+              </marker>
+              <marker
+                id="a5"
+                markerWidth="8"
+                markerHeight="8"
+                refX="6"
+                refY="4"
+                orient="auto"
+              >
+                <path d="M0,0 L8,4 L0,8 Z" fill="#9C3B34" />
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap footer">
+      <p>
+        Content engine and instrumentation feed the same story: a site people
+        actually enjoy produces the data Leo needs to sell. Ship the week, then
+        decide what Phase 2 looks like with real numbers in hand instead of
+        guesses.
+      </p>
+    </div>
+
+    <script>
+      // One deliberate motion moment: the "what's live" numbers count up
+      // when they scroll into view. Respects reduced-motion preference.
+      (function () {
+        var prefersReduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        var counters = document.querySelectorAll(".count-up");
+
+        function animate(el) {
+          var target = parseInt(el.getAttribute("data-target"), 10);
+          if (prefersReduced) {
+            el.textContent = target;
+            return;
+          }
+          var start = null;
+          var duration = 900;
+          function step(ts) {
+            if (!start) start = ts;
+            var progress = Math.min((ts - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(eased * target);
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+
+        if ("IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  animate(entry.target);
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.5 },
+          );
+          counters.forEach(function (c) {
+            observer.observe(c);
+          });
+        } else {
+          counters.forEach(function (c) {
+            animate(c);
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
